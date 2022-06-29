@@ -1,7 +1,8 @@
 import React from 'react'
 import PremiumEvent from './components/PremiumEvent/PremiumEvent'
 import './App.css'
-import AboutUs from './components/AboutUs/Aboutus'
+import { Hero } from './components'
+import AboutUs from './components/Aboutus/Aboutus'
 import Projects from './components/Projects/Projects'
 import SocialImpact from './components/SocialImpact/SocialImpact'
 
@@ -12,7 +13,7 @@ import SubscribeDivider from './components/SubscribeDivider/SubscribeDivider'
 function App() {
   return (
     <div className="App">
-      <h1>Lazzaro</h1>
+      <Hero />
       <AboutUs />
       <LogosCarousel />
       <Projects />
