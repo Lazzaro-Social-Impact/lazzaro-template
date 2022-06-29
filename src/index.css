@@ -3,3 +3,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 962px) {
+  html {
+      font-size: 72%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+      font-size: 40%;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  html {
+      font-size: 33%;
+  }
+}
