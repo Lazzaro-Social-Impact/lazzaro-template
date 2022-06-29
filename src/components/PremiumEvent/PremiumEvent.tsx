@@ -41,6 +41,7 @@ display: flex;
 justify-content: space-between;
 padding: 0 3.2rem;
 align-items: flex-start;
+margin: 3.8rem 0;
 p:last-child {
     color: #777;
     text-decoration: underline;
