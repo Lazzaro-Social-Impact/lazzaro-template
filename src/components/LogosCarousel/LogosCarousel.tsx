@@ -1,9 +1,14 @@
 /* eslint-disable max-len */
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 
-function makeChunks(arr: any, len: number) {
+interface img {
+  src: string
+  alt: string
+  key: string
+}
+function makeChunks(arr: img[], len: number) {
   const chunks = []
   let i = 0
   const n = arr.length
@@ -13,23 +18,17 @@ function makeChunks(arr: any, len: number) {
   return chunks
 }
 
-interface img {
-    src: string
-    alt: string
-    key: number
-}
-
 export default function LogosCarousel(): ReactElement {
-  const randomImagesArray: object[] = Array.from({ length: 8 }, () => ({
+  const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
     src: './assets/img/Google.png',
     alt: 'random image',
-    key: Math.random()
+    key: useId()
   }))
   return (
     <CustomCarousel dots={false} autoplay autoplaySpeed={5000}>
       {
-        [...makeChunks(randomImagesArray, 3).map((chunk: any) => (
-          <ImageContainer key={Math.random()}>
+        [...makeChunks(randomImagesArray, 3).map((chunk: img[]) => (
+          <ImageContainer key={useId()}>
             {chunk.map((image: img) => (
               <img key={image.key} src={image.src} alt={image.alt} />
             ))}
