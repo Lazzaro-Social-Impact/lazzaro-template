@@ -1,10 +1,11 @@
 import React from 'react'
 import './App.css'
+import { Hero } from './components'
 
 function App() {
   return (
     <div className="App">
-      <h1>Lazzaro</h1>
+      <Hero />
     </div>
   )
 }
