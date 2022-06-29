@@ -4,8 +4,12 @@ import { Typography } from 'antd'
 import { ImpactPart } from './ImpactPart/ImpactPart'
 
 const { Title } = Typography
-
-const numbers: object[] = [
+interface INumber {
+  key: string
+  num: number
+  text: string
+}
+const numbers: INumber[] = [
   {
     key: '1',
     num: 265,
@@ -33,7 +37,7 @@ export function SocialImpact(): ReactElement {
     <SocialImpactSection>
       <SectionTitle level={1}>Social Impact </SectionTitle>
       <ImpactNumbers>
-        {numbers.map((number: any) => (
+        {numbers.map((number: INumber) => (
           <ImpactPart {...number} />
         ))}
       </ImpactNumbers>
