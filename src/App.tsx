@@ -6,6 +6,7 @@ import SocialImpact from './components/SocialImpact/SocialImpact'
 
 import LogosCarousel from './components/LogosCarousel/LogosCarousel'
 import 'antd/dist/antd.min.css'
+import SubscribeDivider from './components/SubscribeDivider/SubscribeDivider'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <LogosCarousel />
       <Projects />
       <SocialImpact />
+      <SubscribeDivider />
     </div>
   )
 }
