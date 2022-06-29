@@ -17,16 +17,28 @@ const items = [
 ]
 
 function Navbar() {
+  const [navBarBackground, setNavBarBackground] = useState<'none' | 'black'>('none')
+
+  window.addEventListener('scroll', () => {
+    const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
+    const navbarHeight = 65
+
+    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('black')
+    else setNavBarBackground('none')
+  })
+
   const [visible, setVisible] = useState(false)
 
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()
 
   return (
-    <NavBar>
+    <NavBar style={{ background: navBarBackground }}>
       <div className="logo">
-        <Circle />
-        <Link to="/">Give</Link>
+        <Link to="/">
+          <Circle />
+          Give
+        </Link>
       </div>
 
       {!md && <MenuOutlined onClick={() => setVisible(true)} style={{ color: 'white' }} />}
@@ -41,26 +53,27 @@ function Navbar() {
 }
 
 const NavBar = styled.nav`
-  positions: relative;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 3.4rem;
+  padding: 1rem 6.4rem;
   border-bottom: 1px solid #ccc;
   align-items: center;
   position: fixed;
   width: 100%;
   border-bottom: none;
+  z-index: 99;
+  transition: all 0.4s ease;
 `
 
 const Circle = styled.span`
   position: absolute;
-  left: 35px;
-  top: 11px;
   z-index: -1;
-  width: 60px;
+  width: 2em;
   background-color: #5cb780;
   border-radius: 50%;
-  height: 60px;
+  height: 2em;
+  left: -30%;
+  top: -30%;
 `
 
 const Links = styled(Menu)`
@@ -69,8 +82,10 @@ const Links = styled(Menu)`
   border-bottom: none;
   background: none;
 
-  a { color: white !important; }
-  
+  a {
+    color: white !important;
+  }
+
   @media (max-width: 576px) {
     a {
       color: black !important;
@@ -79,8 +94,9 @@ const Links = styled(Menu)`
 `
 
 const Link = styled(NavLink)`
-  font-size: 2rem;
+  font-size: 30px;
   color: white;
   letter-spacing: 3px;
+  position: relative;
 `
 export default Navbar
