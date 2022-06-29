@@ -8,11 +8,17 @@
   html {
       font-size: 72%;
   }
+  .ant-carousel .slick-slide img {
+    width: 150px;
+  }
 }
 
 @media screen and (max-width: 768px) {
   html {
       font-size: 40%;
+  }
+  .ant-carousel .slick-slide img {
+    width: 80px;
   }
 }
 
@@ -20,5 +26,8 @@
 @media screen and (max-width: 450px) {
   html {
       font-size: 33%;
+  }
+  .ant-carousel .slick-slide img {
+    width: 65px;
   }
 }
