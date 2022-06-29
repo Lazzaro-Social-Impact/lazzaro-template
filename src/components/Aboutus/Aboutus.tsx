@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const { Paragraph, Title, Text } = Typography
 
-export function Aboutus(): React.ReactElement {
+export default function Aboutus(): React.ReactElement {
   const [isReadMore, setIsReadMore] = useState(false)
   const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
   return (
