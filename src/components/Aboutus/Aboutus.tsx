@@ -53,7 +53,7 @@ const AboutUsDescription = styled(Paragraph)`
 font-size: 1.4rem;
 padding-right: 2.8rem;
 color: #777;
-line-height: 1.5;
+line-height: 1.8;
 `
 
 const ReadMore = styled(Text)`
