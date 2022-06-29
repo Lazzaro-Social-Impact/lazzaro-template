@@ -1,7 +1,8 @@
 import React from 'react'
 import './App.css'
 import AboutUs from './components/AboutUs/AboutUs'
-import { Projects } from './components/Projects/Projects'
+import Projects from './components/Projects/Projects'
+import SocialImpact from './components/SocialImpact/SocialImpact'
 
 import LogosCarousel from './components/LogosCarousel/LogosCarousel'
 import 'antd/dist/antd.min.css'
@@ -13,6 +14,7 @@ function App() {
       <AboutUs />
       <LogosCarousel />
       <Projects />
+      <SocialImpact />
     </div>
   )
 }

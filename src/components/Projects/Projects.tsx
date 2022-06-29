@@ -20,7 +20,7 @@ const projects: IProject[] = [
     text: 'Today is day to reach out lend a helping hand',
   }
 ]
-export function Projects(): ReactElement {
+export default function Projects(): ReactElement {
   return (
     <ProjectsSection>
       {projects.map((project: IProject) => (
