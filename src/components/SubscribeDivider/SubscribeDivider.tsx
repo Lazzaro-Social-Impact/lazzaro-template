@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-export function SubscribeDivider(): ReactElement {
+export default function SubscribeDivider(): ReactElement {
   return (
     <SubscribeSection>
       <SectionTitle>Colaboremos juntos para conseguirlo</SectionTitle>
