@@ -1,6 +1,7 @@
 import React from 'react'
+import PremiumEvent from './components/PremiumEvent/PremiumEvent'
 import './App.css'
-import AboutUs from './components/AboutUs/AboutUs'
+import AboutUs from './components/AboutUs/Aboutus'
 import Projects from './components/Projects/Projects'
 import SocialImpact from './components/SocialImpact/SocialImpact'
 
@@ -16,6 +17,7 @@ function App() {
       <LogosCarousel />
       <Projects />
       <SocialImpact />
+      <PremiumEvent />
       <SubscribeDivider />
     </div>
   )
