@@ -9,9 +9,7 @@ function Hero() {
     <>
       <Navbar />
       <Header>
-        <Title>
-          Help The Children <br /> in need
-        </Title>
+        <Title>Help The Children in need</Title>
         <BtnGroup>
           <StyledButton shape="round" size="large" type="dashed">
             Donar
@@ -50,6 +48,7 @@ const Title = styled.h2`
   font-size: 62px;
   text-align: center;
   font-weight: bold;
+  width: 35%;
 `
 
 export default Hero
