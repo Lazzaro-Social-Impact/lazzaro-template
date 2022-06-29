@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Typography } from 'antd'
-import { ImpactPart } from './ImpactPart/ImpactPart'
+import ImpactPart from './ImpactPart/ImpactPart'
 
 const { Title } = Typography
 interface INumber {
@@ -31,7 +31,7 @@ const numbers: INumber[] = [
     text: 'People supported'
   },
 ]
-export function SocialImpact(): ReactElement {
+export default function SocialImpact(): ReactElement {
   return (
 
     <SocialImpactSection>

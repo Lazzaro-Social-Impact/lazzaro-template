@@ -6,7 +6,7 @@ interface ImpactPartProps {
     text: string
 }
 
-export function ImpactPart({ num, text }: ImpactPartProps): ReactElement {
+export default function ImpactPart({ num, text }: ImpactPartProps): ReactElement {
   return (
     <ImpactDiv>
       <ImpactCount>{num}</ImpactCount>
