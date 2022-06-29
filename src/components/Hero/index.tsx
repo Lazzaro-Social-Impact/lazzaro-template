@@ -9,9 +9,7 @@ function Hero() {
     <>
       <Navbar />
       <Header>
-        <Title>
-          Help The Children in need
-        </Title>
+        <Title>Help The Children in need</Title>
         <BtnGroup>
           <StyledButton shape="round" size="large" type="dashed">
             Donar

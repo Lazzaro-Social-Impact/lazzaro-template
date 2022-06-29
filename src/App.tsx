@@ -2,7 +2,7 @@ import React from 'react'
 import PremiumEvent from './components/PremiumEvent/PremiumEvent'
 import './App.css'
 import { Hero } from './components'
-import AboutUs from './components/AboutUs/Aboutus'
+import AboutUs from './components/Aboutus/Aboutus'
 import Projects from './components/Projects/Projects'
 import SocialImpact from './components/SocialImpact/SocialImpact'
 
@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Hero />
-      <h1>Lazzaro</h1>
       <AboutUs />
       <LogosCarousel />
       <Projects />
