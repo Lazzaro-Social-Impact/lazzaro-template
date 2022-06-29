@@ -2,7 +2,11 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Project } from './Project/Project'
 
-const projects: object[] = [
+interface IProject {
+  text: string
+  key: string
+}
+const projects: IProject[] = [
   {
     key: '1',
     text: 'Today is day to reach out lend a helping hand',
@@ -19,7 +23,7 @@ const projects: object[] = [
 export function Projects(): ReactElement {
   return (
     <ProjectsSection>
-      {projects.map((project: any) => (
+      {projects.map((project: IProject) => (
         <Project key={project.key} text={project.text} />
       ))}
     </ProjectsSection>
