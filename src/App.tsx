@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { Navbar } from './components'
+import { Footer, Navbar } from './components'
 
 import 'antd/dist/antd.min.css'
 import { Landing } from './views'
@@ -10,6 +10,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Landing />
+      <Footer />
     </div>
   )
 }
