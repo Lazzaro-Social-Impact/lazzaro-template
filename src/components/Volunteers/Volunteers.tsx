@@ -5,10 +5,6 @@ import makeChunks from '../../app/utils/makeChunks'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 
 export default function Volunteers(): ReactElement {
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide)
-  }
-
   interface card {
     name: string,
     position: string,
@@ -31,7 +27,7 @@ export default function Volunteers(): ReactElement {
   return (
     <VolunteersSection>
       <SectionTitle>Our Volunteers</SectionTitle>
-      <CustomCarousel autoplay afterChange={onChange} dots>
+      <CustomCarousel autoplay>
         {[...makeChunks<card>(randomImagesArray, 3).map((chunk: card[]) => (
           <VolunteerCards key={useId()}>
             {chunk.map((image: card) => (
