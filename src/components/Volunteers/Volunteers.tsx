@@ -78,6 +78,7 @@ display: flex !important;
 justify-content: center;
 align-items: center;
 height: 400px !important;
+padding-bottom: 2.4rem;
 gap: 4.8rem;
 margin-top: 4.8rem;
 @media screen and (max-width: 768px) {

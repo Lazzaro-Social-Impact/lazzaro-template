@@ -35,4 +35,8 @@ const SubscribeButton = styled.button`
     color: white;
     font-weight: bold;
     background-color: #5CB780;
+    cursor: pointer;
+    &:hover {
+        background-color: #5CB790;
+    }
 `
