@@ -38,7 +38,7 @@ function Events(): ReactElement {
         <CustomCard
           hoverable
           style={{ maxWidth: 630, marginInline: 'auto', padding: '24px' }}
-          cover={<img alt="example" src="https://www.westreadingborough.com/sites/g/files/vyhlif5201/f/styles/news_image/public/pages/special_events_1.jpg?itok=99Rh5N0T" />}
+          cover={<img alt="example" src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />}
         >
           <Meta
             title="Deluling is the world best"
