@@ -32,7 +32,7 @@ const AboutUsSection = styled.section`
 display: flex;
 justify-content: space-between;
 margin-top: 6.2rem;
-padding-left: 2.4rem;
+padding-left: 4.1rem;
 `
 
 const LeftSection = styled.div`

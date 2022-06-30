@@ -33,7 +33,7 @@ function Events(): ReactElement {
     }
   }, [])
   return (
-    <>
+    <EventsSection>
       <SectionTitle>Events</SectionTitle>
       <Row style={{ margin: '4.2rem 0', justifyContent: 'space-between' }}>
         <Col md={12} sm={24}>
@@ -63,7 +63,7 @@ function Events(): ReactElement {
                 <Date>18</Date>
               </Col>
 
-              <Col md={10} sm={24}>
+              <Col md={12} sm={24}>
                 <Title style={{ fontSize: '1.3em' }}>Deluling is the world best</Title>
                 <Paragraph>
                   Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
@@ -73,10 +73,13 @@ function Events(): ReactElement {
           ))}
         </EventsCol>
       </Row>
-    </>
+    </EventsSection>
   )
 }
 
+const EventsSection = styled.section`
+padding: 0 4.1rem;
+`
 const SectionTitle = styled(Title)`
   margin-top: 0;
   margin-bottom: 2.4rem;

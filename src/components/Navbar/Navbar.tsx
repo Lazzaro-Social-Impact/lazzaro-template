@@ -54,7 +54,7 @@ function Navbar() {
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
-  padding: 1rem 6.4rem;
+  padding: 1rem 4.1rem;
   border-bottom: 1px solid #ccc;
   align-items: center;
   position: fixed;

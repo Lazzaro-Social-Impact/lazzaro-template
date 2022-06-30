@@ -53,6 +53,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 4.2rem;
+padding: 0 4.1rem;
 `
 
 const SectionTitle = styled(Title)`
@@ -65,7 +66,6 @@ const ImpactNumbers = styled.div`
 display: flex;
 justify-content: space-between;
 width: 100%;
-padding: 0 10.2rem;
 padding-bottom: 4.2rem;
 margin-top: 1.2rem;
 `

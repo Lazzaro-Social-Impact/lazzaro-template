@@ -35,5 +35,5 @@ const ProjectsSection = styled.section`
   justify-content: space-between;
   margin-top: 4.2rem;
   align-items: flex-start;
-  padding: 0 4.8rem;    
+  padding: 0 4.1rem;    
   `

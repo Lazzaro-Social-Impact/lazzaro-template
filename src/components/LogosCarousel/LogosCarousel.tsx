@@ -37,7 +37,7 @@ display: flex;
 justify-content: space-around;
 align-items: center;
 height: 150px;
-padding: 0 3.2rem;
+padding: 0 4.1rem;
 `
 
 const ImageContainer = styled.div`

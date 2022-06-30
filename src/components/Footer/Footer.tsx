@@ -25,7 +25,7 @@ export default function Footer(): ReactElement {
           </Col>
 
           <Col md={8} sm={24}>
-            <Typography.Title style={{ color: 'white', fontSize: '3rem' }}>
+            <Typography.Title style={{ color: 'white', fontSize: '2.8rem' }}>
               How Can we Help? Contact us anytime
             </Typography.Title>
           </Col>
@@ -110,6 +110,7 @@ const CustomFooter = styled(Layout.Footer)`
   background-color: black;
   margin-top: 4rem;
   color: white;
+  padding: 3.2rem 4.1rem;
 `
 
 const SubFooter = styled.div`

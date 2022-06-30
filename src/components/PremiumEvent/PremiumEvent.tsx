@@ -74,7 +74,7 @@ export default function PremiumEvent(): ReactElement {
 const PremiumEventSection = styled.section`
 display: flex;
 justify-content: space-between;
-padding: 0 3.2rem;
+padding: 0 4.1rem;
 align-items: flex-start;
 margin: 3.8rem 0;
 p:last-child {

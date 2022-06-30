@@ -67,7 +67,7 @@ const MemberButton = styled.button`
 
 const Title = styled.h2`
   color: white;
-  font-size: 62px;
+  font-size: 4.2rem;
   text-align: center;
   font-weight: bold;
   width: 35%;

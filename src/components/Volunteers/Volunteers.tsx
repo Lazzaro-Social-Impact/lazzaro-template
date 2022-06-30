@@ -44,6 +44,7 @@ export default function Volunteers(): ReactElement {
 const VolunteersSection = styled.section`
     text-align: center;
     margin-top: 10.2rem;
+    padding: 0 4.1rem;
 `
 const SectionTitle = styled.h1`
 font-size: 2.1rem;
