@@ -1,8 +1,42 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
 
 export default function PremiumEvent(): ReactElement {
+  const [progressWidth, setProgressWidth] = useState(250)
+  const [windowSize, setWindowSize] = useState({
+    width: window.outerWidth,
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.outerWidth,
+      })
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    switch (true) {
+      case windowSize.width <= 768 && windowSize.width > 420:
+        setProgressWidth(200)
+        break
+      case windowSize.width <= 420:
+        setProgressWidth(100)
+        break
+      default:
+        setProgressWidth(250)
+    }
+
+    return () => {
+      setProgressWidth(250)
+    }
+  })
+
   return (
     <PremiumEventSection>
       <EventDetails>
@@ -26,7 +60,7 @@ export default function PremiumEvent(): ReactElement {
             strokeWidth={2}
             strokeColor="#000"
             trailColor="none"
-            width={250}
+            width={progressWidth}
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
