@@ -1,9 +1,3 @@
-// interface img {
-//     src: string
-//     alt: string
-//     key: string
-//   }
-
 export default function makeChunks<T>(arr: T[], len: number) {
   const chunks = [] as T[][]
   let i = 0
