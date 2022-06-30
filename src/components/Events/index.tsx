@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import {
   Card, Col, Row, Typography
 } from 'antd'
@@ -11,12 +11,33 @@ const { Paragraph, Title, Text } = Typography
 
 function Events(): ReactElement {
   const { Meta } = Card
+  useEffect(() => {
+    const cardCover = document.querySelector('.ant-card')
+    const img = cardCover?.appendChild(document.createElement('img')) as HTMLImageElement
+    img?.setAttribute('src', './assets/img/premium.png')
+
+    const imgStyle = {
+      position: 'absolute',
+      top: '0',
+      right: '75px',
+      width: '50px',
+      height: '20px !important',
+      zIndex: '1',
+      objectFit: 'cover'
+    }
+
+    Object.assign(img.style, imgStyle)
+
+    return () => {
+      img?.remove()
+    }
+  }, [])
   return (
     <Row style={{ margin: '5rem', justifyContent: 'center' }}>
       <Col md={12} sm={24}>
-        <Card
+        <CustomCard
           hoverable
-          style={{ maxWidth: 400, marginInline: 'auto' }}
+          style={{ maxWidth: 630, marginInline: 'auto', padding: '24px' }}
           cover={<img alt="example" src="https://www.westreadingborough.com/sites/g/files/vyhlif5201/f/styles/news_image/public/pages/special_events_1.jpg?itok=99Rh5N0T" />}
         >
           <Meta
@@ -29,7 +50,7 @@ function Events(): ReactElement {
               Read More
             </Link>
           </div>
-        </Card>
+        </CustomCard>
       </Col>
 
       <EventsCol md={12} sm={24}>
@@ -80,6 +101,27 @@ const EventsCol = styled(Col)`
   flex-direction: column;
   gap: 5rem;
   align-items: flex-end;
+`
+
+const CustomCard = styled(Card)`
+.ant-card-cover {
+  height: 250px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+    img:first-child {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+}
+.ant-card-body {
+  padding: 0 !important;
+  margin-top: 1.8rem;
+  .ant-card-meta .ant-card-meta-detail .ant-card-meta-title {
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+  }
+}
 `
 
 export default Events
