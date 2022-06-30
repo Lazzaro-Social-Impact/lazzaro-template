@@ -72,6 +72,9 @@ height: 600px;
     border-radius: 100%;
     background: black;
   }
+  @media screen and (max-width: 768px) {
+        height: 200px;
+    }
 `
 const VolunteerCards = styled.div`
 display: flex !important;
@@ -80,4 +83,8 @@ align-items: center;
 height: 400px !important;
 gap: 4.8rem;
 margin-top: 4.8rem;
+@media screen and (max-width: 768px) {
+       margin-top: 1.2rem;
+       height: 200px !important;
+    }
 `

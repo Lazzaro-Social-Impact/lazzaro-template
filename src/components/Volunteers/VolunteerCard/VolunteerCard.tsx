@@ -34,6 +34,11 @@ const Volunteer = styled.div`
 const VolunteerImage = styled.img`
     width: 378px;
     height: 252px;
+
+    @media screen and (max-width: 768px) {
+        width: 300px;    
+        height: auto;
+    }
 `
 const VolunteerName = styled.p`
 font-size: 1.1rem;
@@ -44,4 +49,5 @@ const VolunteerPosition = styled.p`
   color: #5CB780;
 padding-bottom: 1.8rem;
 margin-top: 0.4rem;
+font-size: 1rem;
 `
