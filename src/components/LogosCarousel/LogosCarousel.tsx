@@ -2,22 +2,13 @@
 import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
+import makeChunks from '../../app/utils/makeChunks'
 
 interface img {
   src: string
   alt: string
   key: string
 }
-function makeChunks(arr: img[], len: number) {
-  const chunks = []
-  let i = 0
-  const n = arr.length
-  while (i < n) {
-    chunks.push(arr.slice(i, i += len))
-  }
-  return chunks
-}
-
 export default function LogosCarousel(): ReactElement {
   const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
     src: './assets/img/Google.png',
@@ -27,7 +18,7 @@ export default function LogosCarousel(): ReactElement {
   return (
     <CustomCarousel dots={false} autoplay autoplaySpeed={5000}>
       {
-        [...makeChunks(randomImagesArray, 3).map((chunk: img[]) => (
+        [...makeChunks<img>(randomImagesArray, 3).map((chunk: img[]) => (
           <ImageContainer key={useId()}>
             {chunk.map((image: img) => (
               <img key={image.key} src={image.src} alt={image.alt} />
@@ -47,7 +38,6 @@ justify-content: center;
 align-items: center;
 text-align: center;
 height: 150px;
-}
 `
 
 const ImageContainer = styled.div`
