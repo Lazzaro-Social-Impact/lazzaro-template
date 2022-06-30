@@ -8,16 +8,16 @@ import {
 import {
   Col, Layout, Row, Typography
 } from 'antd'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-function Footer() {
+export default function Footer(): ReactElement {
   return (
     <>
       <CustomFooter>
         <CustomRow>
-          <Col md={8} sm={24}>
+          <Col md={6} sm={24}>
             <div style={{ position: 'relative' }}>
               <Circle />
               <Link to="/">Give</Link>
@@ -25,7 +25,7 @@ function Footer() {
           </Col>
 
           <Col md={8} sm={24}>
-            <Typography.Title style={{ color: 'white', fontSize: '2.3rem' }}>
+            <Typography.Title style={{ color: 'white', fontSize: '3rem' }}>
               How Can we Help? Contact us anytime
             </Typography.Title>
           </Col>
@@ -33,19 +33,29 @@ function Footer() {
           <CustomCol md={5} sm={24}>
             <Contact>
               <PhoneFilled color="green" style={{ color: 'green' }} />
-              <Typography.Text style={{ color: 'white' }}>092312313</Typography.Text>
+              <Typography.Text style={{
+                color: 'white',
+                fontSize: '0.9rem'
+              }}
+              >092312313
+              </Typography.Text>
             </Contact>
 
             <Contact>
               <PhoneFilled color="green" style={{ color: 'green' }} />
-              <Typography.Text style={{ color: 'white' }}>092312313</Typography.Text>
+              <Typography.Text style={{
+                color: 'white',
+                fontSize: '0.9rem'
+              }}
+              >092312313
+              </Typography.Text>
             </Contact>
           </CustomCol>
         </CustomRow>
       </CustomFooter>
 
       <SubFooter>
-        <Typography.Paragraph style={{ color: 'white', marginBottom: '0' }}>
+        <Typography.Paragraph style={{ color: '#969696', marginBottom: '0' }}>
           Lorem Ipsum is simply dummy text
         </Typography.Paragraph>
 
@@ -59,8 +69,6 @@ function Footer() {
     </>
   )
 }
-
-export default Footer
 
 const Link = styled(NavLink)`
   font-size: 30px;

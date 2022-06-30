@@ -8,6 +8,7 @@ export default function PremiumEvent(): ReactElement {
     width: window.outerWidth,
   })
 
+  // Watch for window resize (width)
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -20,6 +21,7 @@ export default function PremiumEvent(): ReactElement {
     }
   }, [])
 
+  // Watch for watch for width so that we can set the progress circle width
   useEffect(() => {
     switch (true) {
       case windowSize.width <= 768 && windowSize.width > 420:
@@ -52,7 +54,6 @@ export default function PremiumEvent(): ReactElement {
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
-
           <CustomProgress
             type="circle"
             showInfo

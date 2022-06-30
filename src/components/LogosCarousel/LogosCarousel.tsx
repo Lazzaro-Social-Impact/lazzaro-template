@@ -37,6 +37,7 @@ display: flex;
 justify-content: space-around;
 align-items: center;
 height: 150px;
+padding: 0 3.2rem;
 `
 
 const ImageContainer = styled.div`
@@ -48,6 +49,6 @@ const ImageContainer = styled.div`
     align-items: center;
     align-content: center;
     img {
-        width: 200px;
+        width: 150px;
     }
     `
