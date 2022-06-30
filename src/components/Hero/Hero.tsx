@@ -24,7 +24,7 @@ function Hero() {
 const Header = styled.header`
   background-image: url('https://img.rawpixel.com/private/static/images/website/2022-05/rm422-076-x.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=e877fedea1136b8c616786d383ed70c3');
   background-size: cover;
-  height: 100vh;
+  height: 574px;
   display: flex;
   flex-direction: column;
   justify-content: center;

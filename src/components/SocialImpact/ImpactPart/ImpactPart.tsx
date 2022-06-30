@@ -33,4 +33,5 @@ const ImpactText = styled.p`
     font-weight: 400;
     font-size: 2rem;
     color: #fff;
+    font-weight: 100;
 `

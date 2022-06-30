@@ -18,7 +18,7 @@ export default function LogosCarousel(): ReactElement {
   return (
     <CustomCarousel dots={false} autoplay autoplaySpeed={5000}>
       {
-        [...makeChunks<img>(randomImagesArray, 3).map((chunk: img[]) => (
+        [...makeChunks<img>(randomImagesArray, 4).map((chunk: img[]) => (
           <ImageContainer key={useId()}>
             {chunk.map((image: img) => (
               <img key={image.key} src={image.src} alt={image.alt} />
@@ -34,9 +34,8 @@ export default function LogosCarousel(): ReactElement {
 const CustomCarousel = styled(Carousel)`
 background-color: #5CB780;
 display: flex;
-justify-content: center;
+justify-content: space-around;
 align-items: center;
-text-align: center;
 height: 150px;
 `
 

@@ -114,6 +114,7 @@ gap: 3.8rem;
 align-items: center;
 width:50%;
 height: 100%;
+padding-left: 18.2rem;
 `
 const ProgressContainer = styled.div`
 position: relative;

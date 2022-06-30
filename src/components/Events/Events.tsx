@@ -33,47 +33,55 @@ function Events(): ReactElement {
     }
   }, [])
   return (
-    <Row style={{ margin: '5rem', justifyContent: 'center' }}>
-      <Col md={12} sm={24}>
-        <CustomCard
-          hoverable
-          style={{ maxWidth: 630, marginInline: 'auto', padding: '24px' }}
-          cover={<img alt="example" src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />}
-        >
-          <Meta
-            title="Deluling is the world best"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
-          />
+    <>
+      <SectionTitle>Events</SectionTitle>
+      <Row style={{ margin: '4.2rem 0', justifyContent: 'space-between' }}>
+        <Col md={12} sm={24}>
+          <CustomCard
+            hoverable
+            style={{ maxWidth: 630, marginInline: 'auto', padding: '24px' }}
+            cover={<img alt="example" src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />}
+          >
+            <Meta
+              title="Deluling is the world best"
+              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
+            />
 
-          <div style={{ marginTop: '1rem', textAlign: 'right' }}>
-            <Link to="/" style={{ borderBottom: '1px solid black', color: 'black' }}>
-              Read More
-            </Link>
-          </div>
-        </CustomCard>
-      </Col>
+            <div style={{ marginTop: '1rem', textAlign: 'right' }}>
+              <Link to="/" style={{ borderBottom: '1px solid black', color: 'black' }}>
+                Read More
+              </Link>
+            </div>
+          </CustomCard>
+        </Col>
 
-      <EventsCol md={12} sm={24}>
-        {[1, 2, 3].map((key) => (
-          <EventsRow gutter={16} key={key}>
-            <Col md={2} sm={24}>
-              <CalendarOutlined style={{ fontSize: '4.5em', color: '#A9E3CB' }} />
-              <Date>18</Date>
-            </Col>
+        <EventsCol md={12} sm={24}>
+          {[1, 2, 3].map((key) => (
+            <EventsRow gutter={16} key={key}>
+              <Col md={2} sm={24}>
+                <CalendarOutlined style={{ fontSize: '4.5em', color: '#A9E3CB' }} />
+                <Date>18</Date>
+              </Col>
 
-            <Col md={10} sm={24}>
-              <Title style={{ fontSize: '1.3em' }}>Deluling is the world best</Title>
-              <Paragraph>
-                Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
-              </Paragraph>
-            </Col>
-          </EventsRow>
-        ))}
-      </EventsCol>
-    </Row>
+              <Col md={10} sm={24}>
+                <Title style={{ fontSize: '1.3em' }}>Deluling is the world best</Title>
+                <Paragraph>
+                  Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
+                </Paragraph>
+              </Col>
+            </EventsRow>
+          ))}
+        </EventsCol>
+      </Row>
+    </>
   )
 }
 
+const SectionTitle = styled(Title)`
+  margin-top: 0;
+  margin-bottom: 2.4rem;
+  font-size: 1.8rem;
+  `
 const Date = styled(Text)`
   font-size: 1.3em;
   font-weight: bold;

@@ -31,7 +31,7 @@ export default function AboutUs(): React.ReactElement {
 const AboutUsSection = styled.section`
 display: flex;
 justify-content: space-between;
-margin-top: 4.2rem;
+margin-top: 6.2rem;
 padding-left: 2.4rem;
 `
 
