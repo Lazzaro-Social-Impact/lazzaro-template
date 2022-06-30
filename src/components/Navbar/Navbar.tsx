@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Drawer, Grid, Menu } from 'antd'
 import styled from 'styled-components'
-import 'antd/dist/antd.min.css'
 import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 

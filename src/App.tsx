@@ -1,26 +1,15 @@
 import React from 'react'
-import PremiumEvent from './components/PremiumEvent/PremiumEvent'
 import './App.css'
-import { Hero, Footer } from './components'
-import AboutUs from './components/Aboutus/Aboutus'
-import Projects from './components/Projects/Projects'
-import SocialImpact from './components/SocialImpact/SocialImpact'
+import { Navbar } from './components'
 
-import LogosCarousel from './components/LogosCarousel/LogosCarousel'
 import 'antd/dist/antd.min.css'
-import SubscribeDivider from './components/SubscribeDivider/SubscribeDivider'
+import { Landing } from './views'
 
 function App() {
   return (
     <div className="App">
-      <Hero />
-      <AboutUs />
-      <LogosCarousel />
-      <Projects />
-      <SocialImpact />
-      <PremiumEvent />
-      <SubscribeDivider />
-      <Footer />
+      <Navbar />
+      <Landing />
     </div>
   )
 }

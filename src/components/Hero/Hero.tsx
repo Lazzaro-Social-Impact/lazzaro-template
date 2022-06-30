@@ -2,12 +2,10 @@
 import { Button } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
-import Navbar from '../Navbar'
 
 function Hero() {
   return (
     <>
-      <Navbar />
       <Header>
         <Title>Help The Children in need</Title>
         <BtnGroup>
