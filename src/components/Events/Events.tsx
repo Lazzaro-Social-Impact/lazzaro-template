@@ -43,7 +43,7 @@ function Events(): ReactElement {
             cover={(
               <img
                 alt="example"
-                src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+                src="https://images.unsplash.com/photo-1511275539165-cc46b1ee89bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
               />
             )}
           >
@@ -84,7 +84,8 @@ function Events(): ReactElement {
 
 const EventsSection = styled.section`
   padding: 0 4.1rem;
-  margin-top: 4rem
+  margin-top: 4rem;
+  padding-bottom: 5.8rem;
 `
 const SectionTitle = styled(Title)`
   margin-top: 0;

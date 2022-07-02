@@ -8,7 +8,7 @@ export default function Landing(): ReactElement {
   return (
     <>
       <Hero />
-      <Divider />
+      {/* <Divider /> */}
       <AboutUs />
       <LogosCarousel />
       <Projects />

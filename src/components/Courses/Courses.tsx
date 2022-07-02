@@ -17,7 +17,7 @@ interface ICourse {
 
 function Courses(): ReactElement {
   const dummyCourses = Array.from({ length: 8 }, () => ({
-    src: 'https://www.westreadingborough.com/sites/g/files/vyhlif5201/f/styles/news_image/public/pages/special_events_1.jpg?itok=99Rh5N0T',
+    src: 'https://images.unsplash.com/photo-1555008872-f03b347ffb53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzV8fGNhdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60',
     id: useId(),
     date: 8,
     title: 'Deluling is the world best',
