@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useLayoutEffect } from 'react'
 import {
   Card, Col, Row, Typography
 } from 'antd'
@@ -11,7 +11,7 @@ const { Paragraph, Title, Text } = Typography
 
 function Events(): ReactElement {
   const { Meta } = Card
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cardCover = document.querySelector('.ant-card')
     const img = cardCover?.appendChild(document.createElement('img')) as HTMLImageElement
     img?.setAttribute('src', './assets/img/premium.png')
