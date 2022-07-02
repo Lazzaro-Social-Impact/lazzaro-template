@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
 import React, { ReactElement, useId } from 'react'
-import { Card, Carousel, Typography } from 'antd'
-import { Link } from 'react-router-dom'
+import { Carousel, Typography } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined, CalendarFilled } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
-
-const { Meta } = Card
+import CourseCard from './CourseCard'
 
 interface ICourse {
   src: string;
@@ -32,6 +30,8 @@ function Courses(): ReactElement {
       nextArrow={<ArrowRightOutlined />}
       prevArrow={<ArrowLeftOutlined />}
       dots
+      autoplay
+      autoplaySpeed={5000}
       dotPosition="top"
     >
       {[
@@ -43,13 +43,7 @@ function Courses(): ReactElement {
                   <CalendarFilled style={{ fontSize: '4em', color: '#5CB780' }} />
                   <DateNumber>{course.date}</DateNumber>
                 </Date>
-
-                <CustomCard cover={<img alt="course" src={course.src} />} hoverable>
-                  <Meta title={course.title} description={course.description} />
-                  <div style={{ textAlign: 'right' }}>
-                    <CustomLink to="/">Read more</CustomLink>
-                  </div>
-                </CustomCard>
+                <CourseCard course={course} />
               </Flex>
             ))}
           </>
@@ -97,19 +91,6 @@ const Flex = styled.div`
   align-items: center;
 `
 
-const CustomCard = styled(Card)`
-  max-width: 37.5em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0 0 5px 0px #aaa;
-
-  .ant-card-cover img {
-    width: 100%;
-    padding: 0.7rem;
-  }
-`
-
 const Date = styled.div`
   transform: translate(-7.2rem, 3.2rem);
   z-index: 2;
@@ -121,11 +102,6 @@ const DateNumber = styled(Typography.Text)`
   top: 42%;
   left: 40%;
   position: absolute;
-`
-
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
 `
 
 export default Courses
