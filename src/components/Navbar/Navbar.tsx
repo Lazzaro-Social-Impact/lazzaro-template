@@ -26,7 +26,7 @@ function Navbar() {
     else setNavBarBackground('none')
   })
 
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState<boolean>(false)
 
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()
