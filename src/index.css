@@ -6,7 +6,7 @@
 
 @media screen and (max-width: 962px) {
   html {
-      font-size: 65%;
+    font-size: 65%;
   }
   .ant-carousel .slick-slide img {
     width: 150px;
@@ -15,19 +15,19 @@
 
 @media screen and (max-width: 768px) {
   html {
-      font-size: 50%;
+    font-size: 50%;
   }
   .ant-carousel .slick-slide img {
     width: 80px;
   }
 }
 
-
 @media screen and (max-width: 450px) {
   html {
-      font-size: 33%;
+    font-size: 33%;
   }
   .ant-carousel .slick-slide img {
     width: 65px;
   }
 }
+
