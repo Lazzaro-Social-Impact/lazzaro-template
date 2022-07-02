@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import {
   Hero, Events, AboutUs, LogosCarousel,
-  PremiumEvent, Projects, SocialImpact, SubscribeDivider, Volunteers, Divider
+  PremiumEvent, Projects, SocialImpact, SubscribeDivider, Volunteers, Divider, Courses
 } from '../../components'
 
 export default function Landing(): ReactElement {
@@ -16,6 +16,7 @@ export default function Landing(): ReactElement {
       <SocialImpact />
       <Events />
       <SubscribeDivider />
+      <Courses />
       <Volunteers />
     </>
   )
