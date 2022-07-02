@@ -4,7 +4,7 @@ import { Carousel, Typography } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined, CalendarFilled } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
-import CourseCard from './CourseCard'
+import CourseCard from './CourseCard/CourseCard'
 
 interface ICourse {
   src: string;
