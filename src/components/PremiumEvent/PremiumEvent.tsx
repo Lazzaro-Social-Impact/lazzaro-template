@@ -1,18 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
 
 export default function PremiumEvent(): ReactElement {
-  const [progressWidth, setProgressWidth] = useState(250)
-  const [windowSize, setWindowSize] = useState({
-    width: window.outerWidth,
-  })
+  const [progressWidth, setProgressWidth] = useState<number>(250)
+  const [windowSize, setWindowSize] = useState<number>(window.outerWidth)
 
-  useEffect(() => {
+  // Watch for window resize (width)
+  useLayoutEffect(() => {
     const handleResize = () => {
-      setWindowSize({
-        width: window.outerWidth,
-      })
+      setWindowSize(window.outerWidth)
     }
     window.addEventListener('resize', handleResize)
     return () => {
@@ -20,12 +17,13 @@ export default function PremiumEvent(): ReactElement {
     }
   }, [])
 
-  useEffect(() => {
+  // Watch for watch for width so that we can set the progress circle width
+  useLayoutEffect(() => {
     switch (true) {
-      case windowSize.width <= 768 && windowSize.width > 420:
+      case windowSize <= 768 && windowSize > 420:
         setProgressWidth(200)
         break
-      case windowSize.width <= 420:
+      case windowSize <= 420:
         setProgressWidth(100)
         break
       default:
@@ -52,7 +50,6 @@ export default function PremiumEvent(): ReactElement {
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
-
           <CustomProgress
             type="circle"
             showInfo
@@ -73,7 +70,7 @@ export default function PremiumEvent(): ReactElement {
 const PremiumEventSection = styled.section`
 display: flex;
 justify-content: space-between;
-padding: 0 3.2rem;
+padding: 0 4.1rem;
 align-items: flex-start;
 margin: 3.8rem 0;
 p:last-child {
@@ -114,6 +111,7 @@ gap: 3.8rem;
 align-items: center;
 width:50%;
 height: 100%;
+padding-left: 18.2rem;
 `
 const ProgressContainer = styled.div`
 position: relative;

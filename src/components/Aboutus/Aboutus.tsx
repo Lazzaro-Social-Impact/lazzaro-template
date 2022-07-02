@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const { Paragraph, Text } = Typography
 
 export default function AboutUs(): React.ReactElement {
-  const [isReadMore, setIsReadMore] = useState(false)
+  const [isReadMore, setIsReadMore] = useState<boolean>(false)
   const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
   return (
     <AboutUsSection>
@@ -19,7 +19,7 @@ export default function AboutUs(): React.ReactElement {
       </LeftSection>
       <ImageContainer>
         <img
-          src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+          src="https://images.unsplash.com/photo-1529257414772-1960b7bea4eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt=""
           style={{ width: '100%' }}
         />
@@ -31,8 +31,8 @@ export default function AboutUs(): React.ReactElement {
 const AboutUsSection = styled.section`
 display: flex;
 justify-content: space-between;
-margin-top: 4.2rem;
-padding-left: 2.4rem;
+margin-top: 6.2rem;
+padding-left: 4.1rem;
 `
 
 const LeftSection = styled.div`

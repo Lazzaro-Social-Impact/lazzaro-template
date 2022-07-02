@@ -9,6 +9,7 @@ import SocialImpact from './SocialImpact/SocialImpact'
 import SubscribeDivider from './SubscribeDivider/SubscribeDivider'
 import Footer from './Footer/Footer'
 import Volunteers from './Volunteers/Volunteers'
+import Divider from './Divider/Divider'
 import Courses from './Courses/Courses'
 
 export {
@@ -23,5 +24,6 @@ export {
   Courses,
   SubscribeDivider,
   Volunteers,
-  Footer
+  Footer,
+  Divider
 }

@@ -17,9 +17,9 @@ const CourseCard = ({ course }: ICourseCard) => (
   <CustomCard cover={<img alt="course" src={course.src} />} hoverable>
     <Meta title={course.title} description={course.description} />
 
-    <div style={{ textAlign: 'right' }}>
+    <ReadMore>
       <CustomLink to="/">Read more</CustomLink>
-    </div>
+    </ReadMore>
   </CustomCard>
 )
 
@@ -31,7 +31,8 @@ const CustomLink = styled(Link)`
 `
 
 const CustomCard = styled(Card)`
-  max-width: 37.5em;
+  margin-top: 2rem;
+  max-width: 47.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -41,4 +42,10 @@ const CustomCard = styled(Card)`
     width: 100%;
     padding: 0.7rem;
   }
+`
+
+const ReadMore = styled.div`
+  text-align: right;
+  margin-top: 2rem;
+  font-weight: bold;
 `

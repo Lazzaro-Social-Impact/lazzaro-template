@@ -1,9 +1,9 @@
 import React from 'react'
-import './App.css'
 import { Footer, Navbar } from './components'
 
 import 'antd/dist/antd.min.css'
 import { Landing } from './views'
+import './App.css'
 
 function App() {
   return (
