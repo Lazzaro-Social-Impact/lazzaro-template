@@ -31,7 +31,8 @@ const CustomLink = styled(Link)`
 `
 
 const CustomCard = styled(Card)`
-  max-width: 37.5em;
+  margin-top: 2rem;
+  max-width: 47.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { ReactElement, useId } from 'react'
-import { Carousel } from 'antd'
+import { Carousel, Typography } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
@@ -17,7 +17,7 @@ interface ICourse {
 
 function Courses(): ReactElement {
   const dummyCourses = Array.from({ length: 8 }, () => ({
-    src: 'https://www.westreadingborough.com/sites/g/files/vyhlif5201/f/styles/news_image/public/pages/special_events_1.jpg?itok=99Rh5N0T',
+    src: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60',
     id: useId(),
     date: 8,
     title: 'Deluling is the world best',
@@ -26,32 +26,35 @@ function Courses(): ReactElement {
   }))
 
   return (
-    <CustomCarousel
-      arrows
-      nextArrow={<ArrowRightOutlined />}
-      prevArrow={<ArrowLeftOutlined />}
-      autoplay
-      autoplaySpeed={5000}
-    >
-      {[
-        ...makeChunks(dummyCourses, 2).map((chunk: ICourse[]) => (
-          <>
-            {chunk.map((course: ICourse) => (
-              <Flex key={course.id}>
-                <CalendarIcon
-                  date={course.date}
-                  type="filled"
-                  color="#5CB780"
-                  size="4em"
-                  style={{ position: 'absolute', top: '-0.2rem', left: '8rem' }}
-                />
-                <CourseCard course={course} />
-              </Flex>
-            ))}
-          </>
-        )),
-      ]}
-    </CustomCarousel>
+    <CoursesSection>
+      <SectionTitle>Courses</SectionTitle>
+      <CustomCarousel
+        arrows
+        nextArrow={<ArrowRightOutlined />}
+        prevArrow={<ArrowLeftOutlined />}
+        autoplay
+        autoplaySpeed={5000}
+      >
+        {[
+          ...makeChunks(dummyCourses, 2).map((chunk: ICourse[]) => (
+            <>
+              {chunk.map((course: ICourse) => (
+                <Flex key={course.id}>
+                  <CalendarIcon
+                    date={course.date}
+                    type="filled"
+                    color="#5CB780"
+                    size="4em"
+                    style={{ position: 'absolute', top: '1.6rem', left: '10.5rem' }}
+                  />
+                  <CourseCard course={course} />
+                </Flex>
+              ))}
+            </>
+          )),
+        ]}
+      </CustomCarousel>
+    </CoursesSection>
   )
 }
 const CustomCarousel = styled(Carousel)`
@@ -85,6 +88,11 @@ const CustomCarousel = styled(Carousel)`
     }
   }
 `
+
+const CoursesSection = styled.section`
+  padding: 0 4.1rem;
+  margin-top: 4rem;
+`
 const Flex = styled.div`
   display: flex !important;
   width: fit-content;
@@ -92,6 +100,13 @@ const Flex = styled.div`
   margin: 0 auto;
   align-items: center;
   position: relative;
+`
+
+const SectionTitle = styled(Typography.Title)`
+  margin-top: 0;
+  margin-bottom: 2.4rem;
+  font-size: 1.8rem;
+  padding-left: 2rem;
 `
 
 export default Courses
