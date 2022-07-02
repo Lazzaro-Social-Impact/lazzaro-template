@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
 
@@ -7,7 +7,7 @@ export default function PremiumEvent(): ReactElement {
   const [windowSize, setWindowSize] = useState<number>(window.outerWidth)
 
   // Watch for window resize (width)
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       setWindowSize(window.outerWidth)
     }
@@ -18,7 +18,7 @@ export default function PremiumEvent(): ReactElement {
   }, [])
 
   // Watch for watch for width so that we can set the progress circle width
-  useEffect(() => {
+  useLayoutEffect(() => {
     switch (true) {
       case windowSize <= 768 && windowSize > 420:
         setProgressWidth(200)
