@@ -44,7 +44,7 @@ function Navbar() {
 
       {md && <Links items={items} mode="horizontal" />}
 
-      <Drawer placement="right" closable onClose={() => setVisible(false)} visible={visible}>
+      <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
         <Links items={items} mode="inline" />
       </Drawer>
     </NavBar>
