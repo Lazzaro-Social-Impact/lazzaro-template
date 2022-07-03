@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { ThemeContext } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
 
 interface IProps {
@@ -12,26 +13,28 @@ interface IProps {
   };
 }
 
-const CourseCard = ({ course }: IProps) => (
-  <CustomCard>
-    <div style={{ position: 'relative' }}>
-      <CalendarIcon
-        date={course.date}
-        type="filled"
-        color="#5CB780"
-        size="4em"
-        style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
-      />
-      <img src={course.src} alt="course" style={{ width: '100px' }} />
-    </div>
-    <TextContainer>
-      <h2>Deluing is the world best</h2>
-      <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-      <CustomLink to="/">Read more</CustomLink>
-    </TextContainer>
-  </CustomCard>
-)
-
+const CourseCard = ({ course }: IProps) => {
+  const globalColor = useContext(ThemeContext)
+  return (
+    <CustomCard>
+      <div style={{ position: 'relative' }}>
+        <CalendarIcon
+          date={course.date}
+          type="filled"
+          color={globalColor}
+          size="4em"
+          style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
+        />
+        <img src={course.src} alt="course" style={{ width: '100px' }} />
+      </div>
+      <TextContainer>
+        <h2>Deluing is the world best</h2>
+        <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
+        <CustomLink to="/">Read more</CustomLink>
+      </TextContainer>
+    </CustomCard>
+  )
+}
 export default CourseCard
 
 const CustomCard = styled.div`

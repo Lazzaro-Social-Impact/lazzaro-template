@@ -1,15 +1,18 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components'
 import { Col, Typography, Row } from 'antd'
 import CalenderIcon from '../../CalenderIcon/CalenderIcon'
+import { ThemeContext } from '../../../app/context/theme-context'
 
 const { Title, Paragraph } = Typography
 
 export default function EventsRow(): ReactElement {
+  const globalColor = useContext(ThemeContext)
+
   return (
     <Event gutter={16}>
       <Col md={2} sm={24}>
-        <CalenderIcon size="4.5em" date={18} color="#A9E3CB" />
+        <CalenderIcon size="4.5em" date={18} color={globalColor} />
       </Col>
 
       <Col md={12} sm={24}>

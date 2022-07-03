@@ -1,21 +1,33 @@
-import React, { ReactElement, useId } from 'react'
+import React, { ReactElement, useContext, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 import makeChunks from '../../app/utils/makeChunks'
+import { ThemeContext } from '../../app/context/theme-context'
 
 interface img {
   src: string;
   alt: string;
   key: string;
 }
+
 export default function LogosCarousel(): ReactElement {
+  const globalColor = useContext(ThemeContext)
+
   const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
     src: './assets/img/Google.png',
     alt: 'random image',
     key: useId(),
   }))
   return (
-    <CustomCarousel dots={false} autoplay autoplaySpeed={5000}>
+    <CustomCarousel
+      style={{
+        backgroundColor:
+     globalColor
+      }}
+      dots={false}
+      autoplay
+      autoplaySpeed={5000}
+    >
       {[
         ...makeChunks<img>(randomImagesArray, 4).map((chunk: img[]) => (
           <ImageContainer key={useId()}>
@@ -30,7 +42,7 @@ export default function LogosCarousel(): ReactElement {
 }
 
 const CustomCarousel = styled(Carousel)`
-  background-color: #5cb780;
+;
   display: flex;
   justify-content: space-around;
   align-items: center;
