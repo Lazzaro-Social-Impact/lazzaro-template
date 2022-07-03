@@ -1,51 +1,93 @@
-import { Card } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import CalendarIcon from '../../CalenderIcon/CalenderIcon'
 
-const { Meta } = Card
-
-interface ICourseCard {
+interface IProps {
   course: {
     src: string;
     title: string;
     description: string;
+    date: number;
   };
 }
 
-const CourseCard = ({ course }: ICourseCard) => (
-  <CustomCard cover={<img alt="course" src={course.src} />} hoverable>
-    <Meta title={course.title} description={course.description} />
-
-    <ReadMore>
+const CourseCard = ({ course }: IProps) => (
+  <CustomCard>
+    <div style={{ position: 'relative' }}>
+      <CalendarIcon
+        date={course.date}
+        type="filled"
+        color="#5CB780"
+        size="4em"
+        style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
+      />
+      <img src={course.src} alt="course" />
+    </div>
+    <TextContainer>
+      <h2>Deluing is the world best</h2>
+      <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
       <CustomLink to="/">Read more</CustomLink>
-    </ReadMore>
+    </TextContainer>
   </CustomCard>
 )
 
 export default CourseCard
 
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
-`
-
-const CustomCard = styled(Card)`
-  margin-top: 2rem;
-  max-width: 47.5rem;
+const CustomCard = styled.div`
+  padding: 1rem;
+  max-width: 47rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0 0 5px 0px #aaa;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
 
-  .ant-card-cover img {
-    width: 100%;
-    padding: 0.7rem;
+  & img {
+    max-width: 100%;
+    width: 100% !important;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `
 
-const ReadMore = styled.div`
-  text-align: right;
-  margin-top: 2rem;
-  font-weight: bold;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1rem;
+  width: 100%;
+
+  h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.3em;
+    }
+    p {
+      font-size: 1em;
+    }
+  }
+`
+
+const CustomLink = styled(Link)`
+  border-bottom: 1px solid black;
+  color: black;
+  align-self: flex-end;
+  width: fit-content;
+
+  &:hover {
+    color: #5cb780;
+  }
 `

@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
 import CourseCard from './CourseCard/CourseCard'
-import CalendarIcon from '../CalenderIcon/CalenderIcon'
 
 interface ICourse {
   src: string;
@@ -17,7 +16,7 @@ interface ICourse {
 
 function Courses(): ReactElement {
   const dummyCourses = Array.from({ length: 8 }, () => ({
-    src: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60',
+    src: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     id: useId(),
     date: 8,
     title: 'Deluling is the world best',
@@ -32,6 +31,7 @@ function Courses(): ReactElement {
         arrows
         nextArrow={<ArrowRightOutlined />}
         prevArrow={<ArrowLeftOutlined />}
+        dots={false}
         autoplay
         autoplaySpeed={5000}
       >
@@ -40,13 +40,6 @@ function Courses(): ReactElement {
             <>
               {chunk.map((course: ICourse) => (
                 <Flex key={course.id}>
-                  <CalendarIcon
-                    date={course.date}
-                    type="filled"
-                    color="#5CB780"
-                    size="4em"
-                    style={{ position: 'absolute', top: '1.6rem', left: '10.5rem' }}
-                  />
                   <CourseCard course={course} />
                 </Flex>
               ))}
