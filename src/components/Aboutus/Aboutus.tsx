@@ -44,7 +44,7 @@ const ImageContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-start;
 `
 
 const AboutUsTitle = styled.h1`
@@ -64,6 +64,7 @@ cursor: pointer;
 align-self: flex-start;
 font-size: 1.2rem;
 margin-top: 1.2rem;
+padding-bottom: 3.2rem;
 color: #777;
  &:hover {
     color: #000;
