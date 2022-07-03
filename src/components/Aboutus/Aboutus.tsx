@@ -21,7 +21,7 @@ export default function AboutUs(): React.ReactElement {
         <img
           src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt=""
-          style={{ height: '620px' }}
+          style={{ maxWidth: '100%' }}
         />
       </ImageContainer>
     </AboutUsSection>
