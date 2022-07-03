@@ -11,7 +11,7 @@ export default function SubscribeDivider(): ReactElement {
 }
 
 const SubscribeSection = styled.section`
-    background-color: #000;
+    background-color: #424242;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -35,6 +35,7 @@ const SubscribeButton = styled.button`
     color: white;
     font-weight: bold;
     background-color: #5CB780;
+    border: none;
     cursor: pointer;
     &:hover {
         background-color: #5CB790;

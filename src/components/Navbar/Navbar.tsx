@@ -16,13 +16,13 @@ const items = [
 ]
 
 function Navbar() {
-  const [navBarBackground, setNavBarBackground] = useState<'none' | 'black'>('none')
+  const [navBarBackground, setNavBarBackground] = useState<'none' | '#424242'>('none')
 
   window.addEventListener('scroll', () => {
     const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
     const navbarHeight = 65
 
-    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('black')
+    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
     else setNavBarBackground('none')
   })
 

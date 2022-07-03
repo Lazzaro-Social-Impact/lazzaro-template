@@ -138,7 +138,7 @@ transform: translateX(-50%);
 const DonateButton = styled.button`
 color: white;
 text-align: center;
-background-color:black;
+background-color:#424242;
 padding: 0.8rem 1.8rem;
 font-weight: bold;
 border-radius: 35px;

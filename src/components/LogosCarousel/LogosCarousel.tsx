@@ -36,6 +36,7 @@ const CustomCarousel = styled(Carousel)`
   align-items: center;
   height: 150px;
   padding: 0 4.1rem;
+  margin-top: 4.2rem;
 `
 
 const ImageContainer = styled.div`
@@ -50,6 +51,6 @@ const ImageContainer = styled.div`
   }
 
   img {
-    width: 240px;
+    width: 200px;
   }
 `
