@@ -53,7 +53,7 @@ const SectionTitle = styled(Title)`
   margin-top: 0;
   margin-bottom: 2.4rem;
   font-size: 1.8rem;
-  padding-left:2rem
+  padding-left:4.1rem;
 `
 
 export default Events
