@@ -25,6 +25,10 @@ export default function EventsRow(): ReactElement {
 
 const Event = styled(Row)`
   gap: 1.5rem;
+
+  flex: 1 !important;
+  max-width: 100% !important;
+
   @media (max-width: 575px) {
     display: flex;
     justify-content: center;

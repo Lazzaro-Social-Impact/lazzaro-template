@@ -29,6 +29,8 @@ const EventsCol = styled(Col)`
   flex-direction: column;
   gap: 3.2rem;
   align-items: flex-end;
+  max-width: 100% !important;
+
 `
 
 const EventsSection = styled.section`
@@ -37,9 +39,14 @@ const EventsSection = styled.section`
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 4.2rem;
+  gap: 1.2rem;
   padding-bottom: 5.8rem;
   @media (max-width: 768px) {
     flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   }
 `
 const SectionTitle = styled(Title)`
