@@ -19,16 +19,16 @@ html {
 
 @media screen and (max-width: 768px) {
   html {
-    font-size: 50%;
+    font-size: 62.5%;
   }
   .ant-carousel .slick-slide img {
     width: 80px;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 420px) {
   html {
-    font-size: 33%;
+    font-size: 33.5%;
   }
   .ant-carousel .slick-slide img {
     width: 65px;

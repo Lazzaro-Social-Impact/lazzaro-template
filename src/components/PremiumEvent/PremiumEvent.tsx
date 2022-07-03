@@ -20,10 +20,13 @@ export default function PremiumEvent(): ReactElement {
   // Watch for watch for width so that we can set the progress circle width
   useLayoutEffect(() => {
     switch (true) {
-      case windowSize <= 768 && windowSize > 420:
+      case windowSize <= 768 && windowSize > 621:
         setProgressWidth(200)
         break
-      case windowSize <= 420:
+      case windowSize <= 621 && windowSize > 450:
+        setProgressWidth(120)
+        break
+      case windowSize <= 450:
         setProgressWidth(100)
         break
       default:
@@ -135,7 +138,7 @@ transform: translateX(-50%);
 const DonateButton = styled.button`
 color: white;
 text-align: center;
-background-color:black;
+background-color:#424242;
 padding: 0.8rem 1.8rem;
 font-weight: bold;
 border-radius: 35px;

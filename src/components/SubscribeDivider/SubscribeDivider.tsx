@@ -1,17 +1,20 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components'
+import { ThemeContext } from '../../app/context/theme-context'
 
 export default function SubscribeDivider(): ReactElement {
+  const globalColor = useContext(ThemeContext)
+
   return (
     <SubscribeSection>
       <SectionTitle>Colaboremos juntos para conseguirlo</SectionTitle>
-      <SubscribeButton>Inscríbete</SubscribeButton>
+      <SubscribeButton style={{ backgroundColor: globalColor }}>Inscríbete</SubscribeButton>
     </SubscribeSection>
   )
 }
 
 const SubscribeSection = styled.section`
-    background-color: #000;
+    background-color: #424242;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -34,7 +37,7 @@ const SubscribeButton = styled.button`
     border-radius: 35px;
     color: white;
     font-weight: bold;
-    background-color: #5CB780;
+    border: none;
     cursor: pointer;
     &:hover {
         background-color: #5CB790;

@@ -23,9 +23,13 @@ text-align: center;
 
 const ImpactCount = styled.p`
 font-weight: bolder;
-font-size: 5.25rem;
+font-size:4.8rem;
 color: #fff;
 line-height: 0; 
+
+@media screen and (max-width: 571px) {
+  font-size: 3.2rem;
+}
 `
 
 const ImpactText = styled.p`
@@ -34,4 +38,8 @@ const ImpactText = styled.p`
     font-size: 2rem;
     color: #fff;
     font-weight: 100;
+
+    @media screen and (max-width: 571px) {
+  font-size: 1.2rem;
+}
 `

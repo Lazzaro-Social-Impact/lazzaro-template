@@ -19,9 +19,9 @@ export default function AboutUs(): React.ReactElement {
       </LeftSection>
       <ImageContainer>
         <img
-          src="https://images.unsplash.com/photo-1529257414772-1960b7bea4eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt=""
-          style={{ width: '100%' }}
+          style={{ maxWidth: '100%' }}
         />
       </ImageContainer>
     </AboutUsSection>
@@ -42,6 +42,9 @@ width: 100%;
 `
 const ImageContainer = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 `
 
 const AboutUsTitle = styled.h1`
@@ -61,6 +64,7 @@ cursor: pointer;
 align-self: flex-start;
 font-size: 1.2rem;
 margin-top: 1.2rem;
+padding-bottom: 3.2rem;
 color: #777;
  &:hover {
     color: #000;

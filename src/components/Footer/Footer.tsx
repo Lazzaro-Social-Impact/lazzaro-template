@@ -61,9 +61,9 @@ export default function Footer(): ReactElement {
 
         <Icons>
           <FaceBookIcon />
-          <TwitterOutlined style={{ color: 'white', cursor: 'pointer' }} />
-          <InstagramOutlined style={{ color: 'white', cursor: 'pointer' }} />
-          <LinkedinOutlined style={{ color: 'white', cursor: 'pointer' }} />
+          <TwitterOutlined style={{ color: '#fff', cursor: 'pointer' }} />
+          <InstagramOutlined style={{ color: '#fff', cursor: 'pointer' }} />
+          <LinkedinOutlined style={{ color: '#fff', cursor: 'pointer' }} />
         </Icons>
       </SubFooter>
     </>
@@ -107,14 +107,14 @@ const Icons = styled.div`
 `
 
 const CustomFooter = styled(Layout.Footer)`
-  background-color: black;
+  background-color: #424242;
   margin-top: 4rem;
   color: white;
   padding: 3.2rem 4.1rem;
 `
 
 const SubFooter = styled.div`
-  background-color: #2e2e2e;
+  background-color: #0e0e0e;
   display: flex;
   align-items: center;
   align-content: center;

@@ -16,13 +16,13 @@ const items = [
 ]
 
 function Navbar() {
-  const [navBarBackground, setNavBarBackground] = useState<'none' | 'black'>('none')
+  const [navBarBackground, setNavBarBackground] = useState<'none' | '#424242'>('none')
 
   window.addEventListener('scroll', () => {
     const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
     const navbarHeight = 65
 
-    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('black')
+    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
     else setNavBarBackground('none')
   })
 
@@ -44,7 +44,7 @@ function Navbar() {
 
       {md && <Links items={items} mode="horizontal" />}
 
-      <Drawer placement="right" closable onClose={() => setVisible(false)} visible={visible}>
+      <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
         <Links items={items} mode="inline" />
       </Drawer>
     </NavBar>
@@ -85,7 +85,7 @@ const Links = styled(Menu)`
     color: white !important;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 767px) {
     a {
       color: black !important;
     }

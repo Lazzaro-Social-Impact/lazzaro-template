@@ -20,7 +20,7 @@ export default function Volunteers(): ReactElement {
     name: 'Alex Martin',
     position: 'Professional Mind Coach',
     image: {
-      src: 'https://images.unsplash.com/photo-1552944150-6dd1180e5999?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fGNhdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60',
+      src: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
       alt: 'random image',
     },
     key: useId()

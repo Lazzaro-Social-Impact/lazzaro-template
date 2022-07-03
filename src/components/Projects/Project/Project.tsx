@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components'
 
 import { Typography } from 'antd'
+import { ThemeContext } from '../../../app/context/theme-context'
 
 const { Text } = Typography
 interface ProjectProps {
@@ -10,13 +11,15 @@ interface ProjectProps {
 }
 
 export function Project({ text } : ProjectProps): ReactElement<ProjectProps> {
+  const globalColor = useContext(ThemeContext)
+
   return (
     <ProjectCard>
-      <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="" />
+      <img src="https://images.unsplash.com/photo-1606963303394-3bd3608a5c9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="" />
       <Text>{text}</Text>
       <ProjectFooter>
-        <a>Read more</a>
-        <DonateButton>Donate</DonateButton>
+        <a style={{ color: globalColor }}>Read more</a>
+        <DonateButton style={{ backgroundColor: globalColor }}>Donate</DonateButton>
       </ProjectFooter>
     </ProjectCard>
 
@@ -42,6 +45,7 @@ const ProjectCard = styled.div`
     position: absolute;
     z-index: -1;
     height: 100%;
+    width: 100%;
     object-fit: cover;
     filter: brightness(0.5);
   }
@@ -67,7 +71,6 @@ const DonateButton = styled.button`
     color: white;
     padding: 0.8rem 1.6rem;
     font-size: 1rem;
-    background-color: #5CB780;
     text-align: center;
     border: none;
     border-radius: 35px;
