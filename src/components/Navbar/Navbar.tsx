@@ -85,7 +85,7 @@ const Links = styled(Menu)`
     color: white !important;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     a {
       color: black !important;
     }

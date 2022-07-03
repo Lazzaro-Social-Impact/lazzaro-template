@@ -40,8 +40,13 @@ const CustomCard = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   margin-top: 2rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
+  }
 
   & img {
     max-width: 100%;
