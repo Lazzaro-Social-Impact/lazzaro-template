@@ -12,7 +12,7 @@ interface ProjectProps {
 export function Project({ text } : ProjectProps): ReactElement<ProjectProps> {
   return (
     <ProjectCard>
-      <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="" />
+      <img src="https://images.unsplash.com/photo-1606963303394-3bd3608a5c9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="" />
       <Text>{text}</Text>
       <ProjectFooter>
         <a>Read more</a>
@@ -42,6 +42,7 @@ const ProjectCard = styled.div`
     position: absolute;
     z-index: -1;
     height: 100%;
+    width: 100%;
     object-fit: cover;
     filter: brightness(0.5);
   }

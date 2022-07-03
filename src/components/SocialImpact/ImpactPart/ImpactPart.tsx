@@ -23,7 +23,7 @@ text-align: center;
 
 const ImpactCount = styled.p`
 font-weight: bolder;
-font-size: 5.25rem;
+font-size:7.8rem;
 color: #fff;
 line-height: 0; 
 `

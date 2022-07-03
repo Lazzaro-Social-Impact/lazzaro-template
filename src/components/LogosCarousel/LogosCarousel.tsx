@@ -45,12 +45,11 @@ const ImageContainer = styled.div`
   padding: 0 4.8rem;
   align-items: center;
   align-content: center;
-
   @media (max-width: 799px) {
     padding: 0;
   }
 
   img {
-    width: 150px;
+    width: 240px;
   }
 `

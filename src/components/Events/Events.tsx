@@ -28,7 +28,7 @@ const EventsCol = styled(Col)`
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
-  align-items: flex-end;
+  align-items: center;
   max-width: 100% !important;
 
 `
@@ -50,10 +50,12 @@ const EventsSection = styled.section`
   }
 `
 const SectionTitle = styled(Title)`
-  margin-top: 0;
   margin-bottom: 2.4rem;
-  font-size: 1.8rem;
-  padding-left:4.1rem;
+  padding:0 4.1rem;
+  margin-top: 4.2rem;
+  font-weight: bold !important;
+  font-size: 3.8rem !important;
+
 `
 
 export default Events

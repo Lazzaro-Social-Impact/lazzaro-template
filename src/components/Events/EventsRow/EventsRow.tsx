@@ -13,7 +13,7 @@ export default function EventsRow(): ReactElement {
       </Col>
 
       <Col md={12} sm={24}>
-        <Title style={{ fontSize: '1.3em' }}>Deluling is the world best</Title>
+        <Title style={{ fontSize: '1.4em', fontWeight: 'bold' }}>Deluling is the world best</Title>
         <Paragraph>
           Lorem Ipsum is s galley of type and scrambled i printing and typing i and
           industry.

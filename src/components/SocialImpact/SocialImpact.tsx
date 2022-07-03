@@ -53,13 +53,13 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 4.2rem;
-padding: 0 4.1rem;
+padding: 0 8.2rem;
 `
 
 const SectionTitle = styled(Title)`
 color: #fff !important;
 margin-top: 3.8rem;
-font-size: 3.25rem !important;
+font-size: 2.8rem !important;
 `
 
 const ImpactNumbers = styled.div`

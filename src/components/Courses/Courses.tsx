@@ -16,7 +16,7 @@ interface ICourse {
 
 function Courses(): ReactElement {
   const dummyCourses = Array.from({ length: 8 }, () => ({
-    src: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+    src: 'https://images.unsplash.com/photo-1500823050524-096fd13fa287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     id: useId(),
     date: 8,
     title: 'Deluling is the world best',
@@ -85,6 +85,7 @@ const CustomCarousel = styled(Carousel)`
 const CoursesSection = styled.section`
   padding: 0 4.1rem;
   margin-top: 4rem;
+  
 `
 const Flex = styled.div`
   display: flex !important;
@@ -98,7 +99,9 @@ const Flex = styled.div`
 const SectionTitle = styled(Typography.Title)`
   margin-top: 0;
   margin-bottom: 2.4rem;
-  font-size: 1.8rem;
+  font-size: 3.8rem !important;
+  font-weight: bold !important;
+
 `
 
 export default Courses

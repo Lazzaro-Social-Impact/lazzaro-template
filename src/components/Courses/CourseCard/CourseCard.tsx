@@ -22,7 +22,7 @@ const CourseCard = ({ course }: IProps) => (
         size="4em"
         style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
       />
-      <img src={course.src} alt="course" />
+      <img src={course.src} alt="course" style={{ width: '100px' }} />
     </div>
     <TextContainer>
       <h2>Deluing is the world best</h2>
@@ -36,13 +36,14 @@ export default CourseCard
 
 const CustomCard = styled.div`
   padding: 1rem;
-  max-width: 47rem;
+  max-width: 45rem;
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.8rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   margin-top: 2rem;
   transition: all 0.3s ease-in-out;
+  margin-bottom: 1.2rem;
   cursor: pointer;
   &:hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
@@ -50,7 +51,7 @@ const CustomCard = styled.div`
 
   & img {
     max-width: 100%;
-    width: 100% !important;
+    width: 800px !important;
     height: auto;
   }
 
