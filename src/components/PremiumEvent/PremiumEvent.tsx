@@ -24,7 +24,7 @@ export default function PremiumEvent(): ReactElement {
         setProgressWidth(200)
         break
       case windowSize <= 621 && windowSize > 450:
-        setProgressWidth(150)
+        setProgressWidth(120)
         break
       case windowSize <= 450:
         setProgressWidth(100)
