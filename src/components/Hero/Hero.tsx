@@ -74,7 +74,7 @@ const Title = styled.h2`
   font-size: 4.2rem;
   text-align: center;
   font-weight: bold;
-  width: 35%;
+  width: 40%;
 `
 
 export default Hero
