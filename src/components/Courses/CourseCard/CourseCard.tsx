@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { ThemeContext } from '../../../app/context/theme-context'
+import { useTheme } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
 import { Card } from '../../styled_components/Card'
 
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 const CourseCard = ({ course }: IProps) => {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
     <Card mode="row" smMode="column" gutter={2} p={2} maxWidth="45rem">

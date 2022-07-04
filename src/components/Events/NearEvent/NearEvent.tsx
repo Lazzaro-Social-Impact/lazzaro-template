@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Card } from '../../styled_components/Card'
 import Bookmark from '../../Bookmark/Bookmark'
-import { ThemeContext } from '../../../app/context/theme-context'
+import { useTheme } from '../../../app/context/theme-context'
 
 export default function NearEvent(): ReactElement {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
     <Card mode="column" smMode="column" maxWidth="40%" p={1}>

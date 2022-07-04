@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, } from 'react'
 import styled from 'styled-components'
-
 import { Typography } from 'antd'
-import { ThemeContext } from '../../../app/context/theme-context'
+import { useTheme } from '../../../app/context/theme-context'
 
 const { Text } = Typography
 interface ProjectProps {
@@ -11,7 +10,7 @@ interface ProjectProps {
 }
 
 export function Project({ text } : ProjectProps): ReactElement<ProjectProps> {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
     <ProjectCard>
