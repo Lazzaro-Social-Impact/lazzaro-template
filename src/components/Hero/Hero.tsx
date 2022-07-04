@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { ThemeContext } from '../../app/context/theme-context'
+import { useTheme } from '../../app/context/theme-context'
 
 function Hero() {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
   return (
     <>
-      <Header>
+      <Header id="hero">
         <Title>Help The Children in need</Title>
         <BtnGroup>
           <DonateButton>

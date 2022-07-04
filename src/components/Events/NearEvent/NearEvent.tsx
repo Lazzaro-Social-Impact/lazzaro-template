@@ -1,90 +1,77 @@
 /* eslint-disable max-len */
-import React, { ReactElement, useLayoutEffect } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import {
-  Card, Col, Row
-} from 'antd'
+import { Card } from '../../styled_components/Card'
+import Bookmark from '../../Bookmark/Bookmark'
+import { useTheme } from '../../../app/context/theme-context'
 
 export default function NearEvent(): ReactElement {
-  const { Meta } = Card
-  useLayoutEffect(() => {
-    const cardCover = document.querySelector('.ant-card')
-    const img = cardCover?.appendChild(document.createElement('img')) as HTMLImageElement
-    img?.setAttribute('src', './assets/img/premium.png')
+  const globalColor = useTheme()
 
-    const imgStyle = {
-      position: 'absolute',
-      top: '0',
-      right: '75px',
-      width: '50px',
-      height: '20px !important',
-      zIndex: '1',
-      objectFit: 'cover',
-    }
-
-    Object.assign(img.style, imgStyle)
-
-    return () => {
-      img?.remove()
-    }
-  }, [])
   return (
-    <CustomRow style={{ justifyContent: 'space-between', width: '100%' }}>
-      <Col md={12} sm={24}>
-        <CustomCard
-          hoverable
-          style={{ maxWidth: 630, marginInline: 'auto', padding: '24px' }}
-          cover={(
-            <img
-              alt="example"
-              src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            />
-                )}
-        >
-          <Meta
-            title="Deluling is the world best"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
-          />
+    <Card mode="column" smMode="column" maxWidth="40%" p={1}>
+      <div style={{ position: 'relative' }}>
+        <Bookmark color={globalColor} />
+        <Image
+          src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          alt="course"
+        />
+      </div>
 
-          <div style={{ marginTop: '1rem', textAlign: 'right' }}>
-            <Link to="/" style={{ borderBottom: '1px solid black', color: 'black' }}>
-              Read More
-            </Link>
-          </div>
-        </CustomCard>
-      </Col>
-
-    </CustomRow>
+      <TextContainer>
+        <h2>Deluing is the world best</h2>
+        <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
+        <CustomLink to="/">Read more</CustomLink>
+      </TextContainer>
+    </Card>
   )
 }
 
-const CustomCard = styled(Card)`
-  .ant-card-cover {
-    height: 250px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    img:first-child {
-      width: 100% !important;
-      max-width: 100% !important;
-    }
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1rem;
+  width: 100%;
+
+  h2 {
+    font-size: 1.6em;
+    font-weight: bold;
   }
 
-  .ant-card-body {
-    padding: 0 !important;
-    margin-top: 1.8rem;
-    .ant-card-meta .ant-card-meta-detail .ant-card-meta-title {
-      font-size: 1.4rem !important;
-      font-weight: bold !important;
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.3em;
+    }
+    p {
+      font-size: 1em;
     }
   }
 `
 
-const CustomRow = styled(Row)`
-width: 100% !important;
-.ant-col {
-    max-width: 100% !important;
-    flex: 1;
-}
+const Image = styled.img`
+  max-width: 100%;
+  height: 100%;
+  height: auto;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+`
+
+const CustomLink = styled(Link)`
+  border-bottom: 1px solid black;
+  color: black;
+  align-self: flex-end;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+  &:hover {
+    color: #5cb780;
+  }
 `

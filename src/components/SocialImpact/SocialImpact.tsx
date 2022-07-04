@@ -1,8 +1,8 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Typography } from 'antd'
 import ImpactPart from './ImpactPart/ImpactPart'
-import { ThemeContext } from '../../app/context/theme-context'
+import { useTheme } from '../../app/context/theme-context'
 
 const { Title } = Typography
 interface INumber {
@@ -33,7 +33,7 @@ const numbers: INumber[] = [
   },
 ]
 export default function SocialImpact(): ReactElement {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
 

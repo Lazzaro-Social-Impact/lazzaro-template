@@ -5,10 +5,10 @@ import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
 const items = [
-  { label: <NavLink to="/">About us</NavLink>, key: 'item-1' },
-  { label: <NavLink to="/">Projects</NavLink>, key: 'item-2' },
-  { label: <NavLink to="/">Events</NavLink>, key: 'item-3' },
-  { label: <NavLink to="/">Courses</NavLink>, key: 'item-4' },
+  { label: <a href="#about">About us</a>, key: 'item-1' },
+  { label: <a href="#projects">Projects</a>, key: 'item-2' },
+  { label: <a href="#events">Events</a>, key: 'item-3' },
+  { label: <a href="#courses">Courses</a>, key: 'item-4' },
   { label: <NavLink to="/">Contact</NavLink>, key: 'item-5' },
   { label: <NavLink to="/">Store</NavLink>, key: 'item-6' },
   { label: <NavLink to="/">Donate</NavLink>, key: 'item-7' },
@@ -33,8 +33,8 @@ function Navbar() {
 
   return (
     <NavBar style={{ background: navBarBackground }}>
-      <div className="logo">
-        <Link to="/">
+      <div style={{ padding: '0.5rem' }}>
+        <Link href="#hero">
           <Circle />
           Give
         </Link>
@@ -92,7 +92,7 @@ const Links = styled(Menu)`
   }
 `
 
-const Link = styled(NavLink)`
+const Link = styled.a`
   font-size: 30px;
   color: white;
   letter-spacing: 3px;

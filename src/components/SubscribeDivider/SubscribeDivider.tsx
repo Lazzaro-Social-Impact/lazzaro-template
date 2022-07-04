@@ -1,9 +1,9 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, } from 'react'
 import styled from 'styled-components'
-import { ThemeContext } from '../../app/context/theme-context'
+import { useTheme } from '../../app/context/theme-context'
 
 export default function SubscribeDivider(): ReactElement {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
     <SubscribeSection>

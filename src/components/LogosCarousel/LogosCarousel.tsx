@@ -1,8 +1,8 @@
-import React, { ReactElement, useContext, useId } from 'react'
+import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 import makeChunks from '../../app/utils/makeChunks'
-import { ThemeContext } from '../../app/context/theme-context'
+import { useTheme } from '../../app/context/theme-context'
 
 interface img {
   src: string;
@@ -11,7 +11,7 @@ interface img {
 }
 
 export default function LogosCarousel(): ReactElement {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
     src: './assets/img/Google.png',
@@ -21,8 +21,7 @@ export default function LogosCarousel(): ReactElement {
   return (
     <CustomCarousel
       style={{
-        backgroundColor:
-     globalColor
+        backgroundColor: globalColor,
       }}
       dots={false}
       autoplay
@@ -42,7 +41,6 @@ export default function LogosCarousel(): ReactElement {
 }
 
 const CustomCarousel = styled(Carousel)`
-;
   display: flex;
   justify-content: space-around;
   align-items: center;
