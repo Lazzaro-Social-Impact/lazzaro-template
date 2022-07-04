@@ -1,10 +1,8 @@
 import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components'
-import { Col, Typography, Row } from 'antd'
+import { Col, Row } from 'antd'
 import CalenderIcon from '../../CalenderIcon/CalenderIcon'
 import { ThemeContext } from '../../../app/context/theme-context'
-
-const { Title, Paragraph } = Typography
 
 export default function EventsRow(): ReactElement {
   const globalColor = useContext(ThemeContext)
@@ -16,10 +14,10 @@ export default function EventsRow(): ReactElement {
       </Col>
 
       <Col md={12} sm={24}>
-        <Title style={{ fontSize: '1.4em', fontWeight: 'bold' }}>Deluling is the world best</Title>
+        <Title>Deluling is the world best</Title>
         <Paragraph>
-          Lorem Ipsum is s galley of type and scrambled i printing and typing i and
-          industry.
+          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry, Lorem
+          Ipsum is s galley of type and scrambled
         </Paragraph>
       </Col>
     </Event>
@@ -36,5 +34,26 @@ const Event = styled(Row)`
     display: flex;
     justify-content: center;
     text-align: center;
+  }
+`
+const Title = styled.h2`
+  font-size: 1.6em;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    & {
+      font-size: 1.3em;
+    }
+  }
+`
+
+const Paragraph = styled.p`
+  font-size: 1.2em;
+  line-height: 1.5;
+
+  @media (max-width: 768px) {
+    & {
+      font-size: 1em;
+    }
   }
 `
