@@ -7,7 +7,7 @@ function Hero() {
   const globalColor = useContext(ThemeContext)
   return (
     <>
-      <Header>
+      <Header id="hero">
         <Title>Help The Children in need</Title>
         <BtnGroup>
           <DonateButton>

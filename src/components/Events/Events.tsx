@@ -13,7 +13,7 @@ function Events(): ReactElement {
   return (
     <>
       <SectionTitle>Events</SectionTitle>
-      <EventsSection>
+      <EventsSection id="events">
         <NearEvent />
         <EventsCol md={12} sm={24}>
           {[1, 2, 3].map((key) => (

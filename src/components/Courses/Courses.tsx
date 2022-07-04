@@ -25,7 +25,7 @@ function Courses(): ReactElement {
   }))
 
   return (
-    <CoursesSection>
+    <CoursesSection id="courses">
       <SectionTitle>Courses</SectionTitle>
       <CustomCarousel
         arrows

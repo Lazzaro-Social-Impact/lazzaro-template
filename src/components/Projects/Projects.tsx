@@ -22,7 +22,7 @@ const projects: IProject[] = [
 ]
 export default function Projects(): ReactElement {
   return (
-    <ProjectsSection>
+    <ProjectsSection id="projects">
       {projects.map((project: IProject) => (
         <Project key={project.key} text={project.text} />
       ))}
