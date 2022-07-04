@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ThemeContext } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
+import { Card } from '../../styled_components/Card'
 
 interface IProps {
   course: {
@@ -15,8 +16,9 @@ interface IProps {
 
 const CourseCard = ({ course }: IProps) => {
   const globalColor = useContext(ThemeContext)
+
   return (
-    <CustomCard>
+    <Card mode="row" smMode="column" gutter={2} p={2} maxWidth="45rem">
       <div style={{ position: 'relative' }}>
         <CalendarIcon
           date={course.date}
@@ -25,43 +27,18 @@ const CourseCard = ({ course }: IProps) => {
           size="4em"
           style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
         />
-        <img src={course.src} alt="course" style={{ width: '100px' }} />
+        <Image src={course.src} alt="course" />
       </div>
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
         <CustomLink to="/">Read more</CustomLink>
       </TextContainer>
-    </CustomCard>
+    </Card>
   )
 }
+
 export default CourseCard
-
-const CustomCard = styled.div`
-  padding: 1rem;
-  max-width: 45rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.8rem;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  margin-top: 2rem;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 1.2rem;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
-  }
-
-  & img {
-    max-width: 100%;
-    width: 800px !important;
-    height: auto;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`
 
 const TextContainer = styled.div`
   display: flex;
@@ -99,4 +76,10 @@ const CustomLink = styled(Link)`
   &:hover {
     color: #5cb780;
   }
+`
+
+const Image = styled.img`
+  max-width: 100%;
+  width: 800px !important;
+  height: auto;
 `
