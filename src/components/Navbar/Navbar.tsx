@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { Drawer, Grid, Menu } from 'antd'
 import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
@@ -18,13 +18,19 @@ const items = [
 function Navbar() {
   const [navBarBackground, setNavBarBackground] = useState<'none' | '#424242'>('none')
 
-  window.addEventListener('scroll', () => {
-    const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
-    const navbarHeight = 65
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', () => {
+      const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
+      const navbarHeight = 65
 
-    if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
-    else setNavBarBackground('none')
-  })
+      if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
+      else setNavBarBackground('none')
+    })
+
+    return () => window.removeEventListener('scroll', () => {
+      setNavBarBackground('none')
+    })
+  }, [])
 
   const [visible, setVisible] = useState<boolean>(false)
 
