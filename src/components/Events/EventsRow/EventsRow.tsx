@@ -1,11 +1,11 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Col, Row } from 'antd'
 import CalenderIcon from '../../CalenderIcon/CalenderIcon'
-import { ThemeContext } from '../../../app/context/theme-context'
+import { useTheme } from '../../../app/context/theme-context'
 
 export default function EventsRow(): ReactElement {
-  const globalColor = useContext(ThemeContext)
+  const globalColor = useTheme()
 
   return (
     <Event gutter={16}>
