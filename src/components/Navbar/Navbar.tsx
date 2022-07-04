@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useLayoutEffect, ReactElement } from 'react'
 import { Drawer, Grid, Menu } from 'antd'
 import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
@@ -15,7 +15,7 @@ const items = [
   { label: <NavLink to="/">Become a member</NavLink>, key: 'item-8' },
 ]
 
-function Navbar() {
+function Navbar(): ReactElement {
   const [navBarBackground, setNavBarBackground] = useState<'none' | '#424242'>('none')
 
   useLayoutEffect(() => {
