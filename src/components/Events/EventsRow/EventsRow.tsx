@@ -16,8 +16,7 @@ export default function EventsRow(): ReactElement {
       <Col md={12} sm={24}>
         <Title>Deluling is the world best</Title>
         <Paragraph>
-          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry, Lorem
-          Ipsum is s galley of type and scrambled
+          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
         </Paragraph>
       </Col>
     </Event>

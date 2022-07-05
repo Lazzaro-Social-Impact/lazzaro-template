@@ -42,7 +42,7 @@ const EventsSection = styled.section`
 const EventsCol = styled(Col)`
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 1.5rem;
   align-items: center;
   justify-content: space-around;
   max-width: 100% !important;

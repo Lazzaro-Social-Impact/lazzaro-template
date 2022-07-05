@@ -14,8 +14,9 @@ interface IProps {
 
 const Card = styled.div`
   max-width: 45rem;
+  height: fit-content;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: ${({ mode }: IProps) => mode};
   max-width: ${({ maxWidth }: IProps) => maxWidth};
   gap: 0.8rem;
