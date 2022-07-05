@@ -3,6 +3,7 @@ import React, { ReactElement, } from 'react'
 import styled from 'styled-components'
 import { Typography } from 'antd'
 import { useTheme } from '../../../app/context/theme-context'
+import { Button } from '../../common'
 
 const { Text } = Typography
 interface ProjectProps {
@@ -18,7 +19,7 @@ export function Project({ text } : ProjectProps): ReactElement<ProjectProps> {
       <Text>{text}</Text>
       <ProjectFooter>
         <a style={{ color: globalColor }}>Read more</a>
-        <DonateButton style={{ backgroundColor: globalColor }}>Donate</DonateButton>
+        <Button py={0.8} px={1.6} bgColor={globalColor}>Donate</Button>
       </ProjectFooter>
     </ProjectCard>
 
@@ -64,18 +65,4 @@ const ProjectFooter = styled.div`
     font-size: 1.2rem;
 
    }
-  `
-
-const DonateButton = styled.button`
-    color: white;
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
-    text-align: center;
-    border: none;
-    border-radius: 35px;
-    cursor: pointer;
-    font-weight: bold;
-    &:hover {
-        background-color: #5CB799;
-    }
   `

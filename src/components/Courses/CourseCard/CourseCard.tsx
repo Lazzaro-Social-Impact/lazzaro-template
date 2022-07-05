@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
-import { Card } from '../../styled_components/Card'
+import { Card } from '../../common/Card'
 
 interface IProps {
   course: {

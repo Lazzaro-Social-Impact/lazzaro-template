@@ -2,7 +2,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Card } from '../../styled_components/Card'
+import { Card } from '../../common/Card'
 import Bookmark from '../../Bookmark/Bookmark'
 import { useTheme } from '../../../app/context/theme-context'
 
