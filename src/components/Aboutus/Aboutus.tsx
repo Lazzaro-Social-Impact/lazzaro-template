@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
+import SectionTitle from '../common/SectionTitle'
 
 const { Paragraph, Text } = Typography
 
@@ -11,7 +12,7 @@ export default function AboutUs(): React.ReactElement {
   return (
     <AboutUsSection id="about">
       <LeftSection>
-        <AboutUsTitle>About us</AboutUsTitle>
+        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>About us</SectionTitle>
         <AboutUsDescription>
           {isReadMore ? (text) : (text.slice(0, 200))}
         </AboutUsDescription>
@@ -47,10 +48,6 @@ const ImageContainer = styled.div`
   align-items: flex-start;
 `
 
-const AboutUsTitle = styled.h1`
-font-size: 2.4rem;
-font-weight: bolder;
-`
 const AboutUsDescription = styled(Paragraph)`
 font-size: 1.2rem;
 padding-right: 2.8rem;

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
 import CourseCard from './CourseCard/CourseCard'
+import SectionTitle from '../common/SectionTitle'
 
 interface ICourse {
   src: string;
@@ -26,7 +27,7 @@ function Courses(): ReactElement {
 
   return (
     <CoursesSection id="courses">
-      <SectionTitle>Courses</SectionTitle>
+      <SectionTitle padding={0}>Courses</SectionTitle>
       <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
@@ -94,14 +95,6 @@ const Flex = styled.div`
   margin: 0 auto;
   align-items: center;
   position: relative;
-`
-
-const SectionTitle = styled(Typography.Title)`
-  margin-top: 0;
-  margin-bottom: 2.4rem;
-  font-size: 3.8rem !important;
-  font-weight: bold !important;
-
 `
 
 export default Courses

@@ -1,6 +1,7 @@
 import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
+import SectionTitle from '../common/SectionTitle'
 
 export default function PremiumEvent(): ReactElement {
   const [progressWidth, setProgressWidth] = useState<number>(250)
@@ -42,9 +43,13 @@ export default function PremiumEvent(): ReactElement {
     <PremiumEventSection>
       <EventDetails>
         <EventImage src="https://picsum.photos/200" alt="event" />
-        <EventTitle>
-          Sponsor an illed child
-        </EventTitle>
+        <SectionTitle
+          fontSize={3.2}
+          padding={0}
+          marginTop={0}
+          marginBottom={0}
+        >Sponsor an illed child
+        </SectionTitle>
         <EventDescription>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industrys standard dummy text ever since the 1500s and stuff
@@ -92,13 +97,6 @@ justify-content: space-between;
 gap: 1.2rem;
 width: 80%;
 height: 100%;
-`
-
-const EventTitle = styled.p`
-font-size: 3.2rem;
-font-weight: bold;
-line-height: 1.2;
-margin-bottom: 0;
 `
 
 const EventDescription = styled.p`
