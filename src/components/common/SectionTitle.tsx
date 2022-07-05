@@ -6,13 +6,13 @@ interface IProps {
     marginTop?: number;
     marginBottom?: number;
 }
-const SectionTitle = styled.p`
+const SectionTitle = styled.p<IProps>`
     margin-bottom: 2.4rem;
-    padding: 0 ${({ padding }: IProps) => padding}rem;
-    margin-top: ${({ marginTop }: IProps) => marginTop}rem;
+    padding: 0 ${({ padding }) => padding}rem;
+    margin-top: ${({ marginTop }) => marginTop}rem;
     font-weight: bold;
-    font-size: ${({ fontSize }: IProps) => `${fontSize}rem}`};
-    margin-bottom: ${({ marginBottom }: IProps) => marginBottom}rem;
+    font-size: ${({ fontSize }) => `${fontSize}rem}`};
+    margin-bottom: ${({ marginBottom }) => marginBottom}rem;
 `
 
 SectionTitle.defaultProps = {

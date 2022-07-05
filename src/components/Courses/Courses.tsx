@@ -38,13 +38,13 @@ function Courses(): ReactElement {
       >
         {[
           ...chunk(dummyCourses, 2).map((e: ICourse[]) => (
-            <>
+            <React.Fragment key={useId()}>
               {e.map((course: ICourse) => (
                 <Flex key={course.id}>
                   <CourseCard course={course} />
                 </Flex>
               ))}
-            </>
+            </React.Fragment>
           )),
         ]}
       </CustomCarousel>

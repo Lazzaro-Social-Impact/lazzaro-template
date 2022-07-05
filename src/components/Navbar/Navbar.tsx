@@ -9,10 +9,10 @@ const items = [
   { label: <a href="#projects">Projects</a>, key: 'item-2' },
   { label: <a href="#events">Events</a>, key: 'item-3' },
   { label: <a href="#courses">Courses</a>, key: 'item-4' },
-  { label: <NavLink to="/">Contact</NavLink>, key: 'item-5' },
-  { label: <NavLink to="/">Store</NavLink>, key: 'item-6' },
-  { label: <NavLink to="/">Donate</NavLink>, key: 'item-7' },
-  { label: <NavLink to="/">Become a member</NavLink>, key: 'item-8' },
+  { label: <NavLink to="/contact">Contact</NavLink>, key: 'item-5' },
+  { label: <NavLink to="/shop">Shop</NavLink>, key: 'item-6' },
+  { label: <NavLink to="/donate">Donate</NavLink>, key: 'item-7' },
+  { label: <NavLink to="/join">Become a member</NavLink>, key: 'item-8' },
 ]
 
 function Navbar(): ReactElement {

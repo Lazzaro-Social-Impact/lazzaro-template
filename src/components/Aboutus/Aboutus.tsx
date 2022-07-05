@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react'
+import React from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
 import { ReadMore, SectionTitle } from '../common'
@@ -9,20 +9,18 @@ const { Paragraph } = Typography
 
 export default function AboutUs(): React.ReactElement {
   const globalColor = useTheme()
-  const [isReadMore, setIsReadMore] = useState<boolean>(false)
   const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
   return (
     <AboutUsSection id="about">
       <LeftSection>
         <SectionTitle marginTop={0} padding={0} fontSize={2.4}>About us</SectionTitle>
         <AboutUsDescription>
-          {isReadMore ? (text) : (text.slice(0, 200))}
+          { text.slice(0, 200)}
         </AboutUsDescription>
         <ReadMore
           hoverColor={globalColor}
-          onClick={() => setIsReadMore(!isReadMore)}
           color="black"
-        >{isReadMore ? 'Show Less...' : 'Read More...'}
+        >Read more
         </ReadMore>
       </LeftSection>
       <ImageContainer>
@@ -56,7 +54,7 @@ const ImageContainer = styled.div`
 `
 
 const AboutUsDescription = styled(Paragraph)`
-font-size: 1.2rem;
+font-size: 1.1rem;
 padding-right: 2.8rem;
 color: #777;
 line-height: 1.8;
