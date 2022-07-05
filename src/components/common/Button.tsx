@@ -11,7 +11,6 @@ interface IProps {
   my?: number;
   fontSize?: number | 'initial' | 'inherit'
   weight?: string;
-  type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   radius?: number;
   hoverBgColor?: string;
@@ -59,7 +58,6 @@ Button.defaultProps = {
   my: 0,
   fontSize: 'inherit',
   weight: 'bold',
-  type: 'button',
   disabled: false,
   radius: 25,
   hoverColor: 'none',
