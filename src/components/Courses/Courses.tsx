@@ -81,12 +81,15 @@ const CustomCarousel = styled(Carousel)`
       background-color: rgb(92, 183, 128) !important;
     }
   }
+
+  @media (max-width: 768px) {
+    margin-inline: 0;
+  }
 `
 
 const CoursesSection = styled.section`
   padding: 0 4.1rem;
   margin-top: 4rem;
-  
 `
 const Flex = styled.div`
   display: flex !important;

@@ -30,7 +30,7 @@ html {
 
 @media screen and (max-width: 420px) {
   html {
-    font-size: 33.5%;
+    font-size: 62.5%;
   }
   .ant-carousel .slick-slide img {
     width: 65px;

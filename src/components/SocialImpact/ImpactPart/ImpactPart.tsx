@@ -28,7 +28,7 @@ color: #fff;
 line-height: 0; 
 
 @media screen and (max-width: 571px) {
-  font-size: 3.2rem;
+  font-size: 2.3rem;
 }
 `
 

@@ -11,8 +11,12 @@ function Hero() {
       <Header id="hero">
         <Title>Help The Children in need</Title>
         <BtnGroup>
-          <Button color="black" hoverColor="white" hoverBgColor={globalColor} py={0.6} px={1.6}>Donar</Button>
-          <Button bgColor={globalColor} py={0.6} px={1.9}>Become a member</Button>
+          <Button color="black" hoverColor="white" hoverBgColor={globalColor} py={0.6} px={1.6}>
+            Donar
+          </Button>
+          <Button bgColor={globalColor} py={0.6} px={1.9}>
+            Become a member
+          </Button>
         </BtnGroup>
       </Header>
     </>
@@ -29,6 +33,7 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 2.5rem;
   align-items: center;
 `
 
@@ -39,10 +44,14 @@ const BtnGroup = styled.div`
 
 const Title = styled.h2`
   color: white;
-  font-size: 4.2rem;
+  font-size: 2.5rem;
   text-align: center;
   font-weight: bold;
-  width: 40%;
+  width: 25%;
+
+  @media (max-width: 765px) {
+    width: 60%;
+  }
 `
 
 export default Hero
