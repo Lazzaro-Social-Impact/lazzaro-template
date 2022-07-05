@@ -12,13 +12,13 @@ interface IProps {
   p?: number;
 }
 
-const Card = styled.div`
+const Card = styled.div<IProps>`
   max-width: 45rem;
   height: fit-content;
   display: flex;
   justify-content: flex-start;
-  flex-direction: ${({ mode }: IProps) => mode};
-  max-width: ${({ maxWidth }: IProps) => maxWidth};
+  flex-direction: ${({ mode }) => mode};
+  max-width: ${({ maxWidth }) => maxWidth};
   gap: 0.8rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease-in-out;
@@ -33,7 +33,7 @@ const Card = styled.div`
   }
 
   @media (max-width: 768px) {
-    flex-direction: ${({ smMode }: IProps) => smMode};
+    flex-direction: ${({ smMode }) => smMode};
     max-width: 100%;
   }
 `
