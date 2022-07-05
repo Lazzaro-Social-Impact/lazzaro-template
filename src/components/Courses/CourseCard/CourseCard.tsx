@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
 import { Card } from '../../common/Card'
+import ReadMore from '../../common/ReadMore'
 
 interface IProps {
   course: {
@@ -32,7 +33,12 @@ const CourseCard = ({ course }: IProps) => {
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <CustomLink to="/">Read more</CustomLink>
+        <ReadMore
+          fontSize="0.8"
+          color="black"
+          style={{ alignSelf: 'flex-end' }}
+        >Read more
+        </ReadMore>
       </TextContainer>
     </Card>
   )
@@ -64,17 +70,6 @@ const TextContainer = styled.div`
     p {
       font-size: 1em;
     }
-  }
-`
-
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
-  align-self: flex-end;
-  width: fit-content;
-
-  &:hover {
-    color: #5cb780;
   }
 `
 

@@ -19,7 +19,6 @@ SectionTitle.defaultProps = {
   fontSize: 3.8,
   padding: 4.1,
   marginTop: 4.2,
-  marginBottom: 4.2,
 }
 
 export default SectionTitle

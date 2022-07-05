@@ -3,10 +3,13 @@ import React, { useState } from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
 import SectionTitle from '../common/SectionTitle'
+import ReadMore from '../common/ReadMore'
+import { useTheme } from '../../app/context/theme-context'
 
-const { Paragraph, Text } = Typography
+const { Paragraph } = Typography
 
 export default function AboutUs(): React.ReactElement {
+  const globalColor = useTheme()
   const [isReadMore, setIsReadMore] = useState<boolean>(false)
   const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
   return (
@@ -16,7 +19,12 @@ export default function AboutUs(): React.ReactElement {
         <AboutUsDescription>
           {isReadMore ? (text) : (text.slice(0, 200))}
         </AboutUsDescription>
-        <ReadMore onClick={() => setIsReadMore(!isReadMore)}>{isReadMore ? 'Show Less...' : 'Read More...'}</ReadMore>
+        <ReadMore
+          hoverColor={globalColor}
+          onClick={() => setIsReadMore(!isReadMore)}
+          color="black"
+        >{isReadMore ? 'Show Less...' : 'Read More...'}
+        </ReadMore>
       </LeftSection>
       <ImageContainer>
         <img
@@ -53,17 +61,4 @@ font-size: 1.2rem;
 padding-right: 2.8rem;
 color: #777;
 line-height: 1.8;
-`
-
-const ReadMore = styled(Text)`
-text-decoration: underline;
-cursor: pointer;
-align-self: flex-start;
-font-size: 1.2rem;
-margin-top: 1.2rem;
-padding-bottom: 3.2rem;
-color: #777;
- &:hover {
-    color: #000;
- }
 `

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Bookmark from '../../Bookmark/Bookmark'
 import { useTheme } from '../../../app/context/theme-context'
 import { Card } from '../../common/Card'
+import ReadMore from '../../common/ReadMore'
 
 export default function NearEvent(): ReactElement {
   const globalColor = useTheme()
@@ -22,7 +23,12 @@ export default function NearEvent(): ReactElement {
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <CustomLink to="/">Read more</CustomLink>
+        <ReadMore
+          fontSize="0.8"
+          color="black"
+          style={{ alignSelf: 'flex-end' }}
+        >Read more
+        </ReadMore>
       </TextContainer>
     </Card>
   )
@@ -62,16 +68,5 @@ const Image = styled.img`
   
   @media (max-width: 768px) {
     padding: 1rem;
-  }
-`
-
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
-  align-self: flex-end;
-  width: fit-content;
-  margin-bottom: 0.5rem;
-  &:hover {
-    color: #5cb780;
   }
 `
