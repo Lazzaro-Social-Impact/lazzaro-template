@@ -1,7 +1,7 @@
 import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
-import { ReadMore, SectionTitle } from '../common'
+import { ReadMore, SectionTitle, Button } from '../common'
 import { useTheme } from '../../app/context/theme-context'
 
 export default function PremiumEvent(): ReactElement {
@@ -52,8 +52,8 @@ export default function PremiumEvent(): ReactElement {
         >Sponsor an illed child
         </SectionTitle>
         <EventDescription>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industrys standard dummy text ever since the 1500s and stuff
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
         <ReadMore hoverColor={globalColor}>Read more</ReadMore>
       </EventDetails>
@@ -70,7 +70,7 @@ export default function PremiumEvent(): ReactElement {
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
-        <DonateButton>Donate Now</DonateButton>
+        <Button bgColor="#424242" fontSize={1.2} py={0.8} px={1.8}>Donate Now</Button>
       </EventDonationProgress>
     </PremiumEventSection>
   )
@@ -130,14 +130,4 @@ font-size: 1.4rem;
 font-weight: bold;
 text-decoration: none !important;
 transform: translateX(-50%);
-`
-const DonateButton = styled.button`
-color: white;
-text-align: center;
-background-color:#424242;
-padding: 0.8rem 1.8rem;
-font-weight: bold;
-border-radius: 35px;
-font-size: 1.2rem;
-cursor: pointer;
 `
