@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
-import { Card } from '../../common/Card'
-import ReadMore from '../../common/ReadMore'
+import { Card, ReadMore } from '../../common'
 
 interface IProps {
   course: {

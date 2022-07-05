@@ -1,8 +1,7 @@
 import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
-import SectionTitle from '../common/SectionTitle'
-import ReadMore from '../common/ReadMore'
+import { ReadMore, SectionTitle } from '../common'
 import { useTheme } from '../../app/context/theme-context'
 
 export default function PremiumEvent(): ReactElement {

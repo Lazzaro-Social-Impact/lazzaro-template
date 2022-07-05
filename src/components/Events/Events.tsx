@@ -4,7 +4,7 @@ import { Col } from 'antd'
 import styled from 'styled-components'
 import NearEvent from './NearEvent/NearEvent'
 import EventsRow from './EventsRow/EventsRow'
-import SectionTitle from '../common/SectionTitle'
+import { SectionTitle } from '../common'
 
 function Events(): ReactElement {
   return (

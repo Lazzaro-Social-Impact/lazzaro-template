@@ -2,8 +2,7 @@
 import React, { useState } from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
-import SectionTitle from '../common/SectionTitle'
-import ReadMore from '../common/ReadMore'
+import { ReadMore, SectionTitle } from '../common'
 import { useTheme } from '../../app/context/theme-context'
 
 const { Paragraph } = Typography

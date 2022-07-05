@@ -1,11 +1,9 @@
 /* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import Bookmark from '../../Bookmark/Bookmark'
 import { useTheme } from '../../../app/context/theme-context'
-import { Card } from '../../common/Card'
-import ReadMore from '../../common/ReadMore'
+import { Card, ReadMore } from '../../common'
 
 export default function NearEvent(): ReactElement {
   const globalColor = useTheme()

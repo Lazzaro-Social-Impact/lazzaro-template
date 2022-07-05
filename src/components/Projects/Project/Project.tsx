@@ -3,7 +3,7 @@ import React, { ReactElement, } from 'react'
 import styled from 'styled-components'
 import { Typography } from 'antd'
 import { useTheme } from '../../../app/context/theme-context'
-import ReadMore from '../../common/ReadMore'
+import { ReadMore } from '../../common'
 
 const { Text } = Typography
 interface ProjectProps {

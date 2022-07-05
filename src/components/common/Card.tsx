@@ -12,7 +12,7 @@ interface IProps {
   p?: number;
 }
 
-export const Card = styled.div`
+const Card = styled.div`
   max-width: 45rem;
   display: flex;
   justify-content: space-between;
@@ -45,3 +45,5 @@ Card.defaultProps = {
   py: 0,
   px: 0,
 }
+
+export default Card

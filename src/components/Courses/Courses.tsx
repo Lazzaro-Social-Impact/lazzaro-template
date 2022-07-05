@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import React, { ReactElement, useId } from 'react'
-import { Carousel, Typography } from 'antd'
+import { Carousel } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import makeChunks from '../../app/utils/makeChunks'
 import CourseCard from './CourseCard/CourseCard'
-import SectionTitle from '../common/SectionTitle'
+import { SectionTitle } from '../common'
 
 interface ICourse {
   src: string;
