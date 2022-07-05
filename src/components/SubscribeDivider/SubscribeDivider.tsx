@@ -8,8 +8,8 @@ export default function SubscribeDivider(): ReactElement {
 
   return (
     <SubscribeSection>
-      <SectionTitle>Colaboremos juntos para conseguirlo</SectionTitle>
-      <Button fontSize={1.2} py={0.8} px={2.8} bgColor={globalColor}>Inscríbete</Button>
+      <SectionTitle>Lets collaborate together </SectionTitle>
+      <Button fontSize={1.2} py={0.8} px={2.8} bgColor={globalColor}>Sign up</Button>
     </SubscribeSection>
   )
 }
@@ -27,7 +27,7 @@ const SubscribeSection = styled.section`
 const SectionTitle = styled.h1`
     font-size: 2.2rem;
     color: #fff;
-    width: 30%;
+    width: 25%;
     margin-bottom: 0;
     line-height: 1.4;
 `

@@ -1,7 +1,9 @@
 import {
   FacebookFilled,
+  GlobalOutlined,
   InstagramOutlined,
-  LinkedinOutlined,
+  LinkedinFilled,
+  MailFilled,
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
@@ -9,7 +11,7 @@ import {
   Col, Layout, Row, Typography
 } from 'antd'
 import React, { ReactElement } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../app/context/theme-context'
 
@@ -27,7 +29,7 @@ export default function Footer(): ReactElement {
           </Col>
 
           <Col md={8} sm={24}>
-            <Typography.Title style={{ color: 'white', fontSize: '2.8rem', fontWeight: 400 }}>
+            <Typography.Title style={{ color: 'white', fontSize: '2.8rem', fontWeight: 600 }}>
               How Can we Help? Contact us anytime
             </Typography.Title>
           </Col>
@@ -44,12 +46,12 @@ export default function Footer(): ReactElement {
             </Contact>
 
             <Contact>
-              <PhoneFilled style={{ color: `${globalColor}` }} />
+              <MailFilled style={{ color: `${globalColor}` }} />
               <Typography.Text style={{
                 color: 'white',
                 fontSize: '0.9rem'
               }}
-              >092312313
+              >exambple@gmail.com
               </Typography.Text>
             </Contact>
           </CustomCol>
@@ -57,15 +59,30 @@ export default function Footer(): ReactElement {
       </CustomFooter>
 
       <SubFooter>
-        <Typography.Paragraph style={{ color: '#969696', marginBottom: '0' }}>
-          Lorem Ipsum is simply dummy text
-        </Typography.Paragraph>
+        <FooterLeftSection>
 
+          <Typography.Paragraph style={{ color: '#969696', marginBottom: '0' }}>
+            Lorem Ipsum is simply dummy text
+          </Typography.Paragraph>
+
+          <RouterLink
+            to="/terms"
+            style={{
+              color: '#969696',
+              marginBottom: '0',
+              textDecoration: 'underline'
+            }}
+          >
+            Term and Conditions
+          </RouterLink>
+
+        </FooterLeftSection>
         <Icons>
           <FaceBookIcon />
           <TwitterOutlined style={{ color: '#fff', cursor: 'pointer' }} />
           <InstagramOutlined style={{ color: '#fff', cursor: 'pointer' }} />
-          <LinkedinOutlined style={{ color: '#fff', cursor: 'pointer' }} />
+          <LinkedinFilled style={{ color: '#fff', cursor: 'pointer' }} />
+          <GlobalOutlined style={{ color: '#fff', cursor: 'pointer' }} />
         </Icons>
       </SubFooter>
     </>
@@ -97,12 +114,12 @@ const Contact = styled.div`
   gap: 1rem;
   justify-content: start;
   margin-left: 1.2rem;
-  padding: 0.3rem;
+  padding: 0.8rem;
 `
 
 const Icons = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: flex-end;
   align-items: center;
   margin-right: 4rem;
@@ -122,6 +139,10 @@ const SubFooter = styled.div`
   align-content: center;
   justify-content: space-between;
   padding: 2em;
+
+  svg {
+    font-size: 1.1rem;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -150,4 +171,10 @@ const FaceBookIcon = styled(FacebookFilled)`
   border-radius: 50%;
   padding: 0.7rem;
   color: white;
+`
+
+const FooterLeftSection = styled.div`
+display: flex;
+flex-direction: column;
+gap: 0.8rem;
 `
