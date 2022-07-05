@@ -31,11 +31,8 @@ const CourseCard = ({ course }: IProps) => {
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <ReadMore
-          fontSize="0.8"
-          color="black"
-          style={{ alignSelf: 'flex-end' }}
-        >Read more
+        <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
+          Read more
         </ReadMore>
       </TextContainer>
     </Card>

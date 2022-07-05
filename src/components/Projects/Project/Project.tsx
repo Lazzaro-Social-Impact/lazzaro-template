@@ -19,11 +19,11 @@ export function Project({ text } : ProjectProps): ReactElement<ProjectProps> {
       <Text>{text}</Text>
       <ProjectFooter>
         <ReadMore
-          fontSize="0.9"
+          fontSize={1}
           color={globalColor}
         >Read more
         </ReadMore>
-        <Button py={0.8} px={1.6} bgColor={globalColor}>Donate</Button>
+        <Button py={0.8} px={1.6} fontSize={1.2} bgColor={globalColor}>Donate</Button>
       </ProjectFooter>
     </ProjectCard>
 
