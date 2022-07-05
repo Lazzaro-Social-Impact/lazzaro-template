@@ -44,7 +44,7 @@ export default function PremiumEvent(): ReactElement {
     <PremiumEventSection>
       <EventDetails>
         <EventImage src="https://picsum.photos/200" alt="event" />
-        <SectionTitle fontSize={2.2} padding={0} marginTop={0} marginBottom={0}>
+        <SectionTitle fontSize={2.8} padding={0} marginTop={0} marginBottom={0}>
           Sponsor an illed child
         </SectionTitle>
         <EventDescription>
@@ -66,7 +66,7 @@ export default function PremiumEvent(): ReactElement {
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
-        <Button bgColor="#424242" fontSize={1} py={0.6} px={0.6}>
+        <Button bgColor="#424242" fontSize={1} py={0.8} px={1.8}>
           Donate Now
         </Button>
       </EventDonationProgress>
@@ -87,6 +87,7 @@ const PremiumEventSection = styled.section`
     align-items: center;
     justify-content: center;
     padding: 0;
+    text-align: center;
 
     & > :first-child {
       text-align: center;
@@ -120,6 +121,11 @@ const EventDescription = styled.p`
   font-size: 1.2rem;
   margin-top: 1.4rem;
   padding-right: 4rem;
+
+  @media (max-width: 768px) {
+    padding-inline: 4.1rem;
+  }
+
 `
 const EventDonationProgress = styled.div`
   display: flex;

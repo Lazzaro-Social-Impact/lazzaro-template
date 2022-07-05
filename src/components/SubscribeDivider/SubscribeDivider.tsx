@@ -30,4 +30,9 @@ const SectionTitle = styled.h1`
     width: 25%;
     margin-bottom: 0;
     line-height: 1.4;
+
+    @media screen and (max-width: 768px) {
+      
+      width: 50%;
+    }
 `

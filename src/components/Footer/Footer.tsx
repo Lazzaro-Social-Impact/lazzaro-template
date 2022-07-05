@@ -78,7 +78,7 @@ export default function Footer(): ReactElement {
 
         </FooterLeftSection>
         <Icons>
-          <FaceBookIcon />
+          <FacebookFilled />
           <TwitterOutlined />
           <InstagramOutlined />
           <LinkedinFilled />
@@ -176,12 +176,6 @@ const CustomCol = styled(Col)`
   background-color: #2e2e2e;
   padding: 0.3rem;
   font-size: 1.5em;
-`
-
-const FaceBookIcon = styled(FacebookFilled)`
-  background-color: green;
-  border-radius: 50%;
-  padding: 0.7rem;
 `
 
 const FooterLeftSection = styled.div`
