@@ -63,9 +63,9 @@ export default function Footer(): ReactElement {
 
         <Icons>
           <FaceBookIcon />
-          <TwitterOutlined style={{ color: '#fff', cursor: 'pointer' }} />
-          <InstagramOutlined style={{ color: '#fff', cursor: 'pointer' }} />
-          <LinkedinOutlined style={{ color: '#fff', cursor: 'pointer' }} />
+          <TwitterOutlined />
+          <InstagramOutlined />
+          <LinkedinOutlined />
         </Icons>
       </SubFooter>
     </>
@@ -106,6 +106,18 @@ const Icons = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-right: 4rem;
+
+  span {
+    transition: all 0.3s ease-in-out;
+    color: white;
+    cursor: pointer;
+  }
+
+  span:hover {
+    background-color: green;
+    border-radius: 50%;
+    padding: 0.7rem;
+  }
 `
 
 const CustomFooter = styled(Layout.Footer)`
@@ -149,5 +161,4 @@ const FaceBookIcon = styled(FacebookFilled)`
   background-color: green;
   border-radius: 50%;
   padding: 0.7rem;
-  color: white;
 `
