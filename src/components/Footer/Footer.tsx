@@ -11,8 +11,10 @@ import {
 import React, { ReactElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { useTheme } from '../../app/context/theme-context'
 
 export default function Footer(): ReactElement {
+  const globalColor = useTheme()
   return (
     <>
       <CustomFooter>
@@ -25,14 +27,14 @@ export default function Footer(): ReactElement {
           </Col>
 
           <Col md={8} sm={24}>
-            <Typography.Title style={{ color: 'white', fontSize: '2.8rem' }}>
+            <Typography.Title style={{ color: 'white', fontSize: '2.8rem', fontWeight: 400 }}>
               How Can we Help? Contact us anytime
             </Typography.Title>
           </Col>
 
           <CustomCol md={5} sm={24}>
             <Contact>
-              <PhoneFilled color="green" style={{ color: 'green' }} />
+              <PhoneFilled style={{ color: `${globalColor}` }} />
               <Typography.Text style={{
                 color: 'white',
                 fontSize: '0.9rem'
@@ -42,7 +44,7 @@ export default function Footer(): ReactElement {
             </Contact>
 
             <Contact>
-              <PhoneFilled color="green" style={{ color: 'green' }} />
+              <PhoneFilled style={{ color: `${globalColor}` }} />
               <Typography.Text style={{
                 color: 'white',
                 fontSize: '0.9rem'
