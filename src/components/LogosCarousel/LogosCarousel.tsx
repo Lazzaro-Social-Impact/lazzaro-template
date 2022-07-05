@@ -1,7 +1,7 @@
 import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
-import makeChunks from '../../app/utils/makeChunks'
+import { chunk } from 'lodash'
 import { useTheme } from '../../app/context/theme-context'
 
 interface img {
@@ -28,9 +28,9 @@ export default function LogosCarousel(): ReactElement {
       autoplaySpeed={5000}
     >
       {[
-        ...makeChunks<img>(randomImagesArray, 4).map((chunk: img[]) => (
+        ...chunk<img>(randomImagesArray, 4).map((e: img[]) => (
           <ImageContainer key={useId()}>
-            {chunk.map((image: img) => (
+            {e.map((image: img) => (
               <img key={image.key} src={image.src} alt={image.alt} />
             ))}
           </ImageContainer>

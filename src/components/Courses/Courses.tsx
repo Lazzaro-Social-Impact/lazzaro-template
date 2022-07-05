@@ -3,7 +3,7 @@ import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import makeChunks from '../../app/utils/makeChunks'
+import { chunk } from 'lodash'
 import CourseCard from './CourseCard/CourseCard'
 import { SectionTitle } from '../common'
 
@@ -37,9 +37,9 @@ function Courses(): ReactElement {
         autoplaySpeed={5000}
       >
         {[
-          ...makeChunks(dummyCourses, 2).map((chunk: ICourse[]) => (
+          ...chunk(dummyCourses, 2).map((e: ICourse[]) => (
             <>
-              {chunk.map((course: ICourse) => (
+              {e.map((course: ICourse) => (
                 <Flex key={course.id}>
                   <CourseCard course={course} />
                 </Flex>
