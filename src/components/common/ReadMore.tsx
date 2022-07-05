@@ -1,19 +1,19 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 interface IProps {
     fontSize?: string | number;
     hoverColor?: string | undefined;
-    onClick?: () => void;
     color?: string;
 }
-const ReadMore = styled.a`
- font-size: ${({ fontSize }: IProps) => `${fontSize}rem`};
+const ReadMore = styled.a<IProps>`
+ font-size: ${({ fontSize }) => `${fontSize}rem`};
  text-decoration: underline;
  cursor: pointer;
  transition: all 0.2s ease-in-out;
-    color: ${({ color }: IProps) => color};
+    color: ${({ color }) => color};
  &:hover {
-        color: ${({ hoverColor }: IProps) => hoverColor};
+        color: ${({ hoverColor }) => hoverColor};
         text-decoration: underline;
  }
 `
