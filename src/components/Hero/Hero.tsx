@@ -14,7 +14,7 @@ function Hero() {
           <Button color="black" hoverColor="white" hoverBgColor={globalColor} py={0.6} px={1.6}>
             Donar
           </Button>
-          <Button bgColor={globalColor} py={0.6} px={1.9}>
+          <Button bgColor={globalColor} hoverBgColor="white" hoverColor="black" py={0.6} px={1.9}>
             Become a member
           </Button>
         </BtnGroup>

@@ -24,7 +24,7 @@ export default function Footer(): ReactElement {
           </Link>
         </div>
 
-        <SectionTitle fontSize={1.5}>
+        <SectionTitle fontSize={2.4}>
           How can we help? <br />
           Contact us anytime
         </SectionTitle>
@@ -66,7 +66,7 @@ const MainFooter = styled.footer`
   align-items: center;
   background: #000;
   color: white;
-  padding: 3rem 4.5rem;
+  padding: 1.2rem 4.5rem;
   text-align: center;
   font-weight: bold;
   letter-spacing: 0.1rem;
