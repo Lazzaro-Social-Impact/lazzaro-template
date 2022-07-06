@@ -21,7 +21,7 @@ function Navbar(): ReactElement {
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => {
       const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
-      const navbarHeight = 65
+      const navbarHeight = 160
 
       if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
       else setNavBarBackground('none')
@@ -32,7 +32,7 @@ function Navbar(): ReactElement {
     })
   }, [])
 
-  const [visible, setVisible] = useState<boolean>(false)
+  const [visible, setVisible] = useState(false)
 
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()

@@ -5,6 +5,7 @@ import {
   LinkedinFilled,
   MailFilled,
   PhoneFilled,
+  TwitterOutlined,
 } from '@ant-design/icons'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
@@ -47,9 +48,11 @@ export default function Footer(): ReactElement {
         </div>
 
         <Icons color={color}>
-          {[FacebookFilled, InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
-            <Icon />
-          ))}
+          {[FacebookFilled, InstagramOutlined, TwitterOutlined, LinkedinFilled, GlobalOutlined].map(
+            (Icon) => (
+              <Icon />
+            )
+          )}
         </Icons>
       </SubFooter>
     </>
