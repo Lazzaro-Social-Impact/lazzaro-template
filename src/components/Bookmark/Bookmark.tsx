@@ -41,7 +41,6 @@ const Bookmark: FC<IProps> = ({ color, style }) => (
 const Wrapper = styled.div`
   width: 100px;
   position: absolute;
-  top: -1rem;
   right: 2.3rem;
 `
 
