@@ -42,6 +42,7 @@ const Volunteer = styled.div`
     svg {
       font-size: 1.8rem;
     }
+
 `
 
 const VolunteerImage = styled.img`
