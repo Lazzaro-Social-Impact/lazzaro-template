@@ -4,6 +4,13 @@ import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
+type Ttransparent = boolean | undefined
+type Tposition = 'sticky' | 'absolute' | 'fixed' | 'relative' | 'static' | undefined
+interface IProps {
+  transparent?: Ttransparent
+  position?: Tposition
+}
+
 const items = [
   { label: <a href="#about">About us</a>, key: 'item-1' },
   { label: <a href="#projects">Projects</a>, key: 'item-2' },
@@ -15,20 +22,21 @@ const items = [
   { label: <NavLink to="/join">Become a member</NavLink>, key: 'item-8' },
 ]
 
-function Navbar(): ReactElement {
-  const [navBarBackground, setNavBarBackground] = useState<'none' | '#424242'>('none')
+function Navbar({ transparent, position }: IProps): ReactElement<IProps> {
+  const [navBarBackground, setNavBarBackground] = useState<Ttransparent>(transparent)
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => {
       const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
       const navbarHeight = 65
-
-      if (currentHeight > screenHeight - navbarHeight) setNavBarBackground('#424242')
-      else setNavBarBackground('none')
+      if (transparent) {
+        if (currentHeight > screenHeight - navbarHeight) setNavBarBackground(false)
+        else setNavBarBackground(true)
+      }
     })
 
     return () => window.removeEventListener('scroll', () => {
-      setNavBarBackground('none')
+      setNavBarBackground(true)
     })
   }, [])
 
@@ -38,7 +46,7 @@ function Navbar(): ReactElement {
   const { md } = useBreakpoint()
 
   return (
-    <NavBar style={{ background: navBarBackground }}>
+    <NavBar style={{ background: navBarBackground ? 'none' : '#424242' }} position={position}>
       <div style={{ padding: '0.5rem' }}>
         <Link href="#hero">
           <Circle />
@@ -57,13 +65,13 @@ function Navbar(): ReactElement {
   )
 }
 
-const NavBar = styled.nav`
+const NavBar = styled.nav<{ position: Tposition }>`
   display: flex;
   justify-content: space-between;
   padding: 1rem 4.1rem;
   border-bottom: 1px solid #ccc;
   align-items: center;
-  position: fixed;
+  position: ${({ position }) => position};
   width: 100%;
   border-bottom: none;
   z-index: 99;
@@ -103,5 +111,11 @@ const Link = styled.a`
   color: white;
   letter-spacing: 3px;
   position: relative;
+
 `
+
+Navbar.defaultProps = {
+  transparent: false,
+  position: 'static'
+}
 export default Navbar
