@@ -1,21 +1,27 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react'
+import React from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
+import { ReadMore, SectionTitle } from '../common'
+import { useTheme } from '../../app/context/theme-context'
 
-const { Paragraph, Text } = Typography
+const { Paragraph } = Typography
 
 export default function AboutUs(): React.ReactElement {
-  const [isReadMore, setIsReadMore] = useState<boolean>(false)
+  const globalColor = useTheme()
   const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
   return (
     <AboutUsSection id="about">
       <LeftSection>
-        <AboutUsTitle>About us</AboutUsTitle>
+        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>About us</SectionTitle>
         <AboutUsDescription>
-          {isReadMore ? (text) : (text.slice(0, 200))}
+          { text.slice(0, 200)}
         </AboutUsDescription>
-        <ReadMore onClick={() => setIsReadMore(!isReadMore)}>{isReadMore ? 'Show Less...' : 'Read More...'}</ReadMore>
+        <ReadMore
+          hoverColor={globalColor}
+          color="black"
+        >Read more
+        </ReadMore>
       </LeftSection>
       <ImageContainer>
         <img
@@ -47,26 +53,9 @@ const ImageContainer = styled.div`
   align-items: flex-start;
 `
 
-const AboutUsTitle = styled.h1`
-font-size: 2.4rem;
-font-weight: bolder;
-`
 const AboutUsDescription = styled(Paragraph)`
-font-size: 1.2rem;
+font-size: 1.1rem;
 padding-right: 2.8rem;
 color: #777;
 line-height: 1.8;
-`
-
-const ReadMore = styled(Text)`
-text-decoration: underline;
-cursor: pointer;
-align-self: flex-start;
-font-size: 1.2rem;
-margin-top: 1.2rem;
-padding-bottom: 3.2rem;
-color: #777;
- &:hover {
-    color: #000;
- }
 `

@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
 import CalendarIcon from '../../CalenderIcon/CalenderIcon'
-import { Card } from '../../styled_components/Card'
+import { Card, ReadMore } from '../../common'
 
 interface IProps {
   course: {
@@ -18,21 +17,23 @@ const CourseCard = ({ course }: IProps) => {
   const globalColor = useTheme()
 
   return (
-    <Card mode="row" smMode="column" gutter={2} p={2} maxWidth="45rem">
+    <Card mode="row" smMode="column" my={2} p="1.5rem" maxWidth="45rem">
       <div style={{ position: 'relative' }}>
         <CalendarIcon
           date={course.date}
           type="filled"
           color={globalColor}
           size="4em"
-          style={{ position: 'absolute', top: '-0.5rem', right: '0.3rem' }}
+          style={{ position: 'absolute', top: '-0.3rem', right: '1.5rem' }}
         />
         <Image src={course.src} alt="course" />
       </div>
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <CustomLink to="/">Read more</CustomLink>
+        <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
+          Read more
+        </ReadMore>
       </TextContainer>
     </Card>
   )
@@ -64,17 +65,6 @@ const TextContainer = styled.div`
     p {
       font-size: 1em;
     }
-  }
-`
-
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
-  align-self: flex-end;
-  width: fit-content;
-
-  &:hover {
-    color: #5cb780;
   }
 `
 

@@ -2,7 +2,7 @@
 import React, { ReactElement, useId } from 'react'
 import styled from 'styled-components'
 import { Carousel } from 'antd'
-import makeChunks from '../../app/utils/makeChunks'
+import { chunk } from 'lodash'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 
 export default function Volunteers(): ReactElement {
@@ -29,9 +29,9 @@ export default function Volunteers(): ReactElement {
     <VolunteersSection>
       <SectionTitle>Our Volunteers</SectionTitle>
       <CustomCarousel autoplay>
-        {[...makeChunks<card>(randomImagesArray, 3).map((chunk: card[]) => (
+        {[...chunk<card>(randomImagesArray, 3).map((e: card[]) => (
           <VolunteerCards key={useId()}>
-            {chunk.map((image: card) => (
+            {e.map((image: card) => (
               <VolunteerCard {...image} />
             ))}
           </VolunteerCards>

@@ -1,16 +1,15 @@
 /* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { Card } from '../../styled_components/Card'
 import Bookmark from '../../Bookmark/Bookmark'
 import { useTheme } from '../../../app/context/theme-context'
+import { Card, ReadMore } from '../../common'
 
 export default function NearEvent(): ReactElement {
   const globalColor = useTheme()
 
   return (
-    <Card mode="column" smMode="column" maxWidth="40%" p={1}>
+    <Card mode="column" smMode="column" maxWidth="40%" p="1rem">
       <div style={{ position: 'relative' }}>
         <Bookmark color={globalColor} />
         <Image
@@ -22,7 +21,9 @@ export default function NearEvent(): ReactElement {
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <CustomLink to="/">Read more</CustomLink>
+        <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
+          Read more
+        </ReadMore>
       </TextContainer>
     </Card>
   )
@@ -59,19 +60,8 @@ const Image = styled.img`
   max-width: 100%;
   height: 100%;
   height: auto;
-  
+
   @media (max-width: 768px) {
     padding: 1rem;
-  }
-`
-
-const CustomLink = styled(Link)`
-  border-bottom: 1px solid black;
-  color: black;
-  align-self: flex-end;
-  width: fit-content;
-  margin-bottom: 0.5rem;
-  &:hover {
-    color: #5cb780;
   }
 `

@@ -16,8 +16,7 @@ export default function EventsRow(): ReactElement {
       <Col md={12} sm={24}>
         <Title>Deluling is the world best</Title>
         <Paragraph>
-          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry, Lorem
-          Ipsum is s galley of type and scrambled
+          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
         </Paragraph>
       </Col>
     </Event>
@@ -40,20 +39,20 @@ const Title = styled.h2`
   font-size: 1.6em;
   font-weight: bold;
 
-  @media (max-width: 768px) {
+  @media (max-width: 769px) {
     & {
-      font-size: 1.3em;
+      font-size: 1.8rem;
     }
   }
 `
 
 const Paragraph = styled.p`
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 1.5;
 
   @media (max-width: 768px) {
     & {
-      font-size: 1em;
+      font-size: 1.2rem;
     }
   }
 `

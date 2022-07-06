@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
 import React, { ReactElement, useId } from 'react'
-import { Carousel, Typography } from 'antd'
+import { Carousel } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import makeChunks from '../../app/utils/makeChunks'
+import { chunk } from 'lodash'
 import CourseCard from './CourseCard/CourseCard'
+import { SectionTitle } from '../common'
 
 interface ICourse {
   src: string;
@@ -26,7 +27,7 @@ function Courses(): ReactElement {
 
   return (
     <CoursesSection id="courses">
-      <SectionTitle>Courses</SectionTitle>
+      <SectionTitle padding={0}>Courses</SectionTitle>
       <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
@@ -36,14 +37,14 @@ function Courses(): ReactElement {
         autoplaySpeed={5000}
       >
         {[
-          ...makeChunks(dummyCourses, 2).map((chunk: ICourse[]) => (
-            <>
-              {chunk.map((course: ICourse) => (
+          ...chunk(dummyCourses, 2).map((e: ICourse[]) => (
+            <React.Fragment key={useId()}>
+              {e.map((course: ICourse) => (
                 <Flex key={course.id}>
                   <CourseCard course={course} />
                 </Flex>
               ))}
-            </>
+            </React.Fragment>
           )),
         ]}
       </CustomCarousel>
@@ -80,12 +81,15 @@ const CustomCarousel = styled(Carousel)`
       background-color: rgb(92, 183, 128) !important;
     }
   }
+
+  @media (max-width: 768px) {
+    margin-inline: 0;
+  }
 `
 
 const CoursesSection = styled.section`
   padding: 0 4.1rem;
   margin-top: 4rem;
-  
 `
 const Flex = styled.div`
   display: flex !important;
@@ -94,14 +98,6 @@ const Flex = styled.div`
   margin: 0 auto;
   align-items: center;
   position: relative;
-`
-
-const SectionTitle = styled(Typography.Title)`
-  margin-top: 0;
-  margin-bottom: 2.4rem;
-  font-size: 3.8rem !important;
-  font-weight: bold !important;
-
 `
 
 export default Courses

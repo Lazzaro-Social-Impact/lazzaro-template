@@ -1,11 +1,13 @@
 import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
+import { ReadMore, SectionTitle, Button } from '../common'
+import { useTheme } from '../../app/context/theme-context'
 
 export default function PremiumEvent(): ReactElement {
   const [progressWidth, setProgressWidth] = useState<number>(250)
   const [windowSize, setWindowSize] = useState<number>(window.outerWidth)
-
+  const globalColor = useTheme()
   // Watch for window resize (width)
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -42,14 +44,14 @@ export default function PremiumEvent(): ReactElement {
     <PremiumEventSection>
       <EventDetails>
         <EventImage src="https://picsum.photos/200" alt="event" />
-        <EventTitle>
+        <SectionTitle fontSize={2.8} padding={0} marginTop={0} marginBottom={0}>
           Sponsor an illed child
-        </EventTitle>
+        </SectionTitle>
         <EventDescription>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industrys standard dummy text ever since the 1500s and stuff
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
-        <p>Read more...</p>
+        <ReadMore hoverColor={globalColor}>Read more</ReadMore>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
@@ -64,84 +66,91 @@ export default function PremiumEvent(): ReactElement {
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
-        <DonateButton>Donate Now</DonateButton>
+        <Button bgColor="#424242" fontSize={1} py={0.8} px={1.8}>
+          Donate Now
+        </Button>
       </EventDonationProgress>
     </PremiumEventSection>
   )
 }
 
 const PremiumEventSection = styled.section`
-display: flex;
-justify-content: space-between;
-padding: 0 4.1rem;
-align-items: flex-start;
-margin: 3.8rem 0;
-p:last-child {
-    color: #777;
-    text-decoration: underline;
-}
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4.1rem;
+  gap: 4rem;
+  align-items: flex-start;
+  margin-block: 3rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    text-align: center;
+
+    & > :first-child {
+      text-align: center;
+
+      img {
+        align-self: center;
+      }
+    }
+
+    & > :last-child {
+      text-align: center;
+      padding: 0;
+    }
+  }
 `
 const EventImage = styled.img`
-width: 50px;
+  width: 50px;
 `
 
 const EventDetails = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-gap: 1.2rem;
-width: 80%;
-height: 100%;
-`
-
-const EventTitle = styled.p`
-font-size: 3.2rem;
-font-weight: bold;
-line-height: 1.2;
-margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.2rem;
+  height: 100%;
 `
 
 const EventDescription = styled.p`
-color: #777;
-line-height: 1.8;
-font-size: 1.2rem;
-margin-top: 1.4rem;
+  color: #777;
+  line-height: 1.8;
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
+  padding-right: 4rem;
+
+  @media (max-width: 768px) {
+    padding-inline: 4.1rem;
+  }
+
 `
 const EventDonationProgress = styled.div`
-display: flex;
-flex-direction: column;
-gap: 3.8rem;
-align-items: center;
-width:50%;
-height: 100%;
-padding-left: 18.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.8rem;
+  align-items: center;
+  height: 100%;
+  padding-left: 9.2rem;
 `
 const ProgressContainer = styled.div`
-position: relative;
+  position: relative;
 `
 const CustomProgress = styled(Progress)`
-.ant-progress-inner{
+  .ant-progress-inner {
     font-weight: bold;
-}
+  }
 `
 const Donated = styled.p`
-position: absolute;
-bottom: 4.2rem;
-color: #5CB780 !important;
-left: 50%;
-bottom: 12%;
-font-size: 1.4rem;
-font-weight: bold;
-text-decoration: none !important;
-transform: translateX(-50%);
-`
-const DonateButton = styled.button`
-color: white;
-text-align: center;
-background-color:#424242;
-padding: 0.8rem 1.8rem;
-font-weight: bold;
-border-radius: 35px;
-font-size: 1.2rem;
-cursor: pointer;
+  position: absolute;
+  bottom: 4.2rem;
+  color: #5cb780 !important;
+  left: 50%;
+  bottom: 12%;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none !important;
+  transform: translateX(-50%);
 `

@@ -55,7 +55,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 4.2rem;
-padding: 0 8.2rem;
+padding: 0 5.2rem;
 `
 
 const SectionTitle = styled(Title)`
