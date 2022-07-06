@@ -17,14 +17,14 @@ const CourseCard = ({ course }: IProps) => {
   const globalColor = useTheme()
 
   return (
-    <Card mode="row" smMode="column" gutter={2} p={1.5} maxWidth="45rem">
+    <Card mode="row" smMode="column" my={2} p="1.5rem" maxWidth="45rem">
       <div style={{ position: 'relative' }}>
         <CalendarIcon
           date={course.date}
           type="filled"
           color={globalColor}
           size="4em"
-          style={{ position: 'absolute', top: '-2.2rem', right: '0.3rem' }}
+          style={{ position: 'absolute', top: '-0.3rem', right: '1.5rem' }}
         />
         <Image src={course.src} alt="course" />
       </div>

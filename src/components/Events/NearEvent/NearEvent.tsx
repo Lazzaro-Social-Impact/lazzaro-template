@@ -9,7 +9,7 @@ export default function NearEvent(): ReactElement {
   const globalColor = useTheme()
 
   return (
-    <Card mode="column" smMode="column" maxWidth="40%" p={1}>
+    <Card mode="column" smMode="column" maxWidth="40%" p="1rem">
       <div style={{ position: 'relative' }}>
         <Bookmark color={globalColor} />
         <Image
