@@ -5,6 +5,7 @@ import {
   LinkedinFilled,
   MailFilled,
   PhoneFilled,
+  TwitterOutlined,
 } from '@ant-design/icons'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
@@ -23,7 +24,7 @@ export default function Footer(): ReactElement {
           </Link>
         </div>
 
-        <SectionTitle fontSize={1.5}>
+        <SectionTitle fontSize={2.4}>
           How can we help? <br />
           Contact us anytime
         </SectionTitle>
@@ -47,8 +48,9 @@ export default function Footer(): ReactElement {
         </div>
 
         <Icons color={color}>
-          {[FacebookFilled, InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
-            <Icon />
+          {[FacebookFilled, TwitterOutlined,
+            InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
+              <Icon />
           ))}
         </Icons>
       </SubFooter>
@@ -63,7 +65,7 @@ const MainFooter = styled.footer`
   align-items: center;
   background: #000;
   color: white;
-  padding: 3rem 4.5rem;
+  padding: 1.2rem 4.5rem;
   text-align: center;
   font-weight: bold;
   letter-spacing: 0.1rem;
