@@ -5,187 +5,164 @@ import {
   LinkedinFilled,
   MailFilled,
   PhoneFilled,
-  TwitterOutlined,
 } from '@ant-design/icons'
-import {
-  Col, Layout, Row, Typography
-} from 'antd'
 import React, { ReactElement } from 'react'
-import { NavLink, Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { SectionTitle } from '../common'
 import { useTheme } from '../../app/context/theme-context'
 
 export default function Footer(): ReactElement {
-  const globalColor = useTheme()
+  const color = useTheme()
   return (
     <>
-      <CustomFooter>
-        <CustomRow>
-          <Col md={6} sm={24}>
-            <div style={{ position: 'relative' }}>
-              <Circle />
-              <Link to="/">Give</Link>
-            </div>
-          </Col>
+      <MainFooter>
+        <div style={{ padding: '0.5rem' }}>
+          <Link href="#hero" fontSize={1.8}>
+            Give
+            <Circle />
+          </Link>
+        </div>
 
-          <Col md={8} sm={24}>
-            <Typography.Title style={{ color: 'white', fontSize: '2.8rem', fontWeight: 600 }}>
-              How Can we Help? Contact us anytime
-            </Typography.Title>
-          </Col>
+        <SectionTitle fontSize={1.5}>
+          How can we help? <br />
+          Contact us anytime
+        </SectionTitle>
 
-          <CustomCol md={5} sm={24}>
-            <Contact>
-              <PhoneFilled style={{ color: `${globalColor}` }} />
-              <Typography.Text style={{
-                color: 'white',
-                fontSize: '0.9rem'
-              }}
-              >092312313
-              </Typography.Text>
+        <ContactInfo>
+          {[PhoneFilled, MailFilled].map((Icon) => (
+            <Contact color={color}>
+              <Icon />
+              <Link href="tel:+1-844-844-8444">+1-844-844-8444</Link>
             </Contact>
-
-            <Contact>
-              <MailFilled style={{ color: `${globalColor}` }} />
-              <Typography.Text style={{
-                color: 'white',
-                fontSize: '0.9rem'
-              }}
-              >exambple@gmail.com
-              </Typography.Text>
-            </Contact>
-          </CustomCol>
-        </CustomRow>
-      </CustomFooter>
+          ))}
+        </ContactInfo>
+      </MainFooter>
 
       <SubFooter>
-        <FooterLeftSection>
+        <div>
+          <p>lorem ipsum is simply a dummy test</p>
+          <Link underlined color="#969696">
+            Terms and conditions
+          </Link>
+        </div>
 
-          <Typography.Paragraph style={{ color: '#969696', marginBottom: '0' }}>
-            Lorem Ipsum is simply dummy text
-          </Typography.Paragraph>
-
-          <RouterLink
-            to="/terms"
-            style={{
-              color: '#969696',
-              marginBottom: '0',
-              textDecoration: 'underline'
-            }}
-          >
-            Term and Conditions
-          </RouterLink>
-
-        </FooterLeftSection>
-        <Icons>
-          <FaceBookIcon />
-          <TwitterOutlined />
-          <InstagramOutlined />
-          <LinkedinFilled />
-          <GlobalOutlined />
+        <Icons color={color}>
+          {[FacebookFilled, InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
+            <Icon />
+          ))}
         </Icons>
       </SubFooter>
     </>
   )
 }
 
-const Link = styled(NavLink)`
-  font-size: 30px;
+const MainFooter = styled.footer`
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
   color: white;
+  padding: 3rem 4.5rem;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  position: relative;
+  bottom: 0;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-tart;
+    padding: 3rem;
+  }
+`
+
+const Link = styled.a<{ fontSize?: number; color?: string; underlined?: boolean }>`
+  font-size: ${({ fontSize }) => fontSize}rem;
+  color: ${({ color = 'white' }) => color};
   letter-spacing: 3px;
   position: relative;
-  z-index: 211;
+  text-decoration: ${({ underlined }) => underlined && 'underline'};
 `
 
 const Circle = styled.span`
   position: absolute;
-  width: 4em;
-  z-index: 1;
+  z-index: -1;
+  width: 2em;
   background-color: #5cb780;
   border-radius: 50%;
-  height: 4em;
-  left: -1.4em;
-  top: -0.2em;
+  height: 2em;
+  left: -25%;
+  top: -30%;
 `
 
-const Contact = styled.div`
+const ContactInfo = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 1rem;
-  justify-content: start;
-  margin-left: 1.2rem;
-  padding: 0.8rem;
-`
+  background: #424242;
+  padding-block: 1.5rem;
+  padding-inline: 1.5rem 6rem;
 
-const Icons = styled.div`
+  @media (max-width: 768px) {
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+  }
+`
+const Contact = styled.div<{ color: string }>`
   display: flex;
-  gap: 1.2rem;
-  justify-content: flex-end;
   align-items: center;
-  margin-right: 4rem;
+  gap: 0.6rem;
+  color: white;
 
   span {
-    transition: all 0.3s ease-in-out;
-    color: white;
+    color: ${({ color }) => color};
     cursor: pointer;
   }
-
-  span:hover {
-    background-color: green;
-    border-radius: 50%;
-    padding: 0.7rem;
-  }
-`
-
-const CustomFooter = styled(Layout.Footer)`
-  background-color: #424242;
-  margin-top: 4rem;
-  color: white;
-  padding: 3.2rem 4.1rem;
 `
 
 const SubFooter = styled.div`
-  background-color: #0e0e0e;
   display: flex;
-  align-items: center;
-  align-content: center;
+  background-color: #2e2e2e;
   justify-content: space-between;
-  padding: 2em;
-
-  svg {
-    font-size: 1.1rem;
-  }
+  align-items: center;
+  padding: 2rem 4rem;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  width: 100%;
+  border-bottom: none;
+  z-index: 99;
+  transition: all 0.4s ease;
+  color: #969696;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
+    text-align: center;
   }
 `
-
-const CustomRow = styled(Row)`
-  align-items: center;
-  gap: 5rem;
-  justify-content: center;
-  align-content: center;
-`
-
-const CustomCol = styled(Col)`
+const Icons = styled.div<{ color: string }>`
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #2e2e2e;
-  padding: 0.3rem;
-  font-size: 1.5em;
-`
-
-const FaceBookIcon = styled(FacebookFilled)`
-  background-color: green;
+  gap: 1.2rem;
   border-radius: 50%;
   padding: 0.7rem;
-`
 
-const FooterLeftSection = styled.div`
-display: flex;
-flex-direction: column;
-gap: 0.8rem;
+  span:first-child {
+    background-color: ${({ color }) => color};
+  }
+
+  span {
+    border-radius: 50%;
+    padding: 0.7rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  span:hover {
+    background-color: ${({ color }) => color};
+    transform: scale(1.2);
+  }
 `
