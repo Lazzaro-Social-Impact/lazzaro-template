@@ -1,17 +1,17 @@
 import React from 'react'
-import { Footer, Navbar } from './components'
-
+import { Route, Routes } from 'react-router-dom'
 import 'antd/dist/antd.min.css'
-import { Landing } from './views'
+import { Aboutus, Landing } from './views'
 import './App.css'
 import ThemeProvider from './app/context/theme-context'
 
 function App() {
   return (
     <ThemeProvider>
-      <Navbar />
-      <Landing />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/about" element={<Aboutus />} />
+      </Routes>
     </ThemeProvider>
   )
 }
