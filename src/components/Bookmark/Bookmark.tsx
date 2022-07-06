@@ -42,6 +42,10 @@ const Wrapper = styled.div`
   width: 100px;
   position: absolute;
   right: 2.3rem;
+
+  @media (max-width: 565px) {
+    width: 65px;
+  }
 `
 
 Bookmark.defaultProps = {
