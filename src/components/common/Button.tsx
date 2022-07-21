@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import type {
+  TBgColor, TFontSize, TWeight, TColor
+} from './CssPropertiesTypes'
 
 interface IProps {
   color?: string;
@@ -9,12 +12,12 @@ interface IProps {
   m?: number;
   mx?: number;
   my?: number;
-  fontSize?: number | 'initial' | 'inherit'
-  weight?: string;
+  fontSize?: TFontSize;
+  weight?: TWeight;
   disabled?: boolean;
   radius?: number;
-  hoverBgColor?: string;
-  hoverColor?: string;
+  hoverBgColor?: TBgColor;
+  hoverColor?: TColor;
 }
 
 const Button = styled.button<IProps>`
@@ -61,7 +64,7 @@ Button.defaultProps = {
   disabled: false,
   radius: 25,
   hoverColor: 'none',
-  hoverBgColor: 'none'
+  hoverBgColor: 'none',
 }
 
 export default Button

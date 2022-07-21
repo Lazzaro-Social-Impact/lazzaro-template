@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import type { TFontSize, TColor } from './CssPropertiesTypes'
 
 interface IProps {
-  fontSize?: number | 'initial' | 'inherit';
-  hoverColor?: string | undefined;
-  color?: string;
+  fontSize?: TFontSize;
+  hoverColor?: TColor;
+  color?: TColor;
 }
 const ReadMore = styled.a<IProps>`
   font-size: ${({ fontSize }) => (typeof fontSize === 'string' ? fontSize : `${fontSize}rem`)};

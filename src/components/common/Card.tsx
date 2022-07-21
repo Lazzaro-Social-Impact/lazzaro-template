@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import type { TBgColor, TTextAlign } from './CssPropertiesTypes'
 
 type TMode = 'row' | 'column';
 
@@ -20,8 +21,8 @@ interface IProps {
   mx?: number;
   my?: number;
   m?: string;
-  bgColor?: 'initial' | 'inherit' | 'transparent';
-  textAlign?: 'center' | 'left' | 'right' | 'justify' | 'initial';
+  bgColor?: TBgColor;
+  textAlign?: TTextAlign;
 }
 
 const Card = styled.div<IProps>`
