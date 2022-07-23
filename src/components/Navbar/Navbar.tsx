@@ -1,28 +1,27 @@
-import React, { useState, useLayoutEffect, ReactElement } from 'react'
+import { useState, useLayoutEffect, ReactElement } from 'react'
 import { Drawer, Grid, Menu } from 'antd'
 import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
 type TTransparent = boolean | undefined
-type TPosition = 'sticky' | 'absolute' | 'fixed' | 'relative' | 'static' | undefined
 interface IProps {
   transparent?: TTransparent
   position?: TPosition
 }
 
 const items = [
-  { label: <a href="#about">About us</a>, key: 'item-1' },
-  { label: <a href="#projects">Projects</a>, key: 'item-2' },
-  { label: <a href="#events">Events</a>, key: 'item-3' },
-  { label: <a href="#courses">Courses</a>, key: 'item-4' },
+  { label: <a href="/#about">About us</a>, key: 'item-1' },
+  { label: <a href="/#projects">Projects</a>, key: 'item-2' },
+  { label: <a href="/#events">Events</a>, key: 'item-3' },
+  { label: <a href="/#courses">Courses</a>, key: 'item-4' },
   { label: <NavLink to="/contact">Contact</NavLink>, key: 'item-5' },
   { label: <NavLink to="/shop">Shop</NavLink>, key: 'item-6' },
   { label: <NavLink to="/donate">Donate</NavLink>, key: 'item-7' },
   { label: <NavLink to="/join">Become a member</NavLink>, key: 'item-8' },
 ]
 
-function Navbar({ transparent, position }: IProps): ReactElement<IProps> {
+function Navbar({ transparent, position }: IProps): ReactElement {
   const [navBarBackground, setNavBarBackground] = useState<TTransparent>(transparent)
 
   useLayoutEffect(() => {

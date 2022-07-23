@@ -20,15 +20,15 @@ interface IProps {
 
 const Button = styled.button<IProps>`
   color: ${({ color }) => color};
-  padding: ${({ p }) => getProp(p)};
-  padding-inline: ${({ px }) => getProp(px)};
-  padding-block: ${({ py }) => getProp(py)};
-  margin: ${({ m }) => getProp(m)};
-  margin-inline: ${({ mx }) => getProp(mx)};
-  margin-block: ${({ my }) => getProp(my)};
-  font-size: ${({ fontSize }) => getProp(fontSize)};
+  padding: ${({ p }) => p && getProp(p)};
+  padding-inline: ${({ px }) => px && getProp(px)};
+  padding-block: ${({ py }) => py && getProp(py)};
+  margin: ${({ m }) => m && getProp(m)};
+  margin-inline: ${({ mx }) => mx && getProp(mx)};
+  margin-block: ${({ my }) => my && getProp(my)};
+  font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
   font-weight: ${({ weight }) => weight};
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: ${({ bgColor }) => bgColor && bgColor};
   border-radius: ${({ radius }) => `${radius}px`};
   border: none;
   font-family: inherit;
@@ -39,8 +39,8 @@ const Button = styled.button<IProps>`
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${({ hoverBgColor }) => hoverBgColor};
-    color: ${({ hoverColor }) => hoverColor};
+    background-color: ${({ hoverBgColor }) => hoverBgColor && hoverBgColor};
+    color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 
   &:disabled {
@@ -51,18 +51,8 @@ const Button = styled.button<IProps>`
 
 Button.defaultProps = {
   color: '#fff',
-  p: 'initial',
-  px: 0,
-  py: 0,
-  m: 0,
-  mx: 0,
-  my: 0,
-  fontSize: 'inherit',
   weight: 'bold',
-  disabled: false,
   radius: 25,
-  hoverColor: 'none',
-  hoverBgColor: 'none',
 }
 
 export default Button
