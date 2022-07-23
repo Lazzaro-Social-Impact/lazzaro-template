@@ -7,7 +7,7 @@ import styled from 'styled-components'
 interface IProps {
   date: number;
   type?: 'outlined' | 'filled';
-  color: string;
+  color: TColor;
   size: string;
   style?: React.CSSProperties;
 }
