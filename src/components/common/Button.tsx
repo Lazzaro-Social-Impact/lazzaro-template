@@ -1,31 +1,32 @@
 import styled from 'styled-components'
+import { getProp } from '../../utils'
 
 interface IProps {
-  color?: string;
-  bgColor?: string;
-  p?: string | number;
-  px?: number;
-  py?: number;
-  m?: number;
-  mx?: number;
-  my?: number;
-  fontSize?: number | 'initial' | 'inherit'
-  weight?: string;
+  color?: TColor;
+  bgColor?: TBgColor;
+  p?: TPadding;
+  px?: TPaddingInline;
+  py?: TPaddingBlock;
+  m?: TMargin;
+  mx?: TMarginInline;
+  my?: TMarginBlock;
+  fontSize?: TFontSize;
+  weight?: TWeight;
   disabled?: boolean;
-  radius?: number;
-  hoverBgColor?: string;
-  hoverColor?: string;
+  radius?: TBorderRadius;
+  hoverBgColor?: TBgColor;
+  hoverColor?: TColor;
 }
 
 const Button = styled.button<IProps>`
   color: ${({ color }) => color};
-  padding: ${({ p }) => (typeof p === 'string' ? p : `${p}rem`)};
-  padding-inline: ${({ px }) => `${px}rem`};
-  padding-block: ${({ py }) => `${py}rem`};
-  margin: ${({ m }) => `${m}rem`};
-  margin-inline: ${({ mx }) => `${mx}rem`};
-  margin-block: ${({ my }) => `${my}rem`};
-  font-size: ${({ fontSize }) => (typeof fontSize === 'string' ? fontSize : `${fontSize}rem`)};
+  padding: ${({ p }) => getProp(p)};
+  padding-inline: ${({ px }) => getProp(px)};
+  padding-block: ${({ py }) => getProp(py)};
+  margin: ${({ m }) => getProp(m)};
+  margin-inline: ${({ mx }) => getProp(mx)};
+  margin-block: ${({ my }) => getProp(my)};
+  font-size: ${({ fontSize }) => getProp(fontSize)};
   font-weight: ${({ weight }) => weight};
   background-color: ${({ bgColor }) => bgColor};
   border-radius: ${({ radius }) => `${radius}px`};
@@ -61,7 +62,7 @@ Button.defaultProps = {
   disabled: false,
   radius: 25,
   hoverColor: 'none',
-  hoverBgColor: 'none'
+  hoverBgColor: 'none',
 }
 
 export default Button

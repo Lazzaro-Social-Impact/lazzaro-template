@@ -7,7 +7,7 @@ import {
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useId } from 'react'
 import styled from 'styled-components'
 import { SectionTitle } from '../common'
 import { useTheme } from '../../app/context/theme-context'
@@ -31,7 +31,7 @@ export default function Footer(): ReactElement {
 
         <ContactInfo>
           {[PhoneFilled, MailFilled].map((Icon) => (
-            <Contact color={color}>
+            <Contact color={color} key={useId()}>
               <Icon />
               <Link href="tel:+1-844-844-8444">+1-844-844-8444</Link>
             </Contact>
@@ -48,11 +48,10 @@ export default function Footer(): ReactElement {
         </div>
 
         <Icons color={color}>
-          {[FacebookFilled, InstagramOutlined, TwitterOutlined, LinkedinFilled, GlobalOutlined].map(
-            (Icon) => (
-              <Icon />
-            )
-          )}
+          {[FacebookFilled, TwitterOutlined,
+            InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
+              <Icon key={useId()} />
+          ))}
         </Icons>
       </SubFooter>
     </>
@@ -82,7 +81,7 @@ const MainFooter = styled.footer`
   }
 `
 
-const Link = styled.a<{ fontSize?: number; color?: string; underlined?: boolean }>`
+const Link = styled.a<{ fontSize?: number; color?: TColor; underlined?: boolean }>`
   font-size: ${({ fontSize }) => fontSize}rem;
   color: ${({ color = 'white' }) => color};
   letter-spacing: 3px;
@@ -114,7 +113,7 @@ const ContactInfo = styled.div`
     font-size: 1rem;
   }
 `
-const Contact = styled.div<{ color: string }>`
+const Contact = styled.div<{ color: TColor }>`
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -146,7 +145,7 @@ const SubFooter = styled.div`
     text-align: center;
   }
 `
-const Icons = styled.div<{ color: string }>`
+const Icons = styled.div<{ color: TColor }>`
   display: flex;
   gap: 1.2rem;
   border-radius: 50%;

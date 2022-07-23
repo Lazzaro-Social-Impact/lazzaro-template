@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Col, Row } from 'antd'
-import CalenderIcon from '../../CalenderIcon/CalenderIcon'
+import { CalendarIcon } from '../../Icons'
 import { useTheme } from '../../../app/context/theme-context'
 
 export default function EventsRow(): ReactElement {
@@ -10,7 +10,7 @@ export default function EventsRow(): ReactElement {
   return (
     <Event gutter={16}>
       <Col md={2} sm={24}>
-        <CalenderIcon size="4.5em" date={18} color={globalColor} />
+        <CalendarIcon size="4.5em" date={18} color={globalColor} />
       </Col>
 
       <Col md={12} sm={24}>
@@ -25,7 +25,7 @@ export default function EventsRow(): ReactElement {
 
 const Event = styled(Row)`
   gap: 1.5rem;
-
+  justify-content: center;
   flex: 1 !important;
   max-width: 100% !important;
 

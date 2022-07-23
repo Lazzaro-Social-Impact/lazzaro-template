@@ -1,12 +1,14 @@
 import styled from 'styled-components'
+import { getProp } from '../../utils'
 
 interface IProps {
-  fontSize?: number | 'initial' | 'inherit';
-  hoverColor?: string | undefined;
-  color?: string;
+  fontSize?: TFontSize;
+  hoverColor?: TColor;
+  color?: TColor;
 }
+
 const ReadMore = styled.a<IProps>`
-  font-size: ${({ fontSize }) => (typeof fontSize === 'string' ? fontSize : `${fontSize}rem`)};
+  font-size: ${({ fontSize }) => getProp(fontSize)};
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

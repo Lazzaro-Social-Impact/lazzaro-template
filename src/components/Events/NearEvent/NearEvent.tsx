@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import Bookmark from '../../Bookmark/Bookmark'
+import { BookmarkIcon } from '../../Icons'
 import { useTheme } from '../../../app/context/theme-context'
 import { Card, ReadMore } from '../../common'
 
@@ -11,7 +11,7 @@ export default function NearEvent(): ReactElement {
   return (
     <Card mode="column" smMode="column" maxWidth="40%" p="1rem">
       <div style={{ position: 'relative' }}>
-        <Bookmark color={globalColor} />
+        <BookmarkIcon color={globalColor} position="absolute" right={2.3} />
         <Image
           src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt="course"
