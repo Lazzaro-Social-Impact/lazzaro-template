@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
-import CalendarIcon from '../../CalenderIcon/CalenderIcon'
+import { CalendarIcon } from '../../Icons'
 import { Card, ReadMore } from '../../common'
 
 interface IProps {
@@ -24,7 +24,10 @@ const CourseCard = ({ course }: IProps) => {
           type="filled"
           color={globalColor}
           size="4em"
-          style={{ position: 'absolute', top: '-0.3rem', right: '1.5rem' }}
+          position="absolute"
+          top={-0.3}
+          right={1.5}
+
         />
         <Image src={course.src} alt="course" />
       </div>

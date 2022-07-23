@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import getProp from './utils'
+import { getProp } from '../../utils'
 
 interface IProps {
   fontSize?: TFontSize;

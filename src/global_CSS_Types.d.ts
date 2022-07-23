@@ -25,6 +25,11 @@ declare global {
   type TTextTransform = CSS.Properties['textTransform'];
   type TBorderRadius = CSS.Properties['borderRadius'] | number;
   type TMaxWidth = CSS.Properties['maxWidth'] | number;
+  type TPosition = CSS.Properties['position'];
+  type TTop = CSS.Properties['top'] | number;
+  type TRight = CSS.Properties['right'] | number;
+  type TBottom = CSS.Properties['bottom'] | number;
+  type TLeft = CSS.Properties['left'] | number;
 }
 
 export { }
