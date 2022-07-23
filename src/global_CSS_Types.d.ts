@@ -30,6 +30,8 @@ declare global {
   type TRight = CSS.Properties['right'] | number;
   type TBottom = CSS.Properties['bottom'] | number;
   type TLeft = CSS.Properties['left'] | number;
+  type TTextShadow = CSS.Properties['textShadow'];
+  type TLineHeight = CSS.Properties['lineHeight'] | number;
 }
 
 export { }

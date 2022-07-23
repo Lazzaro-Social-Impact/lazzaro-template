@@ -5,17 +5,16 @@ import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
 type TTransparent = boolean | undefined
-type TPosition = 'sticky' | 'absolute' | 'fixed' | 'relative' | 'static' | undefined
 interface IProps {
   transparent?: TTransparent
   position?: TPosition
 }
 
 const items = [
-  { label: <a href="#about">About us</a>, key: 'item-1' },
-  { label: <a href="#projects">Projects</a>, key: 'item-2' },
-  { label: <a href="#events">Events</a>, key: 'item-3' },
-  { label: <a href="#courses">Courses</a>, key: 'item-4' },
+  { label: <a href="/#about">About us</a>, key: 'item-1' },
+  { label: <a href="/#projects">Projects</a>, key: 'item-2' },
+  { label: <a href="/#events">Events</a>, key: 'item-3' },
+  { label: <a href="/#courses">Courses</a>, key: 'item-4' },
   { label: <NavLink to="/contact">Contact</NavLink>, key: 'item-5' },
   { label: <NavLink to="/shop">Shop</NavLink>, key: 'item-6' },
   { label: <NavLink to="/donate">Donate</NavLink>, key: 'item-7' },
