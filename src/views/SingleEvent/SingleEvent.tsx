@@ -1,28 +1,40 @@
-import { Carousel, Tabs } from 'antd'
-import React, { ReactElement } from 'react'
+import {
+  Tabs, Modal
+} from 'antd'
+import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import { Footer, Navbar } from '../../components'
 import { BuyEventform } from '../../components/Forms/BuyEventform'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
+import { EventCarousel } from '../../components/EventCarousel/EventCarousel'
 
 export function SingleEvent(): ReactElement {
+  const [visible, setVisible] = useState(false)
+  const [confirmLoading, setConfirmLoading] = useState(false)
+
+  const showModal = () => {
+    setVisible(true)
+  }
+
+  const handleOk = () => {
+    setConfirmLoading(true)
+    setTimeout(() => {
+      setVisible(false)
+      setConfirmLoading(false)
+    }, 2000)
+  }
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button')
+    setVisible(false)
+  }
   return (
     <>
       <Navbar />
       <Container>
         <Event>
-          <Carousel>
-            <ImageContainer>
-              <img src="https://via.placeholder.com/817x420" alt="" />
-            </ImageContainer>
-            <ImageContainer>
-              <img src="https://picsum.photos/200/300" alt="" />
-            </ImageContainer>
-            <ImageContainer>
-              <img src="https://picsum.photos/200/300" alt="" />
-            </ImageContainer>
-          </Carousel>
+          <EventCarousel />
           <EventTitle>
             Deluling is the world best
           </EventTitle>
@@ -79,9 +91,21 @@ export function SingleEvent(): ReactElement {
               <ShareButton>
                 Share
               </ShareButton>
-              <BuyButton>
+              <BuyButton onClick={showModal}>
                 Buy
               </BuyButton>
+              <Modal
+                title="Buy Tickets"
+                visible={visible}
+                onOk={handleOk}
+                confirmLoading={confirmLoading}
+                onCancel={handleCancel}
+                footer={null}
+                width="50%"
+              >
+                <EventCarousel />
+                <BuyEventform modal />
+              </Modal>
             </EventCardButtons>
           </EventCard>
         </OtherEvents>
@@ -98,16 +122,6 @@ const Container = styled.div`
     padding: 0 10.2rem;
     gap: 1.8rem;
     margin-top: 3.2rem;
-`
-const ImageContainer = styled.div`
-    width: 817px;
-    height: 420px;
-
-    img {
-        max-width: 100%;
-        width: 100%;
-        height: 420px;
-    }
 `
 
 const Event = styled.div`
