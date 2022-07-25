@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import 'antd/dist/antd.min.css'
-import { Aboutus, Landing } from './views'
+import { Aboutus, Landing, ProjectDetails } from './views'
 import './App.css'
 import ThemeProvider from './app/context/theme-context'
 import TermsAndConditions from './views/TermsAndConditions/TermsAndConditions'
@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<Aboutus />} />
         <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
       </Routes>
     </ThemeProvider>
   )

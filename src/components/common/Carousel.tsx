@@ -1,10 +1,8 @@
 import styled from 'styled-components'
+import { Carousel as antdCarousel } from 'antd'
 import { getProp } from '../../utils'
 
 interface IProps {
-  color?: TColor;
-  fontSize?: TFontSize;
-  lineHeight?: TLineHeight;
   py?: TPaddingBlock;
   px?: TPaddingInline;
   pl?: TPaddingLeft;
@@ -19,20 +17,9 @@ interface IProps {
   mx?: TMarginInline;
   my?: TMarginBlock;
   m?: TMargin;
-  textAlign?: TTextAlign;
-  transform?: TTextTransform;
-  decoration?: TTextDecoration;
-  textShadow?: TTextShadow;
 }
 
-const Paragraph = styled.p<IProps>`
-  font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
-  line-height: ${({ lineHeight }) => lineHeight};
-  color: ${({ color }) => color && color};
-  text-align: ${({ textAlign }) => textAlign && textAlign};
-  text-transform: ${({ transform }) => transform && transform};
-  text-decoration: ${({ decoration }) => decoration && decoration};
-  text-shadow: ${({ textShadow }) => textShadow && textShadow};
+const Carousel = styled(antdCarousel)<IProps>`
   padding: ${({ p }) => p && getProp(p)};
   padding-block: ${({ py }) => py && getProp(py)};
   padding-inline: ${({ px }) => px && getProp(px)};
@@ -47,9 +34,38 @@ const Paragraph = styled.p<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
-`
-export default Paragraph
 
-Paragraph.defaultProps = {
-  lineHeight: 2.5,
-}
+  @media (min-width: 768px) {
+    & .slick-prev,
+    & .slick-prev:hover {
+      left: 110px;
+      color: white;
+      font-size: 35px;
+    }
+
+    & .slick-next,
+    & .slick-next:hover {
+      right: 110px;
+      color: white;
+      font-size: 35px;
+    }
+
+    & .slick-prev,
+    & .slick-next {
+      z-index: 2;
+      color: white;
+      right: 100px;
+      transition: all 0.5s ease;
+    }
+
+    .slick-dots.slick-dots-top li {
+      background-color: black;
+    }
+
+    .slick-dots.slick-dots-top .slick-active button {
+      background-color: rgb(92, 183, 128) !important;
+    }
+  }
+`
+
+export default Carousel
