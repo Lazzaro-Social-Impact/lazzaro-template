@@ -60,6 +60,7 @@
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-prototype-builtins": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
