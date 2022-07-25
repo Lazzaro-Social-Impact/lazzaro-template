@@ -1,11 +1,29 @@
-import { Tabs } from 'antd'
-import React, { ReactElement } from 'react'
+import { Tabs, Modal } from 'antd'
+import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
 import { Button } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 
 export function SingleProduct(): ReactElement {
+  const [visible, setVisible] = useState(false)
+  const [confirmLoading, setConfirmLoading] = useState(false)
+
+  const showModal = () => {
+    setVisible(true)
+  }
+
+  const handleOk = () => {
+    setConfirmLoading(true)
+    setTimeout(() => {
+      setVisible(false)
+      setConfirmLoading(false)
+    }, 2000)
+  }
+
+  const handleCancel = () => {
+    setVisible(false)
+  }
   return (
     <>
       <Navbar />
@@ -33,6 +51,7 @@ export function SingleProduct(): ReactElement {
                 px="2.8rem"
                 py="0.8rem"
                 bgColor="green"
+                onClick={showModal}
               >Buy
               </Button>
             </ProductButtons>
@@ -60,6 +79,17 @@ export function SingleProduct(): ReactElement {
             </Tabs.TabPane>
           </CustomTabs>
         </ProductSidebar>
+        <Modal
+          title="Buy Product"
+          visible={visible}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+          footer={null}
+          width="50%"
+        >
+          <BuyProductForm modal />
+        </Modal>
       </Container>
       <Footer />
     </>

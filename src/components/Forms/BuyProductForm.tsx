@@ -3,9 +3,15 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Button } from '../common'
 
-export function BuyProductForm(): ReactElement {
+interface Props {
+    modal?: boolean
+}
+export function BuyProductForm({ modal }: Props): ReactElement<Props> {
   return (
     <Form layout="vertical">
+      {modal && (
+        <ProductName>Product 001</ProductName>
+      )}
       <InputTitle>Your Shopping</InputTitle>
       <Input
         placeholder="Enter the quantity of products"
@@ -93,18 +99,18 @@ export function BuyProductForm(): ReactElement {
         size="large"
 
       />
-      <Input
-        type="checkbox"
-        style={{ width: '20px', marginTop: '1.8rem' }}
-        id="terms"
-      />
-      <span
+
+      <label
         style={{ marginTop: '1.2rem' }}
-        onClick={() => {
-          document.getElementById('terms')?.click()
-        }}
-      >I accept the privacy policy
-      </span>
+        htmlFor={modal ? 'terms-modal' : 'terms'}
+      >
+        <Input
+          type="checkbox"
+          style={{ width: '20px', marginTop: '1.8rem' }}
+          id={modal ? 'terms-modal' : 'terms'}
+        />
+        I accept the privacy policy
+      </label>
       <br />
       <Center>
         <Button
@@ -120,6 +126,12 @@ export function BuyProductForm(): ReactElement {
   )
 }
 
+const ProductName = styled.h1`
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: green;
+    text-align: center;
+`
 const InputTitle = styled.h3`
     color: green;
     font-weight: 600;
@@ -139,3 +151,7 @@ const Center = styled.div`
     align-items: center;
     margin-top: 2.4rem;
 `
+
+BuyProductForm.defaultProps = {
+  modal: false,
+}
