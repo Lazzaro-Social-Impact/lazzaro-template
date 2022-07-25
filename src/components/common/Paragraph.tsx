@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import { getProp } from '../../utils'
 
 interface IProps {
-  mode?: TFlexDirection;
-  smMode?: TFlexDirection;
-  maxWidth?: TMaxWidth;
+  color?: TColor;
+  fontSize?: TFontSize;
+  lineHeight?: TLineHeight;
   py?: TPaddingBlock;
   px?: TPaddingInline;
   pl?: TPaddingLeft;
@@ -19,19 +19,20 @@ interface IProps {
   mx?: TMarginInline;
   my?: TMarginBlock;
   m?: TMargin;
-  bgColor?: TBgColor;
   textAlign?: TTextAlign;
+  transform?: TTextTransform;
+  decoration?: TTextDecoration;
+  textShadow?: TTextShadow;
 }
 
-const Card = styled.div<IProps>`
-  height: fit-content;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: ${({ mode }) => mode};
-  max-width: ${({ maxWidth }) => maxWidth && maxWidth};
-  gap: 0.8rem;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease-in-out;
+const Paragraph = styled.p<IProps>`
+  font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
+  line-height: ${({ lineHeight }) => lineHeight};
+  color: ${({ color }) => color && color};
+  text-align: ${({ textAlign }) => textAlign && textAlign};
+  text-transform: ${({ transform }) => transform && transform};
+  text-decoration: ${({ decoration }) => decoration && decoration};
+  text-shadow: ${({ textShadow }) => textShadow && textShadow};
   padding: ${({ p }) => p && getProp(p)};
   padding-block: ${({ py }) => py && getProp(py)};
   padding-inline: ${({ px }) => px && getProp(px)};
@@ -46,24 +47,9 @@ const Card = styled.div<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
-  background-color: ${({ bgColor }) => bgColor && bgColor};
-  text-align: ${({ textAlign }) => textAlign && textAlign};
-
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: ${({ smMode }) => smMode};
-    max-width: 100%;
-  }
 `
+export default Paragraph
 
-Card.defaultProps = {
-  mode: 'row',
-  smMode: 'row',
+Paragraph.defaultProps = {
+  lineHeight: 2.5,
 }
-
-export default Card

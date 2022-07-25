@@ -1,29 +1,28 @@
-import React, { useState, useLayoutEffect, ReactElement } from 'react'
+import { useState, useLayoutEffect, ReactElement } from 'react'
 import { Drawer, Grid, Menu } from 'antd'
 import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
-type Ttransparent = boolean | undefined
-type Tposition = 'sticky' | 'absolute' | 'fixed' | 'relative' | 'static' | undefined
+type TTransparent = boolean | undefined
 interface IProps {
-  transparent?: Ttransparent
-  position?: Tposition
+  transparent?: TTransparent
+  position?: TPosition
 }
 
 const items = [
-  { label: <a href="#about">About us</a>, key: 'item-1' },
-  { label: <a href="#projects">Projects</a>, key: 'item-2' },
-  { label: <a href="#events">Events</a>, key: 'item-3' },
-  { label: <a href="#courses">Courses</a>, key: 'item-4' },
+  { label: <a href="/#about">About us</a>, key: 'item-1' },
+  { label: <a href="/#projects">Projects</a>, key: 'item-2' },
+  { label: <a href="/#events">Events</a>, key: 'item-3' },
+  { label: <a href="/#courses">Courses</a>, key: 'item-4' },
   { label: <NavLink to="/contact">Contact</NavLink>, key: 'item-5' },
   { label: <NavLink to="/shop">Shop</NavLink>, key: 'item-6' },
   { label: <NavLink to="/donate">Donate</NavLink>, key: 'item-7' },
   { label: <NavLink to="/join">Become a member</NavLink>, key: 'item-8' },
 ]
 
-function Navbar({ transparent, position }: IProps): ReactElement<IProps> {
-  const [navBarBackground, setNavBarBackground] = useState<Ttransparent>(transparent)
+function Navbar({ transparent, position }: IProps): ReactElement {
+  const [navBarBackground, setNavBarBackground] = useState<TTransparent>(transparent)
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => {
@@ -40,7 +39,7 @@ function Navbar({ transparent, position }: IProps): ReactElement<IProps> {
     })
   }, [])
 
-  const [visible, setVisible] = useState<boolean>(false)
+  const [visible, setVisible] = useState(false)
 
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()
@@ -65,7 +64,7 @@ function Navbar({ transparent, position }: IProps): ReactElement<IProps> {
   )
 }
 
-const NavBar = styled.nav<{ position: Tposition }>`
+const NavBar = styled.nav<{ position: TPosition }>`
   display: flex;
   justify-content: space-between;
   padding: 1rem 4.1rem;
