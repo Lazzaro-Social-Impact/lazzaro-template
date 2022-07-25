@@ -2,6 +2,7 @@ import type * as CSS from 'csstype'
 
 declare global {
   type TFlexDirection = CSS.Properties['flexDirection']
+  type TJustifyContent = CSS.Properties['justifyContent'];
   type TBgColor = CSS.Properties['backgroundColor'];
   type TColor = CSS.Properties['color'];
   type TTextAlign = CSS.Properties['textAlign'];

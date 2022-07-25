@@ -49,6 +49,7 @@ const Text = styled.p<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
+  width:100%;
 `
 export default Text
 
