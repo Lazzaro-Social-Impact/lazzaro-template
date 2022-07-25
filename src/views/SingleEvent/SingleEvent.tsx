@@ -33,10 +33,7 @@ export function SingleEvent(): ReactElement {
             nostrum perferendis consequuntur, quos incidunt saepe possimus repellat. Consectetur,
             officiis, accusantium sit mollitia, voluptates tempora eos est nobis explicabo sint
             corporis aperiam neque? Aliquid officiis natus nam temporibus possimus et voluptatum
-            nihil neque assumenda labore cum placeat, similique, cumque incidunt quasi? Voluptatem
-            veritatis molestias nostrum ipsa maiores nesciunt libero non iste reprehenderit
-            , in deleniti minima hic quibusdam, adipisci incidunt nemo architecto!
-            Debitis hic voluptate omnis asperiores dicta, et error!
+
           </EventDescription>
 
           <CustomTabs defaultActiveKey="1">
@@ -123,11 +120,15 @@ const Event = styled.div`
 const EventTitle = styled.h2`
    color: black;
    margin-bottom: 0;
+   font-size: 1.6rem;
    font-weight: bold;
+   margin-top: 1.8rem;
 `
 
 const EventDescription = styled.p`
   color: #8c8c8c;
+  margin-top: 0.4rem;
+  font-size: 1rem;
 `
 
 const OtherEvents = styled.div`
@@ -142,7 +143,7 @@ const EventCard = styled.div`
     gap: 0.8rem;
     padding: 2.4rem 1.8rem;
     border: 1px solid #e6e6e6;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     height: 420px;
 
 `
@@ -151,6 +152,7 @@ const EventCardTitle = styled.h3`
     color: green;
     font-size: 1.8rem;
     font-weight: 600;
+    width: 90%;
     
 `
 
@@ -168,19 +170,21 @@ const EventDate = styled.p`
 const EventTickets = styled.p`
     color: #8c8c8c;
     font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0;
     `
 
 const EventCardButtons = styled.div`
     display: flex;
     justify-content: space-around;
-    margin-top: 3.8rem;
+    margin-top: 2.8rem;
 `
 
 const ShareButton = styled.button`
     background-color: #ccc;
     color: #444;
-    border-radius: 20px;
-    padding: 0.6rem 1.8rem;
+    border-radius: 25px;
+    padding: 0.8rem 2.2rem;
     border: none;
     cursor: pointer;
 `
@@ -188,8 +192,8 @@ const ShareButton = styled.button`
 const BuyButton = styled.button`
     background-color: green;
     color: white;
-    border-radius: 20px;
-    padding: 0.6rem 1.8rem;
+    border-radius: 25px;
+    padding: 0.8rem 2.2rem;
     border: none;
     cursor: pointer;
 
