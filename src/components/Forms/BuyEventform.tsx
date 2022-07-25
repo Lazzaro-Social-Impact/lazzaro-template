@@ -1,13 +1,13 @@
 import { Form, Input } from 'antd'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { Button } from '../common'
 
 interface Props {
     modal?: boolean;
 }
 
 export function BuyEventform({ modal }: Props): ReactElement<Props> {
-  console.log(modal)
   return (
     <BuyFrom modal={modal}>
       <FormTitle modal={modal}>
@@ -50,9 +50,9 @@ export function BuyEventform({ modal }: Props): ReactElement<Props> {
       </span>
       <br />
       <Center>
-        <PayButton>
+        <Button py="0.8rem" px="2.8rem" bgColor="green">
           Pay
-        </PayButton>
+        </Button>
       </Center>
     </BuyFrom>
   )
@@ -80,14 +80,6 @@ const CheckBoxInput = styled(Input)`
       width: 30px;
 `
 
-const PayButton = styled.button`
-    background-color: green;
-    cursor: pointer;
-    padding: 0.6rem 2.4rem;
-    color: white;
-    border: none;
-    border-radius: 20px;
-`
 const Center = styled.div`
     display: flex;
     justify-content: center;

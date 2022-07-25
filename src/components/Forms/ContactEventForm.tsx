@@ -1,6 +1,7 @@
 import { Form, Input } from 'antd'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { Button } from '../common'
 
 export function ContactEventForm(): ReactElement {
   return (
@@ -18,7 +19,7 @@ export function ContactEventForm(): ReactElement {
         size="large"
         rows={4}
       />
-      <SendButton type="submit">Send</SendButton>
+      <Button px="2.4rem" py="0.8rem" type="submit" bgColor="green">Send</Button>
     </ContactForm>
   )
 }
@@ -29,13 +30,4 @@ const ContactForm = styled(Form)`
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-`
-
-const SendButton = styled.button`
-    background-color: green;
-    cursor: pointer;
-    padding: 0.6rem 2.4rem;
-    color: white;
-    border: none;
-    border-radius: 20px;
 `

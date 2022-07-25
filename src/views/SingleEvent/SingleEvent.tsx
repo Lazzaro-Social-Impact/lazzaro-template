@@ -8,6 +8,7 @@ import { Footer, Navbar } from '../../components'
 import { BuyEventform } from '../../components/Forms/BuyEventform'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { EventCarousel } from '../../components/EventCarousel/EventCarousel'
+import { Button } from '../../components/common'
 
 export function SingleEvent(): ReactElement {
   const [visible, setVisible] = useState(false)
@@ -26,7 +27,6 @@ export function SingleEvent(): ReactElement {
   }
 
   const handleCancel = () => {
-    console.log('Clicked cancel button')
     setVisible(false)
   }
   return (
@@ -88,12 +88,12 @@ export function SingleEvent(): ReactElement {
               Tickets available: <span>15</span>
             </EventTickets>
             <EventCardButtons>
-              <ShareButton>
+              <Button px="2.2rem" py="0.8rem" color="#aaa">
                 Share
-              </ShareButton>
-              <BuyButton onClick={showModal}>
+              </Button>
+              <Button px="2.2rem" py="0.8rem" onClick={showModal} bgColor="green">
                 Buy
-              </BuyButton>
+              </Button>
               <Modal
                 title="Buy Tickets"
                 visible={visible}
@@ -192,25 +192,6 @@ const EventCardButtons = styled.div`
     display: flex;
     justify-content: space-around;
     margin-top: 2.8rem;
-`
-
-const ShareButton = styled.button`
-    background-color: #ccc;
-    color: #444;
-    border-radius: 25px;
-    padding: 0.8rem 2.2rem;
-    border: none;
-    cursor: pointer;
-`
-
-const BuyButton = styled.button`
-    background-color: green;
-    color: white;
-    border-radius: 25px;
-    padding: 0.8rem 2.2rem;
-    border: none;
-    cursor: pointer;
-
 `
 
 const CustomTabs = styled(Tabs)`
