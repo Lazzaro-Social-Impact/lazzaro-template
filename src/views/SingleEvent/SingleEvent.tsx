@@ -219,4 +219,14 @@ const CustomTabs = styled(Tabs)`
     justify-content: center !important;
     width: 100% !important;
  }
+
+ .ant-tabs-nav-list {
+    width: 100%;
+    justify-content: space-around;
+ }
+
+ .ant-tabs-tab-btn {
+    font-size: 1rem;
+    font-weight: 600;
+ }
 `
