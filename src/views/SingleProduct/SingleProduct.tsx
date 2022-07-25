@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
 import { Button } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
+import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 
 export function SingleProduct(): ReactElement {
   const [visible, setVisible] = useState(false)
@@ -80,9 +81,7 @@ export function SingleProduct(): ReactElement {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="Contact" key="3">
-              <p>
-                Contact
-              </p>
+              <ContactEventForm />
             </Tabs.TabPane>
           </CustomTabs>
         </ProductSidebar>
