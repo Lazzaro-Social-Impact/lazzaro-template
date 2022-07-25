@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
 import { Button } from '../../components/common'
+import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 
 export function SingleProduct(): ReactElement {
   return (
@@ -49,9 +50,7 @@ export function SingleProduct(): ReactElement {
               </ProductDetails>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Buy" key="2">
-              <p>
-                Buy
-              </p>
+              <BuyProductForm />
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="Contact" key="3">
