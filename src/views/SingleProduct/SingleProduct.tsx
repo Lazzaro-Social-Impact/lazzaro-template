@@ -1,4 +1,4 @@
-import { Tabs, Modal } from 'antd'
+import { Tabs, Modal, Breadcrumb } from 'antd'
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
@@ -27,7 +27,14 @@ export function SingleProduct(): ReactElement {
   return (
     <>
       <Navbar />
+      <Center>
+        <Breadcrumb separator=">">
+          <Breadcrumb.Item>Shop</Breadcrumb.Item>
+          <Breadcrumb.Item>Product 001</Breadcrumb.Item>
+        </Breadcrumb>
+      </Center>
       <Container>
+
         <ProductImages>
           <ImageContainer>
             <img src="https://via.placeholder.com/627x590" alt="" />
@@ -175,3 +182,9 @@ const CustomTabs = styled(Tabs)`
         font-weight: bold;
     }
 `
+const Center = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4.2rem;
+  `
