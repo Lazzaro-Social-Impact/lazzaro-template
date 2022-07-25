@@ -97,7 +97,7 @@ export function BuyProductForm({ modal }: Props): ReactElement<Props> {
         placeholder="Additional message"
         style={{ width: '100%', marginTop: '1.2rem' }}
         size="large"
-
+        rows={4}
       />
 
       <label
