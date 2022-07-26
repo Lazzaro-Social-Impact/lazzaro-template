@@ -9,7 +9,7 @@ export default function useGetData(url:string, queryKey: QueryKey) {
 
   const {
     isLoading, isError, data, error
-  } = useQuery(queryKey, fetchData)
+  } = useQuery<string>(queryKey, fetchData)
 
   return {
     isLoading, isError, data, error
