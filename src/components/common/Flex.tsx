@@ -5,15 +5,17 @@ interface IProps {
   align?: TAlignItems;
   direction?: TFlexDirection;
   wrap?: TFlexWrap;
-  width?:TWidth
+  width?: TWidth;
+  my?: TMarginBlock;
 }
 const Flex = styled.div<IProps>`
   display: flex;
-  justify-content:  ${({ justify }) => justify};
+  justify-content: ${({ justify }) => justify};
   align-items: ${({ align }) => align};
   flex-direction: ${({ direction }) => direction};
   flex-wrap: ${({ wrap }) => wrap};
-  width:  ${({ width }) => width};
+  width: ${({ width }) => width};
+  margin-block: ${({ my }) => my && `${my}rem`};
 `
 
 Flex.defaultProps = {
@@ -21,7 +23,7 @@ Flex.defaultProps = {
   align: 'center',
   direction: 'row',
   wrap: 'wrap',
-  width: '100%'
+  width: '100%',
 }
 
 export default Flex
