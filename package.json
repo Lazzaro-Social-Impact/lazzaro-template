@@ -2,6 +2,7 @@
   "name": "lazzaro-template",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://elbpre.backend.lazzaro.io:8080/",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.8.1",
