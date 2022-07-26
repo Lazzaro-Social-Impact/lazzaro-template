@@ -66,7 +66,7 @@ export function ContactusForm(): ReactElement {
             px="3.2rem"
             py="0.8rem"
             bgColor="green"
-            style={{ alignSelf: 'center' }}
+            style={{ alignSelf: 'center', marginTop: '2.4rem' }}
           >
             Send Message
           </Button>
@@ -108,14 +108,14 @@ const Container = styled.div`
 display: flex;
 justify-content: center;
 margin-top: 12.8rem;
-padding: 0 9.2rem;
+padding: 0 9.4rem;
 `
 
 const ContactusFormBox = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding: 3.2rem;
+  padding: 4.8rem;
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
