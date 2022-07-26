@@ -22,8 +22,8 @@ const ReadMore = styled.a<IProps>`
 
 ReadMore.defaultProps = {
   fontSize: 'inherit',
-  hoverColor: '#5CB780',
-  color: '#777',
+  hoverColor: 'white',
+  color: 'var(--primary-color)',
 }
 
 export default ReadMore
