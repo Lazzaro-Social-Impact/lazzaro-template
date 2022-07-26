@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-function useObserver(ref) {
+function useObserver(ref: any) {
   const [isIntersecting, setIsIntersecting] = useState(false)
 
   const observer = useMemo(
