@@ -18,7 +18,7 @@ function Shop() {
   return (
     <>
       <Navbar />
-      <ImageContainer height="80vh">
+      <ImageContainer height="420px">
         <Image src="https://via.placeholder.com/817x420" alt="" />
       </ImageContainer>
 
@@ -61,8 +61,8 @@ const ImageContainer = styled.div<{ height?: THeight }>`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-column-gap: 2rem;
-  grid-row-gap: 8rem;
+  grid-gap: 8rem 3rem;
+  justify-content: center;
   margin-block:1.5rem;
   margin-inline:5rem;
   `
