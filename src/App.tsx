@@ -1,17 +1,13 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import 'antd/dist/antd.min.css'
 import { useDispatch } from 'react-redux'
-import { Aboutus, Landing, ProjectDetails } from './views'
 import './App.css'
 import ThemeProvider from './app/context/theme-context'
-import { SingleEvent } from './views/SingleEvent/SingleEvent'
-import TermsAndConditions from './views/TermsAndConditions/TermsAndConditions'
-import { SingleProduct } from './views/SingleProduct/SingleProduct'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import useDependant from './hooks/useDependant'
 import { setOngConfig, setOngId } from './features'
+import AllRoute from './app/router'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 
@@ -41,14 +37,7 @@ function App() {
       {isLoading || isLoadingPage ? (
         <h1>Loading...</h1>
       ) : (
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/about" element={<Aboutus />} />
-          <Route path="/events/:id" element={<SingleEvent />} />
-          <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
-          <Route path="/projects/:id" element={<ProjectDetails />} />
-          <Route path="/products/:id" element={<SingleProduct />} />
-        </Routes>
+        <AllRoute />
       )}
     </ThemeProvider>
   )
