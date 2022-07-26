@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTheme } from '../../app/context/theme-context'
 import { Footer, Navbar } from '../../components'
-import { SectionTitle, Paragraph } from '../../components/common'
+import { SectionTitle, Text } from '../../components/common'
 
 const TermsAndConditions = () => {
   const color = useTheme()
@@ -16,14 +16,14 @@ const TermsAndConditions = () => {
           Term And Conditions
         </SectionTitle>
 
-        <Paragraph color="#777777" fontSize={1}>
+        <Text color="#777777" fontSize={1}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo magni molestias ipsam.
           Vel voluptatibus repudiandae rem dicta accusantium mollitia reiciendis, illo, error
           facilis similique fugit blanditiis obcaecati sequi aliquam aspernatur,facilis similique
           fugit blanditiis obcaecati sequi aliquam aspernatur, facilis similique fugit blanditiis
           obcaecati sequi aliquam aspernatur,facilis similique fugit blanditiis obcaecati sequi
           aliquam aspernatur.
-        </Paragraph>
+        </Text>
       </Flex>
 
       <Footer />

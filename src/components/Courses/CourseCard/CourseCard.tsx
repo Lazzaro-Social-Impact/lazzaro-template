@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTheme } from '../../../app/context/theme-context'
 import { CalendarIcon } from '../../Icons'
-import { Card, ReadMore } from '../../common'
+import {
+  Card, Image, Text, ReadMore
+} from '../../common'
 
 interface IProps {
   course: {
@@ -29,11 +31,13 @@ const CourseCard = ({ course }: IProps) => {
           right={1.5}
 
         />
-        <Image src={course.src} alt="course" />
+        <Image src={course.src} alt="course" width="800px" height="auto" />
       </div>
       <TextContainer>
         <h2>Deluing is the world best</h2>
-        <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
+        <Text fontSize={1.2} lineHeight={1.5}>
+          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
+        </Text>
         <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
           Read more
         </ReadMore>
@@ -56,11 +60,6 @@ const TextContainer = styled.div`
     font-weight: bold;
   }
 
-  p {
-    font-size: 1.2em;
-    line-height: 1.5;
-  }
-
   @media (max-width: 768px) {
     h2 {
       font-size: 1.3em;
@@ -69,10 +68,4 @@ const TextContainer = styled.div`
       font-size: 1em;
     }
   }
-`
-
-const Image = styled.img`
-  max-width: 100%;
-  width: 800px !important;
-  height: auto;
 `

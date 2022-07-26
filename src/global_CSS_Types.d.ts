@@ -2,10 +2,12 @@ import type * as CSS from 'csstype'
 
 declare global {
   type TFlexDirection = CSS.Properties['flexDirection']
+  type TJustifyContent = CSS.Properties['justifyContent'];
   type TBgColor = CSS.Properties['backgroundColor'];
   type TColor = CSS.Properties['color'];
   type TTextAlign = CSS.Properties['textAlign'];
   type TFontSize = CSS.Properties['fontSize'] | number;
+  type TFontWeight = CSS.Properties['fontWeight'];
   type TWeight = CSS.Properties['fontWeight'];
   type TMargin = CSS.Properties['margin'] | number;
   type TMarginTop = CSS.Properties['marginTop'] | number;
@@ -32,6 +34,9 @@ declare global {
   type TLeft = CSS.Properties['left'] | number;
   type TTextShadow = CSS.Properties['textShadow'];
   type TLineHeight = CSS.Properties['lineHeight'] | number;
+  type TRadius = CSS.Properties['borderRadius'];
+  type TWidth = CSS.Properties['width'];
+  type THeight = CSS.Properties['height'];
 }
 
 export { }

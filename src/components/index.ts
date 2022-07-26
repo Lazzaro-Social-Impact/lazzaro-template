@@ -1,29 +1,14 @@
-import Navbar from './Navbar/Navbar'
-import AboutUs from './Aboutus/Aboutus'
-import Events from './Events/Events'
-import Hero from './Hero/Hero'
-import LogosCarousel from './LogosCarousel/LogosCarousel'
-import PremiumEvent from './PremiumEvent/PremiumEvent'
-import Projects from './Projects/Projects'
-import SocialImpact from './SocialImpact/SocialImpact'
-import SubscribeDivider from './SubscribeDivider/SubscribeDivider'
-import Footer from './Footer/Footer'
-import Volunteers from './Volunteers/Volunteers'
-import Divider from './Divider/Divider'
-import Courses from './Courses/Courses'
-
-export {
-  Navbar,
-  Hero,
-  AboutUs,
-  Events,
-  LogosCarousel,
-  PremiumEvent,
-  Projects,
-  SocialImpact,
-  Courses,
-  SubscribeDivider,
-  Volunteers,
-  Footer,
-  Divider
-}
+export { default as Navbar } from './Navbar/Navbar'
+export { default as AboutUs } from './Aboutus/Aboutus'
+export { default as Events } from './Events/Events'
+export { default as Hero } from './Hero/Hero'
+export { default as LogosCarousel } from './LogosCarousel/LogosCarousel'
+export { default as PremiumEvent } from './PremiumEvent/PremiumEvent'
+export { default as Projects } from './Projects/Projects'
+export { default as SocialImpact } from './SocialImpact/SocialImpact'
+export { default as SubscribeDivider } from './SubscribeDivider/SubscribeDivider'
+export { default as Footer } from './Footer/Footer'
+export { default as Volunteers } from './Volunteers/Volunteers'
+export { default as Divider } from './Divider/Divider'
+export { default as Courses } from './Courses/Courses'
+export { default as Form } from './Form'
