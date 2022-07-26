@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import 'antd/dist/antd.min.css'
 import {
-  Aboutus, Landing, ProjectDetails, Shop, Donate
+  Aboutus, Landing, ProjectDetails, Shop, Donate, BecomeVolunteerForm
 } from './views'
 import './App.css'
 import ThemeProvider from './app/context/theme-context'
@@ -24,6 +24,7 @@ function App() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/partners" element={<BecomeMemberForm />} />
+        <Route path="/volunteer" element={<BecomeVolunteerForm />} />
       </Routes>
     </ThemeProvider>
   )

@@ -7,6 +7,7 @@ interface IProps {
   wrap?: TFlexWrap;
   width?: TWidth;
   my?: TMarginBlock;
+  gap?: TGap;
 }
 const Flex = styled.div<IProps>`
   display: flex;
@@ -16,6 +17,7 @@ const Flex = styled.div<IProps>`
   flex-wrap: ${({ wrap }) => wrap};
   width: ${({ width }) => width};
   margin-block: ${({ my }) => my && `${my}rem`};
+  gap: ${({ gap }) => gap && `${gap}rem`};
 `
 
 Flex.defaultProps = {
