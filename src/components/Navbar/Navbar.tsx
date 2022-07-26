@@ -18,7 +18,7 @@ const items = [
   { label: <NavLink to="/contact">Contact</NavLink>, key: 'item-5' },
   { label: <NavLink to="/shop">Shop</NavLink>, key: 'item-6' },
   { label: <NavLink to="/donate">Donate</NavLink>, key: 'item-7' },
-  { label: <NavLink to="/join">Become a member</NavLink>, key: 'item-8' },
+  { label: <NavLink to="/partners">Become a member</NavLink>, key: 'item-8' },
 ]
 
 function Navbar({ transparent, position }: IProps): ReactElement {

@@ -9,6 +9,7 @@ import ThemeProvider from './app/context/theme-context'
 import { SingleEvent } from './views/SingleEvent/SingleEvent'
 import TermsAndConditions from './views/TermsAndConditions/TermsAndConditions'
 import { SingleProduct } from './views/SingleProduct/SingleProduct'
+import { BecomeMemberForm } from './components/Forms/BecomeMemberForm'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path="/partners" element={<BecomeMemberForm />} />
       </Routes>
     </ThemeProvider>
   )
