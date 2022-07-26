@@ -10,9 +10,10 @@ import { BookmarkIcon } from '../../components/Icons'
 function Shop() {
   const color = useTheme()
   const navigate = useNavigate()
-  const images = new Array(10).fill(1)
 
   const navigateTo = (path: `/products/${string}`) => () => navigate(path)
+
+  const images = new Array(10).fill(1)
 
   return (
     <>
