@@ -28,7 +28,6 @@ const Button = styled.button<IProps>`
   margin-block: ${({ my }) => my && getProp(my)};
   font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
   font-weight: ${({ weight }) => weight};
-  background-color: ${({ bgColor }) => bgColor && bgColor};
   border-radius: ${({ radius }) => `${radius}px`};
   border: none;
   font-family: inherit;
@@ -36,10 +35,11 @@ const Button = styled.button<IProps>`
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease-in-out;
+  background-color: ${({ bgColor }) => bgColor};
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${({ hoverBgColor }) => hoverBgColor && hoverBgColor};
+    background-color: ${({ hoverBgColor }) => hoverBgColor};
     color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 
@@ -53,6 +53,8 @@ Button.defaultProps = {
   color: '#fff',
   weight: 'bold',
   radius: 25,
+  bgColor: 'var(--primary-color)',
+  hoverBgColor: 'var(--primary-color)',
 }
 
 export default Button

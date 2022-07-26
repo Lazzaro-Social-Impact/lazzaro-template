@@ -3,8 +3,8 @@
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit'
 
 interface IAppState {
-    ongConfig: object,
-    ongId: string | null,
+    ongConfig: object | void,
+    ongId: string | null | void,
 }
 
 const initialState: IAppState = {
@@ -16,10 +16,10 @@ export const ongConfigSlice: Slice = createSlice({
   name: 'ongConfig',
   initialState,
   reducers: {
-    setOngConfig: (state: any, action: PayloadAction) => {
+    setOngConfig: (state:IAppState, action: PayloadAction) => {
       state.ongConfig = action.payload
     },
-    setOngId: (state: any, action: PayloadAction) => {
+    setOngId: (state:IAppState, action: PayloadAction) => {
       state.ongId = action.payload
     },
   },

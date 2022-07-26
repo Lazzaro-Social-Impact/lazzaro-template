@@ -14,22 +14,30 @@ const staticUrl = 'prehello.web.lazzaro.io'
 function App() {
   const dispatch = useDispatch()
 
-  const { data: config, isLoading: isLoadingPage } = useDependant(getOngByUrl(staticUrl),
-    ['ongConfigUrl'], staticUrl)
+  const {
+    data: config, isLoading: isLoadingPage
+  } = useDependant(getOngByUrl(staticUrl), ['ongConfigUrl'], staticUrl)
   const ongId: string = config?.ong_id
 
   const { data: ongData, isLoading } = useDependant(getOngConfig(ongId), ['ongConfig'], ongId)
+
+  const {
+    primary_color_hex: primaryColor, secondary_color_hex: secondaryColor
+  } = ongData?.brand || {}
 
   useEffect(() => {
     dispatch(setOngId(ongId))
 
     dispatch(setOngConfig(ongData))
 
-    return (() => {
+    document.documentElement.style.setProperty('--primary-color', primaryColor)
+    document.documentElement.style.setProperty('--secondary-color', secondaryColor)
+
+    return () => {
       dispatch(setOngId(null))
 
       dispatch(setOngConfig(null))
-    })
+    }
   }, [dispatch, ongId, ongData])
 
   return (
