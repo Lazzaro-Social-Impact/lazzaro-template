@@ -1,7 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import ongConfigReducer from '../features'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    ong: ongConfigReducer
+  },
 })
 
 export type AppDispatch = typeof store.dispatch
