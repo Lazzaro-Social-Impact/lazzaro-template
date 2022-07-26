@@ -7,6 +7,7 @@ import ThemeProvider from './app/context/theme-context'
 import { SingleEvent } from './views/SingleEvent/SingleEvent'
 import TermsAndConditions from './views/TermsAndConditions/TermsAndConditions'
 import { SingleProduct } from './views/SingleProduct/SingleProduct'
+import { ContactusForm } from './components/Forms/ContactusForm'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/products/:id" element={<SingleProduct />} />
+        <Route path="/contact" element={<ContactusForm />} />
       </Routes>
     </ThemeProvider>
   )
