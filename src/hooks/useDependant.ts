@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { useQuery } from 'react-query'
+import { QueryKey, useQuery } from '@tanstack/react-query'
 
-export default function useDependant(url: string, queryKey: string, exist: string | undefined) {
+export default function useDependant(url: string, queryKey: QueryKey, exist: string | undefined) {
   const fetchData = async () => {
     const {
       data: { data },
