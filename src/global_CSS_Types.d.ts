@@ -3,6 +3,10 @@ import type * as CSS from 'csstype'
 declare global {
   type TFlexDirection = CSS.Properties['flexDirection']
   type TJustifyContent = CSS.Properties['justifyContent'];
+  type TAlignItems = CSS.Properties['alignItems'];
+  type TAlignContent = CSS.Properties['alignContent'];
+  type TFlexWrap = CSS.Properties['flexWrap'];
+  type TGap = CSS.Properties['gap'] | number;
   type TBgColor = CSS.Properties['backgroundColor'];
   type TColor = CSS.Properties['color'];
   type TTextAlign = CSS.Properties['textAlign'];
