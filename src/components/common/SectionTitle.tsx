@@ -7,6 +7,7 @@ interface IProps {
   marginTop?: TMarginTop;
   marginBottom?: TMarginBottom;
   color?: TColor;
+  textAlign?:TTextAlign
 }
 
 const SectionTitle = styled.h2<IProps>`
@@ -17,6 +18,7 @@ const SectionTitle = styled.h2<IProps>`
   font-size: ${({ fontSize }) => getProp(fontSize)};
   margin-bottom: ${({ marginBottom }) => getProp(marginBottom)};
   color: ${({ color }) => color && getProp(color)};
+  text-align: ${({ textAlign }) => textAlign && textAlign};
 `
 
 SectionTitle.defaultProps = {
