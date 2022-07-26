@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../app/context/theme-context'
 import { Button } from '../common'
 
 function Hero() {
   const globalColor = useTheme()
+  const navigate = useNavigate()
   return (
     <>
       <Header id="hero">
@@ -14,7 +16,14 @@ function Hero() {
           <Button color="black" hoverColor="white" hoverBgColor={globalColor} py={0.6} px={1.6}>
             Donar
           </Button>
-          <Button bgColor={globalColor} hoverBgColor="white" hoverColor="black" py={0.6} px={1.9}>
+          <Button
+            onClick={() => navigate('/partners')}
+            bgColor={globalColor}
+            hoverBgColor="white"
+            hoverColor="black"
+            py={0.6}
+            px={1.9}
+          >
             Become a member
           </Button>
         </BtnGroup>
