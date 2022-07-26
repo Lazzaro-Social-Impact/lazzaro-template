@@ -8,6 +8,7 @@ interface IProps {
   px?: TPaddingInline;
   py?: TPaddingBlock;
   m?: TMargin;
+  mt?: TMarginBlock;
   mx?: TMarginInline;
   my?: TMarginBlock;
   fontSize?: TFontSize;
@@ -26,6 +27,7 @@ const Button = styled.button<IProps>`
   margin: ${({ m }) => m && getProp(m)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
   margin-block: ${({ my }) => my && getProp(my)};
+  mt: ${({ mt }) => mt && getProp(mt)};
   font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
   font-weight: ${({ weight }) => weight};
   background-color: ${({ bgColor }) => bgColor && bgColor};

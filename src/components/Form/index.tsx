@@ -7,9 +7,10 @@ import { Input } from '../common'
 
 interface IProps {
   submitHandler: (e: FormEvent<HTMLFormElement>) => void;
+  projectId?: string;
 }
 
-function Form({ submitHandler }: IProps) {
+function Form({ submitHandler, projectId }: IProps) {
   const color = useTheme()
   return (
     <CustomForm onSubmit={submitHandler}>
@@ -47,18 +48,23 @@ function Form({ submitHandler }: IProps) {
         <TextArea placeholder="Message" />
       </FormControl>
 
-      <FormControl>
-        <Label color={color}>What you want your donation to look like?</Label>
-      </FormControl>
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn color={color} type="radio" name="donation" value="Public" defaultChecked />
-        <Label color="#777777">Public donation</Label>
-      </FormControl>
+      {projectId && (
+      <>
+        <FormControl>
+          <Label color={color}>What you want your donation to look like?</Label>
+        </FormControl>
 
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn color={color} type="radio" name="donation" value="Anonymous" />
-        <Label color="#777777">Anonymous donation</Label>
-      </FormControl>
+        <FormControl mode="row" justify="start" mb={0}>
+          <RadioBtn color={color} type="radio" name="donation" value="Public" defaultChecked />
+          <Label color="#777777">Public donation</Label>
+        </FormControl>
+
+        <FormControl mode="row" justify="start" mb={0}>
+          <RadioBtn color={color} type="radio" name="donation" value="Anonymous" />
+          <Label color="#777777">Anonymous donation</Label>
+        </FormControl>
+      </>
+      )}
 
       <FormControl mt={1.5}>
         <Label color={color}>Would you like to receive a donation certificate?</Label>
@@ -124,3 +130,7 @@ const RadioBtn = styled.input<{ color: TColor }>`
 `
 
 export default Form
+
+Form.defaultProps = {
+  projectId: ''
+}
