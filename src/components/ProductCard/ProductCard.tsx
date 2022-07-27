@@ -33,10 +33,10 @@ export function ProductCard({
       </Flex>
       {!!discount && (
       <BookmarkIcon
-        color="green"
         top={0}
         position="absolute"
         right={0}
+        text={discount.toString()}
       />
       )}
     </SingleProductCard>
