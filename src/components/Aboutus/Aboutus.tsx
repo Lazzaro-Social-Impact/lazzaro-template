@@ -63,7 +63,7 @@ line-height: 1.8;
 `
 
 const ReadMoreLink = styled(Link)`
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
