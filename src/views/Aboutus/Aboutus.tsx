@@ -1,24 +1,31 @@
 /* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import { useTheme } from '../../app/context/theme-context'
+import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'
 import { SectionTitle } from '../../components/common'
+import { useAppSelector } from '../../hooks'
 
 export default function Aboutus(): ReactElement {
-  const color = useTheme()
+  const titleDesc = useAppSelector((state) => state.ong.ongConfig?.description?.title_description)
+  const description = useAppSelector((state) => state.ong.ongConfig?.description?.description)
+  const imgUrl = useAppSelector((state) => state.ong.ongConfig?.description?.img_url)
   return (
     <>
       <Navbar />
       <Container>
-        <PageTitle color={color}>About us</PageTitle>
-        <SectionText>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Voluptatibus beatae tempora reiciendis facere vel delectus ad. Repellat
-          deleniti aliquam exercitationem illo, facere
-          odio placeat veniam dolore eaque sunt! Obcaecati, ad. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste error facere laudantium quibusdam labore eligendi recusandae laborum sapiente? Dolore ipsum expedita nemo molestiae esse excepturi, molestias reiciendis omnis delectus error. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, repellendus? Sit, quidem esse veritatis iure eaque debitis eligendi asperiores quibusdam nesciunt distinctio iste ab blanditiis non dolore molestiae recusandae necessitatibus.
+        <PageTitle>{titleDesc}</PageTitle>
+        <SectionText>
+          {HtmlParser(description)}
         </SectionText>
-        <img src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style={{ width: '100%' }} alt="" />
-        <SectionTitle fontSize={2.4} marginBottom={0} style={{ alignSelf: 'flex-start' }} padding={0}>Lorem Ipsum</SectionTitle>
+        <img src={imgUrl} style={{ width: '100%' }} alt="About us 1" />
+        <SectionTitle
+          fontSize={2.4}
+          marginBottom={0}
+          style={{ alignSelf: 'flex-start' }}
+          padding={0}
+        >Lorem Ipsum
+        </SectionTitle>
         <SectionText>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
           Provident accusantium asperiores nulla adipisci. Magnam veritatis quos quaerat quisquam,
           sapiente dolores consequatur, commodi quidem unde repellat sunt iusto nobis ducimus vel.
@@ -26,11 +33,11 @@ export default function Aboutus(): ReactElement {
         <Images>
           <ImageContainer>
 
-            <img src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" />
+            <img src={imgUrl} alt="About us 2" />
           </ImageContainer>
           <ImageContainer>
 
-            <img src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" />
+            <img src={imgUrl} alt="About us 3" />
           </ImageContainer>
         </Images>
         <SectionText>Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -55,10 +62,10 @@ const Container = styled.div`
     margin-top: 4.2rem;
 `
 
-const PageTitle = styled.h1<{ color: string }>`
+const PageTitle = styled.h1`
     font-size: 2.4rem;
-    color: ${({ color }) => color};
     font-weight: bold;
+    color: ${({ theme }) => theme.primary};
     
 `
 
@@ -67,6 +74,7 @@ const SectionText = styled.p`
     line-height: 1.8;
     color: #999;
     margin-top: 2.2rem;
+    
 `
 
 const Images = styled.div`
