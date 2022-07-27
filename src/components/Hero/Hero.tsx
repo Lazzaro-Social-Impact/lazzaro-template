@@ -1,25 +1,38 @@
 /* eslint-disable max-len */
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
+import { useAppSelector } from '../../hooks'
 import { Button } from '../common'
+
+interface IProps {
+  heroImage: string;
+}
 
 function Hero() {
   const navigate = useNavigate()
+  const data = useAppSelector((state) => ({
+    heroImage: state.ong.ongConfig?.brand?.default_img,
+    textHeader: state.ong.ongConfig?.description?.title,
+    textSubHeader: state.ong.ongConfig?.description?.subtitle,
+    textColor: state.ong.ongConfig?.description?.text_color,
+  }))
+  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   return (
     <>
-      <Header id="hero">
-        <Title>Help The Children in need</Title>
+      <Header id="hero" heroImage={data.heroImage}>
+        <Title>{data.textHeader}</Title>
+        <SubTitle>{data.textSubHeader}</SubTitle>
         <BtnGroup>
-          <Button color="black" hoverColor="white" py={0.6} px={1.6}>
+          <Button color="white" hoverBgColor={secondary} bgColor={primary} py={0.6} px={1.6}>
             Donar
           </Button>
           <Button
             onClick={() => navigate('/partners')}
-            hoverBgColor="white"
-            hoverColor="black"
+            hoverBgColor={primary}
+            bgColor={secondary}
             py={0.6}
-            px={1.9}
+            px={1.6}
           >
             Become a member
           </Button>
@@ -29,9 +42,9 @@ function Hero() {
   )
 }
 
-const Header = styled.header`
+const Header = styled.header<IProps>`
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
-    url('https://images.unsplash.com/photo-1494832944834-a08818c634b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80');
+    url(${(props) => props.heroImage});
   background-size: cover;
   background-position: center;
   object-fit: cover;
@@ -47,7 +60,14 @@ const BtnGroup = styled.div`
   display: flex;
   gap: 1.2rem;
 `
-
+const SubTitle = styled.h2`
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 1.2rem;
+  width: 25%;
+  text-align: center;
+  `
 const Title = styled.h2`
   color: white;
   font-size: 2.5rem;
