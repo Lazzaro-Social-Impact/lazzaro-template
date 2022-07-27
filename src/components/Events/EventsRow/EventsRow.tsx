@@ -41,7 +41,7 @@ const Event = styled(Row)`
   gap: 1.5rem;
   justify-content: center;
   max-width: 100% !important;
-  padding: 1.2rem 2.4rem;
+  padding: 0.8rem 2.4rem;
   transition: all 0.2s ease-in-out;
   border: 1px solid ${(props) => props.theme.primary};
   border-radius: 25px;

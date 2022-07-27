@@ -54,7 +54,7 @@ const EventsSection = styled.section`
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  margin-top: 4.2rem;
+  margin-top: 2.4rem;
   padding-bottom: 5.8rem;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -67,11 +67,11 @@ const EventsSection = styled.section`
 const EventsCol = styled(Col)`
   display: flex;
   flex-direction: column;
-  gap: 4.2rem;
+  gap: 1.2rem;
   align-items: center;
-  justify-content: space-around;
   max-width: 100% !important;
-
+  overflow-y: auto;
+  height: 800px;
 
 `
 
