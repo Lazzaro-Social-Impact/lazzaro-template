@@ -1,27 +1,26 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import {
-  Tabs
-} from 'antd'
+import { Tabs } from 'antd'
+import { useParams } from 'react-router-dom'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
+import { useDependant } from '../../hooks'
+import { getEventURL } from '../../api/getApiServices'
 
 export function SingleEventDetails(): ReactElement {
+  const { id } = useParams() as { id: string }
+  const { data: eventDetails = {} } = useDependant(getEventURL(id), [`event${id}`], id)
+
+  const { title, description, } = eventDetails as { title: string, description: string }
   return (
     <Event>
       <EventCarousel />
       <EventTitle>
-        Deluling is the world best
+        {title}
       </EventTitle>
       <EventDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, doloremque.
-        Totam nemo ipsam libero vero, corporis ullam eligendi! Tenetur vero consequatur
-        quaerat, perspiciatis id accusamus eos temporibus nisi expedita obcaecati illo
-        nostrum perferendis consequuntur, quos incidunt saepe possimus repellat. Consectetur,
-        officiis, accusantium sit mollitia, voluptates tempora eos est nobis explicabo sint
-        corporis aperiam neque? Aliquid officiis natus nam temporibus possimus et voluptatum
-
+        {description}
       </EventDescription>
 
       <CustomTabs defaultActiveKey="1">

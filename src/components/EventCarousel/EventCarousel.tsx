@@ -1,19 +1,26 @@
 import React, { ReactElement } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
+import { useParams } from 'react-router-dom'
+import { useDependant } from '../../hooks'
+import { getEventImages } from '../../api/getApiServices'
+
+interface IImage {
+  id: string
+  img_url: string
+}
 
 export function EventCarousel(): ReactElement {
+  const { id } = useParams() as { id: string }
+
+  const { data: images } = useDependant(getEventImages(id), [`images${id}`], id)
   return (
     <Carousel>
-      <ImageContainer>
-        <img src="https://via.placeholder.com/817x420" alt="" />
-      </ImageContainer>
-      <ImageContainer>
-        <img src="https://picsum.photos/200/300" alt="" />
-      </ImageContainer>
-      <ImageContainer>
-        <img src="https://picsum.photos/200/300" alt="" />
-      </ImageContainer>
+      {images?.map((image:IImage) => (
+        <ImageContainer key={image.id}>
+          <img src={image.img_url} alt="" />
+        </ImageContainer>
+      ))}
     </Carousel>
   )
 }

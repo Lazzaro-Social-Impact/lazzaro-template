@@ -20,7 +20,8 @@
   },
   "rules": {
     "semi": [2, "never"],
-
+    "camelcase": "off",
+    "linebreak-style": 0,
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/member-delimiter-style": "off",
