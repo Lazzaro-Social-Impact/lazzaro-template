@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import {
@@ -10,6 +10,7 @@ import { useAppSelector, useDependant } from '../../hooks'
 function Shop() {
   const ongId = useAppSelector((state) => state.ong?.ongId)
   const { data: products, isLoading } = useDependant(getProductsURL(ongId), ['products'], ongId)
+  const { primary } = useTheme() as { primary: string }
   interface IProduct {
     id: string,
     title: string,
@@ -24,7 +25,7 @@ function Shop() {
         <Image src="https://via.placeholder.com/817x420" alt="" />
       </ImageContainer>
 
-      <SectionTitle textAlign="center">
+      <SectionTitle textAlign="center" color={primary}>
         Shop
       </SectionTitle>
       <Text fontSize={1.5} textAlign="center">
