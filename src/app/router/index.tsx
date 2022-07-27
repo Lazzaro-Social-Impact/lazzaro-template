@@ -1,7 +1,9 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
-import { Aboutus, Landing, ProjectDetails } from '../../views'
+import {
+  Aboutus, Landing, ProjectDetails, Shop
+} from '../../views'
 import { SingleEvent } from '../../views/SingleEvent/SingleEvent'
 import { SingleProduct } from '../../views/SingleProduct/SingleProduct'
 import TermsAndConditions from '../../views/TermsAndConditions/TermsAndConditions'
@@ -17,6 +19,7 @@ export default function AllRoute() {
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/partners" element={<BecomeMemberForm />} />
+        <Route path="/shop" element={<Shop />} />
 
       </Routes>
     </>
