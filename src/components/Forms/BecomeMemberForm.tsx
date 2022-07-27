@@ -111,6 +111,7 @@ export function BecomeMemberForm(): ReactElement {
 const Container = styled.div`
 display: flex;
 flex-direction: column;
+align-items: center;
 margin-top: 4.2rem;
 padding: 0 8.8rem;
 gap: 2.4rem;

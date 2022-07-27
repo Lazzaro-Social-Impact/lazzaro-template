@@ -7,6 +7,7 @@ import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import useDependant from './hooks/useDependant'
 import { setOngConfig, setOngId } from './features'
 import AllRoute from './app/router'
+import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 
@@ -44,7 +45,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       {isLoading || isLoadingPage ? (
-        <h1>Loading...</h1>
+        <LoadingIndex />
       ) : (
         <AllRoute />
       )}
