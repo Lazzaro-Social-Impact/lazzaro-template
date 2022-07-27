@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import 'antd/dist/antd.min.css'
 import { useDispatch } from 'react-redux'
 import './App.css'
-import ThemeProvider from './app/context/theme-context'
+import { ThemeProvider } from 'styled-components'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import useDependant from './hooks/useDependant'
 import { setOngConfig, setOngId } from './features'
@@ -24,13 +24,15 @@ function App() {
     primary_color_hex: primaryColor, secondary_color_hex: secondaryColor
   } = ongData?.brand || {}
 
+  const theme = {
+    primary: primaryColor,
+    secondary: secondaryColor,
+  }
+
   useEffect(() => {
     dispatch(setOngId(ongId))
 
     dispatch(setOngConfig(ongData))
-
-    document.documentElement.style.setProperty('--primary-color', primaryColor)
-    document.documentElement.style.setProperty('--secondary-color', secondaryColor)
 
     return () => {
       dispatch(setOngId(null))
@@ -40,7 +42,7 @@ function App() {
   }, [dispatch, ongId, ongData])
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       {isLoading || isLoadingPage ? (
         <h1>Loading...</h1>
       ) : (
