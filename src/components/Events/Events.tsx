@@ -9,20 +9,30 @@ import { SectionTitle } from '../common'
 import { useAppSelector, useDependant } from '../../hooks'
 import { getEvents } from '../../api/getApiServices'
 
+interface IEvent {
+  course: boolean,
+  id: string,
+  date: string,
+  title: string,
+  description: string,
+  imageURL: string,
+  start_time: string,
+}
+
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
 
   const { data: events, isLoading, isError } = useDependant(getEvents(ongId), ['events'], ongId)
-  const onlyEvents = events?.filter((event: any) => !event.course)
+  const onlyEvents = events?.filter((event: IEvent) => !event.course)
   // Get the nearest event
-  const nearestEvent = onlyEvents?.sort((a: any, b: any) => {
+  const nearestEvent = onlyEvents?.sort((a: IEvent, b: IEvent) => {
     const aDate = moment(a.date)
     const bDate = moment(b.date)
     return aDate.diff(bDate)
   })[0]
 
   // remove the nearest event from events
-  const otherEvents = onlyEvents?.filter((event: any) => event.id !== nearestEvent?.id)
+  const otherEvents = onlyEvents?.filter((event: IEvent) => event.id !== nearestEvent?.id)
   return (
     <>
       <SectionTitle>Events
@@ -31,7 +41,7 @@ function Events(): ReactElement {
         <NearEvent {...nearestEvent} />
         <EventsCol md={12} sm={24}>
           {isLoading && <h1>Loading...</h1>}
-          {otherEvents?.map((event: any) => !event.course && <EventsRow key={event.id} {...event} />)}
+          {otherEvents?.map((event: IEvent) => <EventsRow key={event.id} {...event} />)}
           {isError && <h1>Error</h1>}
         </EventsCol>
       </EventsSection>
