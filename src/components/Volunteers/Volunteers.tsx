@@ -20,7 +20,7 @@ export default function Volunteers(): ReactElement {
     <VolunteersSection>
       <SectionTitle>Our Volunteers</SectionTitle>
       <CustomCarousel autoplay>
-        {members && [...chunk(members, 3).map((memberCards: any, i: number) => (
+        {members && [...chunk<IMember>(members, 3).map((memberCards, i: number) => (
           <VolunteerCards key={`memberCards ${memberCards[i]}`}>
             {memberCards.map((member: IMember) => (
               <VolunteerCard {...member} key={member.id} />
