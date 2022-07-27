@@ -12,7 +12,6 @@ import { getEvents } from '../../api/getApiServices'
 interface IEvent {
   course: boolean,
   id: string,
-  date: string,
   title: string,
   description: string,
   imageURL: string,
@@ -26,8 +25,8 @@ function Events(): ReactElement {
   const onlyEvents = events?.filter((event: IEvent) => !event.course)
   // Get the nearest event
   const nearestEvent = onlyEvents?.sort((a: IEvent, b: IEvent) => {
-    const aDate = moment(a.date)
-    const bDate = moment(b.date)
+    const aDate = moment(a.start_time)
+    const bDate = moment(b.start_time)
     return aDate.diff(bDate)
   })[0]
 
