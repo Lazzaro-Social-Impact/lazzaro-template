@@ -50,7 +50,7 @@ export function BuyEventform({ modal }: Props): ReactElement<Props> {
       </span>
       <br />
       <Center>
-        <Button py="0.8rem" px="2.8rem" bgColor="green">
+        <Button py="0.8rem" px="2.8rem">
           Pay
         </Button>
       </Center>

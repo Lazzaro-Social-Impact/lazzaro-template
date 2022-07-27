@@ -6,7 +6,7 @@ export const getCauseDonationsHistoryUrl = (causeId: string)
 export const getCausesURL = (ongId: string): string => `/api/private/projects/ong/${ongId}`
 export const getOngConfig = (id: string): string => `/api/private/ongs/${id}/all-platform-config`
 export const getOngByUrl = (url: string): string => `/api/private/ongs/${url}/id`
-export const getEvent = (id: string): string => `/api/private/events/${id}`
+export const getEventURL = (eventId: string) => `/api/private/events/${eventId}`
 export const getCoursesImages = (id: string): string => `/api/private/eventimages/${id}`
 export const getProductsURL = (id: string): string => `/api/private/products/ong/${id}`
 export const getProductDetails = (id: string): string => `/api/private/products/${id}`
