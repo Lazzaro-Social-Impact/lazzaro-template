@@ -1,17 +1,26 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { getEvents } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
+import { useAppSelector, useDependant } from '../../hooks'
 
 export function SingleEvent(): ReactElement {
+  const ongId = useAppSelector((state) => state.ong.ongId)
+  const { data: events, isLoading } = useDependant(getEvents(ongId), ['events'], ongId)
+
   return (
     <>
       <Navbar />
       <Container>
         <SingleEventDetails />
         <OtherEvents>
-          <EventCard />
+          {isLoading && <h1>Loading other events...</h1>}
+          {events?.map((event: any) => (
+            !event.course && <EventCard {...event} />
+          ))}
+
         </OtherEvents>
       </Container>
       <Footer />
@@ -32,4 +41,7 @@ const OtherEvents = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 1000px;
+    gap: 1.2rem;
+    overflow-y: auto;
 `

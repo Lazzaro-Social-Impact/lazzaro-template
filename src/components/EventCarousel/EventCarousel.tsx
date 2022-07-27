@@ -7,7 +7,7 @@ export function EventCarousel({ imgs, isLoading }: any): ReactElement {
     <>
       {isLoading && <h1>Loading</h1>}
       {!isLoading && (
-      <Carousel>
+      <Carousel autoplay>
         {imgs?.map(({ img_url, id }: any) => (
           <ImageContainer>
             <img src={img_url} alt={id} />
