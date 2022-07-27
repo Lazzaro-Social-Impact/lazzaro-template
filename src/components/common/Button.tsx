@@ -37,11 +37,11 @@ const Button = styled.button<IProps>`
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease-in-out;
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: ${({ theme }) => theme.primary};
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${({ hoverBgColor }) => hoverBgColor};
+    background-color: ${({ theme }) => theme.primary};
     color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 
@@ -55,8 +55,6 @@ Button.defaultProps = {
   color: '#fff',
   weight: 'bold',
   radius: 25,
-  bgColor: 'var(--primary-color)',
-  hoverBgColor: 'var(--primary-color)',
 }
 
 export default Button
