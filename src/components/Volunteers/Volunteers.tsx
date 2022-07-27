@@ -1,38 +1,29 @@
 /* eslint-disable max-len */
-import React, { ReactElement, useId } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Carousel } from 'antd'
 import { chunk } from 'lodash'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
+import { useAppSelector } from '../../hooks'
 
 export default function Volunteers(): ReactElement {
-  interface card {
+  const members = useAppSelector((state) => state.ong.ongConfig?.team)
+
+  interface IMember {
+    id: string,
     name: string,
     position: string,
-    key: string,
-    image: {
-        src: string,
-        alt: string
-    }
+    linkedin: string,
+    img_url: string,
   }
-
-  const randomImagesArray: card[] = Array.from({ length: 8 }, () => ({
-    name: 'Alex Martin',
-    position: 'Professional Mind Coach',
-    image: {
-      src: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-      alt: 'random image',
-    },
-    key: useId()
-  }))
   return (
     <VolunteersSection>
       <SectionTitle>Our Volunteers</SectionTitle>
       <CustomCarousel autoplay>
-        {[...chunk<card>(randomImagesArray, 3).map((e: card[]) => (
-          <VolunteerCards key={useId()}>
-            {e.map((image: card) => (
-              <VolunteerCard {...image} />
+        {members && [...chunk(members, 3).map((memberCards: any, i: number) => (
+          <VolunteerCards key={`memberCards ${memberCards[i]}`}>
+            {memberCards.map((member: IMember) => (
+              <VolunteerCard {...member} key={member.id} />
             ))}
           </VolunteerCards>
         ))]}
