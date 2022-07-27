@@ -20,7 +20,7 @@ export default function AboutUs(): React.ReactElement {
         <ReadMore
           hoverColor={globalColor}
           color="black"
-          href="/about"
+          to="/about"
         >Read more
         </ReadMore>
       </LeftSection>

@@ -61,6 +61,7 @@
     "react/jsx-one-expression-per-line": "off",
     "no-prototype-builtins": "off",
     "no-nested-ternary": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "camelcase":"off" 
   }
 }

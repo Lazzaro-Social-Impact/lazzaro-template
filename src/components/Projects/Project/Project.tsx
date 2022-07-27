@@ -21,7 +21,7 @@ export function Project({ text }: ProjectProps): ReactElement<ProjectProps> {
       />
       <Text>{text}</Text>
       <ProjectFooter>
-        <ReadMore fontSize={1} color={globalColor}>
+        <ReadMore to="" fontSize={1} color={globalColor}>
           Read more
         </ReadMore>
         <Button py={0.3} px={0.7} fontSize={1} bgColor={globalColor}>

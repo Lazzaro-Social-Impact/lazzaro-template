@@ -7,7 +7,7 @@ import { getProp } from '../../../utils'
 interface IProps {
   date: number;
   type?: 'outlined' | 'filled';
-  color: TColor;
+  color?: TColor;
   size?: TFontSize;
   style?: React.CSSProperties;
   position?: TPosition;
@@ -19,15 +19,23 @@ interface IProps {
 
 const CalenderIcon = (props: IProps) => {
   const {
-    date, type, color, size, position, top, left, right, bottom, style
+    date, type, size, position, top, left, right, bottom, style, color
   } = props
 
   const Icon = type === 'outlined' ? CalendarOutlined : CalendarFilled
 
-  const IconStyles = { fontSize: size, color }
+  const IconStyles = { fontSize: size }
 
   return (
-    <Calender style={style} position={position} top={top} left={left} right={right} bottom={bottom}>
+    <Calender
+      style={style}
+      position={position}
+      top={top}
+      left={left}
+      right={right}
+      bottom={bottom}
+      color={color}
+    >
       <Icon style={IconStyles} />
       <Date>{date}</Date>
     </Calender>
@@ -44,6 +52,7 @@ const Calender = styled.div<Pick<IProps, 'position'| 'top'|'bottom'|'right'|'lef
   right: ${({ right }) => getProp(right)};
   left: ${({ left }) => getProp(left)};
   bottom: ${({ bottom }) => getProp(bottom)};
+  color: ${({ color, theme }) => color || theme.primary};
 `
 
 const Date = styled(Typography.Text)`
@@ -63,4 +72,5 @@ CalenderIcon.defaultProps = {
   right: 'initial',
   bottom: 'initial',
   size: '1.4em',
+  color: ''
 }

@@ -21,7 +21,7 @@ export default function NearEvent(): ReactElement {
       <TextContainer>
         <h2>Deluing is the world best</h2>
         <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
+        <ReadMore to="" fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
           Read more
         </ReadMore>
       </TextContainer>
