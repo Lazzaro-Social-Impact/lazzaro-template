@@ -53,7 +53,9 @@ const LinkedinIcon = styled(LinkedinFilled)`
   cursor: pointer;
   align-self: center;
   transition: all 0.3s ease-in-out;
+  color: ${({ theme }) => theme.secondary};
+
   &:hover {
-    color: #5cb780;
+    color: ${({ theme }) => theme.primary};
   }
 `
