@@ -1,18 +1,41 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
+import { useParams } from 'react-router-dom'
 import { ProjectCard } from './Tabs/ProjectCard'
 import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
 import Tabs from './Tabs'
+import { useAppSelector, useDependant } from '../../hooks'
+import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
+
+interface IProject {
+  id: string;
+  title: string;
+  donated: number;
+  amount: number;
+}
 
 function ProjectDetails(): ReactElement {
+  const projectId = useParams().id as string
+  const ongId = useAppSelector(({ ong }) => ong.ongId)
+
+  const {
+    data: projects
+  } = useDependant(getProjectsURL(ongId), ['projects'], ongId)
+
+  const {
+    data: images,
+  } = useDependant(getProjectImagesURL(projectId), [`images${projectId}`], projectId)
+
+  const projectDetails = projects?.find(({ id }:IProject) => id === projectId)
+
   return (
     <>
       <Navbar />
-      <ImageCarousel />
+      <ImageCarousel {...images} />
       <Flex>
-        <Tabs />
-        <ProjectCard />
+        <Tabs {...projectDetails} />
+        {projects.map((project: IProject) => (<ProjectCard project={project} />))}
       </Flex>
       <Footer />
     </>

@@ -5,7 +5,19 @@ import { useTheme } from '../../../app/context/theme-context'
 import { Form } from '../../../components'
 import { Button, Card, Text } from '../../../components/common'
 
-export function ProjectCard() {
+interface IProps {
+  project: {
+    id: string;
+    title: string;
+    donated: number;
+    amount: number;
+  }
+}
+
+export function ProjectCard({ project } : IProps) {
+  const {
+    id, title, donated, amount
+  } = project
   const color = useTheme()
 
   const [visible, setVisible] = useState(false)
@@ -26,18 +38,19 @@ export function ProjectCard() {
   const handleCancel = () => {
     setVisible(false)
   }
+
+  const donationProgress = (donated / amount) * 100
   return (
     <Card mode="column" p={3} maxWidth="400px" smMode="column">
-      <h1>Help the Children in need</h1>
+      <h1>{title}</h1>
       <ProgressBar>
         <Progress percent={44} strokeColor={color} />
         <ProgressPercents percent={44} color={color}>
-          44%
+          %{donationProgress}
         </ProgressPercents>
       </ProgressBar>
       <Text weight="bold">
-        Goal <br />
-        $1.000
+        Goal <br />${amount}
       </Text>
       <Flex>
         <Button px={1.8} py={0.8} bgColor="#F1F1F1" color="#777777">
@@ -56,7 +69,7 @@ export function ProjectCard() {
         onCancel={handleCancel}
         width="50%"
       >
-        <Form submitHandler={console.log} />
+        <Form submitHandler={console.log} projectId={id} />
       </Modal>
     </Card>
   )
