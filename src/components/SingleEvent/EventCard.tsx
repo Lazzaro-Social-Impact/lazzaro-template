@@ -2,11 +2,19 @@ import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
+import moment from 'moment'
 import { Button } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 
-export function EventCard(): ReactElement {
+interface IProps {
+  title: string
+  start_time: string;
+  EventTickets:[]
+}
+
+export function EventCard(props: IProps): ReactElement {
+  const { title, start_time, EventTickets: tickets } = props
   const [visible, setVisible] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
 
@@ -27,18 +35,16 @@ export function EventCard(): ReactElement {
   }
   return (
     <EventCardDiv>
-      <EventCardTitle>
-        Deluling is the world best
-      </EventCardTitle>
+      <EventCardTitle>{title.slice(0, 19)}</EventCardTitle>
       <EventDate>
-        <ClockCircleFilled /> 8th August 2020 - 8:00pm
+        <ClockCircleFilled /> {moment(start_time).format('MMM Do YYYY, h:mm a')}
       </EventDate>
       <EventLocation>
         <HeatMapOutlined />
         Online
       </EventLocation>
       <EventTickets>
-        Tickets available: <span>15</span>
+        Tickets available: <span>{tickets.length}</span>
       </EventTickets>
       <EventCardButtons>
         <Button px="2.2rem" py="0.8rem" color="#aaa">
@@ -72,12 +78,11 @@ const EventCardDiv = styled.div`
     border: 1px solid #e6e6e6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     height: 420px;
-
 `
 
 const EventCardTitle = styled.h3`
     color: green;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 600;
     width: 90%;
     

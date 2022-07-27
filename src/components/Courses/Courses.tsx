@@ -8,7 +8,7 @@ import { chunk } from 'lodash'
 import CourseCard from './CourseCard/CourseCard'
 import { SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
-import { getEventsURL } from '../../api/getApiServices'
+import { getCoursesURL } from '../../api/getApiServices'
 
 interface ICourse {
   title: string;
@@ -28,7 +28,7 @@ function Courses(): ReactElement {
 
   const {
     data: events = []
-  } = useDependant(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
+  } = useDependant(getCoursesURL(ongId), ['courses'], isSectionVisible && ongId)
 
   return (
     <CoursesSection id="courses" ref={sectionRef}>
@@ -44,13 +44,11 @@ function Courses(): ReactElement {
         {[
           ...chunk<ICourse>(events, 2).map((e: ICourse[]) => (
             <React.Fragment key={events}>
-              {e.map(
-                (event: ICourse) => event.course && (
+              {e.map((event: ICourse) => (
                 <Flex key={event.id}>
                   <CourseCard course={event} />
                 </Flex>
-                )
-              )}
+              ))}
             </React.Fragment>
           )),
         ]}
