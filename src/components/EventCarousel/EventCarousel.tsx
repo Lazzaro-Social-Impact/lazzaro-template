@@ -2,19 +2,21 @@ import React, { ReactElement } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 
-export function EventCarousel(): ReactElement {
+export function EventCarousel({ imgs, isLoading }: any): ReactElement {
   return (
-    <Carousel>
-      <ImageContainer>
-        <img src="https://via.placeholder.com/817x420" alt="" />
-      </ImageContainer>
-      <ImageContainer>
-        <img src="https://picsum.photos/200/300" alt="" />
-      </ImageContainer>
-      <ImageContainer>
-        <img src="https://picsum.photos/200/300" alt="" />
-      </ImageContainer>
-    </Carousel>
+    <>
+      {isLoading && <h1>Loading</h1>}
+      {!isLoading && (
+      <Carousel>
+        {imgs?.map(({ img_url, id }: any) => (
+          <ImageContainer>
+            <img src={img_url} alt={id} />
+          </ImageContainer>
+        ))}
+      </Carousel>
+      )}
+    </>
+
   )
 }
 
