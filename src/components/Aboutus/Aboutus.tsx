@@ -2,32 +2,33 @@
 import React from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'
-import { ReadMore, SectionTitle } from '../common'
-import { useTheme } from '../../app/context/theme-context'
+import HtmlParser from 'react-html-parser'
+import { Link } from 'react-router-dom'
+import { SectionTitle } from '../common'
+import { useAppSelector } from '../../hooks'
 
 const { Paragraph } = Typography
 
 export default function AboutUs(): React.ReactElement {
-  const globalColor = useTheme()
-  const text = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit vitae enim placeat voluptate id cupiditate similique labore nostrum fugiat, at tempore, tenetur accusamus ab esse quae, aliquid architecto nulla? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi eum, ab, odit ut voluptate dolorem aliquid quidem reiciendis quas expedita hic id consectetur vitae earum quos soluta consequatur architecto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta praesentium omnis iure nobis reprehenderit corrupti minus doloribus, natus, dicta quam corporis architecto. Eos non quisquam optio nostrum aliquid numquam voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi provident tempora sapiente aliquid illum voluptate quas, dolore culpa architecto hic enim ullam dolor quisquam molestias cum doloribus iusto sequi possimus.'
+  const titleDesc = useAppSelector((state) => state.ong.ongConfig?.description?.title_description)
+  const description = useAppSelector((state) => state.ong.ongConfig?.description?.description)
+  const imgUrl = useAppSelector((state) => state.ong.ongConfig?.description?.img_url)
+
   return (
     <AboutUsSection id="about">
       <LeftSection>
-        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>About us</SectionTitle>
+        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>{titleDesc}</SectionTitle>
         <AboutUsDescription>
-          { text.slice(0, 200)}
+          { HtmlParser(description?.slice(0, 200))}
         </AboutUsDescription>
-        <ReadMore
-          hoverColor={globalColor}
-          color="black"
-          href="/about"
-        >Read more
-        </ReadMore>
+        <ReadMoreLink to="/about">
+          Read more
+        </ReadMoreLink>
       </LeftSection>
       <ImageContainer>
         <img
-          src="https://images.unsplash.com/flagged/photo-1555251255-e9a095d6eb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt=""
+          src={imgUrl}
+          alt="About us"
           style={{ maxWidth: '100%' }}
         />
       </ImageContainer>
@@ -59,4 +60,15 @@ font-size: 1.1rem;
 padding-right: 2.8rem;
 color: #777;
 line-height: 1.8;
+`
+
+const ReadMoreLink = styled(Link)`
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: #777;
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
 `
