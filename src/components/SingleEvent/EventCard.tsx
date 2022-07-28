@@ -1,14 +1,23 @@
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
+import moment from 'moment'
 import { Button } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
+import { useDependant } from '../../hooks'
+import { getEventImages } from '../../api/getApiServices'
 
-export function EventCard(): ReactElement {
+export function EventCard({
+  id, title, start_time, end_time, location, stock
+}: any): ReactElement {
   const [visible, setVisible] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
+  const startDate = moment(start_time).format('Do MMMM YYYY')
+  const endDate = moment(end_time).format('Do MMMM YYYY')
+  const { data: images, isLoading } = useDependant(getEventImages(id), [`event_images_${id}`], id)
+  const { primary, secondary } = useTheme() as { [key: string]: string }
 
   const showModal = () => {
     setVisible(true)
@@ -28,23 +37,29 @@ export function EventCard(): ReactElement {
   return (
     <EventCardDiv>
       <EventCardTitle>
-        Deluling is the world best
+        {title}
       </EventCardTitle>
       <EventDate>
-        <ClockCircleFilled /> 8th August 2020 - 8:00pm
+        <ClockCircleFilled /> {startDate} - {endDate}
       </EventDate>
       <EventLocation>
         <HeatMapOutlined />
-        Online
+        {location}
       </EventLocation>
       <EventTickets>
-        Tickets available: <span>15</span>
+        Tickets available: <span>{stock}</span>
       </EventTickets>
       <EventCardButtons>
         <Button px="2.2rem" py="0.8rem" color="#aaa">
           Share
         </Button>
-        <Button px="2.2rem" py="0.8rem" onClick={showModal} bgColor="green">
+        <Button
+          px="2.2rem"
+          py="0.8rem"
+          onClick={showModal}
+          bgColor={primary}
+          hoverBgColor={secondary}
+        >
           Buy
         </Button>
         <Modal
@@ -56,7 +71,7 @@ export function EventCard(): ReactElement {
           footer={null}
           width="50%"
         >
-          <EventCarousel />
+          <EventCarousel imgs={images} isLoading={isLoading} />
           <BuyEventform modal />
         </Modal>
       </EventCardButtons>
@@ -76,7 +91,7 @@ const EventCardDiv = styled.div`
 `
 
 const EventCardTitle = styled.h3`
-    color: green;
+    color: ${({ theme }) => theme.primary};
     font-size: 1.8rem;
     font-weight: 600;
     width: 90%;
