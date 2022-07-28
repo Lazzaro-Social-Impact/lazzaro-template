@@ -1,22 +1,31 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 
-export function EventCarousel({ imgs, isLoading }: any): ReactElement {
+interface IImage {
+  id: string
+  img_url: string
+}
+
+interface IProps {
+  imgs: IImage[]
+  isLoading: boolean
+}
+
+export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
   return (
     <>
       {isLoading && <h1>Loading</h1>}
       {!isLoading && (
-      <Carousel autoplay>
-        {imgs?.map(({ img_url, id }: any) => (
-          <ImageContainer>
-            <img src={img_url} alt={id} />
-          </ImageContainer>
-        ))}
-      </Carousel>
+        <Carousel autoplay>
+          {imgs?.map((img: IImage) => (
+            <ImageContainer key={img.id}>
+              <img src={img.img_url} alt={img.id} />
+            </ImageContainer>
+          ))}
+        </Carousel>
       )}
     </>
-
   )
 }
 

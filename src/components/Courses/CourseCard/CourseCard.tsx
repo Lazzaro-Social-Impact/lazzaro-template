@@ -1,45 +1,51 @@
-import React from 'react'
 import styled from 'styled-components'
-import { useTheme } from '../../../app/context/theme-context'
+import moment from 'moment'
+import parse from 'react-html-parser'
+import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
-import {
-  Card, Image, Text, ReadMore
-} from '../../common'
+import { Card, Image, ReadMore } from '../../common'
 
 interface IProps {
   course: {
-    src: string;
     title: string;
     description: string;
-    date: number;
+    location: string;
+    imageURL: string;
+    start_time: string;
+    end_time: string;
+    id: string;
   };
 }
 
-const CourseCard = ({ course }: IProps) => {
-  const globalColor = useTheme()
+function CourseCard({ course }: IProps) {
+  const navigate = useNavigate()
 
+  const date = Number(moment(course.start_time).format('D'))
+  const navigateTo = (path: `/courses/${string}`) => () => navigate(path)
   return (
     <Card mode="row" smMode="column" my={2} p="1.5rem" maxWidth="45rem">
       <div style={{ position: 'relative' }}>
         <CalendarIcon
-          date={course.date}
+          date={date}
           type="filled"
-          color={globalColor}
           size="4em"
           position="absolute"
-          top={-0.3}
+          top={-1.7}
           right={1.5}
-
         />
-        <Image src={course.src} alt="course" width="800px" height="auto" />
+        <Image src={course.imageURL} alt="course" width="800px" height="auto" />
       </div>
       <TextContainer>
-        <h2>Deluing is the world best</h2>
-        <Text fontSize={1.2} lineHeight={1.5}>
-          Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.
-        </Text>
-        <ReadMore fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
-          Read more
+        <h2>{course.title.slice(0, 23)}</h2>
+        {parse(course.description.slice(0, 100))}
+        <ReadMore
+          onClick={navigateTo(`/courses/${course.id}`)}
+          fontSize={1.2}
+          color="black"
+          textAlign="right"
+        >
+          {' '}
+          Read more{' '}
         </ReadMore>
       </TextContainer>
     </Card>

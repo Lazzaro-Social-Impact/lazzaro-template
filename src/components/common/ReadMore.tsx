@@ -5,6 +5,7 @@ interface IProps {
   fontSize?: TFontSize;
   hoverColor?: TColor;
   color?: TColor;
+  textAlign?: TTextAlign;
 }
 
 const ReadMore = styled.a<IProps>`
