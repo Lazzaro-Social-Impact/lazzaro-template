@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import moment from 'moment'
 import parse from 'react-html-parser'
+import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
 import { Card, Image, ReadMore } from '../../common'
 
@@ -12,12 +13,15 @@ interface IProps {
     imageURL: string;
     start_time: string;
     end_time: string;
-    id: number;
+    id: string;
   };
 }
 
 function CourseCard({ course }: IProps) {
+  const navigate = useNavigate()
+
   const date = Number(moment(course.start_time).format('D'))
+  const navigateTo = (path: `/courses/${string}`) => () => navigate(path)
   return (
     <Card mode="row" smMode="column" my={2} p="1.5rem" maxWidth="45rem">
       <div style={{ position: 'relative' }}>
@@ -34,8 +38,14 @@ function CourseCard({ course }: IProps) {
       <TextContainer>
         <h2>{course.title.slice(0, 23)}</h2>
         {parse(course.description.slice(0, 100))}
-        <ReadMore to={`/events/${course.id}`} fontSize={1.2} color="black" textAlign="right">
-          Read more
+        <ReadMore
+          onClick={navigateTo(`/courses/${course.id}`)}
+          fontSize={1.2}
+          color="black"
+          textAlign="right"
+        >
+          {' '}
+          Read more{' '}
         </ReadMore>
       </TextContainer>
     </Card>

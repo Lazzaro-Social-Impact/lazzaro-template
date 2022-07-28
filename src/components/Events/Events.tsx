@@ -7,7 +7,7 @@ import NearEvent from './NearEvent/NearEvent'
 import EventsRow from './EventsRow/EventsRow'
 import { SectionTitle } from '../common'
 import { useAppSelector, useDependant } from '../../hooks'
-import { getEvents } from '../../api/getApiServices'
+import { getEventsURL } from '../../api/getApiServices'
 
 interface IEvent {
   course: boolean,
@@ -21,7 +21,7 @@ interface IEvent {
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
 
-  const { data: events, isLoading, isError } = useDependant(getEvents(ongId), ['events'], ongId)
+  const { data: events, isLoading, isError } = useDependant(getEventsURL(ongId), ['events'], ongId)
   const onlyEvents = events?.filter((event: IEvent) => !event.course)
   // Get the nearest event
   const nearestEvent = onlyEvents?.sort((a: IEvent, b: IEvent) => {

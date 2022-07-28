@@ -9,14 +9,13 @@ import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { useDependant } from '../../hooks'
-import { getEvent, getEventImages } from '../../api/getApiServices'
+import { getEventURL, getEventImages } from '../../api/getApiServices'
 
 export function SingleEventDetails(): ReactElement {
-  const { id } = useParams()
+  const { id } = useParams() as { id: string }
   const {
-    data: event,
-    isLoading: isLoadingEvent
-  } = useDependant(getEvent(id), [`event ${id}`], id)
+    data: event, isLoading: isLoadingEvent
+  } = useDependant(getEventURL(id), [`event ${id}`], id)
   const { data: images, isLoading } = useDependant(getEventImages(id), [`event_images_${id}`], id)
   return (
     <>
@@ -65,7 +64,6 @@ const Event = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    width: 800px;
 `
 
 const EventTitle = styled.h2`
