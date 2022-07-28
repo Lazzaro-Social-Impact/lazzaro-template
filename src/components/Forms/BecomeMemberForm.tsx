@@ -46,7 +46,6 @@ export function BecomeMemberForm(): ReactElement {
   const {
     isLoading, isSuccess, isError, mutateAsync
   } = usePostData(getBecomePartnerUrl())
-  console.log(isLoading)
   const ongId = useAppSelector((state) => state.ong.ongId)
   const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const onSubmit = async (data: memberSubmitForm) => {

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-import { getEvents } from '../../api/getApiServices'
+import { getEventsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
@@ -8,7 +8,7 @@ import { useAppSelector, useDependant } from '../../hooks'
 
 export function SingleEvent(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
-  const { data: events, isLoading } = useDependant(getEvents(ongId), ['events'], ongId)
+  const { data: events, isLoading } = useDependant(getEventsURL(ongId), ['events'], ongId)
 
   return (
     <>
