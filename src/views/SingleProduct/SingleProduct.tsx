@@ -1,14 +1,24 @@
 import { Tabs, Modal, Breadcrumb } from 'antd'
 import React, { ReactElement, useState } from 'react'
+import HtmlParser from 'react-html-parser'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import { Button } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
+import { useDependant } from '../../hooks'
 
 export function SingleProduct(): ReactElement {
   const [visible, setVisible] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
+  const id = useParams().id as string
+  const {
+    data: product
+  } = useDependant(getProductDetails(id), [`products${id}`], id)
+
+  const { data: images } = useDependant(getProductImages(id), [`images${id}`], id)
 
   const showModal = () => {
     setVisible(true)
@@ -31,50 +41,33 @@ export function SingleProduct(): ReactElement {
       <Center>
         <Breadcrumb separator=">">
           <Breadcrumb.Item>Shop</Breadcrumb.Item>
-          <Breadcrumb.Item>Product 001</Breadcrumb.Item>
+          <Breadcrumb.Item>{product.title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
       <Container>
-
         <ProductImages>
-          <ImageContainer>
-            <img src="https://via.placeholder.com/627x590" alt="" />
-          </ImageContainer>
-          <ImageContainer>
-            <img src="https://via.placeholder.com/627x590" alt="" />
-          </ImageContainer>
+          {images?.map((image: {img_url:string;id:string}) => (
+            <ImageContainer key={image.id}>
+              <img src={image.img_url} alt="" />
+            </ImageContainer>
+          ))}
         </ProductImages>
         <ProductSidebar>
           <ProductCard>
-            <ProductName>Product 001</ProductName>
-            <ProductsAvailable>Stock: 58</ProductsAvailable>
+            <ProductName>{product.title}</ProductName>
+            <ProductsAvailable>Stock: {product.amount}</ProductsAvailable>
             <ProductButtons>
-              <Button
-                px="2.8rem"
-                py="0.8rem"
-                color="#aaa"
-              >Share
+              <Button px="2.8rem" py="0.8rem" color="#aaa">
+                Share
               </Button>
-              <Button
-                px="2.8rem"
-                py="0.8rem"
-                bgColor="green"
-                onClick={showModal}
-              >Buy
+              <Button px="2.8rem" py="0.8rem" bgColor="green" onClick={showModal}>
+                Buy
               </Button>
             </ProductButtons>
           </ProductCard>
           <CustomTabs>
             <Tabs.TabPane tab="Details" key="1">
-              <ProductDetails>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec eget ex euismod, consectetur nisi eu, consectetur
-                nisi eu, consectetur nisi eu, consectetur nisi eu,
-                consectetur nisi eu, consectetur nisi eu, consectetur
-                nisi eu, consectetur nisi eu, consectetur nisi eu,
-                consectetur nisi eu, consectetur nisi eu, consectetur
-                nisi eu, consectetur nisi eu, consectetur nisi eu,
-              </ProductDetails>
+              <ProductDetails>{HtmlParser(product.description)}</ProductDetails>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Buy" key="2">
               <BuyProductForm />
