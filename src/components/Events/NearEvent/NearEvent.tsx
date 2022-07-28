@@ -1,29 +1,38 @@
 /* eslint-disable max-len */
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
+import { Link, useNavigate } from 'react-router-dom'
+import HtmlParser from 'react-html-parser'
 import { BookmarkIcon } from '../../Icons'
-import { useTheme } from '../../../app/context/theme-context'
-import { Card, ReadMore } from '../../common'
+import { Card } from '../../common'
 
-export default function NearEvent(): ReactElement {
-  const globalColor = useTheme()
-
+interface IEvent {
+  id: string,
+  title: string,
+  description: string,
+  imageURL: string,
+}
+export default function NearEvent({
+  id, title, description, imageURL
+}: IEvent): ReactElement {
+  const { primary } = useTheme() as {primary: string}
+  const navigate = useNavigate()
   return (
-    <Card mode="column" smMode="column" maxWidth="40%" p="1rem">
+    <Card mode="column" smMode="column" maxWidth="40%" p="1rem" onClick={() => navigate(`/events/${id}`)}>
       <div style={{ position: 'relative' }}>
-        <BookmarkIcon color={globalColor} position="absolute" right={2.3} />
+        <BookmarkIcon color={primary} position="absolute" right={2.3} />
         <Image
-          src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt="course"
+          src={imageURL}
+          alt="Near Event"
         />
       </div>
 
       <TextContainer>
-        <h2>Deluing is the world best</h2>
-        <p>Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.</p>
-        <ReadMore to="" fontSize={1.2} color="black" style={{ alignSelf: 'flex-end' }}>
+        <h2>{title}</h2>
+        <p>{HtmlParser(description?.slice(0, 150))}</p>
+        <Link to={`/events/${id}`} style={{ alignSelf: 'flex-end', color: primary, fontSize: '1rem' }}>
           Read more
-        </ReadMore>
+        </Link>
       </TextContainer>
     </Card>
   )
@@ -37,21 +46,22 @@ const TextContainer = styled.div`
   width: 100%;
 
   h2 {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-weight: bold;
   }
 
   p {
-    font-size: 1.2em;
+    font-size: 1rem;
     line-height: 1.5;
+    letter-spacing: 1.1px;
   }
 
   @media (max-width: 768px) {
     h2 {
-      font-size: 1.3em;
+      font-size: 1.3rem;
     }
     p {
-      font-size: 1em;
+      font-size: 1rem;
     }
   }
 `

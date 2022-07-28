@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Button } from '../common'
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 export function BuyEventform({ modal }: Props): ReactElement<Props> {
+  const { primary, secondary } = useTheme() as { [key: string]: string }
   return (
     <BuyFrom modal={modal}>
       <FormTitle modal={modal}>
@@ -50,7 +51,12 @@ export function BuyEventform({ modal }: Props): ReactElement<Props> {
       </span>
       <br />
       <Center>
-        <Button py="0.8rem" px="2.8rem">
+        <Button
+          py="0.8rem"
+          px="2.8rem"
+          bgColor={primary}
+          hoverBgColor={secondary}
+        >
           Pay
         </Button>
       </Center>
@@ -62,7 +68,7 @@ const BuyFrom = styled(Form)`
     margin: auto;
 `
 const FormTitle = styled.h2<Props>`
-color: green;
+color: ${({ theme }) => theme.primary};
 font-weight: bold;
 margin-top: ${({ modal }) => (modal ? '2.4rem' : 0)};
 `

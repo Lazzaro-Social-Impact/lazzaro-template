@@ -14,8 +14,8 @@ const ReadMore = styled(Link)<IProps>`
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: ${({ color }) => color};
-  text-align: ${({ textAlign }) => textAlign};
+  color: ${({ color, theme }) => color || theme.primary};
+
   &:hover {
     color: ${({ hoverColor }) => hoverColor};
     text-decoration: underline;
@@ -24,9 +24,7 @@ const ReadMore = styled(Link)<IProps>`
 
 ReadMore.defaultProps = {
   fontSize: 'inherit',
-  hoverColor: '#5CB780',
-  color: '#777',
-  textAlign: 'center'
+  hoverColor: 'white',
 }
 
 export default ReadMore
