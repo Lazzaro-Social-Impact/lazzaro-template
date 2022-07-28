@@ -17,7 +17,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   return (
     <ProjectCard>
       <Image src={imageURL} alt="" />
-      <Text>{title}</Text>
+      <Text fontSize={1.1} px={1} color="white">{title}</Text>
       <ProjectFooter>
         <ReadMore fontSize={1} onClick={navigateTo(`projects/${id}`)}>
           Read more

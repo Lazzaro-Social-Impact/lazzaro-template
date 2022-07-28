@@ -25,31 +25,28 @@ export default function Projects(): ReactElement {
   } = useDependant(getProjectsURL(ongId), ['causes'], isSectionVisible && ongId)
 
   return (
-    <ProjectsSection ref={sectionRef}>
+    <section ref={sectionRef}>
       <Carousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
         {[
-          ...chunk<IProject>(projects, 4).map((e: IProject[]) => (
+          ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
             <div key={projects}>
               <Div id="projects">
                 {e.map((image: IProject) => (
-                  <Project {...image} />
+                  <Project {...image} key={image.id} />
                 ))}
               </Div>
             </div>
           )),
         ]}
       </Carousel>
-    </ProjectsSection>
+    </section>
   )
 }
-
-const ProjectsSection = styled.section`
-
-`
 
 const Div = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   margin-top: 4.2rem;
   padding: 0 4.1rem;
-  gap: 2rem;`
+  gap: 2rem;
+  `
