@@ -41,7 +41,7 @@ const Button = styled.button<IProps>`
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${({ theme }) => theme.primary};
+    background-color:${(props) => props.hoverBgColor || props.theme.primary};
     color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 

@@ -12,6 +12,7 @@ import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
+import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 
 type memberSubmitForm = {
   firstName: string
@@ -46,7 +47,6 @@ export function BecomeMemberForm(): ReactElement {
   const {
     isLoading, isSuccess, isError, mutateAsync
   } = usePostData(getBecomePartnerUrl())
-  console.log(isLoading)
   const ongId = useAppSelector((state) => state.ong.ongId)
   const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const onSubmit = async (data: memberSubmitForm) => {
@@ -280,41 +280,7 @@ margin-top: 1.8rem;
 margin-bottom: 0;
 font-size: 1rem;
 `
-const CustomInput = styled.input`
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    align-self: flex-start;
-    box-shadow: ${({ theme }) => theme.primary};
-    box-sizing: border-box !important;
-    font-family: inherit;
-    overflow: visible;
-    margin: 0;
-    font-variant: tabular-nums;
-    list-style: none;
-    font-feature-settings: "tnum";
-    position: relative;
-    display: inline-block;
-    min-width: 0;
-    padding: 9.5px 11px;
-    color: rgba(0,0,0,.85);
-    font-size: 14px;
-    line-height: 1.5715;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    transition: all .3s;
-    -webkit-appearance: none;
-    touch-action: manipulation;
-    text-overflow: ellipsis;
-    width: 100%;
 
-    &:focus {
-        outline: none;
-        box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
-    }
-
-`
 const CustomRadio = styled(Radio)`
 display: block;
   span {
@@ -328,14 +294,6 @@ display: block;
   .ant-radio-inner::after {
     background-color: ${({ theme }) => theme.primary} !important;
   }
-`
-
-const CustomInputDiv = styled.div`
-display: flex;
-flex-direction: column;
-gap: 0;
-width: 100%;
-
 `
 
 const CustomDatePicker = styled(DatePicker)`
