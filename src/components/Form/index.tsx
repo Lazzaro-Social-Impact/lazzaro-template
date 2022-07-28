@@ -1,7 +1,6 @@
 import { FormEvent } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useTheme } from '../../app/context/theme-context'
 import Label from '../common/Label'
 import { Input } from '../common'
 
@@ -11,11 +10,10 @@ interface IProps {
 }
 
 function Form({ submitHandler, projectId }: IProps) {
-  const color = useTheme()
   return (
     <CustomForm onSubmit={submitHandler}>
       <FormControl mb={0}>
-        <Label htmlFor="amount" color={color}>
+        <Label htmlFor="amount">
           You donation
         </Label>
       </FormControl>
@@ -24,7 +22,7 @@ function Form({ submitHandler, projectId }: IProps) {
       </FormControl>
 
       <FormControl mb={0}>
-        <Label htmlFor="amount" color={color}>
+        <Label htmlFor="amount">
           Details
         </Label>
       </FormControl>
@@ -51,36 +49,36 @@ function Form({ submitHandler, projectId }: IProps) {
       {projectId && (
       <>
         <FormControl>
-          <Label color={color}>What you want your donation to look like?</Label>
+          <Label>What you want your donation to look like?</Label>
         </FormControl>
 
         <FormControl mode="row" justify="start" mb={0}>
-          <RadioBtn color={color} type="radio" name="donation" value="Public" defaultChecked />
+          <RadioBtn type="radio" name="donation" value="Public" defaultChecked />
           <Label color="#777777">Public donation</Label>
         </FormControl>
 
         <FormControl mode="row" justify="start" mb={0}>
-          <RadioBtn color={color} type="radio" name="donation" value="Anonymous" />
+          <RadioBtn type="radio" name="donation" value="Anonymous" />
           <Label color="#777777">Anonymous donation</Label>
         </FormControl>
       </>
       )}
 
       <FormControl mt={1.5}>
-        <Label color={color}>Would you like to receive a donation certificate?</Label>
+        <Label>Would you like to receive a donation certificate?</Label>
       </FormControl>
       <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn color={color} type="radio" name="certificate" value="true" checked />
+        <RadioBtn type="radio" name="certificate" value="true" checked />
         <Label color="#777777">Yes</Label>
       </FormControl>
 
       <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn color={color} type="radio" name="certificate" value="false" />
+        <RadioBtn type="radio" name="certificate" value="false" />
         <Label color="#777777">No</Label>
       </FormControl>
 
       <FormControl mode="row" justify="start" mt={2}>
-        <input type="checkbox" color={color} />
+        <input type="checkbox" />
         <Label color="#777777">
           I agree to the <Link to="/terms_and_conditions">Privacy policy</Link>
         </Label>
@@ -121,8 +119,8 @@ const TextArea = styled.textarea`
   outline: none;
 `
 
-const RadioBtn = styled.input<{ color: TColor }>`
-  accent-color: ${({ color }) => color};
+const RadioBtn = styled.input`
+  accent-color: ${({ theme }) => theme.primary};
   border: none;
   outline: none;
   cursor: pointer;

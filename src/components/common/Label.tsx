@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 const Label = styled.label`
-
-  color: ${({ color }) => color && color};
+  color: ${({ color, theme }) => color || theme.primary};
   font-size: 1rem;
   font-weight: bold;
   display: block;
