@@ -1,5 +1,6 @@
 import React from 'react'
 import { toast } from 'react-toastify'
+import { LoadingSpinner } from './LoadingSpinner'
 
 interface IProps {
     isLoading: boolean
@@ -14,7 +15,7 @@ function HandleResponse({
   isLoading, isSuccess, isError, successMsg, errorMsg, successId, errorId,
 }: IProps) {
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   if (isSuccess) {
