@@ -1,39 +1,52 @@
-import React, { ReactElement } from 'react'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import { chunk } from 'lodash'
+import {
+  MutableRefObject, ReactElement, useRef
+} from 'react'
 import styled from 'styled-components'
+import { getProjectsURL } from '../../api/getApiServices'
+import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { Carousel } from '../common'
 import { Project } from './Project/Project'
 
 interface IProject {
-  text: string
-  key: string
+  imageURL: string;
+  id: string;
+  title: string;
 }
-const projects: IProject[] = [
-  {
-    key: '1',
-    text: 'Today is day to reach out lend a helping hand',
-  },
-  {
-    key: '2',
-    text: 'Today is day to reach out lend a helping hand',
-  },
-  {
-    key: '3',
-    text: 'Today is day to reach out lend a helping hand',
-  }
-]
+
 export default function Projects(): ReactElement {
+  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
+  const isSectionVisible = useObserver(sectionRef)
+  const ongId = useAppSelector(({ ong }) => ong.ongId)
+
+  const {
+    data: projects,
+  } = useDependant(getProjectsURL(ongId), ['causes'], isSectionVisible && ongId)
+
   return (
-    <ProjectsSection id="projects">
-      {projects.map((project: IProject) => (
-        <Project key={project.key} text={project.text} />
-      ))}
-    </ProjectsSection>
+    <section ref={sectionRef}>
+      <Carousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
+        {[
+          ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
+            <div key={projects}>
+              <Div id="projects">
+                {e.map((image: IProject) => (
+                  <Project {...image} key={image.id} />
+                ))}
+              </Div>
+            </div>
+          )),
+        ]}
+      </Carousel>
+    </section>
   )
 }
 
-const ProjectsSection = styled.section`
-  display: flex;
-  justify-content: space-between;
+const Div = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   margin-top: 4.2rem;
-  align-items: flex-start;
-  padding: 0 4.1rem;    
+  padding: 0 4.1rem;
+  gap: 2rem;
   `

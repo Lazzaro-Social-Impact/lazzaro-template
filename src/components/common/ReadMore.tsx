@@ -12,7 +12,7 @@ const ReadMore = styled.a<IProps>`
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: ${({ color }) => color};
+  color: ${({ color, theme }) => color || theme.primary};
 
   &:hover {
     color: ${({ hoverColor }) => hoverColor};
@@ -22,8 +22,7 @@ const ReadMore = styled.a<IProps>`
 
 ReadMore.defaultProps = {
   fontSize: 'inherit',
-  hoverColor: '#5CB780',
-  color: '#777',
+  hoverColor: 'white',
 }
 
 export default ReadMore

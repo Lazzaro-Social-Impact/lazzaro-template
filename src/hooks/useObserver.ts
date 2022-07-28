@@ -2,7 +2,7 @@ import {
   MutableRefObject, useEffect, useMemo, useState
 } from 'react'
 
-function useObserver(ref: MutableRefObject<HTMLDivElement>) {
+function useObserver(ref: MutableRefObject<HTMLElement>) {
   const [isIntersecting, setIsIntersecting] = useState(false)
 
   const observer = useMemo(
