@@ -1,8 +1,7 @@
 import React, { ReactElement, useId } from 'react'
 import { Carousel } from 'antd'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { chunk } from 'lodash'
-import { useTheme } from '../../app/context/theme-context'
 
 interface img {
   src: string;
@@ -11,7 +10,7 @@ interface img {
 }
 
 export default function LogosCarousel(): ReactElement {
-  const globalColor = useTheme()
+  const { primary } = useTheme() as {primary: string}
 
   const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
     src: './assets/img/Google.png',
@@ -21,7 +20,7 @@ export default function LogosCarousel(): ReactElement {
   return (
     <CustomCarousel
       style={{
-        backgroundColor: globalColor,
+        backgroundColor: primary,
       }}
       dots={false}
       autoplay
