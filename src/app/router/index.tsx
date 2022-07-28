@@ -2,7 +2,12 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
 import {
-  Aboutus, BecomeVolunteerForm, Landing, ProjectDetails, Shop
+  Aboutus,
+  BecomeVolunteerForm,
+  Landing,
+  ProjectDetails,
+  Shop,
+  Donate,
 } from '../../views'
 import { SingleEvent } from '../../views/SingleEvent/SingleEvent'
 import { SingleProduct } from '../../views/SingleProduct/SingleProduct'
@@ -22,6 +27,7 @@ export default function AllRoute() {
         <Route path="/partners" element={<BecomeMemberForm />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/volunteers" element={<BecomeVolunteerForm />} />
+        <Route path="/donate" element={<Donate />} />
       </Routes>
     </>
   )
