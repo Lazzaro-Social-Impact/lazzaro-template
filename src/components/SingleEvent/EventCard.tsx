@@ -36,7 +36,7 @@ export function EventCard({
   }
   return (
     <EventCardDiv>
-      <EventCardTitle>
+      <EventCardTitle title={title}>
         {title}
       </EventCardTitle>
       <EventDate>
@@ -94,7 +94,9 @@ const EventCardTitle = styled.h3`
     font-size: 1.8rem;
     font-weight: 600;
     width: 90%;
-    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 `
 
 const EventLocation = styled.p`

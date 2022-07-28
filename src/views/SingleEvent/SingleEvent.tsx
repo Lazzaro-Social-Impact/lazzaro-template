@@ -49,7 +49,7 @@ const OtherEvents = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 1000px;
+  height: 75rem;
   gap: 1.2rem;
   overflow-y: auto;
 `

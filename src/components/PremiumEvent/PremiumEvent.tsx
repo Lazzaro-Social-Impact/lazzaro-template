@@ -51,7 +51,7 @@ export default function PremiumEvent(): ReactElement {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
-        <ReadMore to="" hoverColor={globalColor}>Read more</ReadMore>
+        <ReadMore hoverColor={globalColor}>Read more</ReadMore>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>

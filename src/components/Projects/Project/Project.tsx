@@ -1,30 +1,28 @@
-/* eslint-disable max-len */
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { Typography } from 'antd'
-import { useTheme } from '../../../app/context/theme-context'
-import { ReadMore, Button } from '../../common'
+import {
+  ReadMore, Button, Text, Image
+} from '../../common'
 
-const { Text } = Typography
 interface ProjectProps {
-  text: string;
+  imageURL: string;
+  title: string;
+  id: string;
 }
 
-export function Project({ text }: ProjectProps): ReactElement<ProjectProps> {
-  const globalColor = useTheme()
-
+export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
+  const navigate = useNavigate()
+  const navigateTo = (path: `projects/${ProjectProps['id']}`) => () => navigate(path)
   return (
     <ProjectCard>
-      <img
-        src="https://images.unsplash.com/photo-1606963303394-3bd3608a5c9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        alt=""
-      />
-      <Text>{text}</Text>
+      <Image src={imageURL} alt="" />
+      <Text fontSize={1.1} px={1} color="white">{title}</Text>
       <ProjectFooter>
-        <ReadMore to="" fontSize={1} color={globalColor}>
+        <ReadMore fontSize={1} onClick={navigateTo(`projects/${id}`)}>
           Read more
         </ReadMore>
-        <Button py={0.3} px={0.7} fontSize={1} bgColor={globalColor}>
+        <Button py={0.3} px={0.7} fontSize={1}>
           Donate
         </Button>
       </ProjectFooter>
@@ -33,6 +31,7 @@ export function Project({ text }: ProjectProps): ReactElement<ProjectProps> {
 }
 
 const ProjectCard = styled.div`
+  flex: 1;
   height: 37rem;
   border: 1px solid #ccc;
   position: relative;
@@ -62,7 +61,6 @@ const ProjectCard = styled.div`
       width: 100%;
     }
   }
-
 `
 
 const ProjectFooter = styled.div`

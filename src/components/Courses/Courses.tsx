@@ -17,7 +17,7 @@ interface ICourse {
   imageURL: string;
   start_time: string;
   end_time: string;
-  id: number;
+  id: string;
   course: boolean;
 }
 
