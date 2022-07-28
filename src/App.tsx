@@ -3,11 +3,14 @@ import 'antd/dist/antd.min.css'
 import { useDispatch } from 'react-redux'
 import './App.css'
 import { ThemeProvider } from 'styled-components'
+import { ToastContainer } from 'react-toastify'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import useDependant from './hooks/useDependant'
 import { setOngConfig, setOngId } from './features'
 import AllRoute from './app/router'
 import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
+import 'react-toastify/dist/ReactToastify.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 
@@ -47,7 +50,10 @@ function App() {
       {isLoading || isLoadingPage ? (
         <LoadingIndex />
       ) : (
-        <AllRoute />
+        <>
+          <AllRoute />
+          <ToastContainer />
+        </>
       )}
     </ThemeProvider>
   )
