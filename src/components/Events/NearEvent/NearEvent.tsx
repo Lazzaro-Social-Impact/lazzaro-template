@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
@@ -18,7 +17,13 @@ export default function NearEvent({
   const { primary } = useTheme() as {primary: string}
   const navigate = useNavigate()
   return (
-    <Card mode="column" smMode="column" maxWidth="40%" p="1rem" onClick={() => navigate(`/events/${id}`)}>
+    <Card
+      mode="column"
+      smMode="column"
+      maxWidth="40%"
+      p="1rem"
+      onClick={() => navigate(`/events/${id}`)}
+    >
       <div style={{ position: 'relative' }}>
         <BookmarkIcon color={primary} position="absolute" right={2.3} />
         <Image
@@ -30,7 +35,10 @@ export default function NearEvent({
       <TextContainer>
         <h2>{title}</h2>
         <p>{HtmlParser(description?.slice(0, 150))}</p>
-        <Link to={`/events/${id}`} style={{ alignSelf: 'flex-end', color: primary, fontSize: '1rem' }}>
+        <Link
+          to={`/events/${id}`}
+          style={{ alignSelf: 'flex-end', color: primary, fontSize: '1rem' }}
+        >
           Read more
         </Link>
       </TextContainer>

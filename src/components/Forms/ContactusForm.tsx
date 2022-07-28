@@ -1,12 +1,53 @@
 import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
-import { Form, Input } from 'antd'
+import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import { useForm } from 'react-hook-form'
+import styled, { useTheme } from 'styled-components'
+import * as yup from 'yup'
+import { getSendContactUrl } from '../../api/postApiServices'
+import { useAppSelector, usePostData } from '../../hooks'
 import { Button } from '../common'
+import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
+import { ErrorInput } from '../common/ErrorInput'
+import HandleResponse from '../common/HandleResponse'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 
+type ContactSubmitForm = {
+  name: string
+  lastName: string
+  email: string
+  subject: string
+  message: string
+  terms: boolean
+}
+const contactSchema = yup.object({
+  name: yup.string().required('Name is required'),
+  lastName: yup.string().required('Last Name is required'),
+  email: yup.string().required('Email is required').email('Invalid email'),
+  subject: yup.string().required('Subject is required'),
+  message: yup.string().required('Message is required'),
+  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions')
+})
+
 export function ContactusForm(): ReactElement {
+  const { secondary } = useTheme() as {primary: string, secondary: string}
+  const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
+    resolver: yupResolver(contactSchema),
+  })
+  const phone = useAppSelector((state) => state.ong?.ongConfig?.contact.phone)
+  const email = useAppSelector((state) => state.ong?.ongConfig?.contact.email)
+  const address = useAppSelector((state) => state.ong?.ongConfig?.contact.address)
+
+  const {
+    isLoading, isSuccess, isError, mutateAsync
+  } = usePostData(getSendContactUrl())
+  const onSubmit = async (data: any) => {
+    await mutateAsync({
+      ...data,
+      ongEmail: email,
+    })
+  }
   return (
     <>
       <Navbar />
@@ -25,48 +66,67 @@ export function ContactusForm(): ReactElement {
       />
       <Container>
 
-        <ContactusFormBox layout="vertical">
+        <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
+          <HandleResponse
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
+            successMsg="Your message has been sent successfully"
+            errorMsg="Something went wrong, please try again"
+            successId="contact-success"
+            errorId="contact-error"
+          />
           <FormTitle>Contact us</FormTitle>
           <FormRow>
-            <Input
-              placeholder="Name"
-              size="large"
-              style={{ width: '100%' }}
-            />
-            <Input
-              placeholder="Surname"
-              size="large"
-              style={{ width: '100%' }}
-            />
+            <CustomInputDiv>
+
+              <CustomInput
+                placeholder="Name"
+                {...register('name')}
+              />
+              <ErrorInput msg={errors.name?.message} />
+            </CustomInputDiv>
+            <CustomInputDiv>
+
+              <CustomInput
+                placeholder="Surname"
+                {...register('lastName')}
+              />
+              <ErrorInput msg={errors.lastName?.message} />
+            </CustomInputDiv>
           </FormRow>
-          <Input
+          <CustomInput
             placeholder="Email"
-            size="large"
-            style={{ width: '100%' }}
+            {...register('email')}
           />
-          <Input
+          <ErrorInput msg={errors.email?.message} />
+          <CustomInput
             placeholder="Subject"
-            size="large"
-            style={{ width: '100%' }}
+            {...register('subject')}
           />
-          <Input.TextArea
+          <ErrorInput msg={errors.subject?.message} />
+          <CustomTextArea
             placeholder="Message"
-            size="large"
             style={{ width: '100%' }}
             rows={4}
+            {...register('message')}
           />
+          <ErrorInput msg={errors.message?.message} />
           <label>
-            <Input
+            <input
               type="checkbox"
               style={{ width: '15px', marginRight: '10px' }}
+              {...register('terms')}
             />
             <span>I agree to the privacy policy</span>
+            <ErrorInput msg={errors.terms?.message} />
           </label>
           <Button
             px="3.2rem"
             py="0.8rem"
             bgColor="green"
             style={{ alignSelf: 'center', marginTop: '2.4rem' }}
+            hoverBgColor={secondary}
           >
             Send Message
           </Button>
@@ -74,26 +134,24 @@ export function ContactusForm(): ReactElement {
         <ContactDetailsBox>
           <BoxTitle>Contact info</BoxTitle>
           <InfoBox>
-            <MailOutlined
-              width="50px"
-            />
+            <MailOutlined />
             <InfoText>
               <TextTitle>Our office</TextTitle>
-              <TextHolder>Street, City</TextHolder>
+              <TextHolder>{address}</TextHolder>
             </InfoText>
           </InfoBox>
           <InfoBox>
             <PhoneFilled />
             <InfoText>
               <TextTitle>Get in touch</TextTitle>
-              <TextHolder>Street, City</TextHolder>
+              <TextHolder>{phone}</TextHolder>
             </InfoText>
           </InfoBox>
           <InfoBox>
             <MailFilled />
             <InfoText>
               <TextTitle>Write to us</TextTitle>
-              <TextHolder>Street, City</TextHolder>
+              <TextHolder>{email}</TextHolder>
             </InfoText>
           </InfoBox>
         </ContactDetailsBox>
@@ -111,7 +169,7 @@ margin-top: 12.8rem;
 padding: 0 9.4rem;
 `
 
-const ContactusFormBox = styled(Form)`
+const ContactusFormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -124,6 +182,7 @@ const ContactusFormBox = styled(Form)`
 const FormTitle = styled.h1`
   font-size: 2.4rem;
   font-weight: bold;
+  color:  ${({ theme }) => theme.primary};
 `
 const FormRow = styled.div`
 display: flex;
@@ -133,7 +192,8 @@ const ContactDetailsBox = styled.div`
 display: flex;
 flex-direction: column;
 padding: 3.2rem 1.8rem;
-background-color: green;
+background-color: ${({ theme }) => theme.primary};
+
 align-items: center;
 width: 370px;
 gap: 1.2rem;

@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd'
+import { Input } from 'antd'
 import React, { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Button } from '../common'
@@ -63,7 +63,7 @@ export function BuyEventform({ modal }: Props): ReactElement<Props> {
     </BuyFrom>
   )
 }
-const BuyFrom = styled(Form)`
+const BuyFrom = styled.form`
     width: ${({ modal }: Props) => (modal ? '60%' : '100%')};
     margin: auto;
 `

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Carousel } from 'antd'

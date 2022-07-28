@@ -9,7 +9,7 @@ interface IImage {
 
 interface IProps {
   imgs: IImage[]
-  isLoading: boolean
+  isLoading?: boolean
 }
 
 export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
@@ -39,3 +39,7 @@ const ImageContainer = styled.div`
         height: 420px;
     }
 `
+
+EventCarousel.defaultProps = {
+  isLoading: false,
+}
