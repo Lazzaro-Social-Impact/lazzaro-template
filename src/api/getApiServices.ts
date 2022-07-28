@@ -1,5 +1,8 @@
-export const getEventsURL = (ongId: string): string => `/api/private/events/ong/${ongId}`
 export const getProjectsURL = (ongId: string): string => `/api/private/projects/ong/${ongId}`
+export const getProjectDetailsURL = (id: string) => `/api/private/projects/${id}`
+export const getProjectImagesURL = (projectId: string) => `/api/private/projectimages/${projectId}`
+export const getProjectLatestDonationsURL = (causeId: string) => `/api/private/comments/${causeId}`
+export const getEventsURL = (ongId: string): string => `/api/private/events/ong/${ongId}`
 export const getCauseDetailsURL = (id: string): string => `/api/private/projects/${id}`
 export const getCauseImagesURL = (id: string): string => `/api/private/projectimages/${id}`
 export const getCauseDonationsHistoryUrl = (causeId: string)

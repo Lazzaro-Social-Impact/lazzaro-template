@@ -5,6 +5,7 @@ interface IProps {
   mode?: TFlexDirection;
   smMode?: TFlexDirection;
   maxWidth?: TMaxWidth;
+  width?: TWidth;
   py?: TPaddingBlock;
   px?: TPaddingInline;
   pl?: TPaddingLeft;
@@ -28,6 +29,7 @@ const Card = styled.div<IProps>`
   display: flex;
   justify-content: flex-start;
   flex-direction: ${({ mode }) => mode};
+  width: ${({ width }) => width && width};
   max-width: ${({ maxWidth }) => maxWidth && maxWidth};
   gap: 0.8rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
