@@ -1,11 +1,12 @@
 import { Radio } from 'antd'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
+import { Button } from '../common'
 
 type memberSubmitForm = {
   firstName: string
@@ -34,7 +35,7 @@ export function BecomeMemberForm(): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm<memberSubmitForm>({
     resolver: yupResolver(memberSchema),
   })
-
+  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const onSubmit = async (data: memberSubmitForm) => {
     console.log(data)
   }
@@ -193,11 +194,15 @@ export function BecomeMemberForm(): ReactElement {
           </p>
 
           <Center>
-            <button
+            <Button
               type="submit"
+              py={0.8}
+              px={2.4}
+              bgColor={primary}
+              hoverBgColor={secondary}
             >
               Submit
-            </button>
+            </Button>
           </Center>
         </form>
       </Container>
@@ -226,7 +231,7 @@ img {
 
 const FormTitle = styled.h1`
     font-size: 2.4rem;
-    color: green;
+    color: ${({ theme }) => theme.primary};
     font-weight: bold;
 `
 
@@ -300,10 +305,11 @@ display: block;
     font-size: 0.9rem;
   }
   .ant-radio-checked .ant-radio-inner {
-    border-color: green;
+    border-color: ${({ theme }) => theme.primary};
+
   }
   .ant-radio-inner::after {
-    background-color: green !important;
+    background-color: ${({ theme }) => theme.primary} !important;
   }
 `
 
