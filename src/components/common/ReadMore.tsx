@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { getProp } from '../../utils'
 
@@ -5,9 +6,10 @@ interface IProps {
   fontSize?: TFontSize;
   hoverColor?: TColor;
   color?: TColor;
+  textAlign?: TTextAlign;
 }
 
-const ReadMore = styled.a<IProps>`
+const ReadMore = styled(Link)<IProps>`
   font-size: ${({ fontSize }) => getProp(fontSize)};
   text-decoration: underline;
   cursor: pointer;

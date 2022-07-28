@@ -1,32 +1,37 @@
-/* eslint-disable max-len */
-import React, { ReactElement, useId } from 'react'
+import React, {
+  MutableRefObject, ReactElement, useRef
+} from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { chunk } from 'lodash'
 import CourseCard from './CourseCard/CourseCard'
 import { SectionTitle } from '../common'
+import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { getCoursesURL } from '../../api/getApiServices'
 
 interface ICourse {
-  src: string;
-  id: string;
-  date: number;
   title: string;
   description: string;
+  location: string;
+  imageURL: string;
+  start_time: string;
+  end_time: string;
+  id: number;
+  course: boolean;
 }
 
 function Courses(): ReactElement {
-  const dummyCourses = Array.from({ length: 8 }, () => ({
-    src: 'https://images.unsplash.com/photo-1500823050524-096fd13fa287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    id: useId(),
-    date: 8,
-    title: 'Deluling is the world best',
-    description:
-      'Lorem Ipsum is s galley of type and scrambled i printing and typing i and industry.',
-  }))
+  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
+  const isSectionVisible = useObserver(sectionRef)
+
+  const {
+    data: events = []
+  } = useDependant(getCoursesURL(ongId), ['courses'], isSectionVisible && ongId)
 
   return (
-    <CoursesSection id="courses">
+    <CoursesSection id="courses" ref={sectionRef}>
       <SectionTitle padding={0}>Courses</SectionTitle>
       <CustomCarousel
         arrows
@@ -37,11 +42,11 @@ function Courses(): ReactElement {
         autoplaySpeed={5000}
       >
         {[
-          ...chunk(dummyCourses, 2).map((e: ICourse[]) => (
-            <React.Fragment key={useId()}>
-              {e.map((course: ICourse) => (
-                <Flex key={course.id}>
-                  <CourseCard course={course} />
+          ...chunk<ICourse>(events, 2).map((e: ICourse[]) => (
+            <React.Fragment key={events}>
+              {e.map((event: ICourse) => (
+                <Flex key={event.id}>
+                  <CourseCard course={event} />
                 </Flex>
               ))}
             </React.Fragment>

@@ -1,6 +1,14 @@
 import React, { ReactElement } from 'react'
 import { Carousel } from 'antd'
 import styled from 'styled-components'
+import { useParams } from 'react-router-dom'
+import { useDependant } from '../../hooks'
+import { getEventImages } from '../../api/getApiServices'
+
+interface IImage {
+  id: string
+  img_url: string
+}
 
 export function EventCarousel({ imgs, isLoading }: any): ReactElement {
   return (
