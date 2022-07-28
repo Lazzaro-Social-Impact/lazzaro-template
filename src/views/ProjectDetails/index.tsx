@@ -32,10 +32,12 @@ function ProjectDetails(): ReactElement {
   return (
     <>
       <Navbar />
-      <ImageCarousel {...images} />
+      <ImageCarousel images={images} />
       <Flex>
-        <Tabs {...projectDetails} />
-        {projects.map((project: IProject) => (<ProjectCard project={project} />))}
+        <Tabs projectDetails={projectDetails} />
+        <OtherProjects>
+          {projects?.map((project: IProject) => (<ProjectCard project={project} />))}
+        </OtherProjects>
       </Flex>
       <Footer />
     </>
@@ -54,7 +56,6 @@ const Flex = styled.div`
   margin-inline: 6rem;
   margin-top: 5rem;
   text-align: center;
-  gap: 6rem;
 
   & div {
     flex: 1;
@@ -71,5 +72,14 @@ const Flex = styled.div`
       max-width: 100%;
     }
   }
+`
+
+const OtherProjects = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap:2rem;
+  height:65rem;
+  overflow-y: auto;
 `
 export default ProjectDetails

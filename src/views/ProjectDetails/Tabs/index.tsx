@@ -3,6 +3,7 @@ import { Form as DonateForm } from '../../../components'
 import Description from './Description'
 import LatestDonations from './HistoricalDonations'
 
+const { TabPane } = AntdTabs
 interface IProps {
   projectDetails: {
     id: string;
@@ -11,9 +12,8 @@ interface IProps {
 }
 
 function Tabs({ projectDetails } : IProps) {
-  const { TabPane } = AntdTabs
+  const { id, description } = projectDetails || {}
 
-  const { id, description } = projectDetails
   const handleSubmit = (values: any) => {
     console.log(values)
   }

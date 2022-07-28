@@ -6,12 +6,11 @@ import { Carousel, Image } from '../../components/common'
 interface IProps {
   images: {
     id: string;
-    // eslint-disable-next-line camelcase
     img_url: string;
   }[];
 }
 
-function ProjectImage({ images }: IProps) {
+function ImageCarousel({ images }: IProps) {
   return (
     <Section>
       <Carousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />} autoplay autoplaySpeed={5000}>
@@ -27,7 +26,7 @@ function ProjectImage({ images }: IProps) {
   )
 }
 
-export default ProjectImage
+export default ImageCarousel
 
 const Section = styled.section`
   position: relative;

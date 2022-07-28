@@ -22,38 +22,47 @@ interface IDonation {
   };
 }
 function LatestDonations({ title, projectId }: IProps) {
-  const {
-    data: donations
-  } = useDependant(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
+  const { data: donations } = useDependant(
+    getProjectLatestDonationsURL(projectId),
+    [`donations${projectId}`],
+    projectId
+  )
 
-  const formatDate = (date: string) => moment(date).format('MMMM Do YYYY, h:mma')
+  const formatDate = (date: string) => moment(date).format('MM Do YYYY')
   return (
-    <>
+    <Container>
       <Text weight="bold" fontSize={2} textAlign="left">
         {title || 'Latest Donations'}
       </Text>
       {donations?.map((donation: IDonation) => (
         <Section>
           <Flex>
-            <h1>
+            <Text fontSize={1.2}>
               {donation.anonymous
                 ? 'anonymous'
                 : `${donation.User.firstName} ${donation.User.lastName}`}
-            </h1>
+            </Text>
             <Text textAlign="right">${donation.amount}</Text>
           </Flex>
 
-          <Text lineHeight={0} textAlign="left">
+          <Text fontSize={0.7} lineHeight={0} textAlign="left" color="#777777" mt={-1.5}>
             {formatDate(donation.createdAt)}
           </Text>
 
           <Text mt={1}>{donation.text}</Text>
         </Section>
       ))}
-    </>
+    </Container>
   )
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+  height: 50rem;
+  `
 const Section = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,7 +71,8 @@ const Section = styled.div`
   border-radius: 15px;
   text-align: left;
   border: 1px solid #777777;
-  width: 60%;
+  width: 80%;
+  margin-inline: 3rem;
 `
 
 const Flex = styled.div`

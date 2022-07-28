@@ -18,6 +18,7 @@ export function ProjectCard({ project } : IProps) {
   const {
     id, title, donated, amount
   } = project
+
   const color = useTheme()
 
   const [visible, setVisible] = useState(false)
@@ -41,7 +42,7 @@ export function ProjectCard({ project } : IProps) {
 
   const donationProgress = (donated / amount) * 100
   return (
-    <Card mode="column" p={3} maxWidth="400px" smMode="column">
+    <Card mode="column" p={3} maxWidth="400px" smMode="column" m="1rem" width="100%">
       <h1>{title}</h1>
       <ProgressBar>
         <Progress percent={44} strokeColor={color} />
