@@ -11,6 +11,7 @@ import { Button } from '../common'
 import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
+import { ErrorInput } from '../common/ErrorInput'
 
 type memberSubmitForm = {
   firstName: string
@@ -95,9 +96,7 @@ export function BecomeMemberForm(): ReactElement {
                 style={{ width: '100%' }}
                 {...register('firstName')}
               />
-              <p>
-                {errors.firstName?.message}
-              </p>
+              <ErrorInput msg={errors.firstName?.message} mt={0.4} />
             </CustomInputDiv>
             <CustomInputDiv>
 
@@ -106,9 +105,8 @@ export function BecomeMemberForm(): ReactElement {
                 style={{ width: '100%' }}
                 {...register('lastName')}
               />
-              <p>
-                {errors.lastName?.message}
-              </p>
+              <ErrorInput msg={errors.lastName?.message} mt={0.4} />
+
             </CustomInputDiv>
 
           </FormRow>
@@ -120,10 +118,9 @@ export function BecomeMemberForm(): ReactElement {
                 style={{ width: '100%' }}
                 {...register('nif')}
               />
-              <p>
 
-                {errors.nif?.message}
-              </p>
+              <ErrorInput msg={errors.nif?.message} mt={0.4} />
+
             </CustomInputDiv>
             <CustomInputDiv>
 
@@ -132,10 +129,8 @@ export function BecomeMemberForm(): ReactElement {
                 style={{ width: '100%' }}
                 {...register('phone')}
               />
-              <p>
+              <ErrorInput msg={errors.phone?.message} mt={0.4} />
 
-                {errors.phone?.message}
-              </p>
             </CustomInputDiv>
           </FormRow>
           <FormRow>
@@ -146,10 +141,7 @@ export function BecomeMemberForm(): ReactElement {
                 style={{ width: '100%' }}
                 {...register('user_email')}
               />
-              <p>
-
-                {errors.user_email?.message}
-              </p>
+              <ErrorInput msg={errors.user_email?.message} mt={0.4} />
 
             </CustomInputDiv>
 
@@ -169,10 +161,8 @@ export function BecomeMemberForm(): ReactElement {
                   />
                 )}
               />
-              <p>
+              <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
 
-                {errors.birthDate?.message}
-              </p>
             </CustomInputDiv>
 
           </FormRow>
@@ -181,14 +171,12 @@ export function BecomeMemberForm(): ReactElement {
             style={{ width: '100%', marginTop: '1.2rem' }}
             {...register('home_address')}
           />
-          <p>
-            {errors.home_address?.message}
-          </p>
+          <ErrorInput msg={errors.home_address?.message} mt={0.4} />
 
           <RadioQuestion>
             I have read and accepted the NGOs privacy policy.
           </RadioQuestion>
-          <CustomRadioGroup
+          <Radio.Group
             {...register('terms')}
           >
 
@@ -203,15 +191,13 @@ export function BecomeMemberForm(): ReactElement {
             >
               I dont accept (in this case, we will not be able to process your membership)
             </CustomRadio>
-          </CustomRadioGroup>
-          <p>
-            {errors.terms?.message}
-          </p>
+          </Radio.Group>
+          <ErrorInput msg={errors.terms?.message} mt={0.4} />
 
           <RadioQuestion>
             Would you like us to process your registration as a member of the NGO?
           </RadioQuestion>
-          <CustomRadioGroup
+          <Radio.Group
             {...register('membership')}
           >
             <CustomRadio
@@ -224,11 +210,8 @@ export function BecomeMemberForm(): ReactElement {
             >
               No
             </CustomRadio>
-          </CustomRadioGroup>
-          <p>
-
-            {errors.membership?.message}
-          </p>
+          </Radio.Group>
+          <ErrorInput msg={errors.membership?.message} mt={0.4} />
 
           <Center>
             <Button
@@ -293,6 +276,7 @@ const RadioQuestion = styled.p`
 color: #8c8c8c;
 letter-spacing: 1.2px;
 margin-top: 1.8rem;
+margin-bottom: 0;
 font-size: 1rem;
 `
 const CustomInput = styled.input`
@@ -329,11 +313,6 @@ const CustomInput = styled.input`
         box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
     }
 
-    & + p {
-  color: red;
-  margin-bottom: 0;
-  margin-top: 0.4rem ;
-    }
 `
 const CustomRadio = styled(Radio)`
 display: block;
@@ -356,13 +335,6 @@ flex-direction: column;
 gap: 0;
 width: 100%;
 
-`
-const CustomRadioGroup = styled(Radio.Group)`
- & + p {
-  color: red;
-  margin-top: 0.4rem ;
-
- }
 `
 
 const CustomDatePicker = styled(DatePicker)`
@@ -399,9 +371,4 @@ const CustomDatePicker = styled(DatePicker)`
         box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
     }
 
-    & + p {
-  color: red;
-  margin-bottom: 0;
-  margin-top: 0.4rem ;
-    }
 `
