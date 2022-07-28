@@ -10,18 +10,21 @@ interface IImage {
   img_url: string
 }
 
-export function EventCarousel(): ReactElement {
-  const { id } = useParams() as { id: string }
-
-  const { data: images } = useDependant(getEventImages(id), [`images${id}`], id)
+export function EventCarousel({ imgs, isLoading }: any): ReactElement {
   return (
-    <Carousel>
-      {images?.map((image:IImage) => (
-        <ImageContainer key={image.id}>
-          <img src={image.img_url} alt="" />
-        </ImageContainer>
-      ))}
-    </Carousel>
+    <>
+      {isLoading && <h1>Loading</h1>}
+      {!isLoading && (
+      <Carousel autoplay>
+        {imgs?.map(({ img_url, id }: any) => (
+          <ImageContainer>
+            <img src={img_url} alt={id} />
+          </ImageContainer>
+        ))}
+      </Carousel>
+      )}
+    </>
+
   )
 }
 

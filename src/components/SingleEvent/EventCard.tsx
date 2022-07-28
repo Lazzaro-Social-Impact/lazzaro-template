@@ -1,22 +1,23 @@
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
 import moment from 'moment'
 import { Button } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
+import { useDependant } from '../../hooks'
+import { getEventImages } from '../../api/getApiServices'
 
-interface IProps {
-  title: string
-  start_time: string;
-  EventTickets:[]
-}
-
-export function EventCard(props: IProps): ReactElement {
-  const { title, start_time, EventTickets: tickets } = props
+export function EventCard({
+  id, title, start_time, end_time, location, stock
+}: any): ReactElement {
   const [visible, setVisible] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
+  const startDate = moment(start_time).format('Do MMMM YYYY')
+  const endDate = moment(end_time).format('Do MMMM YYYY')
+  const { data: images, isLoading } = useDependant(getEventImages(id), [`event_images_${id}`], id)
+  const { primary, secondary } = useTheme() as { [key: string]: string }
 
   const showModal = () => {
     setVisible(true)
@@ -35,22 +36,30 @@ export function EventCard(props: IProps): ReactElement {
   }
   return (
     <EventCardDiv>
-      <EventCardTitle>{title.slice(0, 19)}</EventCardTitle>
+      <EventCardTitle>
+        {title}
+      </EventCardTitle>
       <EventDate>
-        <ClockCircleFilled /> {moment(start_time).format('MMM Do YYYY, h:mm a')}
+        <ClockCircleFilled /> {startDate} - {endDate}
       </EventDate>
       <EventLocation>
         <HeatMapOutlined />
-        Online
+        {location}
       </EventLocation>
       <EventTickets>
-        Tickets available: <span>{tickets.length}</span>
+        Tickets available: <span>{stock}</span>
       </EventTickets>
       <EventCardButtons>
         <Button px="2.2rem" py="0.8rem" color="#aaa">
           Share
         </Button>
-        <Button px="2.2rem" py="0.8rem" onClick={showModal} bgColor="green">
+        <Button
+          px="2.2rem"
+          py="0.8rem"
+          onClick={showModal}
+          bgColor={primary}
+          hoverBgColor={secondary}
+        >
           Buy
         </Button>
         <Modal
@@ -62,7 +71,7 @@ export function EventCard(props: IProps): ReactElement {
           footer={null}
           width="50%"
         >
-          <EventCarousel />
+          <EventCarousel imgs={images} isLoading={isLoading} />
           <BuyEventform modal />
         </Modal>
       </EventCardButtons>
@@ -81,8 +90,8 @@ const EventCardDiv = styled.div`
 `
 
 const EventCardTitle = styled.h3`
-    color: green;
-    font-size: 1.7rem;
+    color: ${({ theme }) => theme.primary};
+    font-size: 1.8rem;
     font-weight: 600;
     width: 90%;
     

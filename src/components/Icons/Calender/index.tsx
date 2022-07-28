@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { getProp } from '../../../utils'
 
 interface IProps {
-  date: number;
+  date: string | number;
   type?: 'outlined' | 'filled';
   color?: TColor;
   size?: TFontSize;

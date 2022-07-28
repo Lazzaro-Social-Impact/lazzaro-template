@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Typography } from 'antd'
 import ImpactPart from './ImpactPart/ImpactPart'
-import { useTheme } from '../../app/context/theme-context'
 
 const { Title } = Typography
 interface INumber {
@@ -33,11 +32,11 @@ const numbers: INumber[] = [
   },
 ]
 export default function SocialImpact(): ReactElement {
-  const globalColor = useTheme()
+  const { primary } = useTheme() as {primary: string}
 
   return (
 
-    <SocialImpactSection style={{ backgroundColor: globalColor }}>
+    <SocialImpactSection style={{ backgroundColor: primary }}>
       <SectionTitle level={1}>Social Impact </SectionTitle>
       <ImpactNumbers>
         {numbers.map((number: INumber) => (

@@ -34,7 +34,7 @@ function CourseCard({ course }: IProps) {
       <TextContainer>
         <h2>{course.title.slice(0, 23)}</h2>
         {parse(course.description.slice(0, 100))}
-        <ReadMore to={`/events/${course.id}`} fontSize={1.2} color="black" textAlign="right">
+        <ReadMore to={`/courses/${course.id}`} fontSize={1.2} color="black" textAlign="right">
           Read more
         </ReadMore>
       </TextContainer>
