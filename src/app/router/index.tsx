@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
+import { ContactusForm } from '../../components/Forms/ContactusForm'
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -28,6 +29,7 @@ export default function AllRoute() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/volunteers" element={<BecomeVolunteerForm />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path="/contact" element={<ContactusForm />} />
       </Routes>
     </>
   )

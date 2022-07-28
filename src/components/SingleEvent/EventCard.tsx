@@ -16,7 +16,9 @@ export function EventCard({
   const [confirmLoading, setConfirmLoading] = useState(false)
   const startDate = moment(start_time).format('Do MMMM YYYY')
   const endDate = moment(end_time).format('Do MMMM YYYY')
-  const { data: images, isLoading } = useDependant(getEventImages(id), [`event_images_${id}`], id)
+  const { data: images, isLoading } = useDependant(
+    getEventImages(id), [`event_images_form_${id}`], id
+  )
   const { primary, secondary } = useTheme() as { [key: string]: string }
 
   const showModal = () => {
@@ -86,7 +88,8 @@ const EventCardDiv = styled.div`
     padding: 2.4rem 1.8rem;
     border: 1px solid #e6e6e6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 420px;
+    height: 470px;
+    width: 525px;
 `
 
 const EventCardTitle = styled.h3`

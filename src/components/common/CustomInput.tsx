@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
-export const CustomInput = styled.input`
-    -webkit-text-size-adjust: 100%;
+export function CustomComponent(component: any) {
+  return styled(component)`
+     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     align-self: flex-start;
     box-shadow: ${({ theme }) => theme.primary};
@@ -33,8 +34,11 @@ export const CustomInput = styled.input`
         outline: none;
         box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
     }
-
-`
+    
+    `
+}
+export const CustomInput = CustomComponent('input')
+export const CustomTextArea = CustomComponent('textarea')
 
 // used when there is an error and the input is inside a flex container
 export const CustomInputDiv = styled.div`

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import HtmlParser from 'react-html-parser'
@@ -43,7 +42,10 @@ export default function Aboutus(): ReactElement {
         <SectionText>Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Debitis quibusdam repellat laudantium excepturi exercitationem perspiciatis assumenda
           aperiam ad mollitia voluptas, obcaecati officiis quasi, tempore aliquid quisquam
-          deserunt odit? Ipsam, tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat aut quis deleniti dolorum molestiae porro! Inventore veniam ipsum assumenda vero maiores, quibusdam perferendis praesentium doloremque quo, beatae nihil molestias saepe.
+          deserunt odit? Ipsam, tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Placeat aut quis deleniti dolorum molestiae porro! Inventore veniam ipsum assumenda vero
+          maiores,
+          quibusdam perferendis praesentium doloremque quo, beatae nihil molestias saepe.
         </SectionText>
       </Container>
       <Footer />

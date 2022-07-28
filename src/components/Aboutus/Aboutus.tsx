@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react'
 import { Typography } from 'antd'
 import styled from 'styled-components'

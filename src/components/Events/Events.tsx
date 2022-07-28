@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactElement } from 'react'
 import { Col } from 'antd'
 import styled from 'styled-components'

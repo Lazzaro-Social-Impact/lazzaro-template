@@ -38,10 +38,10 @@ export function SingleEvent(): ReactElement {
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 0 10.2rem;
-  gap: 1.8rem;
+  gap: 10.8rem;
   margin-top: 3.2rem;
 `
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 import { Carousel, Image } from '../../components/common'
@@ -13,7 +12,13 @@ interface IProps {
 function ImageCarousel({ images }: IProps) {
   return (
     <Section>
-      <Carousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />} autoplay autoplaySpeed={5000}>
+      <Carousel
+        arrows
+        nextArrow={<ArrowRightOutlined />}
+        prevArrow={<ArrowLeftOutlined />}
+        autoplay
+        autoplaySpeed={5000}
+      >
         {images?.map(({ id, img_url: imgUrl }) => (
           <ImageWrapper key={id}>
             <Image src={imgUrl} alt="project" />
