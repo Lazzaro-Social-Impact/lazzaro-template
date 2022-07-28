@@ -1,19 +1,23 @@
 import { Radio } from 'antd'
 import React, { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import DatePicker from 'react-datepicker'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import { Button } from '../common'
+import HandleResponse from '../common/HandleResponse'
+import { useAppSelector, usePostData } from '../../hooks'
+import { getBecomePartnerUrl } from '../../api/postApiServices'
 
 type memberSubmitForm = {
   firstName: string
   lastName: string
   user_email: string
   home_address: string
-  birthDate: string
+  birthDate: Date
   nif: number
   terms: boolean
   membership: boolean
@@ -24,7 +28,7 @@ const memberSchema = yup.object().shape({
   lastName: yup.string().required('Last name is required'),
   user_email: yup.string().required('Email is required'),
   home_address: yup.string().required('Address is required'),
-  birthDate: yup.string().required('Birth of Date is required'),
+  birthDate: yup.date().required('Birth of Date is required'),
   nif: yup.number().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),
@@ -32,12 +36,26 @@ const memberSchema = yup.object().shape({
 }).required()
 
 export function BecomeMemberForm(): ReactElement {
-  const { register, handleSubmit, formState: { errors } } = useForm<memberSubmitForm>({
+  const {
+    register, handleSubmit, formState: { errors }, control
+  } = useForm<memberSubmitForm>({
     resolver: yupResolver(memberSchema),
   })
+  const {
+    isLoading, isSuccess, isError, mutateAsync
+  } = usePostData(getBecomePartnerUrl())
+  const ongId = useAppSelector((state) => state.ong.ongId)
   const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const onSubmit = async (data: memberSubmitForm) => {
-    console.log(data)
+    const formData = {
+      ...data,
+      birthDate: data.birthDate.toISOString().split('T')[0],
+      amount: 1, // TODO: Ask Ivan about this
+      ong_id: ongId
+    }
+    const { data: { data: payPalLink } } = await mutateAsync(formData)
+
+    window.open(payPalLink, '_blank')
   }
   return (
     <>
@@ -53,6 +71,15 @@ export function BecomeMemberForm(): ReactElement {
           style={{ padding: '0 10.2rem' }}
           onSubmit={handleSubmit(onSubmit)}
         >
+          <HandleResponse
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
+            successMsg="Please navigate to PayPal to complete the payment"
+            errorMsg="Something went wrong, please try again later"
+            successId="success-become-member"
+            errorId="error-become-member"
+          />
           <FormTitle>
             Membership registration
           </FormTitle>
@@ -127,10 +154,19 @@ export function BecomeMemberForm(): ReactElement {
 
             <CustomInputDiv>
 
-              <CustomInput
-                placeholder="Date of birth"
-                style={{ width: '100%' }}
-                {...register('birthDate')}
+              <Controller
+                control={control}
+                name="birthDate"
+                render={({ field }: any) => (
+                  <CustomDatePicker
+                    name="birthDate"
+                    placeholderText="Birth of Date"
+                    selected={field.value}
+                    onChange={(date: Date) => field.onChange(date)}
+                    dateFormat="yyyy-MM-dd"
+                    autoComplete="off"
+                  />
+                )}
               />
               <p>
 
@@ -326,4 +362,45 @@ const CustomRadioGroup = styled(Radio.Group)`
   margin-top: 0.4rem ;
 
  }
+`
+
+const CustomDatePicker = styled(DatePicker)`
+ -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    align-self: flex-start;
+    box-shadow: ${({ theme }) => theme.primary};
+    box-sizing: border-box !important;
+    font-family: inherit;
+    overflow: visible;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: relative;
+    display: inline-block;
+    min-width: 0;
+    padding: 9.5px 11px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all .3s;
+    -webkit-appearance: none;
+    touch-action: manipulation;
+    text-overflow: ellipsis;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+        box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
+    }
+
+    & + p {
+  color: red;
+  margin-bottom: 0;
+  margin-top: 0.4rem ;
+    }
 `
