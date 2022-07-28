@@ -28,7 +28,8 @@ const memberSchema = yup.object().shape({
   lastName: yup.string().required('Last name is required'),
   user_email: yup.string().required('Email is required'),
   home_address: yup.string().required('Address is required'),
-  birthDate: yup.date().required('Birth of Date is required'),
+  birthDate: yup.date().required('Birth of Date is required')
+    .typeError('Birth of Date is required'),
   nif: yup.number().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),
