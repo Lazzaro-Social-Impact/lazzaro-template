@@ -1,22 +1,23 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 import {
   Tabs
 } from 'antd'
 import { useParams } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
+import styled from 'styled-components'
+import { useDependant } from '../../hooks'
+import { getEventsURL, getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
-import { useDependant } from '../../hooks'
-import { getEventURL, getEventImages } from '../../api/getApiServices'
 
 export function SingleEventDetails(): ReactElement {
   const { id } = useParams() as { id: string }
   const {
-    data: event, isLoading: isLoadingEvent
-  } = useDependant(getEventURL(id), [`event ${id}`], id)
-  const { data: images, isLoading } = useDependant(getEventImages(id), [`event_images_${id}`], id)
+    data: event,
+    isLoading: isLoadingEvent
+  } = useDependant(getEventsURL(id), [`event-details-${id}`], id)
+  const { data: images, isLoading } = useDependant(getEventImages(id), ['event_images'], id)
   return (
     <>
       {isLoadingEvent && <div>Loading...</div>}
@@ -26,10 +27,7 @@ export function SingleEventDetails(): ReactElement {
         <EventTitle>
           {event?.title}
         </EventTitle>
-        <EventDescription>
           {HtmlParser(event?.description)}
-
-        </EventDescription>
 
         <CustomTabs defaultActiveKey="1">
           <Tabs.TabPane tab="Buy" key="1">
@@ -51,7 +49,7 @@ export function SingleEventDetails(): ReactElement {
             />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Contact" key="3">
-            <ContactEventForm />
+            <ContactEventForm id={id} />
           </Tabs.TabPane>
         </CustomTabs>
       </Event>
@@ -64,6 +62,7 @@ const Event = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    width: 920px;
 `
 
 const EventTitle = styled.h2`
@@ -74,11 +73,11 @@ const EventTitle = styled.h2`
    margin-top: 1.8rem;
 `
 
-const EventDescription = styled.p`
-  color: #8c8c8c;
-  margin-top: 0.4rem;
-  font-size: 1rem;
-`
+// const EventDescription = styled.p`
+//   color: #8c8c8c;
+//   margin-top: 0.4rem;
+//   font-size: 1rem;
+// `
 const CustomTabs = styled(Tabs)`
  .ant-tabs-nav-wrap {
     display: flex !important;

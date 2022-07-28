@@ -74,7 +74,7 @@ export function SingleProduct(): ReactElement {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="Contact" key="3">
-              <ContactEventForm />
+              <ContactEventForm id={id} />
             </Tabs.TabPane>
           </CustomTabs>
         </ProductSidebar>
