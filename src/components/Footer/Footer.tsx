@@ -7,22 +7,27 @@ import {
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
-import React, { ReactElement, useId } from 'react'
+import { ReactElement, useId } from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { SectionTitle } from '../common'
-import { useTheme } from '../../app/context/theme-context'
+import { useAppSelector } from '../../hooks'
+import { Image, SectionTitle } from '../common'
 
 export default function Footer(): ReactElement {
-  const color = useTheme()
+  const logo = useAppSelector(({ ong }) => ong.ongConfig?.brand.logo)
+  const phone = useAppSelector(({ ong }) => ong.ongConfig?.contact.phone)
+  const {
+    facebook, instagram, twitter, linkedin, web
+  } = useAppSelector(({ ong }) => ong.ongConfig?.rrss) || {}
+
+  const navigateTo = (path: string) => () => window.open(path, '_blank')
+
   return (
     <>
       <MainFooter>
-        <div style={{ padding: '0.5rem' }}>
-          <Link href="#hero" fontSize={1.8}>
-            Give
-            <Circle />
-          </Link>
-        </div>
+        <ImageContainer style={{ padding: '0.5rem' }}>
+          <Image src={logo} alt="" />
+        </ImageContainer>
 
         <SectionTitle fontSize={2.4}>
           How can we help? <br />
@@ -31,9 +36,9 @@ export default function Footer(): ReactElement {
 
         <ContactInfo>
           {[PhoneFilled, MailFilled].map((Icon) => (
-            <Contact color={color} key={useId()}>
+            <Contact key={useId()}>
               <Icon />
-              <Link href="tel:+1-844-844-8444">+1-844-844-8444</Link>
+              <a href="tel:+1-844-844-8444">{phone}</a>
             </Contact>
           ))}
         </ContactInfo>
@@ -42,16 +47,17 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link underlined color="#969696">
+          <Link to="/terms_and_conditions" underlined color="#969696">
             Terms and conditions
           </Link>
         </div>
 
-        <Icons color={color}>
-          {[FacebookFilled, TwitterOutlined,
-            InstagramOutlined, LinkedinFilled, GlobalOutlined].map((Icon) => (
-              <Icon key={useId()} />
-          ))}
+        <Icons>
+          <FacebookFilled onClick={navigateTo(facebook)} />
+          <LinkedinFilled onClick={navigateTo(linkedin)} />
+          <TwitterOutlined onClick={navigateTo(twitter)} />
+          <InstagramOutlined onClick={navigateTo(instagram)} />
+          <GlobalOutlined onClick={navigateTo(web)} />
         </Icons>
       </SubFooter>
     </>
@@ -81,7 +87,7 @@ const MainFooter = styled.footer`
   }
 `
 
-const Link = styled.a<{ fontSize?: number; color?: TColor; underlined?: boolean }>`
+const Link = styled(NavLink)<{ fontSize?: number; color?: TColor; underlined?: boolean }>`
   font-size: ${({ fontSize }) => fontSize}rem;
   color: ${({ color = 'white' }) => color};
   letter-spacing: 3px;
@@ -89,15 +95,10 @@ const Link = styled.a<{ fontSize?: number; color?: TColor; underlined?: boolean 
   text-decoration: ${({ underlined }) => underlined && 'underline'};
 `
 
-const Circle = styled.span`
-  position: absolute;
-  z-index: -1;
-  width: 2em;
-  background-color: #5cb780;
-  border-radius: 50%;
-  height: 2em;
-  left: -25%;
-  top: -30%;
+const ImageContainer = styled.div`
+  padding:1rem;
+  width: 6rem;
+  cursor: pointer;
 `
 
 const ContactInfo = styled.div`
@@ -113,14 +114,14 @@ const ContactInfo = styled.div`
     font-size: 1rem;
   }
 `
-const Contact = styled.div<{ color: TColor }>`
+const Contact = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
   color: white;
 
   span {
-    color: ${({ color }) => color};
+    color: ${({ theme }) => theme.primary};
     cursor: pointer;
   }
 `
@@ -145,14 +146,14 @@ const SubFooter = styled.div`
     text-align: center;
   }
 `
-const Icons = styled.div<{ color: TColor }>`
+const Icons = styled.div`
   display: flex;
   gap: 1.2rem;
   border-radius: 50%;
   padding: 0.7rem;
 
   span:first-child {
-    background-color: ${({ color }) => color};
+    background-color: ${({ theme }) => theme.primary};
   }
 
   span {
@@ -164,7 +165,7 @@ const Icons = styled.div<{ color: TColor }>`
   }
 
   span:hover {
-    background-color: ${({ color }) => color};
+    background-color: ${({ theme }) => theme.primary};
     transform: scale(1.2);
   }
 `
