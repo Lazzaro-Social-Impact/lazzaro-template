@@ -1,9 +1,11 @@
 import { Modal, Progress } from 'antd'
 import { useState } from 'react'
 import styled from 'styled-components'
+import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { useTheme } from '../../../app/context/theme-context'
 import { Form } from '../../../components'
 import { Button, Card, Text } from '../../../components/common'
+import { useAppSelector, usePostData } from '../../../hooks'
 
 interface IProps {
   project: {
@@ -14,10 +16,25 @@ interface IProps {
   }
 }
 
+  interface DonateSubmitForm {
+    firstName: string;
+    lastName: string;
+    user_email: string;
+    home_address: string;
+    birthDate: Date;
+    nif: number;
+    amount: number;
+    anonymous: boolean;
+    message?: string;
+    certificate: boolean;
+    terms: boolean;
+  }
+
 export function ProjectCard({ project } : IProps) {
   const {
     id, title, donated, amount
   } = project
+  const ongId = useAppSelector((state) => state.ong.ongId)
 
   const color = useTheme()
 
@@ -38,6 +55,16 @@ export function ProjectCard({ project } : IProps) {
 
   const handleCancel = () => {
     setVisible(false)
+  }
+
+  const {
+    mutateAsync, ...states
+  } = usePostData<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+
+  const handleSubmit = async (values: DonateSubmitForm) => {
+    const donationInfo = { ...values, project_id: id, ong_id: ongId }
+
+    await mutateAsync(donationInfo)
   }
 
   const donationProgress = (donated / amount) * 100
@@ -70,7 +97,7 @@ export function ProjectCard({ project } : IProps) {
         onCancel={handleCancel}
         width="50%"
       >
-        <Form submitHandler={console.log} projectId={id} />
+        <Form submitHandler={handleSubmit} projectId={id} states={states} />
       </Modal>
     </Card>
   )
