@@ -6,6 +6,7 @@ interface IProps {
   direction?: TFlexDirection;
   wrap?: TFlexWrap;
   width?: TWidth;
+  mt?:TMarginTop;
   my?: TMarginBlock;
   gap?: TGap;
 }
@@ -16,6 +17,7 @@ const Flex = styled.div<IProps>`
   flex-direction: ${({ direction }) => direction};
   flex-wrap: ${({ wrap }) => wrap};
   width: ${({ width }) => width};
+  margin-top: ${({ mt }) => mt && `${mt}rem`};
   margin-block: ${({ my }) => my && `${my}rem`};
   gap: ${({ gap }) => gap && `${gap}rem`};
 `

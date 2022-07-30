@@ -1,155 +1,184 @@
-import { Form, Input } from 'antd'
-import React, { ReactElement } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { ReactElement } from 'react'
+import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { Button } from '../common'
+import * as yup from 'yup'
+import { getStartProductPaymentUrl } from '../../api/postApiServices'
+import { useAppSelector, usePostData } from '../../hooks'
+import {
+  Button, Flex, Input, Label, SectionTitle, TextArea
+} from '../common'
+import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import HandleResponse from '../common/HandleResponse'
 
-interface Props {
-    modal?: boolean
+interface IProps {
+  modal?: boolean;
+  id: string;
+  price: number;
+  title: string;
 }
-export function BuyProductForm({ modal }: Props): ReactElement<Props> {
+
+const schema = yup.object({
+  firstName: yup.string().trim().required('FirstName is required'),
+  lastName: yup.string().trim().required('LastName is required'),
+  user_email: yup.string().email().trim().required('Email is required'),
+  home_address: yup.string().required('Address is required'),
+  productAmount: yup.number().typeError('please enter an amount').required(),
+  city: yup.string().required('City is required'),
+  country: yup.string().required('Country is required'),
+  nif: yup.string().required('DNI is required'),
+  cp: yup.number().typeError('CP is required').required(),
+  mobile_phone: yup.string().required('Phone is required'),
+  birthDate: yup.date().typeError('date of birth is required').required(),
+  privacy_policy: yup.boolean().isTrue('You must accept the privacy policy').required(),
+})
+
+interface IFormSubmit {
+  amount: number;
+  firstName: string;
+  lastName: string;
+  user_email: string;
+  home_address: string;
+  productAmount: number;
+  city: string;
+  country: string;
+  nif: string;
+  cp: number;
+  mobile_phone: string;
+  privacy_policy: boolean;
+  birthDate: string;
+}
+
+export function BuyProductForm(props: IProps): ReactElement {
+  const {
+    modal, id, price, title
+  } = props
+
+  const { mutateAsync, ...states } = usePostData(getStartProductPaymentUrl())
+  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<IFormSubmit>({
+    resolver: yupResolver(schema),
+  })
+
+  const onSubmit = async (data: IFormSubmit) => {
+    const donationInfo = {
+      ...data,
+      ong_id: ongId,
+      product_id: id,
+      amount: price,
+    }
+
+    const {
+      data: { data: paypal },
+    } = await mutateAsync(donationInfo)
+    window.open(paypal, '_blank')?.focus()
+  }
   return (
-    <Form layout="vertical">
-      {modal && (
-        <ProductName>Product 001</ProductName>
-      )}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <HandleResponse
+        {...states}
+        successMsg="Payment done successfully"
+        errorMsg="Payment failed"
+        successId={`donation_success${id}`}
+        errorId={`donation_failed${id}`}
+      />
+      {modal && <SectionTitle>{title}</SectionTitle>}
+
       <InputTitle>Your Shopping</InputTitle>
+
       <Input
         placeholder="Enter the quantity of products"
         type="number"
         min="1"
-        style={{ width: '100%' }}
-        size="large"
+        defaultValue={1}
+        {...register('productAmount')}
       />
+      <ErrorMsg msg={errors.productAmount?.message} />
       <InputTitle>Personal Details</InputTitle>
       <InputRow>
-        <Input
-          placeholder="Name"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
-        <Input
-          placeholder="Surname"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
+        <Input placeholder="Name" {...register('firstName')} />
+        <Input placeholder="Surname" {...register('lastName')} />
       </InputRow>
+
       <InputRow>
-        <Input
-          placeholder="Email"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
-        <Input
-          placeholder="Phone"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
+        <ErrorMsg msg={errors.lastName?.message} />
+        <ErrorMsg msg={errors.firstName?.message} />
       </InputRow>
+
+      <InputRow>
+        <Input placeholder="Email" {...register('user_email')} />
+        <Input placeholder="Phone" {...register('mobile_phone')} />
+      </InputRow>
+
+      <InputRow>
+        <ErrorMsg msg={errors.user_email?.message} />
+        <ErrorMsg msg={errors.mobile_phone?.message} />
+      </InputRow>
+
       <InputTitle>Delivery Details</InputTitle>
       <InputRow>
-
-        <Input
-          placeholder="Address"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
-        <Input
-          placeholder="DNI"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
+        <Input placeholder="Address" {...register('home_address')} />
+        <Input placeholder="DNI" {...register('nif')} />
       </InputRow>
       <InputRow>
-        <Input
-          placeholder="Date of Birth"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
-        <Input
-          placeholder="Postal Code"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
+        <ErrorMsg msg={errors.home_address?.message} />
+        <ErrorMsg msg={errors.nif?.message} />
       </InputRow>
+
       <InputRow>
-        <Input
-          placeholder="City"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
-        <Input
-          placeholder="Country"
-          style={{ width: '50%' }}
-          size="large"
-
-        />
+        <Input placeholder="Date of Birth" type="date" {...register('birthDate')} />
+        <Input placeholder="Postal Code" {...register('cp')} type="number" />
       </InputRow>
-      <Input.TextArea
-        placeholder="Additional message"
-        style={{ width: '100%', marginTop: '1.2rem' }}
-        size="large"
-        rows={4}
-      />
 
-      <label
-        style={{ marginTop: '1.2rem' }}
-        htmlFor={modal ? 'terms-modal' : 'terms'}
-      >
-        <Input
-          type="checkbox"
-          style={{ width: '20px', marginTop: '1.8rem' }}
-          id={modal ? 'terms-modal' : 'terms'}
-        />
-        I accept the privacy policy
-      </label>
+      <InputRow>
+        <ErrorMsg msg={errors.birthDate?.message} />
+        <ErrorMsg msg={errors.cp?.message} />
+      </InputRow>
+
+      <InputRow>
+        <Input placeholder="City" {...register('city')} />
+        <Input placeholder="Country" {...register('country')} />
+      </InputRow>
+
+      <InputRow>
+        <ErrorMsg msg={errors.home_address?.message} />
+        <ErrorMsg msg={errors.nif?.message} />
+      </InputRow>
+
+      <TextArea placeholder="Additional message" rows={4} />
+
+      <Label>
+        <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />I accept the
+        privacy policy
+        <ErrorMsg msg={errors.privacy_policy?.message} />
+      </Label>
       <br />
-      <Center>
-        <Button
-          py="0.8rem"
-          px="2.4rem"
-          bgColor="green"
-        >
+      <Flex my={1.5}>
+        <Button py="0.8rem" px="2.4rem" type="submit">
           Pay
         </Button>
-      </Center>
-
-    </Form>
+      </Flex>
+    </form>
   )
 }
 
-const ProductName = styled.h1`
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: green;
-    text-align: center;
-`
 const InputTitle = styled.h3`
-    color: green;
-    font-weight: 600;
-    margin-top: 1.2rem;
-    font-size: 1.1rem;
+  color: ${({ theme }) => theme.primary};
+  font-weight: 600;
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
 `
 
 const InputRow = styled.div`
-    display: flex;
-    gap: 1.2rem;
-    margin-top: 0.8rem;
-`
-
-const Center = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2.4rem;
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+  justify-content: space-between;
 `
 
 BuyProductForm.defaultProps = {

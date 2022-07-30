@@ -37,11 +37,11 @@ const Button = styled.button<IProps>`
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease-in-out;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme, bgColor }) => bgColor || theme.primary};
 
   &:hover {
     transform: scale(1.05);
-    background-color:${(props) => props.hoverBgColor || props.theme.primary};
+    background-color: ${({ hoverBgColor, theme }) => hoverBgColor || theme.primary};
     color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 
