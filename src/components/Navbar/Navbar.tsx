@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, ReactElement } from 'react'
 import {
-  Drawer, Grid
+  Drawer, Grid, Dropdown, Menu, Space
 } from 'antd'
 import styled from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
@@ -29,6 +29,18 @@ function Navbar({ transparent, position }: IProps): ReactElement {
     return newWords
   }
 
+  const filteredArray = featuresArray?.filter((f: string, i: number) => i > 4).map((f: string) => ({
+    key: f,
+    label: (
+      <li key={f}>
+        <a href={`/#${f}`}>{capitlaize(f)}</a>
+      </li>
+    )
+  }))
+
+  const filteredDropDown = (
+    <Menu items={filteredArray} />
+  )
   const changeNavbarLinks = (feature: string) => {
     switch (feature) {
       case 'donations':
@@ -101,20 +113,19 @@ function Navbar({ transparent, position }: IProps): ReactElement {
           {featuresArray?.length === 5 ? featuresArray?.map((feature: string) => (
             changeNavbarLinks(feature)
           ))
-            : [fiveElementsArray?.map((feature: string) => (
-              changeNavbarLinks(feature)
-            )),
-              <li key="more">
-                <NavLink to="/" title="">More</NavLink>
-                <ul>
-                  {featuresArray?.filter((f: string, i: number) => i > 4).map((f: string) => (
-                    <li key={f}>
-                      <a href={`/#${f}`}>{capitlaize(f)}</a>
-                    </li>
-                  ))}
-                  <li key="contact"><NavLink to="/contact">Contact</NavLink></li>
-                </ul>
-              </li>]}
+            : (
+              <>
+                {fiveElementsArray?.map((feature: string) => (
+                  changeNavbarLinks(feature)
+                ))}
+
+                <CustomDropDown arrow overlay={filteredDropDown}>
+                  <Space>
+                    <a href="#">More</a>
+                  </Space>
+                </CustomDropDown>
+              </>
+            )}
         </ul>
       </CustomNav>
       )}
@@ -168,6 +179,24 @@ ul li a{
 }
 
 
+`
+
+const CustomDropDown = styled(Dropdown)`
+a {
+  color: #bbb;
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
+}
+
+div ul li span li a {
+  color: #bbb !important;
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
+}
 `
 // const Links = styled(Menu)`
 //   flex: 1;
