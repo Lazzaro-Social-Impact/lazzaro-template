@@ -10,7 +10,7 @@ export const getStartCoursePaymentUrl = (courseId: string)
 export const getSendContactUrl = (): string => '/api/private/mail/contact'
 export const getSendContactEventUrl = (ongId: string, eventId: string)
 : string => `/api/private/ongs/${ongId}/events/${eventId}/contact`
-export const getBuyEventTicketUrl = (eventId: string)
+export const getBuyEventTicketUrl = (eventId: string | undefined)
 : string => `/api/private/buyticket/${eventId}/start`
 export const getStartProductPaymentUrl = () : string => '/api/private/orders/start'
 export const getBecomePartnerUrl = (): string => '/api/private/subscriptions/start'
