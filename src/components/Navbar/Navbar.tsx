@@ -40,8 +40,8 @@ function Navbar({ transparent, position }: IProps): ReactElement {
 
       case 'market':
         return (
-          <li key="store">
-            <NavLink to="/store">Store</NavLink>
+          <li key="shop">
+            <NavLink to="/shop">Shop</NavLink>
           </li>
         )
       case 'partners':
@@ -83,11 +83,11 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   return (
     <NavBar style={{ background: navBarBackground ? 'none' : '#424242' }} position={position}>
       <div style={{ padding: '0.5rem' }}>
-        <Link href="#hero">
+        <NavLink to="/">
           <ImageContainer>
             <img src={logo} alt="logo" />
           </ImageContainer>
-        </Link>
+        </NavLink>
       </div>
 
       {!md && <MenuOutlined onClick={() => setVisible(true)} style={{ color: 'white' }} />}
@@ -186,13 +186,13 @@ ul li a{
 //   }
 // `
 
-const Link = styled.a`
-  font-size: 30px;
-  color: white;
-  letter-spacing: 3px;
-  position: relative;
+// const Link = styled.a`
+//   font-size: 30px;
+//   color: white;
+//   letter-spacing: 3px;
+//   position: relative;
 
-`
+// `
 
 Navbar.defaultProps = {
   transparent: false,
