@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, ReactElement } from 'react'
 import {
   Drawer, Grid, Dropdown, Menu, Space
 } from 'antd'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
@@ -72,6 +72,7 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   }
   const [navBarBackground, setNavBarBackground] = useState<TTransparent>(transparent)
 
+  const { secondary } = useTheme() as { secondary: string }
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => {
       const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
@@ -93,7 +94,7 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   const { md } = useBreakpoint()
 
   return (
-    <NavBar style={{ background: navBarBackground ? 'none' : '#424242' }} position={position}>
+    <NavBar style={{ background: navBarBackground ? 'none' : secondary }} position={position}>
       <div style={{ padding: '0.5rem' }}>
         <NavLink to="/">
           <ImageContainer>
@@ -166,11 +167,12 @@ ul {
   gap: 1.6rem;
   font-size: 1.1rem;
   list-style-type: none;
+  align-items: center;
   
 }
 
 ul li a{
-  color: #bbb;
+  color: #ddd;
   text-decoration: none;
 
   &:hover {
@@ -183,7 +185,7 @@ ul li a{
 
 const CustomDropDown = styled(Dropdown)`
 a {
-  color: #bbb;
+  color: white;
   text-decoration: none;
 
   &:hover {
@@ -191,12 +193,6 @@ a {
   }
 }
 
-div ul li span li a {
-  color: #bbb !important;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
-}
 `
 // const Links = styled(Menu)`
 //   flex: 1;
