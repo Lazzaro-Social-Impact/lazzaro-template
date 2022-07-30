@@ -1,45 +1,35 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
+import { Flex, Text } from '../../common'
 
 interface ImpactPartProps {
-    num: number
-    text: string
+  num: number;
+  text: string;
 }
 
-export default function ImpactPart({ num, text }: ImpactPartProps): ReactElement {
+function ImpactPart({ num, text }: ImpactPartProps): ReactElement {
   return (
-    <ImpactDiv>
-      <ImpactCount>{num}</ImpactCount>
-      <ImpactText>{text}</ImpactText>
-    </ImpactDiv>
+    <ImpactSection>
+      <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
+        {num}
+      </Text>
+      <Text color="#fff" lineHeight={0} fontSize={2} weight="200">
+        {text}
+      </Text>
+    </ImpactSection>
   )
 }
 
-const ImpactDiv = styled.div`
-display: flex;
-flex-direction: column;
-text-align: center;
+const ImpactSection = styled(Flex)`
+  @media (max-width: 768px) {
+    p:first-child {
+      font-size: 2.5rem;
+    }
+
+    p:last-child {
+      font-size: 1rem;
+    }
+  }
 `
 
-const ImpactCount = styled.p`
-font-weight: bolder;
-font-size:4.8rem;
-color: #fff;
-line-height: 0; 
-
-@media screen and (max-width: 571px) {
-  font-size: 2.3rem;
-}
-`
-
-const ImpactText = styled.p`
-    line-height: 0; 
-    font-weight: 400;
-    font-size: 2rem;
-    color: #fff;
-    font-weight: 100;
-
-    @media screen and (max-width: 571px) {
-  font-size: 1.2rem;
-}
-`
+export default ImpactPart

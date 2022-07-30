@@ -9,6 +9,7 @@ interface IProps {
   mt?:TMarginTop;
   my?: TMarginBlock;
   gap?: TGap;
+  textAlign?: TTextAlign;
 }
 const Flex = styled.div<IProps>`
   display: flex;
@@ -20,6 +21,7 @@ const Flex = styled.div<IProps>`
   margin-top: ${({ mt }) => mt && `${mt}rem`};
   margin-block: ${({ my }) => my && `${my}rem`};
   gap: ${({ gap }) => gap && `${gap}rem`};
+  text-align:  ${({ textAlign }) => textAlign};
 `
 
 Flex.defaultProps = {
@@ -28,6 +30,7 @@ Flex.defaultProps = {
   direction: 'row',
   wrap: 'wrap',
   width: '100%',
+  textAlign: 'center',
 }
 
 export default Flex
