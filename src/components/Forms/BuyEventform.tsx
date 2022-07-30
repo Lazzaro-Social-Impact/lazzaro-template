@@ -91,45 +91,29 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
           can buy more tickets by repeating the purchase process.
         </p>
 
-        <CustomLabel key={EventTickets[0].id}>
-          {EventTickets[0].type}
-          {' '}
+        {EventTickets.map((ticket: any, i: number) => (
+          <>
+            <CustomLabel key={ticket.id}>
+              {ticket.type}
+              {' '}
 
-          (
-          {EventTickets[0].price}
-          {currency}
-          )
-        </CustomLabel>
-        <CustomInput
-          type="hidden"
-          {...register('tickets.0.id')}
-          value={EventTickets[0].id}
-        />
-        <CustomInput
-          type="number"
-          placeholder="Please enter the number of tickets"
-          {...register('tickets.0.amount')}
-        />
-
-        <CustomLabel key={EventTickets[1].id}>
-          {EventTickets[1].type}
-          {' '}
-          (
-          {EventTickets[1].price}
-          {currency}
-          )
-        </CustomLabel>
-        <CustomInput
-          type="hidden"
-          {...register('tickets.1.id')}
-          value={EventTickets[1].id}
-        />
-        <CustomInput
-          type="number"
-          placeholder="Please enter the number of tickets"
-          {...register('tickets.1.amount')}
-        />
-
+              (
+              {ticket.price}
+              {currency}
+              )
+            </CustomLabel>
+            <CustomInput
+              type="hidden"
+              {...register(`tickets.${i}.id`)}
+              value={ticket.id}
+            />
+            <CustomInput
+              type="number"
+              placeholder="Please enter the number of tickets"
+              {...register(`tickets.${i}.amount`)}
+            />
+          </>
+        ))}
       </div>
       )}
       <FormTitle modal={modal}>
