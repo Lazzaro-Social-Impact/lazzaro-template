@@ -17,7 +17,7 @@ const SectionTitle = styled.h2<IProps>`
   font-weight: bold;
   font-size: ${({ fontSize }) => getProp(fontSize)};
   margin-bottom: ${({ marginBottom }) => getProp(marginBottom)};
-  color: ${({ color }) => color && getProp(color)};
+  color: ${({ color, theme }) => color || theme.primary};
   text-align: ${({ textAlign }) => textAlign && textAlign};
 `
 

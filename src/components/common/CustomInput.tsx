@@ -24,7 +24,6 @@ export function CustomComponent(component: any) {
     background-image: none;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
-    transition: all .3s;
     -webkit-appearance: none;
     touch-action: manipulation;
     text-overflow: ellipsis;
