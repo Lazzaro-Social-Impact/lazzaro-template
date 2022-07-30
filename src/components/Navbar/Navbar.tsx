@@ -155,8 +155,8 @@ const ImageContainer = styled.div`
 
   img {
     max-width: 180px;
-  max-height: 80px;
-  width: 70px;
+  max-height: 70px;
+  width: 50px;
   }
 `
 
