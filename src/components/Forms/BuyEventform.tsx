@@ -1,55 +1,86 @@
-import { Input } from 'antd'
+import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement } from 'react'
+import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
+import * as yup from 'yup'
 import { Button } from '../common'
+import { CustomInput, CustomInputDiv } from '../common/CustomInput'
+import { ErrorInput } from '../common/ErrorInput'
 
 interface Props {
     modal?: boolean;
 }
 
+type buyTicketFormSubmit = {
+  firstName: string;
+  lastName: string;
+  user_email: string;
+  mobilePhone: string;
+  terms_and_conditions: boolean;
+}
+const buyTicketSchema = yup.object({
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  user_email: yup.string().required('Email is required'),
+  mobilePhone: yup.string().required('Mobile phone is required'),
+  terms_and_conditions: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
+})
+
 export function BuyEventform({ modal }: Props): ReactElement<Props> {
   const { primary, secondary } = useTheme() as { [key: string]: string }
+  const { register, handleSubmit, formState: { errors } } = useForm<buyTicketFormSubmit>({
+    resolver: yupResolver(buyTicketSchema),
+  })
+
+  const onSubmit = (data: buyTicketFormSubmit) => {
+    console.log(data)
+  }
   return (
-    <BuyFrom modal={modal}>
+    <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <FormTitle modal={modal}>
         Personal Details
       </FormTitle>
       <FormRow modal={modal}>
-        <Input
-          placeholder="First Name"
-          size="large"
-          style={{ width: `${modal ? '100%' : '50%'}` }}
-        />
-        <Input
-          placeholder="SurName"
-          size="large"
-          style={{ width: `${modal ? '100%' : '50%'}` }}
-
-        />
+        <CustomInputDiv>
+          <CustomInput
+            placeholder="First Name"
+            {...register('firstName')}
+          />
+          <ErrorInput msg={errors.firstName?.message} />
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <CustomInput
+            placeholder="SurName"
+            {...register('lastName')}
+          />
+          <ErrorInput msg={errors.lastName?.message} />
+        </CustomInputDiv>
       </FormRow>
       <FormRow modal={modal}>
-        <Input
-          placeholder="Email"
-          size="large"
-          style={{ width: `${modal ? '100%' : '50%'}` }}
-
-        />
-        <Input
-          placeholder="Phone"
-          size="large"
-          style={{ width: `${modal ? '100%' : '50%'}` }}
-
-        />
+        <CustomInputDiv>
+          <CustomInput
+            placeholder="Email"
+            {...register('user_email')}
+          />
+          <ErrorInput msg={errors.user_email?.message} />
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <CustomInput
+            placeholder="Phone"
+            {...register('mobilePhone')}
+          />
+          <ErrorInput msg={errors.mobilePhone?.message} />
+        </CustomInputDiv>
       </FormRow>
 
       <CheckBoxInput
         type="checkbox"
-        defaultChecked
+        {...register('terms_and_conditions')}
       />
       <span>
         I accept the <a href="#">privacy terms</a>
       </span>
-      <br />
+      <ErrorInput msg={errors.terms_and_conditions?.message} />
       <Center>
         <Button
           py="0.8rem"
@@ -80,8 +111,8 @@ gap: 0.8rem;
 margin-top: 1.2rem;
 `
 
-const CheckBoxInput = styled(Input)`
-     margin: 40px 0;
+const CheckBoxInput = styled.input`
+     margin-top: 2.4rem;
       display: inline;
       width: 30px;
 `
