@@ -1,38 +1,21 @@
-import { Tabs, Modal, Breadcrumb } from 'antd'
-import React, { ReactElement, useState } from 'react'
+import { Tabs, Breadcrumb } from 'antd'
+import { ReactElement } from 'react'
 import HtmlParser from 'react-html-parser'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
-import { Footer, Navbar } from '../../components'
+import { Footer, Navbar, BuyModal } from '../../components'
 import { Button, Card, Flex } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
 
 export function SingleProduct(): ReactElement {
-  const [visible, setVisible] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
   const id = useParams().id as string
   const { data: product = {} } = useDependant(getProductDetails(id), [`products${id}`], id)
 
   const { data: images } = useDependant(getProductImages(id), [`images${id}`], id)
 
-  const showModal = () => {
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setVisible(false)
-      setConfirmLoading(false)
-    }, 2000)
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
-  }
   return (
     <>
       <Navbar />
@@ -58,9 +41,9 @@ export function SingleProduct(): ReactElement {
               <Button px="2.8rem" py="0.8rem" color="#777777" bgColor="F#1F1F1">
                 Share
               </Button>
-              <Button px="2.8rem" py="0.8rem" onClick={showModal}>
-                Buy
-              </Button>
+              <BuyModal btnText="Buy">
+                <BuyProductForm modal id={product.id} price={product.price} title={product.title} />
+              </BuyModal>
             </Flex>
           </Card>
 
@@ -77,17 +60,6 @@ export function SingleProduct(): ReactElement {
             </Tabs.TabPane>
           </CustomTabs>
         </ProductSidebar>
-        <Modal
-          title="Buy Product"
-          visible={visible}
-          onOk={handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          footer={null}
-          width="50%"
-        >
-          <BuyProductForm modal id={product.id} price={product.price} title={product.title} />
-        </Modal>
       </Container>
       <Footer />
     </>

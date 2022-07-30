@@ -25,7 +25,6 @@ interface IProps {
 }
 
 const Card = styled.div<IProps>`
-  height: fit-content;
   display: flex;
   justify-content: flex-start;
   flex-direction: ${({ mode }) => mode};

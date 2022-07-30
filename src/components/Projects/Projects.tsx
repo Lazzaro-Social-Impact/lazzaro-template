@@ -22,11 +22,16 @@ export default function Projects(): ReactElement {
 
   const {
     data: projects,
-  } = useDependant(getProjectsURL(ongId), ['causes'], isSectionVisible && ongId)
+  } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
     <section ref={sectionRef}>
-      <Carousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
+      <Carousel
+        arrows
+        nextArrow={<ArrowRightOutlined />}
+        prevArrow={<ArrowLeftOutlined />}
+        dots={false}
+      >
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
             <div key={projects}>

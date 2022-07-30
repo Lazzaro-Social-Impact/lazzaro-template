@@ -1,6 +1,6 @@
 import { Tabs as AntdTabs } from 'antd'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
-import { Form as DonateForm } from '../../../components'
+import { DonateForm } from '../../../components'
 import { useAppSelector, usePostData } from '../../../hooks'
 import Description from './Description'
 import LatestDonations from './HistoricalDonations'

@@ -1,9 +1,11 @@
 import { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  ReadMore, Button, Text, Image
-} from '../../common'
+import { ReadMore, Text, Image } from '../../common'
+import DonateForm from '../../Forms/DonateForm'
+import DonateModal from '../../BuyModal'
+import { useAppSelector, usePostData } from '../../../hooks'
+import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 
 interface ProjectProps {
   imageURL: string;
@@ -11,20 +13,51 @@ interface ProjectProps {
   id: string;
 }
 
+  interface DonateSubmitForm {
+    firstName: string;
+    lastName: string;
+    user_email: string;
+    home_address: string;
+    birthDate: Date;
+    nif: number;
+    amount: number;
+    anonymous: boolean;
+    message?: string;
+    certificate: boolean;
+    terms: boolean;
+  }
+
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const navigate = useNavigate()
-  const navigateTo = (path: `projects/${ProjectProps['id']}`) => () => navigate(path)
+  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const navigateTo = (path: `projects/${string}`) => () => navigate(path)
+
+  const {
+    mutateAsync, ...states
+  } = usePostData<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+
+  const handleSubmit = async (values: DonateSubmitForm) => {
+    const donationInfo = { ...values, ong_id: ongId, }
+
+    const { data: { data: paypal } } = await mutateAsync(donationInfo)
+    window.open(paypal, '_blank')
+  }
+
   return (
     <ProjectCard>
       <Image src={imageURL} alt="" />
-      <Text fontSize={1.1} px={1} color="white">{title}</Text>
+      <Text fontSize={1.1} px={1} color="white">
+        {title}
+      </Text>
       <ProjectFooter>
         <ReadMore fontSize={1} onClick={navigateTo(`projects/${id}`)}>
           Read more
         </ReadMore>
-        <Button py={0.3} px={0.7} fontSize={1}>
-          Donate
-        </Button>
+
+        <DonateModal btnText="Donate" title={`Donate to ${title}`}>
+          <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />
+        </DonateModal>
+
       </ProjectFooter>
     </ProjectCard>
   )

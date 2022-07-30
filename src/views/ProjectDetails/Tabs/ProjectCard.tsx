@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { useTheme } from '../../../app/context/theme-context'
-import { Form } from '../../../components'
+import { DonateForm } from '../../../components'
 import { Button, Card, Text } from '../../../components/common'
 import { useAppSelector, usePostData } from '../../../hooks'
 
@@ -97,7 +97,7 @@ export function ProjectCard({ project } : IProps) {
         onCancel={handleCancel}
         width="50%"
       >
-        <Form submitHandler={handleSubmit} projectId={id} states={states} />
+        <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
       </Modal>
     </Card>
   )
@@ -109,11 +109,11 @@ const Flex = styled.div`
   justify-content: center;
 `
 
-const ProgressBar = styled.div<{ strokeColor?: TColor }>`
+const ProgressBar = styled.div`
   position: relative;
 `
 
-const ProgressPercents = styled.span<{ color: TColor; percent: number }>`
+const ProgressPercents = styled.span<{ percent: number }>`
   position: absolute;
   top: -60%;
   left: ${({ percent }) => `${percent}%`};
@@ -123,6 +123,6 @@ const ProgressPercents = styled.span<{ color: TColor; percent: number }>`
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background: ${({ color }) => color};
+  background: ${({ theme }) => theme.primary};
   padding: 0.1rem 1rem;
 `
