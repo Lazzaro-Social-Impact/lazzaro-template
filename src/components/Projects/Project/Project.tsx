@@ -101,4 +101,12 @@ const ProjectFooter = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem;
+
+
+  @media (max-width: 768px) {
+    button {
+      font-size:1rem;
+      padding:.7rem;
+    }
+  }
 `

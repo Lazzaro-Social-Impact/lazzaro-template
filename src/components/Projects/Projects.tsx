@@ -52,6 +52,11 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   margin-top: 4.2rem;
-  padding: 0 4.1rem;
+  padding-inline: 4.1rem;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    gap: .5rem;
+    padding-inline: 1rem;
+  }
   `
