@@ -10,7 +10,7 @@ import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
 
-export function SingleProduct(): ReactElement {
+function SingleProduct(): ReactElement {
   const id = useParams().id as string
   const { data: product = {} } = useDependant(getProductDetails(id), [`products${id}`], id)
 
@@ -65,6 +65,8 @@ export function SingleProduct(): ReactElement {
     </>
   )
 }
+
+export default SingleProduct
 
 const Container = styled.div`
   margin-top: 3.2rem;

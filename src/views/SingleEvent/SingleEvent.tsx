@@ -7,7 +7,7 @@ import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
 import { useAppSelector, useDependant } from '../../hooks'
 
-export function SingleEvent(): ReactElement {
+function SingleEvent(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
   const { data: events, isLoading } = useDependant(getEventsURL(ongId), ['events'], ongId)
   const { pathname } = useLocation()
@@ -35,6 +35,8 @@ export function SingleEvent(): ReactElement {
     </>
   )
 }
+
+export default SingleEvent
 
 const Container = styled.div`
   display: flex;
