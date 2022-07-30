@@ -16,7 +16,7 @@ export default function Volunteers(): ReactElement {
     img_url: string,
   }
   return (
-    <VolunteersSection>
+    <VolunteersSection id="volunteers">
       <SectionTitle>Our Volunteers</SectionTitle>
       <CustomCarousel autoplay>
         {members && [...chunk<IMember>(members, 3).map((memberCards, i: number) => (
