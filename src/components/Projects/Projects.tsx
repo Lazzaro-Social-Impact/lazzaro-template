@@ -25,7 +25,7 @@ export default function Projects(): ReactElement {
   )
 
   return (
-    <section ref={sectionRef}>
+    <section ref={sectionRef} id="causes">
       <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
