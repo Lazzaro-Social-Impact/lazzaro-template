@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { BookmarkIcon } from '../../Icons'
@@ -16,7 +16,6 @@ interface IEvent {
 export default function NearEvent({
   id, title, description, imageURL
 }: IEvent): ReactElement {
-  const { primary } = useTheme()
   const navigate = useNavigate()
   return (
     <Card

@@ -2,7 +2,7 @@ import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import * as yup from 'yup'
 import { getSendContactUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
@@ -31,7 +31,6 @@ const contactSchema = yup.object({
 })
 
 export function ContactusForm(): ReactElement {
-  const { secondary } = useTheme()
   const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
     resolver: yupResolver(contactSchema),
   })
