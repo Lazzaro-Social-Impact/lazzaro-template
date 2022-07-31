@@ -25,7 +25,7 @@ export default function Footer(): ReactElement {
   return (
     <>
       <MainFooter>
-        <ImageContainer style={{ padding: '0.5rem' }}>
+        <ImageContainer>
           <Image src={logo} alt="" />
         </ImageContainer>
 
@@ -47,7 +47,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link to="/terms_and_conditions" underlined color="#969696">
+          <Link to="/terms_and_conditions">
             Terms and conditions
           </Link>
         </div>
@@ -87,16 +87,15 @@ const MainFooter = styled.footer`
   }
 `
 
-const Link = styled(NavLink)<{ fontSize?: number; color?: TColor; underlined?: boolean }>`
-  font-size: ${({ fontSize }) => fontSize}rem;
-  color: ${({ color = 'white' }) => color};
+const Link = styled(NavLink)`
+  color: #969696;
   letter-spacing: 3px;
   position: relative;
-  text-decoration: ${({ underlined }) => underlined && 'underline'};
+  text-decoration: underline;
 `
 
 const ImageContainer = styled.div`
-  padding:1rem;
+  padding:0.5rem;
   width: 6rem;
   cursor: pointer;
 `
