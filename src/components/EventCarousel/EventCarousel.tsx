@@ -35,7 +35,7 @@ const ImageContainer = styled.div`
 
     img {
         max-width: 100%;
-        width: 100%;
+        width: 100% !important;
         height: 420px;
     }
 `
