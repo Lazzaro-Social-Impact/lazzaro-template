@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
 import { ContactusForm } from '../../components/Forms/ContactusForm'
@@ -9,10 +8,10 @@ import {
   ProjectDetails,
   Shop,
   Donate,
+  SingleEvent,
+  SingleProduct,
+  TermsAndConditions,
 } from '../../views'
-import { SingleEvent } from '../../views/SingleEvent/SingleEvent'
-import { SingleProduct } from '../../views/SingleProduct/SingleProduct'
-import TermsAndConditions from '../../views/TermsAndConditions/TermsAndConditions'
 
 export default function AllRoute() {
   return (

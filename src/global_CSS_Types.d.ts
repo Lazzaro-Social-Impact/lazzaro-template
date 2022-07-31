@@ -6,6 +6,7 @@ declare global {
   type TAlignItems = CSS.Properties['alignItems'];
   type TAlignContent = CSS.Properties['alignContent'];
   type TFlexWrap = CSS.Properties['flexWrap'];
+  type TAlignSelf = CSS.Properties['alignSelf'];
   type TGap = CSS.Properties['gap'] | number;
   type TBgColor = CSS.Properties['backgroundColor'];
   type TColor = CSS.Properties['color'];

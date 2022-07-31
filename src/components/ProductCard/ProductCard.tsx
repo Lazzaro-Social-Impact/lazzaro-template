@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { BookmarkIcon } from '../Icons'
@@ -23,7 +23,7 @@ export function ProductCard({
       <ProductImage>
         <Image src={img} alt={title} />
       </ProductImage>
-      <Flex wrap="nowrap" style={{ padding: '0.4rem 0.8rem' }}>
+      <Flex wrap="nowrap" py={0.4} px={0.8}>
         <Text weight="bold" color="#777777">
           {title}
         </Text>
@@ -31,14 +31,7 @@ export function ProductCard({
           {price.toFixed(2)} {currency}
         </Text>
       </Flex>
-      {!!discount && (
-      <BookmarkIcon
-        top={0}
-        position="absolute"
-        right={0}
-        text={discount.toString()}
-      />
-      )}
+      {!!discount && <BookmarkIcon position="absolute" top={0} right={0} text={`${discount}%`} />}
     </SingleProductCard>
   )
 }

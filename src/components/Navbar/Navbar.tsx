@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, ReactElement } from 'react'
+import { useState, useLayoutEffect, ReactElement } from 'react'
 import {
   Drawer, Grid, Dropdown, Menu, Space
 } from 'antd'
@@ -70,21 +70,22 @@ function Navbar({ transparent, position }: IProps): ReactElement {
         )
     }
   }
-  const [navBarBackground, setNavBarBackground] = useState<TTransparent>(transparent)
-
-  const { secondary } = useTheme() as { secondary: string }
+  const { secondary } = useTheme()
+  const [navBarBackground, setNavBarBackground] = useState<'none'| string>('none')
   useLayoutEffect(() => {
+    setNavBarBackground(transparent ? 'none' : secondary)
+    if (!transparent) return
+
     window.addEventListener('scroll', () => {
       const { offsetHeight: screenHeight, scrollTop: currentHeight } = document.documentElement
-      const navbarHeight = 65
-      if (transparent) {
-        if (currentHeight > screenHeight - navbarHeight) setNavBarBackground(false)
-        else setNavBarBackground(true)
-      }
+      const navbarHeight = 200
+
+      if (currentHeight > screenHeight - navbarHeight) setNavBarBackground(secondary)
+      else setNavBarBackground('none')
     })
 
     return () => window.removeEventListener('scroll', () => {
-      setNavBarBackground(true)
+      setNavBarBackground('none')
     })
   }, [])
 
@@ -94,7 +95,7 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   const { md } = useBreakpoint()
 
   return (
-    <NavBar style={{ background: navBarBackground ? 'none' : secondary }} position={position}>
+    <NavBar position={position} bgColor={navBarBackground}>
       <div style={{ padding: '0.5rem' }}>
         <NavLink to="/">
           <ImageContainer>
@@ -132,13 +133,13 @@ function Navbar({ transparent, position }: IProps): ReactElement {
       )}
 
       <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
-        {/* <Links items={items} mode="inline" /> */}
+        <Links items={featuresArray} mode="inline" />
       </Drawer>
     </NavBar>
   )
 }
 
-const NavBar = styled.nav<{ position: TPosition }>`
+const NavBar = styled.nav<{ position: TPosition, bgColor: TBgColor }>`
   display: flex;
   justify-content: space-between;
   padding: 0.4rem 4.1rem;
@@ -149,6 +150,7 @@ const NavBar = styled.nav<{ position: TPosition }>`
   border-bottom: none;
   z-index: 99;
   transition: all 0.4s ease;
+  background-color: ${({ bgColor }) => bgColor};
 `
 
 const ImageContainer = styled.div`
@@ -196,30 +198,22 @@ a {
 }
 
 `
-// const Links = styled(Menu)`
-//   flex: 1;
-//   justify-content: flex-end;
-//   border-bottom: none;
-//   background: none;
+const Links = styled(Menu)`
+  flex: 1;
+  justify-content: flex-end;
+  border-bottom: none;
+  background: none;
 
-//   a {
-//     color: white !important;
-//   }
+  a {
+    color: white !important;
+  }
 
-//   @media (max-width: 767px) {
-//     a {
-//       color: black !important;
-//     }
-//   }
-// `
-
-// const Link = styled.a`
-//   font-size: 30px;
-//   color: white;
-//   letter-spacing: 3px;
-//   position: relative;
-
-// `
+  @media (max-width: 767px) {
+    a {
+      color: black !important;
+    }
+  }
+`
 
 Navbar.defaultProps = {
   transparent: false,

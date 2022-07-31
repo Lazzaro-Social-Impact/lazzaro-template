@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { CustomInput, CustomTextArea } from '../common/CustomInput'
-import { Button } from '../common'
+import { Button, Center } from '../common'
 import { ErrorInput } from '../common/ErrorInput'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getSendContactEventUrl } from '../../api/postApiServices'
@@ -25,7 +25,6 @@ type contactEventForm = {
   text: string
 }
 export function ContactEventForm({ id }: IProps): ReactElement {
-  const { primary, secondary } = useTheme() as { [key: string]: string }
   const { register, handleSubmit, formState: { errors } } = useForm<contactEventForm>({
     resolver: yupResolver(contactEventSchema),
   })
@@ -66,15 +65,10 @@ export function ContactEventForm({ id }: IProps): ReactElement {
 
       />
       <ErrorInput msg={errors?.text?.message} />
-      <Button
-        px="2.4rem"
-        py="0.8rem"
-        type="submit"
-        bgColor={primary}
-        hoverBgColor={secondary}
-        style={{ alignSelf: 'center' }}
-      >Send
-      </Button>
+
+      <Center>
+        <Button px={2.4} type="submit">Send</Button>
+      </Center>
     </ContactForm>
   )
 }

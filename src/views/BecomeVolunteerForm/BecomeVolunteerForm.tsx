@@ -30,7 +30,7 @@ function BecomeVolunteerForm() {
   const { handleSubmit, register, formState: { errors } } = useForm<volunteerSubmitForm>({
     resolver: yupResolver(volunteerSchema)
   })
-  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
+  const { primary, secondary } = useTheme()
   const ongId = useAppSelector((state) => state.ong.ongId)
   const {
     isLoading, isError, isSuccess, mutateAsync
@@ -55,11 +55,8 @@ function BecomeVolunteerForm() {
           successId="volunteer-form-success"
           errorId="volunteer-form-error"
         />
-        <SectionTitle
-          textAlign="center"
-          color={primary}
-          fontSize={2.4}
-        >I want to volunteer
+        <SectionTitle textAlign="center" fontSize={2.4}>
+          I want to volunteer
         </SectionTitle>
         <Flex wrap="nowrap" justify="space-around" gap={2}>
           <CustomInputDiv>
@@ -77,17 +74,9 @@ function BecomeVolunteerForm() {
         <CustomInput placeholder="Address" {...register('home_address')} />
         <ErrorInput msg={errors.home_address?.message} />
 
-        <Button
-          fontSize={1.2}
-          py="0.8rem"
-          px="2.8rem"
-          bgColor={primary}
-          hoverBgColor={secondary}
-          type="submit"
-          style={{ alignSelf: 'center' }}
-        >
-          Send
-        </Button>
+        <Flex>
+          <Button px="2.8rem" type="submit">Send</Button>
+        </Flex>
       </CustomForm>
       <Footer />
     </>

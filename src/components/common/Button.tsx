@@ -22,8 +22,8 @@ interface IProps {
 const Button = styled.button<IProps>`
   color: ${({ color }) => color};
   padding: ${({ p }) => p && getProp(p)};
-  padding-inline: ${({ px }) => px && getProp(px)};
-  padding-block: ${({ py }) => py && getProp(py)};
+  padding-inline: ${({ px }) => getProp(px)};
+  padding-block: ${({ py }) => getProp(py)};
   margin: ${({ m }) => m && getProp(m)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
   margin-block: ${({ my }) => my && getProp(my)};
@@ -41,7 +41,7 @@ const Button = styled.button<IProps>`
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${({ hoverBgColor, theme }) => hoverBgColor || theme.primary};
+    background-color: ${({ hoverBgColor, theme }) => hoverBgColor || theme.secondary};
     color: ${({ hoverColor }) => hoverColor && hoverColor};
   }
 
@@ -55,6 +55,8 @@ Button.defaultProps = {
   color: '#fff',
   weight: 'bold',
   radius: 25,
+  px: '1.8rem',
+  py: '0.8rem',
 }
 
 export default Button

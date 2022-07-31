@@ -1,10 +1,12 @@
 import styled from 'styled-components'
+import { getProp } from '../../utils'
 
 interface IProps {
   radius?: TRadius;
   width?: TWidth;
   height?: THeight;
   maxWidth?: TMaxWidth;
+  p?: TPadding;
 }
 
 const Image = styled.img<IProps>`
@@ -14,5 +16,6 @@ const Image = styled.img<IProps>`
   object-fit: cover;
   object-position: center;
   border-radius: ${({ radius }) => radius && `${radius}px`};
+  padding: ${({ p }) => p && getProp(p)};
 `
 export default Image

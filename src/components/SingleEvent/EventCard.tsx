@@ -19,7 +19,6 @@ export function EventCard({
   const { data: images, isLoading } = useDependant(
     getEventImages(id), [`event_images_form_${id}`], id
   )
-  const { primary, secondary } = useTheme() as { [key: string]: string }
 
   const showModal = () => {
     setVisible(true)
@@ -55,15 +54,7 @@ export function EventCard({
         <Button px="2.2rem" py="0.8rem" color="#aaa">
           Share
         </Button>
-        <Button
-          px="2.2rem"
-          py="0.8rem"
-          onClick={showModal}
-          bgColor={primary}
-          hoverBgColor={secondary}
-        >
-          Buy
-        </Button>
+        <Button onClick={showModal}>Buy</Button>
         <Modal
           title="Buy Tickets"
           visible={visible}

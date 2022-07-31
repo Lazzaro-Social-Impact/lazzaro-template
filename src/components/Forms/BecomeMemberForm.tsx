@@ -1,13 +1,13 @@
 import { Radio } from 'antd'
 import React, { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
-import { Button } from '../common'
+import { Button, Center } from '../common'
 import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
@@ -48,7 +48,6 @@ export function BecomeMemberForm(): ReactElement {
     isLoading, isSuccess, isError, mutateAsync
   } = usePostData(getBecomePartnerUrl())
   const ongId = useAppSelector((state) => state.ong.ongId)
-  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const onSubmit = async (data: memberSubmitForm) => {
     const formData = {
       ...data,
@@ -215,15 +214,7 @@ export function BecomeMemberForm(): ReactElement {
           <ErrorInput msg={errors.membership?.message} mt={0.4} />
 
           <Center>
-            <Button
-              type="submit"
-              py={0.8}
-              px={2.4}
-              bgColor={primary}
-              hoverBgColor={secondary}
-            >
-              Submit
-            </Button>
+            <Button type="submit">Submit</Button>
           </Center>
         </form>
       </Container>
@@ -266,11 +257,6 @@ const FormRow = styled.div`
 display: flex;
 gap: 1.2rem;
 margin-top: 0.8rem;
-`
-
-const Center = styled.div`
-display: flex;
-justify-content: center;
 `
 
 const RadioQuestion = styled.p`

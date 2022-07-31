@@ -6,7 +6,7 @@ import * as yup from 'yup'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
 import {
-  Button, Flex, Input, Label, SectionTitle, TextArea
+  Button, Center, Input, Label, SectionTitle, TextArea
 } from '../common'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -158,11 +158,11 @@ export function BuyProductForm(props: IProps): ReactElement {
         <ErrorMsg msg={errors.privacy_policy?.message} />
       </Label>
       <br />
-      <Flex my={1.5}>
+      <Center my={1.5}>
         <Button py="0.8rem" px="2.4rem" type="submit">
           Pay
         </Button>
-      </Flex>
+      </Center>
     </form>
   )
 }

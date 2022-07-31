@@ -14,12 +14,10 @@ interface IProps {
 }
 
 const Bookmark: FC<IProps> = (props) => {
-  const {
-    color, style, position, top, left, right, bottom, text
-  } = props
-  const { primary } = useTheme() as { primary: string }
+  const { color, text, ...restProps } = props
+  const { primary } = useTheme()
   return (
-    <Wrapper style={style} position={position} top={top} left={left} right={right} bottom={bottom}>
+    <Wrapper {...restProps}>
       {text && <DiscountText>{text}%</DiscountText>}
       <svg
         version="1.1"
@@ -51,7 +49,7 @@ const Bookmark: FC<IProps> = (props) => {
     </Wrapper>
   )
 }
-const Wrapper = styled.div<Pick<IProps, 'position'|'left'|'right'|'bottom'|'top'>>`
+const Wrapper = styled.div<Omit<IProps, 'style'>>`
   width: 100px;
   position: ${({ position }) => position};
   top: ${({ top }) => getProp(top)};

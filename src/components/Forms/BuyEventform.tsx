@@ -2,12 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import * as yup from 'yup'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, usePostData } from '../../hooks'
-import { Button } from '../common'
+import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -43,7 +43,6 @@ const buyTicketSchema = yup.object({
 })
 
 export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
-  const { primary, secondary } = useTheme() as { [key: string]: string }
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.currency_symbol)
   const ongId = useAppSelector(({ ong }) => ong.ongId)
   const { id } = useParams()
@@ -161,14 +160,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
       </span>
       <ErrorInput msg={errors.terms_and_conditions?.message} />
       <Center>
-        <Button
-          py="0.8rem"
-          px="2.8rem"
-          bgColor={primary}
-          hoverBgColor={secondary}
-        >
-          Pay
-        </Button>
+        <Button px="2.8rem">Pay</Button>
       </Center>
     </BuyFrom>
   )
@@ -195,13 +187,6 @@ const CheckBoxInput = styled.input`
      margin-top: 2.4rem;
       display: inline;
       width: 30px;
-`
-
-const Center = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
 `
 
 const CustomLabel = styled.label`

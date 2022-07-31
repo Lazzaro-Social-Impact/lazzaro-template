@@ -12,10 +12,12 @@ const Input = styled.input<IProps>`
   border-radius: 0.3rem;
   font-size: 1rem;
   margin-top: ${({ mt }) => mt}rem;
-  flex:1;
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
   &:focus {
     outline: none;
+    box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
   }
 `
 

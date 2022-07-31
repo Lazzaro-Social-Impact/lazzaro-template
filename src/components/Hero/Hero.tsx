@@ -1,8 +1,7 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
-import { Button } from '../common'
+import { Button, Flex } from '../common'
 
 interface IProps {
   heroImage: string;
@@ -10,40 +9,30 @@ interface IProps {
 
 function Hero() {
   const navigate = useNavigate()
-  const data = useAppSelector((state) => ({
+  const { heroImage, textHeader, textSubHeader } = useAppSelector((state) => ({
     heroImage: state.ong.ongConfig?.brand?.default_img,
     textHeader: state.ong.ongConfig?.description?.title,
     textSubHeader: state.ong.ongConfig?.description?.subtitle,
     textColor: state.ong.ongConfig?.description?.text_color,
   }))
-  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
+
   return (
     <>
-      <Header id="hero" heroImage={data.heroImage}>
-        <Title>{data.textHeader}</Title>
-        <SubTitle>{data.textSubHeader}</SubTitle>
-        <BtnGroup>
-          <Button color="white" hoverBgColor={secondary} bgColor={primary} py={0.6} px={1.6}>
-            Donar
-          </Button>
-          <Button
-            onClick={() => navigate('/partners')}
-            hoverBgColor={primary}
-            bgColor={secondary}
-            py={0.6}
-            px={1.6}
-          >
-            Become a member
-          </Button>
-        </BtnGroup>
-      </Header>
+      <HeroSection id="hero" heroImage={heroImage}>
+        <Title>{textHeader}</Title>
+        <SubTitle>{textSubHeader}</SubTitle>
+        <Flex gap={1.2}>
+          <Button color="white"> Donar </Button>
+          <Button onClick={() => navigate('/partners')}>Become a member</Button>
+        </Flex>
+      </HeroSection>
     </>
   )
 }
 
-const Header = styled.header<IProps>`
+const HeroSection = styled.section<IProps>`
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
-    url(${(props) => props.heroImage});
+    url(${({ heroImage }) => heroImage});
   background-size: cover;
   background-position: center;
   object-fit: cover;
@@ -55,18 +44,14 @@ const Header = styled.header<IProps>`
   align-items: center;
 `
 
-const BtnGroup = styled.div`
-  display: flex;
-  gap: 1.2rem;
-`
 const SubTitle = styled.h2`
   font-size: 1.6rem;
   font-weight: bold;
   color: #fff;
   margin-bottom: 1.2rem;
-  width: 25%;
+  width: 35%;
   text-align: center;
-  `
+`
 const Title = styled.h2`
   color: white;
   font-size: 2.5rem;

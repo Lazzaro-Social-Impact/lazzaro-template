@@ -10,7 +10,6 @@ import { useAppSelector, useDependant } from '../../hooks'
 function Shop() {
   const ongId = useAppSelector((state) => state.ong?.ongId)
   const { data: products, isLoading } = useDependant(getProductsURL(ongId), ['products'], ongId)
-  const { primary } = useTheme() as { primary: string }
   interface IProduct {
     id: string,
     title: string,
@@ -25,9 +24,7 @@ function Shop() {
         <Image src="https://via.placeholder.com/817x420" alt="" />
       </ImageContainer>
 
-      <SectionTitle textAlign="center" color={primary}>
-        Shop
-      </SectionTitle>
+      <SectionTitle textAlign="center">Shop</SectionTitle>
       <Text fontSize={1.5} textAlign="center">
         lorem ipusm its simply an text with placeholder ant
       </Text>
