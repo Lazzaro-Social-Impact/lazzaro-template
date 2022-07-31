@@ -1,27 +1,31 @@
-import React, { ReactElement } from 'react'
+import React, { MutableRefObject, ReactElement, useRef } from 'react'
 import { Col } from 'antd'
 import styled from 'styled-components'
 import moment from 'moment'
 import NearEvent from './NearEvent/NearEvent'
 import EventsRow from './EventsRow/EventsRow'
 import { SectionTitle } from '../common'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 
 interface IEvent {
-  course: boolean,
-  id: string,
-  title: string,
-  description: string,
-  imageURL: string,
-  start_time: string,
+  course: boolean;
+  id: string;
+  title: string;
+  description: string;
+  imageURL: string;
+  start_time: string;
 }
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
+  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
+  const isSectionVisible = useObserver(sectionRef)
 
-  const { data: events, isLoading, isError } = useDependant(getEventsURL(ongId), ['events'], ongId)
+  const {
+    data: events, isLoading, isError,
+  } = useDependant(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
   const onlyEvents = events?.filter((event: IEvent) => !event.course)
   // Get the nearest event
   const nearestEvent = onlyEvents?.sort((a: IEvent, b: IEvent) => {
@@ -34,11 +38,10 @@ function Events(): ReactElement {
   const otherEvents = onlyEvents?.filter((event: IEvent) => event.id !== nearestEvent?.id)
   return (
     <>
-      <SectionTitle>Events
-      </SectionTitle>
-      <EventsSection id="events">
+      <SectionTitle>Events</SectionTitle>
+      <EventsSection id="events" ref={sectionRef}>
         {isLoading && <Skeleton width={72} height={42} number={1} />}
-        {!isLoading && <NearEvent {...nearestEvent} /> }
+        {!isLoading && <NearEvent {...nearestEvent} />}
         <EventsCol md={12} sm={24}>
           {otherEvents?.map((event: IEvent) => <EventsRow key={event.id} {...event} />)}
           {isLoading && <Skeleton width={42} height={12} number={3} />}
@@ -78,7 +81,6 @@ const EventsCol = styled(Col)`
   @media screen and (max-width: 576px) {
     height: 250px;
   }
-
 `
 
 export default Events
