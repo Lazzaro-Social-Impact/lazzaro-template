@@ -81,7 +81,7 @@ const EventCardDiv = styled.div`
     border: 1px solid #e6e6e6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     height: 470px;
-    width: 525px;
+    max-width: 525px;
 
     @media screen and (max-width: 768px) {
       width: 100%;
