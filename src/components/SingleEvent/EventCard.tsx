@@ -16,6 +16,7 @@ export function EventCard({
   const [confirmLoading, setConfirmLoading] = useState(false)
   const startDate = moment(start_time).format('Do MMMM YYYY')
   const endDate = moment(end_time).format('Do MMMM YYYY')
+  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
   const { data: images, isLoading } = useDependant(
     getEventImages(id), [`event_images_form_${id}`], id
   )
@@ -51,7 +52,7 @@ export function EventCard({
         Tickets available: <span>{stock}</span>
       </EventTickets>
       <EventCardButtons>
-        <Button px="2.2rem" py="0.8rem" color="#aaa">
+        <Button px="2.2rem" py="0.8rem" color="white" hoverBgColor={primary} bgColor={secondary}>
           Share
         </Button>
         <Button onClick={showModal}>Buy</Button>

@@ -10,6 +10,7 @@ import { getEventsURL, getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
+import Skeleton from '../Skeleton'
 
 export function SingleEventDetails(): ReactElement {
   const { id } = useParams() as { id: string }
@@ -20,7 +21,7 @@ export function SingleEventDetails(): ReactElement {
   const { data: images, isLoading } = useDependant(getEventImages(id), ['event_images'], id)
   return (
     <>
-      {isLoadingEvent && <div>Loading...</div>}
+      {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
       {!isLoadingEvent && (
       <Event>
         <EventCarousel imgs={images} isLoading={isLoading} />

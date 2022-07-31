@@ -5,6 +5,7 @@ import { getEventsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
+import Skeleton from '../../components/Skeleton'
 import { useAppSelector, useDependant } from '../../hooks'
 
 function SingleEvent(): ReactElement {
@@ -20,13 +21,12 @@ function SingleEvent(): ReactElement {
       <Container>
         <SingleEventDetails />
         <OtherEvents>
-          {isLoading && <h1>Loading other events...</h1>}
-
-          {isEvent
+          {isLoading && <Skeleton number={3} height={22} width={26} />}
+          {!isLoading && isEvent
             && events
               ?.map((event: any) => !event.course && <EventCard {...event} key={event.id} />)}
 
-          {isCourse
+          {!isLoading && isCourse
             && events
               ?.map((event: any) => event.course && <EventCard {...event} key={event.id} />)}
         </OtherEvents>

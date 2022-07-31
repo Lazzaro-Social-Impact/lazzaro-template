@@ -7,6 +7,7 @@ import EventsRow from './EventsRow/EventsRow'
 import { SectionTitle } from '../common'
 import { useAppSelector, useDependant } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
+import Skeleton from '../Skeleton'
 
 interface IEvent {
   course: boolean,
@@ -36,10 +37,12 @@ function Events(): ReactElement {
       <SectionTitle>Events
       </SectionTitle>
       <EventsSection id="events">
-        <NearEvent {...nearestEvent} />
+        {isLoading && <Skeleton width={72} height={42} number={1} />}
+        {!isLoading && <NearEvent {...nearestEvent} /> }
         <EventsCol md={12} sm={24}>
-          {isLoading && <h1>Loading...</h1>}
           {otherEvents?.map((event: IEvent) => <EventsRow key={event.id} {...event} />)}
+          {isLoading && <Skeleton width={42} height={12} number={3} />}
+
           {isError && <h1>Error</h1>}
         </EventsCol>
       </EventsSection>
