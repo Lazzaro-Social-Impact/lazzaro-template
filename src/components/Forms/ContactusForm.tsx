@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components'
 import * as yup from 'yup'
 import { getSendContactUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
-import { Button } from '../common'
+import { Button, Flex } from '../common'
 import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -31,7 +31,7 @@ const contactSchema = yup.object({
 })
 
 export function ContactusForm(): ReactElement {
-  const { secondary } = useTheme() as {primary: string, secondary: string}
+  const { secondary } = useTheme()
   const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
     resolver: yupResolver(contactSchema),
   })
@@ -121,15 +121,10 @@ export function ContactusForm(): ReactElement {
             <span>I agree to the privacy policy</span>
             <ErrorInput msg={errors.terms?.message} />
           </label>
-          <Button
-            px="3.2rem"
-            py="0.8rem"
-            bgColor="green"
-            style={{ alignSelf: 'center', marginTop: '2.4rem' }}
-            hoverBgColor={secondary}
-          >
-            Send Message
-          </Button>
+
+          <Flex>
+            <Button type="submit">Send Message</Button>
+          </Flex>
         </ContactusFormBox>
         <ContactDetailsBox>
           <BoxTitle>Contact info</BoxTitle>

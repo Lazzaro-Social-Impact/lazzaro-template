@@ -1,9 +1,11 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { BookmarkIcon } from '../../Icons'
-import { Card } from '../../common'
+import {
+  Card, Image, Link, Text
+} from '../../common'
 
 interface IEvent {
   id: string,
@@ -14,7 +16,7 @@ interface IEvent {
 export default function NearEvent({
   id, title, description, imageURL
 }: IEvent): ReactElement {
-  const { primary } = useTheme() as {primary: string}
+  const { primary } = useTheme()
   const navigate = useNavigate()
   return (
     <Card
@@ -25,20 +27,14 @@ export default function NearEvent({
       onClick={() => navigate(`/events/${id}`)}
     >
       <div style={{ position: 'relative' }}>
-        <BookmarkIcon color={primary} position="absolute" right={2.3} />
-        <Image
-          src={imageURL}
-          alt="Near Event"
-        />
+        <BookmarkIcon position="absolute" right={2.3} top={-1} />
+        <Image src={imageURL} alt="Near Event" p={1} />
       </div>
 
       <TextContainer>
         <h2>{title}</h2>
-        <p>{HtmlParser(description?.slice(0, 150))}</p>
-        <Link
-          to={`/events/${id}`}
-          style={{ alignSelf: 'flex-end', color: primary, fontSize: '1rem' }}
-        >
+        <Text>{HtmlParser(description?.slice(0, 150))}</Text>
+        <Link to={`/events/${id}`} align="right">
           Read more
         </Link>
       </TextContainer>
@@ -71,15 +67,5 @@ const TextContainer = styled.div`
     p {
       font-size: 1rem;
     }
-  }
-`
-
-const Image = styled.img`
-  max-width: 100%;
-  height: 100%;
-  height: auto;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
   }
 `

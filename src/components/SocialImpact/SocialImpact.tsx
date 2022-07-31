@@ -32,11 +32,9 @@ const numbers: INumber[] = [
   },
 ]
 export default function SocialImpact(): ReactElement {
-  const { primary } = useTheme() as {primary: string}
-
   return (
 
-    <SocialImpactSection style={{ backgroundColor: primary }}>
+    <SocialImpactSection id="impact">
       <SectionTitle level={1}>Social Impact </SectionTitle>
       <ImpactNumbers>
         {numbers.map((number: INumber) => (
@@ -55,6 +53,7 @@ flex-direction: column;
 align-items: center;
 gap: 4.2rem;
 padding: 0 5.2rem;
+background-color: ${({ theme }) => theme.primary};
 `
 
 const SectionTitle = styled(Title)`

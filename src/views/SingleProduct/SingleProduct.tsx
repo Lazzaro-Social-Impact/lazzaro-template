@@ -5,7 +5,9 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
-import { Button, Card, Flex } from '../../components/common'
+import {
+  Button, Card, Center, Flex
+} from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
@@ -19,7 +21,7 @@ function SingleProduct(): ReactElement {
   return (
     <>
       <Navbar />
-      <Center>
+      <Center mt={4.2}>
         <Breadcrumb separator=">">
           <Breadcrumb.Item>Shop</Breadcrumb.Item>
           <Breadcrumb.Item>{product.title}</Breadcrumb.Item>
@@ -128,10 +130,4 @@ const CustomTabs = styled(Tabs)`
     font-size: 1.1rem;
     font-weight: bold;
   }
-`
-const Center = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4.2rem;
 `
