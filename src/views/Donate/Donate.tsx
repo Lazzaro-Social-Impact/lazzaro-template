@@ -1,5 +1,5 @@
 import { getStartDonationUrl } from '../../api/postApiServices'
-import { Footer, Navbar, DonateForm } from '../../components'
+import { Footer, DonateForm, Navbar } from '../../components'
 import { Flex, SectionTitle } from '../../components/common'
 import { useAppSelector, usePostData } from '../../hooks'
 

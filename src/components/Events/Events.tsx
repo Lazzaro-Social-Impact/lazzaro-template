@@ -72,6 +72,10 @@ const EventsCol = styled(Col)`
   overflow-y: auto;
   height: 800px;
 
+  @media screen and (max-width: 576px) {
+    height: 250px;
+  }
+
 `
 
 export default Events

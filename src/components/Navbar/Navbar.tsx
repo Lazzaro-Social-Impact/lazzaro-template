@@ -142,10 +142,10 @@ function Navbar({ transparent, position }: IProps): ReactElement {
 const NavBar = styled.nav<{ position: TPosition, bgColor: TBgColor }>`
   display: flex;
   justify-content: space-between;
-  padding: 1rem 4.1rem;
+  padding: 0.4rem 4.1rem;
   border-bottom: 1px solid #ccc;
-  align-items: center;
   position: ${({ position }) => position};
+  align-items: center;
   width: 100%;
   border-bottom: none;
   z-index: 99;
@@ -166,21 +166,23 @@ const ImageContainer = styled.div`
 const CustomNav = styled.nav`
 ul {
   display: flex;
-  gap: 1.6rem;
+  justify-content: center;
+  gap: 1.8rem;
   font-size: 1.1rem;
-  list-style-type: none;
-  align-items: center;
-  
-}
-
-ul li a{
+  list-style-type: none;  
+  margin-bottom: 0;
+  li a{
   color: #ddd;
   text-decoration: none;
-
+  padding-bottom: 0;
+  margin-bottom: 0;
   &:hover {
     color: ${({ theme }) => theme.primary};
   }
 }
+
+}
+
 
 
 `

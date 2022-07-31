@@ -16,17 +16,16 @@ export function VolunteerCard({
   linkedin,
 }: IMember): ReactElement<IMember> {
   return (
-    <Card mode="column" smMode="column" pb={1.5} textAlign="center">
+    <CustomCard mode="column" smMode="column" pb={1.5} textAlign="center">
       <VolunteerImage src={imgUrl} alt="Volunteer" />
       <VolunteerName>{name}</VolunteerName>
       <VolunteerPosition>{position}</VolunteerPosition>
       <LinkedinIcon onClick={() => window.open(linkedin)} />
-    </Card>
+    </CustomCard>
   )
 }
 
 const VolunteerImage = styled.img`
-  width: 378px;
   height: 180px;
   object-fit: cover;
   object-position: center;
@@ -42,12 +41,25 @@ const VolunteerName = styled.p`
   margin-bottom: 0;
 `
 const VolunteerPosition = styled.p`
-  padding-bottom: 1.8rem;
   margin-top: 0.4rem;
   font-size: 1rem;
   font-weight: 300;
 `
+const CustomCard = styled(Card)`
+width: 378px;
+height: 387px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+@media screen and (max-width: 768px) {
+  height: 250px;
+}
 
+@media screen and (max-width: 420px) {
+  height: 150px;
+}
+
+`
 const LinkedinIcon = styled(LinkedinFilled)`
   font-size: 2rem;
   cursor: pointer;

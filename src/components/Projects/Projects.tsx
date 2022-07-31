@@ -1,8 +1,6 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { chunk } from 'lodash'
-import {
-  MutableRefObject, ReactElement, useRef
-} from 'react'
+import { MutableRefObject, ReactElement, useRef } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
@@ -20,17 +18,19 @@ export default function Projects(): ReactElement {
   const isSectionVisible = useObserver(sectionRef)
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
-  const {
-    data: projects,
-  } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
+  const { data: projects } = useDependant(
+    getProjectsURL(ongId),
+    ['projects'],
+    isSectionVisible && ongId
+  )
 
   return (
     <section ref={sectionRef}>
-      <Carousel
+      <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
         prevArrow={<ArrowLeftOutlined />}
-        dots={false}
+        dots
       >
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
@@ -43,7 +43,7 @@ export default function Projects(): ReactElement {
             </div>
           )),
         ]}
-      </Carousel>
+      </CustomCarousel>
     </section>
   )
 }
@@ -56,7 +56,22 @@ const Div = styled.div`
   gap: 2rem;
 
   @media (max-width: 768px) {
-    gap: .5rem;
-    padding-inline: 1rem;
+    gap: 1rem;
+    padding-inline: 2rem;
   }
-  `
+`
+
+const CustomCarousel = styled(Carousel)`
+  .slick-dots-bottom {
+    bottom: -52px;
+  }
+
+  .slick-dots li button {
+    background: ${({ theme }) => theme.primary};
+  }
+  @media screen and (max-width: 768px) {
+    span {
+      display: none !important;
+    }
+  }
+`

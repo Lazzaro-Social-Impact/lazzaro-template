@@ -63,6 +63,9 @@ const Event = styled.div`
     flex-direction: column;
     gap: 0.8rem;
     width: 920px;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
 `
 
 const EventTitle = styled.h2`
