@@ -4,6 +4,7 @@ import moment from 'moment'
 import { getProjectLatestDonationsURL } from '../../../api/getApiServices'
 import { Text } from '../../../components/common'
 import { useDependant } from '../../../hooks'
+import Skeleton from '../../../components/Skeleton'
 
 interface IProps {
   title: 'Latest Donations' | 'Historical';
@@ -22,11 +23,9 @@ interface IDonation {
   };
 }
 function LatestDonations({ title, projectId }: IProps) {
-  const { data: donations } = useDependant(
-    getProjectLatestDonationsURL(projectId),
-    [`donations${projectId}`],
-    projectId
-  )
+  const {
+    data: donations, isLoading
+  } = useDependant(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
 
   const formatDate = (date: string) => moment(date).format('MM Do YYYY')
   return (
@@ -34,6 +33,9 @@ function LatestDonations({ title, projectId }: IProps) {
       <Text weight="bold" fontSize={2} textAlign="left">
         {title || 'Latest Donations'}
       </Text>
+
+      {isLoading && <Skeleton width={32} height={11} number={3} px={3} />}
+
       {donations?.map((donation: IDonation) => (
         <Section>
           <Flex>
