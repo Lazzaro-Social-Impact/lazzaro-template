@@ -120,5 +120,5 @@ const EventTickets = styled.p`
 const EventCardButtons = styled.div`
     display: flex;
     justify-content: space-around;
-    margin-top: 2.8rem;
+    margin-top: 5.2rem;
 `
