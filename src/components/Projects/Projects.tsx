@@ -20,7 +20,7 @@ export default function Projects(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
   const {
-    data: projects, isLoading
+    data: projects = [], isLoading
   } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (

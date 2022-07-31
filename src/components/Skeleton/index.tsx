@@ -7,15 +7,16 @@ interface IProps {
   height: number;
   number: number;
   mt?:TMarginTop;
+  justify?:TJustifyContent;
 }
 
 const Skeleton: FC<IProps> = (props) => {
   const {
-    width, height, number, mt
+    width, height, number, mt, justify
   } = props
 
   return (
-    <Flex justify="space-between" gap={2} px={4.1} mt={mt}>
+    <Flex justify={justify} gap={2} px={4.1} mt={mt}>
       {Array.from({ length: number }).map(() => (
         <LoadingSkeleton key={useId()} width={`${width}rem`} height={`${height}rem`} />
       ))}
@@ -25,6 +26,7 @@ const Skeleton: FC<IProps> = (props) => {
 
 Skeleton.defaultProps = {
   mt: 4.1,
+  justify: 'space-between',
 }
 
 export default Skeleton

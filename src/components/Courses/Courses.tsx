@@ -9,6 +9,7 @@ import CourseCard from './CourseCard/CourseCard'
 import { SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getCoursesURL } from '../../api/getApiServices'
+import CourseCardSkeleton from '../Skeleton'
 
 interface ICourse {
   title: string;
@@ -27,12 +28,13 @@ function Courses(): ReactElement {
   const isSectionVisible = useObserver(sectionRef)
 
   const {
-    data: events = []
+    data: events = [], isLoading
   } = useDependant(getCoursesURL(ongId), ['courses'], isSectionVisible && ongId)
 
   return (
     <CoursesSection id="courses" ref={sectionRef}>
       <SectionTitle padding={0}>Courses</SectionTitle>
+      {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
       <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
