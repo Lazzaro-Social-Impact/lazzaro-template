@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import * as yup from 'yup'
 import { getAddVolunteerUrl } from '../../api/postApiServices'
 import { Footer, Navbar } from '../../components'
@@ -30,7 +30,6 @@ function BecomeVolunteerForm() {
   const { handleSubmit, register, formState: { errors } } = useForm<volunteerSubmitForm>({
     resolver: yupResolver(volunteerSchema)
   })
-  const { primary, secondary } = useTheme()
   const ongId = useAppSelector((state) => state.ong.ongId)
   const {
     isLoading, isError, isSuccess, mutateAsync
@@ -92,15 +91,5 @@ const CustomForm = styled.form`
   max-width: 900px;
   margin: 0 auto;
 `
-// const TextArea = styled.textarea`
-//   width: 100%;
-//   height: 10rem;
-//   border-radius: 5px;
-//   padding: 0.5rem;
-//   margin-bottom: 1rem;
-//   resize: none;
-//   font-size: 1rem;
-//   outline: none;
-//   margin-block: 2rem;
-// `
+
 export default BecomeVolunteerForm

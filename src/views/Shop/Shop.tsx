@@ -1,4 +1,4 @@
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import {
