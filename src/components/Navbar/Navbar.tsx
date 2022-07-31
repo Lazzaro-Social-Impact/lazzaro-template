@@ -172,8 +172,7 @@ ul {
   li a{
   color: #ddd;
   text-decoration: none;
-  padding-bottom: 0;
-  margin-bottom: 0;
+  font-weight: bold;
   &:hover {
     color: ${({ theme }) => theme.primary};
   }
@@ -189,6 +188,7 @@ const CustomDropDown = styled(Dropdown)`
 a {
   color: white;
   text-decoration: none;
+  font-weight: bold;
 
   &:hover {
     color: ${({ theme }) => theme.primary};

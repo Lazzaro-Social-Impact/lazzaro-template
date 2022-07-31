@@ -25,7 +25,7 @@ export default function Projects(): ReactElement {
   } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
-    <section ref={sectionRef}>
+    <section ref={sectionRef} id="causes">
       <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
