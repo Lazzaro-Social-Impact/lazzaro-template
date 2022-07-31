@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import { Button, Flex } from '../common'
 
@@ -15,6 +15,7 @@ function Hero() {
     textSubHeader: state.ong.ongConfig?.description?.subtitle,
     textColor: state.ong.ongConfig?.description?.text_color,
   }))
+  const { secondary } = useTheme()
 
   return (
     <>
@@ -23,7 +24,7 @@ function Hero() {
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2}>
           <Button color="white"> Donar </Button>
-          <Button onClick={() => navigate('/partners')}>Become a member</Button>
+          <Button bgColor={secondary} onClick={() => navigate('/partners')}>Become a member</Button>
         </Flex>
       </HeroSection>
     </>
