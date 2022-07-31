@@ -16,7 +16,7 @@ export default function Volunteers(): ReactElement {
     img_url: string,
   }
   return (
-    <VolunteersSection>
+    <VolunteersSection id="volunteers">
       <SectionTitle>Our Volunteers</SectionTitle>
       <CustomCarousel autoplay>
         {members && [...chunk<IMember>(members, 3).map((memberCards, i: number) => (
@@ -44,7 +44,7 @@ margin-bottom: 0;
 const CustomCarousel = styled(Carousel)`
 display: flex;
 justify-content: center;
-align-items: center;
+align-items: flex-start;
 text-align: center;
 height: 600px;
 
@@ -61,19 +61,19 @@ height: 600px;
     background: black;
   }
   @media screen and (max-width: 768px) {
-        height: 200px;
+        height: 300px;
     }
 `
 const VolunteerCards = styled.div`
 display: flex !important;
 justify-content: center;
 align-items: center;
-height: 400px !important;
+height: 450px !important;
 padding-bottom: 2.4rem;
 gap: 4.8rem;
 margin-top: 4.8rem;
 @media screen and (max-width: 768px) {
        margin-top: 1.2rem;
-       height: 200px !important;
+       height: 250px !important;
     }
 `

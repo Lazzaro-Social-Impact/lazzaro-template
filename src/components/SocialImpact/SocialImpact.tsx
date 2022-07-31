@@ -36,7 +36,7 @@ export default function SocialImpact(): ReactElement {
 
   return (
 
-    <SocialImpactSection style={{ backgroundColor: primary }}>
+    <SocialImpactSection style={{ backgroundColor: primary }} id="impact">
       <SectionTitle level={1}>Social Impact </SectionTitle>
       <ImpactNumbers>
         {numbers.map((number: INumber) => (

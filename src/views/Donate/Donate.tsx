@@ -1,5 +1,5 @@
 import { getStartDonationUrl } from '../../api/postApiServices'
-import { DonateForm } from '../../components'
+import { Footer, DonateForm, Navbar } from '../../components'
 import { Flex, SectionTitle } from '../../components/common'
 import { useAppSelector, usePostData } from '../../hooks'
 
@@ -30,10 +30,14 @@ function Donate() {
     await mutateAsync(donationInfo)
   }
   return (
-    <Flex direction="column">
-      <SectionTitle fontSize={3}>Make a donation</SectionTitle>
-      <DonateForm submitHandler={handleSubmit} states={states} />
-    </Flex>
+    <>
+      <Navbar />
+      <Flex direction="column">
+        <SectionTitle fontSize={3}>Make a donation</SectionTitle>
+        <DonateForm submitHandler={handleSubmit} states={states} />
+      </Flex>
+      <Footer />
+    </>
   )
 }
 

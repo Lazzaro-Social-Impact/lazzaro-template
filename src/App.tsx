@@ -1,4 +1,7 @@
-import { Dispatch, useEffect } from 'react'
+import {
+  Dispatch, useEffect, useLayoutEffect
+} from 'react'
+
 import 'antd/dist/antd.min.css'
 import { useDispatch } from 'react-redux'
 import './App.css'
@@ -45,6 +48,17 @@ function App() {
       dispatch(setOngConfig(null))
     }
   }, [dispatch, ongId, ongData])
+
+  useLayoutEffect(() => {
+    const favIcon : any = document.getElementById('favicon')
+    favIcon.href = ongData?.brand?.favicon
+    document.title = ongData?.brand?.name || 'Home Page'
+
+    return () => {
+      favIcon.href = ''
+      document.title = ''
+    }
+  }, [ongData])
 
   return (
     <ThemeProvider theme={theme}>

@@ -31,7 +31,7 @@ export function SingleEventDetails(): ReactElement {
 
         <CustomTabs defaultActiveKey="1">
           <Tabs.TabPane tab="Buy" key="1">
-            <BuyEventform />
+            <BuyEventform eventId={id} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Location" key="2">
             {/* Google Map frame  */}
