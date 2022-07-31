@@ -72,6 +72,7 @@ export function ContactEventForm({ id }: IProps): ReactElement {
         type="submit"
         bgColor={primary}
         hoverBgColor={secondary}
+        style={{ alignSelf: 'center' }}
       >Send
       </Button>
     </ContactForm>
