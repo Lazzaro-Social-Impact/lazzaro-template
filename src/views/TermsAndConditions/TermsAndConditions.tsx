@@ -1,27 +1,27 @@
+import { FC } from 'react'
+import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'
-import { Flex, SectionTitle, Text } from '../../components/common'
+import { Flex, SectionTitle } from '../../components/common'
+import { useAppSelector } from '../../hooks'
 
-const TermsAndConditions = () => (
-  <>
-    <Navbar />
+const TermsAndConditions:FC = () => {
+  const termsAndConditions = useAppSelector(({ ong }) => ong.ongConfig?.brand.terms_and_conditions)
 
-    <Flex mt={4} gap={3} px={4} justify="flex-start">
-      <SectionTitle fontSize={2.5} marginBottom={0} padding={0}>
-        Term And Conditions
-      </SectionTitle>
+  return (
+    <>
+      <Navbar />
 
-      <Text color="#777777" fontSize={1} textAlign="left">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo magni molestias ipsam.
-        Vel voluptatibus repudiandae rem dicta accusantium mollitia reiciendis, illo, error
-        facilis similique fugit blanditiis obcaecati sequi aliquam aspernatur,facilis similique
-        fugit blanditiis obcaecati sequi aliquam aspernatur, facilis similique fugit blanditiis
-        obcaecati sequi aliquam aspernatur,facilis similique fugit blanditiis obcaecati sequi
-        aliquam aspernatur.
-      </Text>
-    </Flex>
+      <Flex mt={4} gap={3} px={4} textAlign="left" align="flex-start" direction="column">
+        <SectionTitle fontSize={2.5} marginBottom={0} padding={0}>
+          Term And Conditions
+        </SectionTitle>
 
-    <Footer />
-  </>
-)
+        <div>{HtmlParser(termsAndConditions)}</div>
+      </Flex>
+
+      <Footer />
+    </>
+  )
+}
 
 export default TermsAndConditions
