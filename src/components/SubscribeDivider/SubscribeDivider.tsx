@@ -1,15 +1,23 @@
 import React, { ReactElement, } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTheme } from '../../app/context/theme-context'
 import { Button } from '../common'
 
 export default function SubscribeDivider(): ReactElement {
   const globalColor = useTheme()
-
+  const navigate = useNavigate()
   return (
     <SubscribeSection>
       <SectionTitle>Lets collaborate together </SectionTitle>
-      <Button fontSize={1.2} py={0.8} px={2.8} bgColor={globalColor}>Sign up</Button>
+      <Button
+        onClick={() => navigate('/partners')}
+        fontSize={1.2}
+        py={0.8}
+        px={2.8}
+        bgColor={globalColor}
+      >Sign up
+      </Button>
     </SubscribeSection>
   )
 }

@@ -28,6 +28,8 @@ export function CustomComponent(component: any) {
     touch-action: manipulation;
     text-overflow: ellipsis;
     width: 100%;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    resize: none;
 
     &:focus {
         outline: none;
