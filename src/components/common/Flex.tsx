@@ -8,6 +8,7 @@ interface IProps {
   width?: TWidth;
   mt?:TMarginTop;
   my?: TMarginBlock;
+  p?: TPadding;
   py?:TPaddingBlock;
   px?: TPaddingInline;
   gap?: TGap;
@@ -22,6 +23,7 @@ const Flex = styled.div<IProps>`
   width: ${({ width }) => width};
   margin-top: ${({ mt }) => mt && `${mt}rem`};
   margin-block: ${({ my }) => my && `${my}rem`};
+  padding: ${({ p }) => p && `${p}rem`};
   padding-block: ${({ py }) => py && `${py}rem`};
   padding-inline: ${({ px }) => px && `${px}rem`};
   gap: ${({ gap }) => gap && `${gap}rem`};

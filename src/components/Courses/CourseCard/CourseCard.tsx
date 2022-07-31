@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import moment from 'moment'
 import parse from 'react-html-parser'
-import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
-import { Card, Image, ReadMore } from '../../common'
+import {
+  Card, Flex, Image, Link,
+} from '../../common'
 
 interface IProps {
   course: {
@@ -18,36 +19,28 @@ interface IProps {
 }
 
 function CourseCard({ course }: IProps) {
-  const navigate = useNavigate()
-
   const date = Number(moment(course.start_time).format('D'))
-  const navigateTo = (path: `/courses/${string}`) => () => navigate(path)
+
   return (
-    <Card mode="row" smMode="column" my={2} p="1.5rem" maxWidth="45rem">
-      <div style={{ position: 'relative' }}>
+    <Card mode="row" smMode="column" my={2} p={1} maxWidth="45rem">
+      <div style={{ position: 'relative', height: '235px' }}>
         <CalendarIcon
           date={date}
           type="filled"
           size="4em"
           position="absolute"
-          top={-1.7}
+          top={-1.23}
           right={1.5}
         />
-        <Image src={course.imageURL} alt="course" width="800px" height="auto" />
+        <Image src={course.imageURL} alt="course" width="800px" />
       </div>
-      <TextContainer>
+      <Flex direction="column" justify="space-between" p={1} textAlign="left">
         <h2>{course.title.slice(0, 23)}</h2>
         {parse(course.description.slice(0, 100))}
-        <ReadMore
-          onClick={navigateTo(`/courses/${course.id}`)}
-          fontSize={1.2}
-          color="black"
-          textAlign="right"
-        >
-          {' '}
-          Read more{' '}
-        </ReadMore>
-      </TextContainer>
+        <Link to={`/courses/${course.id}`} align="flex-end">
+          Read more
+        </Link>
+      </Flex>
     </Card>
   )
 }
@@ -57,7 +50,7 @@ export default CourseCard
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 1rem;
   width: 100%;
 
