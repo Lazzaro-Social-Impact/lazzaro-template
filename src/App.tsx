@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { Dispatch, useEffect } from 'react'
 import 'antd/dist/antd.min.css'
 import { useDispatch } from 'react-redux'
 import './App.css'
 import { ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
+import { Action } from '@reduxjs/toolkit'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import useDependant from './hooks/useDependant'
 import { setOngConfig, setOngId } from './features'
@@ -15,7 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 const staticUrl = 'prehello.web.lazzaro.io'
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch: Dispatch<Action> = useDispatch()
 
   const {
     data: config, isLoading: isLoadingPage

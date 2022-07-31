@@ -80,7 +80,7 @@ const PremiumEventSection = styled.section`
   padding: 0 4.1rem;
   gap: 4rem;
   align-items: flex-start;
-  margin-block: 3rem;
+  margin-block: 6.2rem;
 
   @media (max-width: 768px) {
     flex-direction: column;

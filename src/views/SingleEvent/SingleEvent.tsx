@@ -48,7 +48,7 @@ const Container = styled.div`
 const OtherEvents = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 420px;
   height: 75rem;
   gap: 1.2rem;
   overflow-y: auto;

@@ -26,11 +26,11 @@ export default function Projects(): ReactElement {
 
   return (
     <section ref={sectionRef}>
-      <Carousel
+      <CustomCarousel
         arrows
         nextArrow={<ArrowRightOutlined />}
         prevArrow={<ArrowLeftOutlined />}
-        dots={false}
+        dots
       >
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
@@ -43,7 +43,7 @@ export default function Projects(): ReactElement {
             </div>
           )),
         ]}
-      </Carousel>
+      </CustomCarousel>
     </section>
   )
 }
@@ -54,4 +54,19 @@ const Div = styled.div`
   margin-top: 4.2rem;
   padding: 0 4.1rem;
   gap: 2rem;
-  `
+`
+
+const CustomCarousel = styled(Carousel)`
+.slick-dots-bottom {
+  bottom: -52px;
+}
+
+.slick-dots li button {
+    background: ${({ theme }) => theme.primary};
+}
+  @media screen and (max-width: 768px) {
+    span {
+      display: none !important;
+    }
+  }
+`
