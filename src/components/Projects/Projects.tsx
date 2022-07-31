@@ -6,6 +6,7 @@ import { getProjectsURL } from '../../api/getApiServices'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { Carousel } from '../common'
 import { Project } from './Project/Project'
+import ProjectCardSkeleton from '../Skeleton'
 
 interface IProject {
   imageURL: string;
@@ -18,20 +19,15 @@ export default function Projects(): ReactElement {
   const isSectionVisible = useObserver(sectionRef)
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
-  const { data: projects } = useDependant(
-    getProjectsURL(ongId),
-    ['projects'],
-    isSectionVisible && ongId
-  )
+  const {
+    data: projects, isLoading
+  } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
-    <section ref={sectionRef} id="causes">
-      <CustomCarousel
-        arrows
-        nextArrow={<ArrowRightOutlined />}
-        prevArrow={<ArrowLeftOutlined />}
-        dots
-      >
+    <section ref={sectionRef}>
+      {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
+
+      <CustomCarousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
             <div key={projects}>

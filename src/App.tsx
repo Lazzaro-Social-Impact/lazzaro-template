@@ -11,6 +11,7 @@ import AllRoute from './app/router'
 import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 
