@@ -12,6 +12,7 @@ import {
   SingleProduct,
   TermsAndConditions,
 } from '../../views'
+import { ErrorPage } from '../../views/ErrorPage/ErrorPage'
 
 export default function AllRoute() {
   return (
@@ -29,6 +30,7 @@ export default function AllRoute() {
         <Route path="/volunteers" element={<BecomeVolunteerForm />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/contact" element={<ContactusForm />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   )
