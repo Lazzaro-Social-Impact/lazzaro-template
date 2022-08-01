@@ -11,8 +11,8 @@ import {
   SingleEvent,
   SingleProduct,
   TermsAndConditions,
+  ErrorPage,
 } from '../../views'
-import { ErrorPage } from '../../views/ErrorPage/ErrorPage'
 
 export default function AllRoute() {
   return (

@@ -12,6 +12,7 @@ import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { CrashPage } from './views'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 
@@ -19,12 +20,15 @@ function App() {
   const dispatch = useAppDispatch()
 
   const {
-    data: config, isLoading: isLoadingPage
+    data: config, isLoading: isLoadingPage, isError
   } = useDependant(getOngByUrl(staticUrl), ['ongConfigUrl'], staticUrl)
 
   const ongId: string = config?.ong_id
 
-  const { data: ongData, isLoading } = useDependant(getOngConfig(ongId), ['ongConfig'], ongId)
+  const {
+    data: ongData, isLoading,
+    isError: isErrorPage
+  } = useDependant(getOngConfig(ongId), ['ongConfig'], ongId)
 
   const primary: string = ongData?.brand.primary_color_hex
   const secondary: string = ongData?.brand.secondary_color_hex
@@ -58,12 +62,15 @@ function App() {
     <ThemeProvider theme={theme}>
       {isLoading || isLoadingPage ? (
         <LoadingIndex />
-      ) : (
-        <>
-          <AllRoute />
-          <ToastContainer />
-        </>
-      )}
+      )
+        : isError || isErrorPage ? (
+          <CrashPage />
+        ) : (
+          <>
+            <AllRoute />
+            <ToastContainer />
+          </>
+        )}
     </ThemeProvider>
   )
 }

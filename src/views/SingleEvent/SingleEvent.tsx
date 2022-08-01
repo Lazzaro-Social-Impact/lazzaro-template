@@ -60,4 +60,5 @@ const OtherEvents = styled.div`
   height: 75rem;
   gap: 1.2rem;
   overflow-y: auto;
+  padding-inline: 1rem;
 `

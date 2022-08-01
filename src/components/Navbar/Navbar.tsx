@@ -4,7 +4,7 @@ import {
 } from 'antd'
 import styled, { useTheme } from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
 
 type TTransparent = boolean | undefined
@@ -128,6 +128,9 @@ function Navbar({ transparent, position }: IProps): ReactElement {
                 </CustomDropDown>
               </>
             )}
+          <li key="contact-us">
+            <Link to="/contact">Contact</Link>
+          </li>
         </ul>
       </CustomNav>
       )}

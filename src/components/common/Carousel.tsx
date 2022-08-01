@@ -72,6 +72,10 @@ margin-top: ${({ mt }) => mt};
     }
   }
 
+  .slick-dots-bottom {
+    bottom: -10px;
+  }
+
   .slick-dots li button {
     background: ${({ theme }) => theme.secondary};
     width: 6px;
