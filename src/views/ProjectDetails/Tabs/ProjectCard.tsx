@@ -38,7 +38,7 @@ export function ProjectCard({ project } : IProps) {
 
   const {
     mutateAsync, ...states
-  } = usePostData<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  } = usePostData<{data:string}, DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
   const handleSubmit = async (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }

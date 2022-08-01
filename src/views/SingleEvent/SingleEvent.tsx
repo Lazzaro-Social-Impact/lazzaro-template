@@ -8,9 +8,21 @@ import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDeta
 import Skeleton from '../../components/Skeleton'
 import { useAppSelector, useDependant } from '../../hooks'
 
+type TEvents = {
+  course: boolean;
+  id: string;
+  title: string;
+  description: string;
+  imageURL: string;
+  start_time: string;
+  end_time: string;
+  location: string;
+  stock: number;
+}[];
+
 function SingleEvent(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
-  const { data: events, isLoading } = useDependant(getEventsURL(ongId), ['events'], ongId)
+  const { data: events, isLoading } = useDependant<TEvents>(getEventsURL(ongId), ['events'], ongId)
   const { pathname } = useLocation()
   const isEvent = pathname.startsWith('/events')
   const isCourse = pathname.startsWith('/courses')
@@ -22,13 +34,12 @@ function SingleEvent(): ReactElement {
         <SingleEventDetails />
         <OtherEvents>
           {isLoading && <Skeleton number={3} height={22} width={26} />}
-          {!isLoading && isEvent
-            && events
-              ?.map((event: any) => !event.course && <EventCard {...event} key={event.id} />)}
 
-          {!isLoading && isCourse
-            && events
-              ?.map((event: any) => event.course && <EventCard {...event} key={event.id} />)}
+          {isEvent
+            && events?.map((event) => !event.course && <EventCard {...event} key={event.id} />)}
+
+          {isCourse
+            && events?.map((event) => event.course && <EventCard {...event} key={event.id} />)}
         </OtherEvents>
       </Container>
       <Footer />
@@ -49,7 +60,6 @@ const Container = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    
   }
 `
 

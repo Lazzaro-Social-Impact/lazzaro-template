@@ -20,7 +20,7 @@ export default function Projects(): ReactElement {
 
   const {
     data: projects = [], isLoading
-  } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
+  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
     <section ref={sectionRef}>
@@ -28,11 +28,11 @@ export default function Projects(): ReactElement {
 
       <Carousel arrows>
         {[
-          ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
-            <div key={projects}>
+          ...chunk(projects, 3).map((ThreeProjects, i) => (
+            <div key={projects[i].id}>
               <Div id="causes">
-                {e.map((image: IProject) => (
-                  <Project {...image} key={image.id} />
+                {ThreeProjects.map((project) => (
+                  <Project {...project} key={project.id} />
                 ))}
               </Div>
             </div>

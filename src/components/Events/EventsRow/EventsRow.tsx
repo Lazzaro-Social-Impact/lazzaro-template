@@ -6,18 +6,19 @@ import HtmlParser from 'react-html-parser'
 import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
 
-interface IEvent {
+interface IProps {
   id: string,
   title: string,
   description: string,
   start_time: string,
 }
 
-export default function EventsRow({
-  id, title, description, start_time: startTime
-}
-  : IEvent): ReactElement {
-  const { primary } = useTheme() as {primary: string}
+export default function EventsRow(props : IProps): ReactElement {
+  const {
+    id, title, description, start_time: startTime
+  } = props
+
+  const { primary } = useTheme()
   const day = moment(startTime).format('DD')
   const navigate = useNavigate()
   return (

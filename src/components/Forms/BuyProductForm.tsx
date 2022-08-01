@@ -54,16 +54,14 @@ export function BuyProductForm(props: IProps): ReactElement {
     modal, id, price, title
   } = props
 
-  const { mutateAsync, ...states } = usePostData(getStartProductPaymentUrl())
+  const {
+    mutateAsync, ...states
+  } = usePostData<{data:string}, IFormSubmit>(getStartProductPaymentUrl())
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
 
   const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<IFormSubmit>({
-    resolver: yupResolver(schema),
-  })
+    handleSubmit, register, formState: { errors },
+  } = useForm<IFormSubmit>({ resolver: yupResolver(schema), })
 
   const onSubmit = async (data: IFormSubmit) => {
     const donationInfo = {

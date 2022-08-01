@@ -19,7 +19,9 @@ import { useAppSelector, usePostData } from '../../hooks'
 
 function Donate() {
   const ongId = useAppSelector((state) => state.ong.ongId)
-  const { mutateAsync, ...states } = usePostData<DonateSubmitForm>(getStartDonationUrl(ongId))
+  const {
+    mutateAsync, ...states
+  } = usePostData<{data:string}, DonateSubmitForm>(getStartDonationUrl(ongId))
 
   const handleSubmit = async (values: DonateSubmitForm) => {
     const donationInfo = {

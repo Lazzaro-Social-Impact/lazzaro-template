@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
@@ -9,17 +9,33 @@ import { BuyEventform } from '../Forms/BuyEventform'
 import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 
-export function EventCard({
-  id, title, start_time, end_time, location, stock
-}: any): ReactElement {
+interface IProps {
+  id: string;
+  title: string;
+  start_time: string;
+  end_time: string;
+  location: string;
+  stock: number;
+}
+
+interface IImages {
+  id: string;
+  img_url: string;
+}
+
+export function EventCard(props: IProps): ReactElement {
+  const {
+    id, title, start_time, end_time, location, stock
+  } = props
+
   const [visible, setVisible] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
   const startDate = moment(start_time).format('Do MMMM YYYY')
   const endDate = moment(end_time).format('Do MMMM YYYY')
-  const { primary, secondary } = useTheme() as {primary: string, secondary: string}
-  const { data: images, isLoading } = useDependant(
-    getEventImages(id), [`event_images_form_${id}`], id
-  )
+  const { primary, secondary } = useTheme()
+  const {
+    data: images = [], isLoading
+  } = useDependant<IImages[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
   const showModal = () => {
     setVisible(true)
@@ -38,9 +54,7 @@ export function EventCard({
   }
   return (
     <EventCardDiv>
-      <EventCardTitle title={title}>
-        {title}
-      </EventCardTitle>
+      <EventCardTitle title={title}>{title}</EventCardTitle>
       <EventDate>
         <ClockCircleFilled /> {startDate} - {endDate}
       </EventDate>
@@ -66,7 +80,7 @@ export function EventCard({
           width="50%"
         >
           <EventCarousel imgs={images} isLoading={isLoading} />
-          <BuyEventform modal />
+          <BuyEventform modal eventId={id} />
         </Modal>
       </EventCardButtons>
     </EventCardDiv>
@@ -74,51 +88,51 @@ export function EventCard({
 }
 
 const EventCardDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 2.4rem 1.8rem;
-    border: 1px solid #e6e6e6;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 470px;
-    max-width: 525px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.4rem 1.8rem;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 470px;
+  max-width: 525px;
 
-    @media screen and (max-width: 768px) {
-      width: 100%;
-      height: auto;
-    }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const EventCardTitle = styled.h3`
-    color: ${({ theme }) => theme.primary};
-    font-size: 1.8rem;
-    font-weight: 600;
-    width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: ${({ theme }) => theme.primary};
+  font-size: 1.8rem;
+  font-weight: 600;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const EventLocation = styled.p`
-    color: #8c8c8c;
-    span {
-        margin-right: 0.4rem;
-    }
+  color: #8c8c8c;
+  span {
+    margin-right: 0.4rem;
+  }
 `
 
 const EventDate = styled.p`
-    color: #8c8c8c;
-    `
+  color: #8c8c8c;
+`
 
 const EventTickets = styled.p`
-    color: #8c8c8c;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 0;
-    `
+  color: #8c8c8c;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+`
 
 const EventCardButtons = styled.div`
-    display: flex;
-    justify-content: space-around;
-    margin-top: 5.2rem;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5.2rem;
 `

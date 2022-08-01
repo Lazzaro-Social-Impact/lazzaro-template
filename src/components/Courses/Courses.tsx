@@ -27,7 +27,7 @@ function Courses(): ReactElement {
 
   const {
     data: events = [], isLoading
-  } = useDependant(getCoursesURL(ongId), ['courses'], isSectionVisible && ongId)
+  } = useDependant<ICourse[]>(getCoursesURL(ongId), ['courses'], isSectionVisible && ongId)
 
   return (
     <CoursesSection id="courses" ref={sectionRef}>
@@ -35,9 +35,9 @@ function Courses(): ReactElement {
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
       <Carousel arrows dots>
         {[
-          ...chunk<ICourse>(events, 2).map((e: ICourse[]) => (
-            <Fragment key={events}>
-              {e.map((event: ICourse) => (
+          ...chunk(events, 2).map((e, i) => (
+            <Fragment key={events[i].id}>
+              {e.map((event) => (
                 <Flex key={event.id}>
                   <CourseCard course={event} />
                 </Flex>

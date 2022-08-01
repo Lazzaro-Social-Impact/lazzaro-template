@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
+import moment from 'moment'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import { Button, Center } from '../common'
@@ -19,7 +20,7 @@ type memberSubmitForm = {
   lastName: string
   user_email: string
   home_address: string
-  birthDate: Date
+  birthDate: string
   nif: number
   terms: boolean
   membership: boolean
@@ -32,26 +33,25 @@ const memberSchema = yup.object().shape({
   home_address: yup.string().required('Address is required'),
   birthDate: yup.date().required('Birth of Date is required')
     .typeError('Birth of Date is required'),
-  nif: yup.number().required('ID is required').typeError('ID must be a number'),
+  nif: yup.string().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),
   phone: yup.string().required('Phone is required')
 }).required()
 
 export function BecomeMemberForm(): ReactElement {
+  const ongId = useAppSelector((state) => state.ong.ongId)
   const {
     register, handleSubmit, formState: { errors }, control
-  } = useForm<memberSubmitForm>({
-    resolver: yupResolver(memberSchema),
-  })
+  } = useForm<memberSubmitForm>({ resolver: yupResolver(memberSchema), })
   const {
     isLoading, isSuccess, isError, mutateAsync
-  } = usePostData(getBecomePartnerUrl())
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  } = usePostData<{ data: string }, memberSubmitForm>(getBecomePartnerUrl())
+
   const onSubmit = async (data: memberSubmitForm) => {
     const formData = {
       ...data,
-      birthDate: data.birthDate.toISOString().split('T')[0],
+      birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       amount: 1, // TODO: Ask Ivan about this
       ong_id: ongId
     }
@@ -114,6 +114,7 @@ export function BecomeMemberForm(): ReactElement {
             <CustomInputDiv>
 
               <CustomInput
+                type="number"
                 placeholder="DNI/NIF/Passport"
                 style={{ width: '100%' }}
                 {...register('nif')}

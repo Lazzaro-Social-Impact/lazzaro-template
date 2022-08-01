@@ -34,7 +34,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
   const {
     mutateAsync, ...states
-  } = usePostData<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  } = usePostData<{data:string}, DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
   const handleSubmit = async (values: DonateSubmitForm) => {
     const donationInfo = { ...values, ong_id: ongId, }
