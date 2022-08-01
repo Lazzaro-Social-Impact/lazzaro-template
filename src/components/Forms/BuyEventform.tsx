@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -45,7 +45,7 @@ const buyTicketSchema = yup.object({
 export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.currency_symbol)
   const ongId = useAppSelector(({ ong }) => ong.ongId)
-  const { id } = useParams()
+  const { id } = useParams() as { id :string }
   const dependEventId = eventId || id
   const { data: eventDetails } = useDependant(
     getEventURL(dependEventId), [`event_ticket${dependEventId}`], dependEventId
