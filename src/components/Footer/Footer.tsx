@@ -16,6 +16,7 @@ import { Image, SectionTitle } from '../common'
 export default function Footer(): ReactElement {
   const logo = useAppSelector(({ ong }) => ong.ongConfig?.brand.logo)
   const phone = useAppSelector(({ ong }) => ong.ongConfig?.contact.phone)
+  const email = useAppSelector(({ ong }) => ong.ongConfig?.contact.email)
   const {
     facebook, instagram, twitter, linkedin, web
   } = useAppSelector(({ ong }) => ong.ongConfig?.rrss) || {}
@@ -35,12 +36,15 @@ export default function Footer(): ReactElement {
         </SectionTitle>
 
         <ContactInfo>
-          {[PhoneFilled, MailFilled].map((Icon) => (
-            <Contact key={useId()}>
-              <Icon />
-              <a href="tel:+1-844-844-8444">{phone}</a>
-            </Contact>
-          ))}
+          <Contact key={useId()}>
+            <PhoneFilled />
+            <a href="tel:+1-844-844-8444">{phone}</a>
+          </Contact>
+          <Contact key={useId()}>
+            <MailFilled />
+            <a href={`mailto:${email}`}>{email}</a>
+          </Contact>
+
         </ContactInfo>
       </MainFooter>
 
@@ -69,7 +73,7 @@ const MainFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #000;
+  background: ${({ theme }) => theme.secondary};
   color: white;
   padding: 1.2rem 4.5rem;
   text-align: center;
@@ -118,16 +122,18 @@ const Contact = styled.div`
   align-items: center;
   gap: 0.6rem;
   color: white;
-
   span {
     color: ${({ theme }) => theme.primary};
     cursor: pointer;
+  }
+  a {
+    color: ${({ theme }) => theme.primary};
   }
 `
 
 const SubFooter = styled.div`
   display: flex;
-  background-color: #2e2e2e;
+  background-color: ${({ theme }) => `${theme.secondary}`};
   justify-content: space-between;
   align-items: center;
   padding: 2rem 4rem;
@@ -138,6 +144,7 @@ const SubFooter = styled.div`
   z-index: 99;
   transition: all 0.4s ease;
   color: #969696;
+  border-top: 1px solid ${({ theme }) => `${theme.primary}`};
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -151,9 +158,6 @@ const Icons = styled.div`
   border-radius: 50%;
   padding: 0.7rem;
 
-  span:first-child {
-    background-color: ${({ theme }) => theme.primary};
-  }
 
   span {
     border-radius: 50%;
