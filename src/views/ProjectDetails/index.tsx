@@ -7,6 +7,7 @@ import ImageCarousel from './ImageCarousel'
 import Tabs from './Tabs'
 import { useAppSelector, useDependant } from '../../hooks'
 import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
+import Skeleton from '../../components/Skeleton'
 
 interface IProject {
   id: string;
@@ -20,11 +21,11 @@ function ProjectDetails(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
   const {
-    data: projects
+    data: projects, isLoading: isProjectsLoading,
   } = useDependant(getProjectsURL(ongId), ['projects'], ongId)
 
   const {
-    data: images,
+    data: images, isLoading: isImagesLoading
   } = useDependant(getProjectImagesURL(projectId), [`images${projectId}`], projectId)
 
   const projectDetails = projects?.find(({ id }:IProject) => id === projectId)
@@ -32,11 +33,18 @@ function ProjectDetails(): ReactElement {
   return (
     <>
       <Navbar />
+      {isImagesLoading && <Skeleton number={1} width={100} height={40} px={0} mt={0} />}
       <ImageCarousel images={images} />
       <Flex>
         <Tabs projectDetails={projectDetails} />
         <OtherProjects>
-          {projects?.map((project: IProject) => (<ProjectCard project={project} />))}
+          {isProjectsLoading && (
+            <Skeleton width={25} height={29} number={3} justify="flex-end" px={1} />
+          )}
+
+          {projects?.map((project: IProject) => (
+            <ProjectCard project={project} />
+          ))}
         </OtherProjects>
       </Flex>
       <Footer />

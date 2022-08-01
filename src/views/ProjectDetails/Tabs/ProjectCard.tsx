@@ -1,10 +1,10 @@
-import { Modal, Progress } from 'antd'
-import { useState } from 'react'
-import styled from 'styled-components'
+import { Progress } from 'antd'
+import styled, { useTheme } from 'styled-components'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
-import { useTheme } from '../../../app/context/theme-context'
-import { DonateForm } from '../../../components'
-import { Button, Card, Text } from '../../../components/common'
+import { BuyModal, DonateForm } from '../../../components'
+import {
+  Button, Card, Flex, Text
+} from '../../../components/common'
 import { useAppSelector, usePostData } from '../../../hooks'
 
 interface IProps {
@@ -36,27 +36,6 @@ export function ProjectCard({ project } : IProps) {
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId)
 
-  const color = useTheme()
-
-  const [visible, setVisible] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
-
-  const showModal = () => {
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setVisible(false)
-      setConfirmLoading(false)
-    }, 2000)
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
-  }
-
   const {
     mutateAsync, ...states
   } = usePostData<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
@@ -67,62 +46,56 @@ export function ProjectCard({ project } : IProps) {
     await mutateAsync(donationInfo)
   }
 
-  const donationProgress = (donated / amount) * 100
+  const { primary } = useTheme()
+
+  const donationProgress = ((donated / amount) * 100).toFixed()
+  const donateBtnText = +donationProgress >= 100 ? 'Filled!' : 'Donate'
+
   return (
-    <Card mode="column" p={3} maxWidth="400px" smMode="column" m="1rem" width="100%">
-      <h1>{title}</h1>
+    <Card mode="column" p={2.5} maxWidth="400px" smMode="column" m="1rem">
+      <Title title={title}>{title.slice(0, 15)}</Title>
       <ProgressBar>
-        <Progress percent={44} strokeColor={color} />
-        <ProgressPercents percent={44} color={color}>
+        <Progress percent={+donationProgress} strokeColor={primary} />
+        <ProgressPercents percent={+donationProgress}>
           %{donationProgress}
         </ProgressPercents>
       </ProgressBar>
       <Text weight="bold">
         Goal <br />${amount}
       </Text>
-      <Flex>
+      <Flex gap={1}>
         <Button px={1.8} py={0.8} bgColor="#F1F1F1" color="#777777">
           Share
         </Button>
-        <Button px={1.8} py={0.8} bgColor={color} onClick={showModal}>
-          Donate
-        </Button>
+        <BuyModal btnText={donateBtnText}>
+          <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
+        </BuyModal>
       </Flex>
-
-      <Modal
-        title="Donate"
-        visible={visible}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        width="50%"
-      >
-        <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
-      </Modal>
     </Card>
   )
 }
 
-const Flex = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-`
-
 const ProgressBar = styled.div`
   position: relative;
+  margin-top: 1.5rem;
 `
 
 const ProgressPercents = styled.span<{ percent: number }>`
   position: absolute;
   top: -60%;
   left: ${({ percent }) => `${percent}%`};
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   color: white;
   background: ${({ theme }) => theme.primary};
-  padding: 0.1rem 1rem;
+  padding: 0.1rem 0.6rem;
+`
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `

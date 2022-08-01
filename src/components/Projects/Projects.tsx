@@ -31,7 +31,7 @@ export default function Projects(): ReactElement {
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
             <div key={projects}>
-              <Div id="projects">
+              <Div id="causes">
                 {e.map((image: IProject) => (
                   <Project {...image} key={image.id} />
                 ))}
