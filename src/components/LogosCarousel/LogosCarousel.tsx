@@ -1,7 +1,7 @@
 import { ReactElement, useId } from 'react'
-import { Carousel } from 'antd'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { chunk } from 'lodash'
+import { Carousel } from '../common'
 
 interface img {
   src: string;
@@ -15,8 +15,10 @@ export default function LogosCarousel(): ReactElement {
     alt: 'random image',
     key: useId(),
   }))
+
+  const { primary } = useTheme()
   return (
-    <CustomCarousel dots={false} autoplay autoplaySpeed={5000}>
+    <Carousel dots={false} bgColor={primary} mt={4.2}>
       {[
         ...chunk<img>(randomImagesArray, 4).map((e: img[]) => (
           <ImageContainer key={useId()}>
@@ -26,19 +28,9 @@ export default function LogosCarousel(): ReactElement {
           </ImageContainer>
         )),
       ]}
-    </CustomCarousel>
+    </Carousel>
   )
 }
-
-const CustomCarousel = styled(Carousel)`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 150px;
-  padding: 0 4.1rem;
-  margin-top: 4.2rem;
-  background-color: ${({ theme }) => theme.primary};
-`
 
 const ImageContainer = styled.div`
   display: flex !important;

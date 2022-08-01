@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
-import { Carousel } from 'antd'
 import { chunk } from 'lodash'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 import { useAppSelector } from '../../hooks'
+import { Carousel } from '../common'
 
 export default function Volunteers(): ReactElement {
   const members = useAppSelector((state) => state.ong.ongConfig?.team)
@@ -18,15 +18,17 @@ export default function Volunteers(): ReactElement {
   return (
     <VolunteersSection id="volunteers">
       <SectionTitle>Our Volunteers</SectionTitle>
-      <CustomCarousel autoplay>
-        {members && [...chunk<IMember>(members, 3).map((memberCards, i: number) => (
-          <VolunteerCards key={`memberCards ${memberCards[i]}`}>
-            {memberCards.map((member: IMember) => (
-              <VolunteerCard {...member} key={member.id} />
-            ))}
-          </VolunteerCards>
-        ))]}
-      </CustomCarousel>
+      <Carousel dots>
+        {members && [
+          ...chunk<IMember>(members, 3).map((memberCards, i: number) => (
+            <VolunteerCards key={`memberCards ${memberCards[i]}`}>
+              {memberCards.map((member: IMember) => (
+                <VolunteerCard {...member} key={member.id} />
+              ))}
+            </VolunteerCards>
+          )),
+        ]}
+      </Carousel>
     </VolunteersSection>
   )
 }

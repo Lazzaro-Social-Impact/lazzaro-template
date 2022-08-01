@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
-import { Carousel } from 'antd'
 import styled from 'styled-components'
+import { Carousel } from '../common'
 
 interface IImage {
   id: string
@@ -17,7 +17,7 @@ export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
     <>
       {isLoading && <h1>Loading</h1>}
       {!isLoading && (
-        <Carousel autoplay>
+        <Carousel dots>
           {imgs?.map((img: IImage) => (
             <ImageContainer key={img.id}>
               <img src={img.img_url} alt={img.id} />

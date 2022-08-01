@@ -1,12 +1,10 @@
-import React, {
-  MutableRefObject, ReactElement, useRef
+import {
+  Fragment, MutableRefObject, ReactElement, useRef
 } from 'react'
-import { Carousel } from 'antd'
 import styled from 'styled-components'
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { chunk } from 'lodash'
 import CourseCard from './CourseCard/CourseCard'
-import { SectionTitle } from '../common'
+import { Carousel, SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getCoursesURL } from '../../api/getApiServices'
 import CourseCardSkeleton from '../Skeleton'
@@ -35,64 +33,22 @@ function Courses(): ReactElement {
     <CoursesSection id="courses" ref={sectionRef}>
       <SectionTitle padding={0}>Courses</SectionTitle>
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
-      <CustomCarousel
-        arrows
-        nextArrow={<ArrowRightOutlined />}
-        prevArrow={<ArrowLeftOutlined />}
-        dots={false}
-        autoplay
-        autoplaySpeed={5000}
-      >
+      <Carousel arrows dots>
         {[
           ...chunk<ICourse>(events, 2).map((e: ICourse[]) => (
-            <React.Fragment key={events}>
+            <Fragment key={events}>
               {e.map((event: ICourse) => (
                 <Flex key={event.id}>
                   <CourseCard course={event} />
                 </Flex>
               ))}
-            </React.Fragment>
+            </Fragment>
           )),
         ]}
-      </CustomCarousel>
+      </Carousel>
     </CoursesSection>
   )
 }
-const CustomCarousel = styled(Carousel)`
-  margin: 4.1rem 5rem;
-
-  @media (min-width: 768px) {
-    & .slick-prev,
-    & .slick-prev:hover {
-      left: 10px;
-      z-index: 2;
-      color: Black;
-      font-size: 20px;
-      height: 30px;
-    }
-
-    & .slick-next,
-    & .slick-next:hover {
-      right: 10px;
-      z-index: 2;
-      color: Black;
-      font-size: 20px;
-      height: 30px;
-    }
-
-    .slick-dots.slick-dots-top li {
-      background-color: black;
-    }
-
-    .slick-dots.slick-dots-top .slick-active button {
-      background-color: rgb(92, 183, 128) !important;
-    }
-  }
-
-  @media (max-width: 768px) {
-    margin-inline: 0;
-  }
-`
 
 const CoursesSection = styled.section`
   padding: 0 4.1rem;

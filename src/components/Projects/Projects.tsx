@@ -1,4 +1,3 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { chunk } from 'lodash'
 import { MutableRefObject, ReactElement, useRef } from 'react'
 import styled from 'styled-components'
@@ -27,7 +26,7 @@ export default function Projects(): ReactElement {
     <section ref={sectionRef}>
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
-      <CustomCarousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
+      <Carousel arrows>
         {[
           ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
             <div key={projects}>
@@ -39,7 +38,7 @@ export default function Projects(): ReactElement {
             </div>
           )),
         ]}
-      </CustomCarousel>
+      </Carousel>
     </section>
   )
 }
@@ -54,20 +53,5 @@ const Div = styled.div`
   @media (max-width: 768px) {
     gap: 1rem;
     padding-inline: 2rem;
-  }
-`
-
-const CustomCarousel = styled(Carousel)`
-  .slick-dots-bottom {
-    bottom: -52px;
-  }
-
-  .slick-dots li button {
-    background: ${({ theme }) => theme.primary};
-  }
-  @media screen and (max-width: 768px) {
-    span {
-      display: none !important;
-    }
   }
 `
