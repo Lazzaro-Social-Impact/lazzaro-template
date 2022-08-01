@@ -55,11 +55,11 @@ export function ContactusForm(): ReactElement {
         src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151
           .89841008982!2d-122.4207305!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1
           024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f65e9b%3A0x24a8c2b1f872403a!2s
-          San%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2sin!4v1574670105811!5m2!1sen!2sin`}
+          ${address}!5e0!3m2!1sen!2sin!4v1574670105811!5m2!1sen!2sin`}
         width="100%"
         height="447px"
         frameBorder="0"
-        style={{ position: 'absolute', top: '-50px', zIndex: '-10' }}
+        style={{ position: 'absolute', top: '-50px', zIndex: '1' }}
         allowFullScreen
         title="google-map"
       />
@@ -159,8 +159,8 @@ export function ContactusForm(): ReactElement {
 const Container = styled.div`
 display: flex;
 justify-content: center;
-margin-top: 12.8rem;
-padding: 0 9.4rem;
+margin: 0 9.4rem;
+margin-top: 20.4rem;
 `
 
 const ContactusFormBox = styled.form`

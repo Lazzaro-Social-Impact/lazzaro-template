@@ -36,10 +36,10 @@ export function SingleEventDetails(): ReactElement {
           <Tabs.TabPane tab="Location" key="2">
             {/* Google Map frame  */}
             <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.89841008982!2d-12
-                  2.420735684699!3d37.774929379881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-                  1!3m3!1m2!1s0x808580f8f8f8f8f7%3A0x8f8f8f8f8f8f8f8f!2sDeluling%20is%20t
-                  he%20world%20best!5e0!3m2!1sen!2sus!4v1588010981209!5m2!1sen!2sus`}
+              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151
+                     .89841008982!2d-122.4207305!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1
+                     024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f65e9b%3A0x24a8c2b1f872403a!2s
+                     ${event?.location}!5e0!3m2!1sen!2sin!4v1574670105811!5m2!1sen!2sin`}
               width="100%"
               height="450"
               frameBorder="0"
