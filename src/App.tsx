@@ -12,7 +12,7 @@ import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { CrashPage } from './views/CrashPage/CrashPage'
+import { CrashPage } from './views'
 
 const staticUrl = 'prehello.web.lazzaro.io'
 

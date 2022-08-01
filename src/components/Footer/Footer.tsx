@@ -7,7 +7,7 @@ import {
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
-import { ReactElement, useId } from 'react'
+import { ReactElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
@@ -36,11 +36,11 @@ export default function Footer(): ReactElement {
         </SectionTitle>
 
         <ContactInfo>
-          <Contact key={useId()}>
+          <Contact>
             <PhoneFilled />
             <a href="tel:+1-844-844-8444">{phone}</a>
           </Contact>
-          <Contact key={useId()}>
+          <Contact>
             <MailFilled />
             <a href={`mailto:${email}`}>{email}</a>
           </Contact>

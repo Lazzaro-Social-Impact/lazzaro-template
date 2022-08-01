@@ -1,7 +1,7 @@
 import { Result } from 'antd'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 
-export function CrashPage(): ReactElement {
+export default function CrashPage(): ReactElement {
   return (
     <Result
       status="500"

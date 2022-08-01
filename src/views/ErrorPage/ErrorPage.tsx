@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
 import { Button, Center } from '../../components/common'
 
-export function ErrorPage(): ReactElement {
+export default function ErrorPage(): ReactElement {
   const navigate = useNavigate()
   return (
     <>
