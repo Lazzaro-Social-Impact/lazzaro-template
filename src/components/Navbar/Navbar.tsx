@@ -128,6 +128,9 @@ function Navbar({ transparent, position }: IProps): ReactElement {
                 </CustomDropDown>
               </>
             )}
+          <li key="contact-us">
+            <a href="/contact">Contact</a>
+          </li>
         </ul>
       </CustomNav>
       )}
