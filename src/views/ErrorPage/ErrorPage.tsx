@@ -1,9 +1,11 @@
 import { Result } from 'antd'
 import React, { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Footer, Navbar } from '../../components'
 import { Button, Center } from '../../components/common'
 
 export function ErrorPage(): ReactElement {
+  const navigate = useNavigate()
   return (
     <>
       <Navbar />
@@ -19,6 +21,7 @@ export function ErrorPage(): ReactElement {
           <Button
             px="2.8rem"
             py="1.2rem"
+            onClick={() => navigate('/')}
           >Back Home
           </Button>
         </Center>
