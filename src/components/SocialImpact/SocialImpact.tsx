@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { Typography } from 'antd'
 import ImpactPart from './ImpactPart/ImpactPart'
 

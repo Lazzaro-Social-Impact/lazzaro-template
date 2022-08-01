@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import moment from 'moment'
 import parse from 'react-html-parser'
 import { CalendarIcon } from '../../Icons'
@@ -46,25 +45,3 @@ function CourseCard({ course }: IProps) {
 }
 
 export default CourseCard
-
-const TextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  width: 100%;
-
-  h2 {
-    font-size: 1.6em;
-    font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-    h2 {
-      font-size: 1.3em;
-    }
-    p {
-      font-size: 1em;
-    }
-  }
-`
