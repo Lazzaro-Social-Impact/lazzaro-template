@@ -1,13 +1,12 @@
 import React, { ReactElement, useLayoutEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Progress } from 'antd'
 import { ReadMore, SectionTitle, Button } from '../common'
-import { useTheme } from '../../app/context/theme-context'
 
 export default function PremiumEvent(): ReactElement {
   const [progressWidth, setProgressWidth] = useState<number>(250)
   const [windowSize, setWindowSize] = useState<number>(window.outerWidth)
-  const globalColor = useTheme()
+  const { primary } = useTheme()
   // Watch for window resize (width)
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -51,7 +50,7 @@ export default function PremiumEvent(): ReactElement {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
-        <ReadMore hoverColor={globalColor}>Read more</ReadMore>
+        <ReadMore hoverColor={primary}>Read more</ReadMore>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
