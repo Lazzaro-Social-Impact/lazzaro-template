@@ -42,6 +42,7 @@ declare global {
   type TRadius = CSS.Properties['borderRadius'];
   type TWidth = CSS.Properties['width'];
   type THeight = CSS.Properties['height'];
+  type TBorder= CSS.Properties['border']
 }
 
 export { }

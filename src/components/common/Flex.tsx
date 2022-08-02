@@ -8,11 +8,13 @@ interface IProps {
   width?: TWidth;
   mt?:TMarginTop;
   my?: TMarginBlock;
+  mx?: TMarginInline;
   p?: TPadding;
   py?:TPaddingBlock;
   px?: TPaddingInline;
   gap?: TGap;
   textAlign?: TTextAlign;
+  border?: TBorder;
 }
 const Flex = styled.div<IProps>`
   display: flex;
@@ -23,11 +25,13 @@ const Flex = styled.div<IProps>`
   width: ${({ width }) => width};
   margin-top: ${({ mt }) => mt && `${mt}rem`};
   margin-block: ${({ my }) => my && `${my}rem`};
+  margin-inline: ${({ mx }) => mx && `${mx}rem`};
   padding: ${({ p }) => p && `${p}rem`};
   padding-block: ${({ py }) => py && `${py}rem`};
   padding-inline: ${({ px }) => px && `${px}rem`};
   gap: ${({ gap }) => gap && `${gap}rem`};
   text-align:  ${({ textAlign }) => textAlign};
+  border: ${({ border }) => border && border};
 `
 
 Flex.defaultProps = {

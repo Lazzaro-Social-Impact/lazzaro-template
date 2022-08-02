@@ -12,6 +12,7 @@ import {
   SingleProduct,
   TermsAndConditions,
   ErrorPage,
+  SuccessfulPayment,
 } from '../../views'
 
 export default function AllRoute() {
@@ -30,6 +31,11 @@ export default function AllRoute() {
         <Route path="/volunteers" element={<BecomeVolunteerForm />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/contact" element={<ContactusForm />} />
+        <Route
+          // eslint-disable-next-line max-len
+          path="/:feature/donation-done/:firstName/:lastName/:home_address/:user_email/:certificate/:text/:anonymous/:amount/:id/:nif"
+          element={<SuccessfulPayment />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
