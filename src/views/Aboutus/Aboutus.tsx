@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'
-import { SectionTitle } from '../../components/common'
 import { useAppSelector } from '../../hooks'
 
 export default function Aboutus(): ReactElement {
@@ -18,35 +17,7 @@ export default function Aboutus(): ReactElement {
           {HtmlParser(description)}
         </SectionText>
         <img src={imgUrl} style={{ width: '100%' }} alt="About us 1" />
-        <SectionTitle
-          fontSize={2.4}
-          marginBottom={0}
-          style={{ alignSelf: 'flex-start' }}
-          padding={0}
-        >Lorem Ipsum
-        </SectionTitle>
-        <SectionText>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Provident accusantium asperiores nulla adipisci. Magnam veritatis quos quaerat quisquam,
-          sapiente dolores consequatur, commodi quidem unde repellat sunt iusto nobis ducimus vel.
-        </SectionText>
-        <Images>
-          <ImageContainer>
 
-            <img src={imgUrl} alt="About us 2" />
-          </ImageContainer>
-          <ImageContainer>
-
-            <img src={imgUrl} alt="About us 3" />
-          </ImageContainer>
-        </Images>
-        <SectionText>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Debitis quibusdam repellat laudantium excepturi exercitationem perspiciatis assumenda
-          aperiam ad mollitia voluptas, obcaecati officiis quasi, tempore aliquid quisquam
-          deserunt odit? Ipsam, tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Placeat aut quis deleniti dolorum molestiae porro! Inventore veniam ipsum assumenda vero
-          maiores,
-          quibusdam perferendis praesentium doloremque quo, beatae nihil molestias saepe.
-        </SectionText>
       </Container>
       <Footer />
     </>
@@ -77,19 +48,4 @@ const SectionText = styled.p`
     color: #999;
     margin-top: 2.2rem;
     
-`
-
-const Images = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-gap: 5.2rem;
-
-img {
-    width: 100%;
-}
-`
-
-const ImageContainer = styled.div`
-    width: 100%;
 `
