@@ -51,7 +51,10 @@ declare global {
 
   type TPlatformConfig = {
     id:string;
+<<<<<<< HEAD
     ong_id: string;
+=======
+>>>>>>> f38fce9e9bcddeb44438f9c89f346a8fe717b150
     active: boolean;
     currency: string;
     currency_symbol: string;
