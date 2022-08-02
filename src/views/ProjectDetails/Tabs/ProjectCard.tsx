@@ -6,6 +6,7 @@ import {
   Button, Card, Flex, Text
 } from '../../../components/common'
 import { useAppSelector, usePostData } from '../../../hooks'
+import { DonateSubmitForm } from '../../../types/interfaces'
 
 interface IProps {
   project: {
@@ -15,20 +16,6 @@ interface IProps {
     amount: number;
   }
 }
-
-  interface DonateSubmitForm {
-    firstName: string;
-    lastName: string;
-    user_email: string;
-    home_address: string;
-    birthDate: Date;
-    nif: number;
-    amount: number;
-    anonymous: boolean;
-    message?: string;
-    certificate: boolean;
-    terms: boolean;
-  }
 
 export function ProjectCard({ project } : IProps) {
   const {

@@ -9,16 +9,7 @@ import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
-
-interface IEvent {
-  title: string;
-  description: string;
-  location: string;
-}
-interface IImages {
-  id: string;
-  img_url: string;
-}
+import { IEvent, IImages } from '../../types/interfaces'
 
 export function SingleEventDetails(): ReactElement {
   const { id } = useParams() as { id: string }

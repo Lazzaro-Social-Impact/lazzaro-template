@@ -4,6 +4,7 @@ import moment from 'moment'
 import { getProjectLatestDonationsURL } from '../../../api/getApiServices'
 import { Text } from '../../../components/common'
 import { useDependant } from '../../../hooks'
+import { IDonation } from '../../../types/interfaces'
 import Skeleton from '../../../components/Skeleton'
 
 interface IProps {
@@ -11,17 +12,6 @@ interface IProps {
   projectId: string;
 }
 
-interface IDonation {
-  id: string;
-  text: string;
-  anonymous: boolean;
-  amount: number;
-  createdAt: string;
-  User: {
-    firstName: string;
-    lastName: string;
-  };
-}
 function LatestDonations({ title, projectId }: IProps) {
   const {
     data: donations, isLoading

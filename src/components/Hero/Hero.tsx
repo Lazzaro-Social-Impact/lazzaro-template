@@ -15,7 +15,7 @@ function Hero() {
     textSubHeader: state.ong.ongConfig?.description?.subtitle,
     textColor: state.ong.ongConfig?.description?.text_color,
   }))
-  const { secondary } = useTheme()
+  const { primary, secondary } = useTheme()
 
   return (
     <>
@@ -24,7 +24,12 @@ function Hero() {
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2}>
           <Button color="white"> Donar </Button>
-          <Button bgColor={secondary} onClick={() => navigate('/partners')}>Become a member</Button>
+          <Button
+            hoverBgColor={primary}
+            bgColor={secondary}
+            onClick={() => navigate('/partners')}
+          >Become a member
+          </Button>
         </Flex>
       </HeroSection>
     </>

@@ -33,7 +33,7 @@ export default function AllRoute() {
         <Route path="/contact" element={<ContactusForm />} />
         <Route
           // eslint-disable-next-line max-len
-          path="/:feature/donation-done/:firstName/:lastName/:home_address/:user_email/:certificate/:text/:anonymous/:amount/:id/:nif"
+          path="/:feature/donation-done/:firstName/:lastName/:home_address/:user_email/:certificate/:text/:anonymous/:amount/:tickets/:id/:nif"
           element={<SuccessfulPayment />}
         />
         <Route path="*" element={<ErrorPage />} />

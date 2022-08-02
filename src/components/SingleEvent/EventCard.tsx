@@ -8,6 +8,7 @@ import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
+import { IImages } from '../../types/interfaces'
 
 interface IProps {
   id: string;
@@ -16,11 +17,6 @@ interface IProps {
   end_time: string;
   location: string;
   stock: number;
-}
-
-interface IImages {
-  id: string;
-  img_url: string;
 }
 
 export function EventCard(props: IProps): ReactElement {

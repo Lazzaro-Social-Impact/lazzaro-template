@@ -7,14 +7,7 @@ import {
 import { ProductCard } from '../../components/ProductCard/ProductCard'
 import { useAppSelector, useDependant } from '../../hooks'
 import Skeleton from '../../components/Skeleton'
-
-  type TProducts = {
-    id: string;
-    title: string;
-    price: number;
-    default_img: string;
-    discount: number;
-  }[]
+import { TProducts } from '../../types/types'
 
 function Shop() {
   const ongId = useAppSelector((state) => state.ong?.ongId)

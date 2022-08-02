@@ -7,18 +7,7 @@ import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
 import Skeleton from '../../components/Skeleton'
 import { useAppSelector, useDependant } from '../../hooks'
-
-type TEvents = {
-  course: boolean;
-  id: string;
-  title: string;
-  description: string;
-  imageURL: string;
-  start_time: string;
-  end_time: string;
-  location: string;
-  stock: number;
-}[];
+import { TEvents } from '../../types/types'
 
 function SingleEvent(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
