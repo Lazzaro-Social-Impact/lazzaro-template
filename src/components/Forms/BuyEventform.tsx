@@ -1,24 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import * as yup from 'yup'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, usePostData } from '../../hooks'
+import { IEventDetails, ITicket } from '../../types/interfaces'
+import { TModal } from '../../types/types'
 import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 
 interface Props {
-    modal?: boolean;
-    eventId?: string;
-}
-interface ITicket {
-    amount: number;
-    id: string;
+  modal?: TModal;
+  eventId: string;
 }
 
 type buyTicketFormSubmit = {
@@ -42,28 +39,25 @@ const buyTicketSchema = yup.object({
 
 })
 
-export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
+export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.currency_symbol)
   const ongId = useAppSelector(({ ong }) => ong.ongId)
-  const { id } = useParams()
-  const dependEventId = eventId || id
-  const { data: eventDetails } = useDependant(
-    getEventURL(dependEventId), [`event_ticket${dependEventId}`], dependEventId
-  )
-  const EventTickets = eventDetails?.EventTickets
-  const price = eventDetails?.price
+  const {
+    data: eventDetails
+  } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
+  const { EventTickets, price } = eventDetails || {}
   const { register, handleSubmit, formState: { errors } } = useForm<buyTicketFormSubmit>({
     resolver: yupResolver(buyTicketSchema),
   })
 
   const {
-    mutateAsync, isLoading, isError, isSuccess,
-  } = usePostData(getBuyEventTicketUrl(dependEventId))
+    mutateAsync, isLoading, isError, isSuccess
+  } = usePostData<{ data: string }, buyTicketFormSubmit>(getBuyEventTicketUrl(eventId))
 
   const onSubmit = async (data: buyTicketFormSubmit) => {
     const formData = {
       ...data,
-      event_id: dependEventId,
+      event_id: eventId,
       ong_id: ongId,
     }
     const { data: { data: payPayLink } } = await mutateAsync(formData)
@@ -77,12 +71,12 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
         isSuccess={isSuccess}
         successMsg="Please navigate to the payment page to complete your purchase"
         errorMsg="Something went wrong, please try again later"
-        successId={`${dependEventId}_success`}
-        errorId={`${dependEventId}_error`}
+        successId={`${eventId}_success`}
+        errorId={`${eventId}_error`}
       />
       {EventTickets && (
       <div>
-        <FormTitle modal={modal}>
+        <FormTitle>
           Number of entries {price}
         </FormTitle>
         <p>
@@ -90,7 +84,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
           can buy more tickets by repeating the purchase process.
         </p>
 
-        {EventTickets.map((ticket: any, i: number) => (
+        {EventTickets.map((ticket, i: number) => (
           <>
             <CustomLabel key={ticket.id}>
               {ticket.type}
@@ -115,7 +109,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
         ))}
       </div>
       )}
-      <FormTitle modal={modal}>
+      <FormTitle>
         Personal Details
       </FormTitle>
       <FormRow modal={modal}>
@@ -165,17 +159,17 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement<Props> {
     </BuyFrom>
   )
 }
-const BuyFrom = styled.form`
-    width: ${({ modal }: Props) => (modal ? '60%' : '100%')};
+const BuyFrom = styled.form<{modal:TModal}>`
+    width: ${({ modal }) => (modal ? '60%' : '100%')};
     margin: auto;
 `
-const FormTitle = styled.h2<Props>`
+const FormTitle = styled.h2`
 color: ${({ theme }) => theme.primary};
 font-weight: bold;
 margin-top: 3.2rem;
 `
 
-const FormRow = styled.div<Props>`
+const FormRow = styled.div<{modal:TModal}>`
 display: flex;
 flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
 gap: 0.8rem;
@@ -185,7 +179,6 @@ margin-top: 1.2rem;
 
 const CheckBoxInput = styled.input`
      margin-top: 2.4rem;
-      display: inline;
       width: 30px;
 `
 
@@ -195,5 +188,4 @@ font-weight: 700;
 `
 BuyEventform.defaultProps = {
   modal: false,
-  eventId: '',
 }

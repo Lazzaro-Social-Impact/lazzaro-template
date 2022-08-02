@@ -1,40 +1,45 @@
 import styled from 'styled-components'
 import { Carousel as antdCarousel } from 'antd'
-import { getProp } from '../../utils'
+import { type FC, ReactNode } from 'react'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
 interface IProps {
-  py?: TPaddingBlock;
-  px?: TPaddingInline;
-  pl?: TPaddingLeft;
-  pr?: TPaddingRight;
-  pt?: TPaddingTop;
-  pb?: TPaddingBottom;
-  p?: TPadding;
-  mt?: TMarginTop;
-  mb?: TMarginBottom;
-  ml?: TMarginLeft;
-  mr?: TMarginRight;
-  mx?: TMarginInline;
-  my?: TMarginBlock;
-  m?: TMargin;
+  children: ReactNode
+  arrows?:boolean;
+  dots?:boolean;
+  bgColor?: TBgColor;
+  mt?:TMarginTop;
 }
 
-const Carousel = styled(antdCarousel)<IProps>`
-  padding: ${({ p }) => p && getProp(p)};
-  padding-block: ${({ py }) => py && getProp(py)};
-  padding-inline: ${({ px }) => px && getProp(px)};
-  padding-left: ${({ pl }) => pl && getProp(pl)};
-  padding-right: ${({ pr }) => pr && getProp(pr)};
-  padding-top: ${({ pt }) => pt && getProp(pt)};
-  padding-bottom: ${({ pb }) => pb && getProp(pb)};
-  margin: ${({ m }) => m && getProp(m)};
-  margin-top: ${({ mt }) => mt && getProp(mt)};
-  margin-bottom: ${({ mb }) => mb && getProp(mb)};
-  margin-left: ${({ ml }) => ml && getProp(ml)};
-  margin-right: ${({ mr }) => mr && getProp(mr)};
-  margin-block: ${({ my }) => my && getProp(my)};
-  margin-inline: ${({ mx }) => mx && getProp(mx)};
+const Carousel: FC<IProps> = ({
+  children, arrows, dots, bgColor, mt
+}) => (
+  <CustomCarousel
+    arrows={arrows}
+    nextArrow={arrows ? <ArrowRightOutlined /> : undefined}
+    prevArrow={arrows ? <ArrowLeftOutlined /> : undefined}
+    autoplay
+    autoplaySpeed={5000}
+    dots={dots}
+    bgColor={bgColor}
+    mt={mt}
+  >
+    {children}
+  </CustomCarousel>
+)
 
+Carousel.defaultProps = {
+  arrows: false,
+  dots: false,
+  bgColor: 'initial',
+  mt: 'initial',
+}
+
+export default Carousel
+
+const CustomCarousel = styled(antdCarousel)<IProps>`
+background-color: ${({ bgColor }) => bgColor};
+margin-top: ${({ mt }) => mt};
   @media (min-width: 768px) {
     & .slick-prev,
     & .slick-prev:hover {
@@ -66,6 +71,33 @@ const Carousel = styled(antdCarousel)<IProps>`
       background-color: rgb(92, 183, 128) !important;
     }
   }
-`
 
-export default Carousel
+  .slick-dots-bottom {
+    bottom: -10px;
+  }
+
+  .slick-dots li button {
+    background: ${({ theme }) => theme.secondary};
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+  }
+  .slick-dots li.slick-active button {
+    background: ${({ theme }) => theme.primary};
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    span {
+      display: none !important;
+    }
+  }
+
+
+
+  & .slick-arrow {
+    color: ${({ theme }) => theme.primary};
+  }
+`

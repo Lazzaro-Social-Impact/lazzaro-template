@@ -1,4 +1,4 @@
-import React, { MutableRefObject, ReactElement, useRef } from 'react'
+import { MutableRefObject, ReactElement, useRef } from 'react'
 import { Col } from 'antd'
 import styled from 'styled-components'
 import moment from 'moment'
@@ -8,15 +8,7 @@ import { SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
-
-interface IEvent {
-  course: boolean;
-  id: string;
-  title: string;
-  description: string;
-  imageURL: string;
-  start_time: string;
-}
+import { IEvents } from '../../types/interfaces'
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
@@ -25,17 +17,17 @@ function Events(): ReactElement {
 
   const {
     data: events, isLoading, isError,
-  } = useDependant(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
-  const onlyEvents = events?.filter((event: IEvent) => !event.course)
+  } = useDependant<IEvents[]>(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
+  const onlyEvents = events?.filter((event) => !event.course)
   // Get the nearest event
-  const nearestEvent = onlyEvents?.sort((a: IEvent, b: IEvent) => {
+  const nearestEvent = onlyEvents?.sort((a, b) => {
     const aDate = moment(a.start_time)
     const bDate = moment(b.start_time)
     return aDate.diff(bDate)
   })[0]
 
   // remove the nearest event from events
-  const otherEvents = onlyEvents?.filter((event: IEvent) => event.id !== nearestEvent?.id)
+  const otherEvents = onlyEvents?.filter((event) => event.id !== nearestEvent?.id)
   return (
     <>
       <SectionTitle>Events</SectionTitle>
@@ -43,7 +35,7 @@ function Events(): ReactElement {
         {isLoading && <Skeleton width={72} height={42} number={1} />}
         {!isLoading && <NearEvent {...nearestEvent} />}
         <EventsCol md={12} sm={24}>
-          {otherEvents?.map((event: IEvent) => <EventsRow key={event.id} {...event} />)}
+          {otherEvents?.map((event) => <EventsRow key={event.id} {...event} />)}
           {isLoading && <Skeleton width={42} height={12} number={3} />}
 
           {isError && <h1>Error</h1>}

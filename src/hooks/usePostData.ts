@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { useMutation } from '@tanstack/react-query'
 
-export default function usePostData<T>(url: string) {
-  return useMutation((data: T) => axios.post(url, data))
+export default function usePostData<T, K>(url: string) {
+  return useMutation<AxiosResponse<T>, unknown, K>((data) => axios.post(url, data))
 }

@@ -1,10 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-
-interface ErrorInputProps {
-    msg?: string
-    mt?: number
-}
+import { ErrorInputProps } from '../../types/interfaces'
 
 export function ErrorInput({ msg, mt }: ErrorInputProps): ReactElement<ErrorInputProps> {
   return (

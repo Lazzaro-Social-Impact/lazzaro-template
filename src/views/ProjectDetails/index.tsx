@@ -5,30 +5,26 @@ import { ProjectCard } from './Tabs/ProjectCard'
 import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
 import Tabs from './Tabs'
-import { useAppSelector, useDependant } from '../../hooks'
-import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
 import Skeleton from '../../components/Skeleton'
 
-interface IProject {
-  id: string;
-  title: string;
-  donated: number;
-  amount: number;
-}
+import { useAppSelector, useDependant } from '../../hooks'
+import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
+import { IProject } from '../../types/interfaces'
+import { TImages } from '../../types/types'
 
 function ProjectDetails(): ReactElement {
   const projectId = useParams().id as string
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
   const {
-    data: projects, isLoading: isProjectsLoading,
-  } = useDependant(getProjectsURL(ongId), ['projects'], ongId)
+    data: projects = [], isLoading: isProjectsLoading
+  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
 
   const {
-    data: images, isLoading: isImagesLoading
-  } = useDependant(getProjectImagesURL(projectId), [`images${projectId}`], projectId)
+    data: images = [], isLoading: isImagesLoading
+  } = useDependant<TImages>(getProjectImagesURL(projectId), [`images${projectId}`], projectId)
 
-  const projectDetails = projects?.find(({ id }:IProject) => id === projectId)
+  const projectDetails = projects.find(({ id }) => id === projectId) as IProject
 
   return (
     <>
@@ -42,7 +38,7 @@ function ProjectDetails(): ReactElement {
             <Skeleton width={25} height={29} number={3} justify="flex-end" px={1} />
           )}
 
-          {projects?.map((project: IProject) => (
+          {projects?.map((project) => (
             <ProjectCard project={project} />
           ))}
         </OtherProjects>
@@ -75,7 +71,7 @@ const Flex = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    width:initial;
+    width: initial;
     & .ant-tabs {
       max-width: 100%;
     }
@@ -86,8 +82,8 @@ const OtherProjects = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap:2rem;
-  height:65rem;
+  gap: 2rem;
+  height: 65rem;
   overflow-y: auto;
 `
 export default ProjectDetails

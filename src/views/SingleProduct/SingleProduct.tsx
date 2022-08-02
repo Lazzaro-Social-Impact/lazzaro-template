@@ -11,25 +11,32 @@ import {
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
+import { IProduct } from '../../types/interfaces'
+import { TImages } from '../../types/types'
 
 function SingleProduct(): ReactElement {
   const id = useParams().id as string
-  const { data: product = {} } = useDependant(getProductDetails(id), [`products${id}`], id)
+  const {
+    data: product
+  } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)
 
-  const { data: images } = useDependant(getProductImages(id), [`images${id}`], id)
+  const { data: images } = useDependant<TImages>(getProductImages(id), [`images${id}`], id)
 
+  const {
+    title, price, description, amount
+  } = product
   return (
     <>
       <Navbar />
       <Center mt={4.2}>
         <Breadcrumb separator=">">
           <Breadcrumb.Item>Shop</Breadcrumb.Item>
-          <Breadcrumb.Item>{product.title}</Breadcrumb.Item>
+          <Breadcrumb.Item>{product?.title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
       <Container>
         <Flex gap={2.4}>
-          {images?.map((image: { img_url: string; id: string }) => (
+          {images?.map((image) => (
             <ImageContainer key={image.id}>
               <img src={image.img_url} alt="" />
             </ImageContainer>
@@ -37,24 +44,24 @@ function SingleProduct(): ReactElement {
         </Flex>
         <ProductSidebar>
           <Card mode="column" smMode="column" maxWidth="400px" py={2.4} px={1.8}>
-            <ProductName>{product.title}</ProductName>
-            <ProductsAvailable>Stock: {product.amount}</ProductsAvailable>
+            <ProductName>{product?.title}</ProductName>
+            <ProductsAvailable>Stock: {amount}</ProductsAvailable>
             <Flex justify="space-around" mt={1}>
               <Button px="2.8rem" py="0.8rem" color="#777777" bgColor="F#1F1F1">
                 Share
               </Button>
               <BuyModal btnText="Buy">
-                <BuyProductForm modal id={product.id} price={product.price} title={product.title} />
+                <BuyProductForm modal id={id} price={price} title={title} />
               </BuyModal>
             </Flex>
           </Card>
 
           <CustomTabs>
             <Tabs.TabPane tab="Details" key="1">
-              <ProductDetails>{HtmlParser(product.description)}</ProductDetails>
+              <ProductDetails>{HtmlParser(description)}</ProductDetails>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Buy" key="2">
-              <BuyProductForm id={product.id} price={product.price} title={product.title} />
+              <BuyProductForm id={id} price={price} title={title} />
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="Contact" key="3">

@@ -1,18 +1,12 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { chunk } from 'lodash'
 import { MutableRefObject, ReactElement, useRef } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { IProjects } from '../../types/interfaces'
 import { Carousel } from '../common'
-import { Project } from './Project/Project'
 import ProjectCardSkeleton from '../Skeleton'
-
-interface IProject {
-  imageURL: string;
-  id: string;
-  title: string;
-}
+import { Project } from './Project/Project'
 
 export default function Projects(): ReactElement {
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
@@ -21,25 +15,25 @@ export default function Projects(): ReactElement {
 
   const {
     data: projects = [], isLoading
-  } = useDependant(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
+  } = useDependant<IProjects[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
     <section ref={sectionRef}>
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
-      <CustomCarousel arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined />}>
+      <Carousel arrows>
         {[
-          ...chunk<IProject>(projects, 3).map((e: IProject[]) => (
-            <div key={projects}>
+          ...chunk(projects, 3).map((ThreeProjects, i) => (
+            <div key={projects[i].id}>
               <Div id="causes">
-                {e.map((image: IProject) => (
-                  <Project {...image} key={image.id} />
+                {ThreeProjects.map((project) => (
+                  <Project {...project} key={project.id} />
                 ))}
               </Div>
             </div>
           )),
         ]}
-      </CustomCarousel>
+      </Carousel>
     </section>
   )
 }
@@ -54,20 +48,5 @@ const Div = styled.div`
   @media (max-width: 768px) {
     gap: 1rem;
     padding-inline: 2rem;
-  }
-`
-
-const CustomCarousel = styled(Carousel)`
-  .slick-dots-bottom {
-    bottom: -52px;
-  }
-
-  .slick-dots li button {
-    background: ${({ theme }) => theme.primary};
-  }
-  @media screen and (max-width: 768px) {
-    span {
-      display: none !important;
-    }
   }
 `

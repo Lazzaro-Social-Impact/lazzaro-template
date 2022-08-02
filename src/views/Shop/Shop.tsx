@@ -7,18 +7,13 @@ import {
 import { ProductCard } from '../../components/ProductCard/ProductCard'
 import { useAppSelector, useDependant } from '../../hooks'
 import Skeleton from '../../components/Skeleton'
-
-  interface IProduct {
-    id: string;
-    title: string;
-    price: number;
-    default_img: string;
-    discount: number;
-  }
+import { TProducts } from '../../types/types'
 
 function Shop() {
   const ongId = useAppSelector((state) => state.ong?.ongId)
-  const { data: products, isLoading } = useDependant(getProductsURL(ongId), ['products'], ongId)
+  const {
+    data: products, isLoading
+  } = useDependant<TProducts>(getProductsURL(ongId), ['products'], ongId)
 
   return (
     <>
@@ -35,7 +30,7 @@ function Shop() {
       <Flex gap={3} px={9} py={4}>
         {isLoading && <Skeleton width={14} height={15} number={8} />}
 
-        {products?.map((product: IProduct) => (
+        {products?.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </Flex>

@@ -7,6 +7,7 @@ import { Input } from '../common'
 import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { DonateSubmitForm } from '../../types/interfaces'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -16,20 +17,6 @@ interface IProps {
     isError: boolean;
     isSuccess: boolean;
   }
-}
-
-interface DonateSubmitForm {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  home_address: string;
-  birthDate: Date;
-  nif: number;
-  amount: number;
-  anonymous: boolean;
-  text?: string;
-  certificate: boolean;
-  terms: boolean;
 }
 
 const donationSchema = yup.object({

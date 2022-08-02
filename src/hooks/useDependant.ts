@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { QueryKey, useQuery } from '@tanstack/react-query'
 
-export default function useDependant(url: string, queryKey: QueryKey, exist: string | undefined) {
+function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | boolean) {
   const fetchData = async () => {
     const {
       data: { data },
@@ -10,12 +10,21 @@ export default function useDependant(url: string, queryKey: QueryKey, exist: str
   }
 
   const {
-    isLoading, isError, data, error,
-  } = useQuery(queryKey, fetchData, {
+    isLoading, isError, data, error
+  } = useQuery<TData>(queryKey, fetchData, {
     enabled: !!exist,
-
   })
   return {
-    isLoading, isError, data, error,
+    isLoading,
+    isError,
+    data,
+    error,
+  } as {
+    isLoading: boolean;
+    isError: boolean;
+    data: TData;
+    error: Error;
   }
 }
+
+export default useDependant

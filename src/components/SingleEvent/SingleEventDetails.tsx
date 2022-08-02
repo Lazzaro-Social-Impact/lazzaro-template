@@ -1,7 +1,5 @@
-import React, { ReactElement } from 'react'
-import {
-  Tabs
-} from 'antd'
+import { ReactElement } from 'react'
+import { Tabs } from 'antd'
 import { useParams } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import styled from 'styled-components'
@@ -11,13 +9,16 @@ import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
+import { IEvent, IImages } from '../../types/interfaces'
 
 export function SingleEventDetails(): ReactElement {
   const { id } = useParams() as { id: string }
   const {
     data: event, isLoading: isLoadingEvent
-  } = useDependant(getEventURL(id), [`event-details-${id}`], id)
-  const { data: images, isLoading } = useDependant(getEventImages(id), ['event_images'], id)
+  } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id)
+  const {
+    data: images = [], isLoading
+  } = useDependant<IImages[]>(getEventImages(id), ['event_images'], id)
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
@@ -27,7 +28,7 @@ export function SingleEventDetails(): ReactElement {
         <EventTitle>
           {event?.title}
         </EventTitle>
-          {HtmlParser(event?.description)}
+          {HtmlParser(event?.description || '')}
 
         <CustomTabs defaultActiveKey="1">
           <Tabs.TabPane tab="Buy" key="1">
@@ -76,11 +77,6 @@ const EventTitle = styled.h2`
    margin-top: 1.8rem;
 `
 
-// const EventDescription = styled.p`
-//   color: #8c8c8c;
-//   margin-top: 0.4rem;
-//   font-size: 1rem;
-// `
 const CustomTabs = styled(Tabs)`
  .ant-tabs-nav-wrap {
     display: flex !important;
