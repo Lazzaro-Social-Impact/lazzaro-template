@@ -15,7 +15,7 @@ export default function SubscribeDivider(): ReactElement {
         py={0.8}
         px={2.8}
         bgColor={primary}
-      >Sign up
+      >Join us
       </Button>
     </SubscribeSection>
   )
