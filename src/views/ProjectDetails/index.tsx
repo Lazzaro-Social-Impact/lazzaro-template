@@ -5,22 +5,12 @@ import { ProjectCard } from './Tabs/ProjectCard'
 import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
 import Tabs from './Tabs'
-import { useAppSelector, useDependant } from '../../hooks'
-import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
 import Skeleton from '../../components/Skeleton'
 
-interface IProject {
-  id: string;
-  title: string;
-  donated: number;
-  amount: number;
-  description: string;
-}
-
-type TImages = {
-  id: string;
-  img_url: string;
-}[];
+import { useAppSelector, useDependant } from '../../hooks'
+import { getProjectImagesURL, getProjectsURL } from '../../api/getApiServices'
+import { IProject } from '../../types/interfaces'
+import { TImages } from '../../types/types'
 
 function ProjectDetails(): ReactElement {
   const projectId = useParams().id as string

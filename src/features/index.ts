@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit'
-
-interface IAppState {
-  ongConfig: IOngConfig | Record<string, never>;
-  ongId: string;
-}
+import { IAppState } from '../types/interfaces'
 
 const initialState: IAppState = {
   ongConfig: {},

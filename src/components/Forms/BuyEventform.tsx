@@ -6,26 +6,16 @@ import * as yup from 'yup'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, usePostData } from '../../hooks'
+import { IEventDetails, ITicket } from '../../types/interfaces'
+import { TModal } from '../../types/types'
 import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 
-type TModal = boolean | undefined
 interface Props {
   modal?: TModal;
   eventId: string;
-}
-
-interface ITicket {
-    amount: number;
-    id: string;
-    price: number;
-    type: string;
-}
-interface IEventDetails {
-  EventTickets: ITicket[];
-  price: number;
 }
 
 type buyTicketFormSubmit = {
@@ -55,7 +45,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const {
     data: eventDetails
   } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
-  const { EventTickets, price } = eventDetails
+  const { EventTickets, price } = eventDetails || {}
   const { register, handleSubmit, formState: { errors } } = useForm<buyTicketFormSubmit>({
     resolver: yupResolver(buyTicketSchema),
   })

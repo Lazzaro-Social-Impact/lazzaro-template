@@ -8,17 +8,7 @@ import { Carousel, SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getCoursesURL } from '../../api/getApiServices'
 import CourseCardSkeleton from '../Skeleton'
-
-interface ICourse {
-  title: string;
-  description: string;
-  location: string;
-  imageURL: string;
-  start_time: string;
-  end_time: string;
-  id: string;
-  course: boolean;
-}
+import { ICourse } from '../../types/interfaces'
 
 function Courses(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId)

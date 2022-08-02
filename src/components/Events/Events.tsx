@@ -8,15 +8,7 @@ import { SectionTitle } from '../common'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
-
-interface IEvent {
-  course: boolean;
-  id: string;
-  title: string;
-  description: string;
-  imageURL: string;
-  start_time: string;
-}
+import { IEvents } from '../../types/interfaces'
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
@@ -25,7 +17,7 @@ function Events(): ReactElement {
 
   const {
     data: events, isLoading, isError,
-  } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
+  } = useDependant<IEvents[]>(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
   const onlyEvents = events?.filter((event) => !event.course)
   // Get the nearest event
   const nearestEvent = onlyEvents?.sort((a, b) => {
