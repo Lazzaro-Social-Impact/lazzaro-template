@@ -1,14 +1,9 @@
 import { LinkedinFilled } from '@ant-design/icons'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { IMember } from '../../../types/interfaces'
 import { Card } from '../../common'
 
-interface IMember {
-  name: string,
-  position: string,
-  linkedin: string,
-  img_url: string,
-}
 export function VolunteerCard({
   name,
   position,

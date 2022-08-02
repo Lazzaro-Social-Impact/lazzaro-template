@@ -4,17 +4,11 @@ import { chunk } from 'lodash'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 import { useAppSelector } from '../../hooks'
 import { Carousel } from '../common'
+import { IMember } from '../../types/interfaces'
 
 export default function Volunteers(): ReactElement {
   const members = useAppSelector((state) => state.ong.ongConfig?.team)
 
-  interface IMember {
-    id: string,
-    name: string,
-    position: string,
-    linkedin: string,
-    img_url: string,
-  }
   return (
     <VolunteersSection id="volunteers">
       <SectionTitle>Our Volunteers</SectionTitle>

@@ -6,26 +6,13 @@ import DonateForm from '../../Forms/DonateForm'
 import DonateModal from '../../BuyModal'
 import { useAppSelector, usePostData } from '../../../hooks'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
+import { DonateSubmitForm } from '../../../types/interfaces'
 
 interface ProjectProps {
   imageURL: string;
   title: string;
   id: string;
 }
-
-  interface DonateSubmitForm {
-    firstName: string;
-    lastName: string;
-    user_email: string;
-    home_address: string;
-    birthDate: Date;
-    nif: number;
-    amount: number;
-    anonymous: boolean;
-    message?: string;
-    certificate: boolean;
-    terms: boolean;
-  }
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const navigate = useNavigate()

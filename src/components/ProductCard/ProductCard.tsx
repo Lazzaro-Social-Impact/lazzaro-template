@@ -4,17 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { BookmarkIcon } from '../Icons'
 import { Flex, Image, Text } from '../common'
 import { useAppSelector } from '../../hooks'
+import { IProductCard } from '../../types/interfaces'
 
-interface IProduct {
-    id: string,
-    title: string,
-    price: number,
-    default_img: string,
-    discount: number,
-  }
 export function ProductCard({
   id, title, price, default_img: img, discount
-}: IProduct): ReactElement {
+}: IProductCard): ReactElement {
   const currency = useAppSelector((state) => state.ong?.ongConfig?.platformConfig?.currency_symbol)
   const navigate = useNavigate()
   const navigateTo = (path: `/products/${string}`) => () => navigate(path)

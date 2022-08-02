@@ -11,19 +11,8 @@ import {
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
-
-interface IProduct {
-  title: string;
-  id: string;
-  amount: number;
-  price: number;
-  description: string;
-}
-
-type TImages = {
-  img_url: string;
-  id: string;
-}[];
+import { IProduct } from '../../types/interfaces'
+import { TImages } from '../../types/types'
 
 function SingleProduct(): ReactElement {
   const id = useParams().id as string

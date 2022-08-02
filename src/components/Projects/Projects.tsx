@@ -3,15 +3,10 @@ import { MutableRefObject, ReactElement, useRef } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
 import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { IProjects } from '../../types/interfaces'
 import { Carousel } from '../common'
-import { Project } from './Project/Project'
 import ProjectCardSkeleton from '../Skeleton'
-
-interface IProject {
-  imageURL: string;
-  id: string;
-  title: string;
-}
+import { Project } from './Project/Project'
 
 export default function Projects(): ReactElement {
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
@@ -20,7 +15,7 @@ export default function Projects(): ReactElement {
 
   const {
     data: projects = [], isLoading
-  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
+  } = useDependant<IProjects[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
     <section ref={sectionRef}>
