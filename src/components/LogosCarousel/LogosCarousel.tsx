@@ -1,34 +1,44 @@
-import { ReactElement, useId } from 'react'
+import { MutableRefObject, ReactElement, useRef } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { chunk } from 'lodash'
-import { Carousel } from '../common'
+import { Box, Carousel, Image } from '../common'
+import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { getOngLogos } from '../../api/getApiServices'
+import Skeleton from '../Skeleton'
+import { ErrorInput } from '../common/ErrorInput'
 
-interface img {
-  src: string;
-  alt: string;
-  key: string;
+interface ILogo {
+  id: string
+  logo:string;
 }
 
 export default function LogosCarousel(): ReactElement {
-  const randomImagesArray: img[] = Array.from({ length: 8 }, () => ({
-    src: './assets/img/Google.png',
-    alt: 'random image',
-    key: useId(),
-  }))
+  const ongId = useAppSelector(({ ong }) => ong.ongId)
+  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
+  const isSectionVisible = useObserver(sectionRef)
+  const {
+    data: logos = [], isLoading, isError,
+  } = useDependant<ILogo[]>(getOngLogos(ongId), ['logos'], isSectionVisible && ongId)
 
   const { primary } = useTheme()
   return (
-    <Carousel dots={false} bgColor={primary} mt={4.2}>
-      {[
-        ...chunk<img>(randomImagesArray, 4).map((e: img[]) => (
-          <ImageContainer key={useId()}>
-            {e.map((image: img) => (
-              <img key={image.key} src={image.src} alt={image.alt} />
-            ))}
-          </ImageContainer>
-        )),
-      ]}
-    </Carousel>
+    <Box ref={sectionRef}>
+      {isError && <ErrorInput msg="something went wrong" />}
+      {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
+      <Carousel dots={false} bgColor={primary} mt={4.2}>
+        {[
+          ...chunk(logos, 4).map((fourLogos, i) => (
+            <ImageContainer key={fourLogos[i].id}>
+              {fourLogos.map(({ id, logo }) => (
+                <Box>
+                  <Image key={id} src={logo} alt="logo" maxHeight="130px" />
+                </Box>
+              ))}
+            </ImageContainer>
+          )),
+        ]}
+      </Carousel>
+    </Box>
   )
 }
 
@@ -39,9 +49,4 @@ const ImageContainer = styled.div`
   padding: 0 3.8rem;
   align-items: center;
   align-content: center;
-
-
-  img {
-    max-width: 250px;
-  }
 `
