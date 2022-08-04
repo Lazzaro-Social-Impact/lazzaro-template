@@ -1,9 +1,10 @@
 import { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import moment from 'moment'
+import { useLocation } from 'react-router-dom'
 import {
-  Button, Card, Flex, Text
+  Card, Flex, Text
 } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
@@ -11,6 +12,7 @@ import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { IImages } from '../../types/interfaces'
 import BuyModal from '../BuyModal'
+import { ShareModal } from '../ShareModal/ShareModal'
 
 interface IProps {
   id: string;
@@ -26,9 +28,9 @@ export function EventCard(props: IProps): ReactElement {
     id, title, start_time, end_time, location, stock
   } = props
 
+  const { pathname } = useLocation()
   const startDate = moment(start_time).format('Do MMM YYYY')
   const endDate = moment(end_time).format('Do MMM YYYY')
-  const { primary, secondary } = useTheme()
   const {
     data: images = [], isLoading
   } = useDependant<IImages[]>(getEventImages(id), [`event_images_form_${id}`], id)
@@ -51,9 +53,7 @@ export function EventCard(props: IProps): ReactElement {
       </Text>
 
       <Flex gap={2} mt={1}>
-        <Button px="2.2rem" py="0.8rem" hoverBgColor={primary} bgColor={secondary}>
-          Share
-        </Button>
+        <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
         <BuyModal title="Buy Tickets" btnText="Buy">
           <EventCarousel imgs={images} isLoading={isLoading} />
