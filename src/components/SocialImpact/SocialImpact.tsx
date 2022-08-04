@@ -7,7 +7,7 @@ import { IImpact } from '../../types/interfaces'
 
 export default function SocialImpact(): ReactElement {
   const { primary } = useTheme()
-  const impact = useAppSelector((state) => state.ong.ongConfig.impactData)
+  const impact = useAppSelector((state) => state.ong.ongConfig?.impactData)
   return (
 
     <Flex id="impact" direction="column" bgColor={primary} gap={2.5} px={5}>
