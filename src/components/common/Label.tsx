@@ -1,13 +1,19 @@
 import styled from 'styled-components'
 
-const Label = styled.label`
+interface IProps {
+  size?:TFontSize
+}
+
+const Label = styled.label<IProps>`
   color: ${({ color, theme }) => color || theme.primary};
-  font-size: 1rem;
+  font-size:  ${({ size }) => size}rem;
   font-weight: bold;
   display: block;
-  text-align: left;
   width: 100%;
   max-width: 500px;
 `
 
+Label.defaultProps = {
+  size: 1
+}
 export default Label

@@ -9,7 +9,7 @@ import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
-import { IEvent, IImages } from '../../types/interfaces'
+import { IEvent, IImage } from '../../types/interfaces'
 
 export function SingleEventDetails(): ReactElement {
   const { id } = useParams() as { id: string }
@@ -18,7 +18,7 @@ export function SingleEventDetails(): ReactElement {
   } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id)
   const {
     data: images = [], isLoading
-  } = useDependant<IImages[]>(getEventImages(id), ['event_images'], id)
+  } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}

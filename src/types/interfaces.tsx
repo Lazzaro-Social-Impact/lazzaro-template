@@ -68,6 +68,7 @@ export interface IMember {
 export interface ErrorInputProps {
     msg?: string
     mt?: number
+    align?: TAlignSelf
 }
 export interface ITicket {
     amount: number;
@@ -80,7 +81,7 @@ export interface IEventDetails {
   price: number;
 }
 
-export interface IImages {
+export interface IImage {
     id: string;
     img_url: string;
   }
