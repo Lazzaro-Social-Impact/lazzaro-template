@@ -11,20 +11,21 @@ interface IShareProps {
 }
 export function ShareModal({ section, sectionId }: IShareProps): ReactElement<IShareProps> {
   const url = `${window.location.origin}/${section}/${sectionId}`
+  const navigateTo = (path:string) => () => window.open(path, '_blank')
   return (
     <>
       <Modal btnText="Share" width="35%" title={`Share this ${section.slice(0, -1)}`}>
         <Icons>
           <FacebookFilled
-            onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`)}
+            onClick={navigateTo(`https://www.facebook.com/sharer/sharer.php?u=${url}`)}
           />
           <TwitterCircleFilled
-            onClick={() => window.open(`https://twitter.com/intent/tweet?text=${url}`)}
+            onClick={navigateTo(`https://twitter.com/intent/tweet?text=${url}`)}
           />
           <LinkedinFilled
-            onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)}
+            onClick={navigateTo(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)}
           />
-          <WhatsAppOutlined onClick={() => window.open(`whatsapp://send?text=${url}`)} />
+          <WhatsAppOutlined onClick={navigateTo(`whatsapp://send?text=${url}`)} />
         </Icons>
       </Modal>
     </>
