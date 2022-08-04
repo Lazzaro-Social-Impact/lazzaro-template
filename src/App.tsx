@@ -60,11 +60,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {isLoading || isLoadingPage ? (
-        <LoadingIndex />
+      {isError || isErrorPage || config === null ? (
+        <CrashPage />
       )
-        : isError || isErrorPage ? (
-          <CrashPage />
+        : isLoading || isLoadingPage ? (
+          <LoadingIndex />
         ) : (
           <>
             <AllRoute />
