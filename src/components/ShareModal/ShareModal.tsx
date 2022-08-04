@@ -1,41 +1,29 @@
-import React, { ReactElement, useState } from 'react'
-import { Modal } from 'antd'
-import styled, { useTheme } from 'styled-components'
+import { ReactElement } from 'react'
+import styled from 'styled-components'
 import {
   FacebookFilled, LinkedinFilled, TwitterCircleFilled, WhatsAppOutlined
 } from '@ant-design/icons'
-import { Button } from '../common'
+import Modal from '../BuyModal'
 
 interface IShareProps {
     section: string;
     sectionId: string;
 }
 export function ShareModal({ section, sectionId }: IShareProps): ReactElement<IShareProps> {
-  const [visible, setVisible] = useState(false)
-  const { primary, secondary } = useTheme()
   const url = `${window.location.origin}/${section}/${sectionId}`
   return (
     <>
-      <Button
-        px="2.2rem"
-        py="0.8rem"
-        hoverBgColor={primary}
-        bgColor={secondary}
-        onClick={() => setVisible(true)}
-      >
-        Share
-      </Button>
-
-      <Modal
-        title={`Share this ${section.slice(0, -1)}`}
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        footer={null}
-      >
+      <Modal btnText="Share" width="35%" title={`Share this ${section.slice(0, -1)}`}>
         <Icons>
-          <FacebookFilled onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`)} />
-          <TwitterCircleFilled onClick={() => window.open(`https://twitter.com/intent/tweet?text=${url}`)} />
-          <LinkedinFilled onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)} />
+          <FacebookFilled
+            onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`)}
+          />
+          <TwitterCircleFilled
+            onClick={() => window.open(`https://twitter.com/intent/tweet?text=${url}`)}
+          />
+          <LinkedinFilled
+            onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)}
+          />
           <WhatsAppOutlined onClick={() => window.open(`whatsapp://send?text=${url}`)} />
         </Icons>
       </Modal>
