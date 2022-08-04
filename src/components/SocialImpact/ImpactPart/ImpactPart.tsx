@@ -3,18 +3,18 @@ import styled from 'styled-components'
 import { Flex, Text } from '../../common'
 
 interface ImpactPartProps {
-  num: number;
-  text: string;
+  amount: string;
+  name: string;
 }
 
-function ImpactPart({ num, text }: ImpactPartProps): ReactElement {
+function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
-        {num}
+        {amount}
       </Text>
       <Text color="#fff" lineHeight={0} fontSize={2} weight="200">
-        {text}
+        {name}
       </Text>
     </ImpactSection>
   )
