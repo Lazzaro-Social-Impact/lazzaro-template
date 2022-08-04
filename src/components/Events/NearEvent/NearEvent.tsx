@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { BookmarkIcon } from '../../Icons'
 import {
-  Card, Image, Link, Text
+  Box, Card, Image, Link, Text
 } from '../../common'
 
 interface IProps {
@@ -21,16 +21,16 @@ export default function NearEvent(props: IProps): ReactElement {
   const navigateTo = (path: `/events/${string}`) => () => navigate(path)
 
   return (
-    <Card mode="column" smMode="column" maxWidth="40%" p={1} onClick={navigateTo(`/events/${id}`)}>
-      <div style={{ position: 'relative' }}>
+    <Card flex={1} mode="column" smMode="column" maxWidth="40%" p={1} onClick={navigateTo(`/events/${id}`)}>
+      <Box>
         <BookmarkIcon position="absolute" right={2.3} top={-1} />
         <Image src={imageURL} alt="Near Event" p={1} />
-      </div>
+      </Box>
 
       <TextContainer>
         <h2>{title}</h2>
         <Text>{HtmlParser(description?.slice(0, 150))}</Text>
-        <Link to={`/events/${id}`} align="right">
+        <Link to={`/events/${id}`} align="right" size={1.2} underlined>
           Read more
         </Link>
       </TextContainer>

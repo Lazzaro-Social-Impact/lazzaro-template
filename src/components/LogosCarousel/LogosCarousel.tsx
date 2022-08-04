@@ -36,14 +36,12 @@ const ImageContainer = styled.div`
   display: flex !important;
   justify-content: space-between;
   height: 150px !important;
-  padding: 0 4.8rem;
+  padding: 0 3.8rem;
   align-items: center;
   align-content: center;
-  @media (max-width: 799px) {
-    padding: 0;
-  }
+
 
   img {
-    width: 200px;
+    max-width: 250px;
   }
 `

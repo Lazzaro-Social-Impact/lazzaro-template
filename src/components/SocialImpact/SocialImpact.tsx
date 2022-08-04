@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Typography } from 'antd'
 import ImpactPart from './ImpactPart/ImpactPart'
+import { Flex, SectionTitle } from '../common'
 
 const { Title } = Typography
 interface INumber {
@@ -32,40 +33,15 @@ const numbers: INumber[] = [
   },
 ]
 export default function SocialImpact(): ReactElement {
+  const { primary } = useTheme()
   return (
 
-    <SocialImpactSection id="impact">
-      <SectionTitle level={1}>Social Impact </SectionTitle>
-      <ImpactNumbers>
-        {numbers.map((number: INumber) => (
-          <ImpactPart {...number} />
-        ))}
-      </ImpactNumbers>
-    </SocialImpactSection>
+    <Flex id="impact" direction="column" bgColor={primary} gap={2.5} px={5}>
+      <SectionTitle color="white" fontSize={2.8} marginTop={3}>Social Impact </SectionTitle>
+
+      <Flex wrap="nowrap" mt={1.2} mb={4}>
+        {numbers.map((number: INumber) => (<ImpactPart {...number} />))}
+      </Flex>
+    </Flex>
   )
 }
-
-const SocialImpactSection = styled.section`
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 4.2rem;
-padding: 0 5.2rem;
-background-color: ${({ theme }) => theme.primary};
-`
-
-const SectionTitle = styled(Title)`
-color: #fff !important;
-margin-top: 3.8rem;
-font-size: 2.8rem !important;
-`
-
-const ImpactNumbers = styled.div`
-display: flex;
-justify-content: space-between;
-width: 100%;
-padding-bottom: 4.2rem;
-margin-top: 1.2rem;
-`

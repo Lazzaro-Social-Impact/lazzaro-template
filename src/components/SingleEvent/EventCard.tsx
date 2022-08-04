@@ -1,14 +1,16 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
-import { Modal } from 'antd'
 import moment from 'moment'
-import { Button } from '../common'
+import {
+  Button, Card, Flex, Text
+} from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { IImages } from '../../types/interfaces'
+import BuyModal from '../BuyModal'
 
 interface IProps {
   id: string;
@@ -24,80 +26,44 @@ export function EventCard(props: IProps): ReactElement {
     id, title, start_time, end_time, location, stock
   } = props
 
-  const [visible, setVisible] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
-  const startDate = moment(start_time).format('Do MMMM YYYY')
-  const endDate = moment(end_time).format('Do MMMM YYYY')
+  const startDate = moment(start_time).format('Do MMM YYYY')
+  const endDate = moment(end_time).format('Do MMM YYYY')
   const { primary, secondary } = useTheme()
   const {
     data: images = [], isLoading
   } = useDependant<IImages[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
-  const showModal = () => {
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setVisible(false)
-      setConfirmLoading(false)
-    }, 2000)
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
-  }
   return (
-    <EventCardDiv>
+    <Card mode="column" px={1.8} py={2.4} smMode="column" my={2}>
       <EventCardTitle title={title}>{title}</EventCardTitle>
-      <EventDate>
+
+      <Text color="#8c8c8c">
         <ClockCircleFilled /> {startDate} - {endDate}
-      </EventDate>
-      <EventLocation>
+      </Text>
+
+      <Text lineHeight={1.7}>
         <HeatMapOutlined />
         {location}
-      </EventLocation>
-      <EventTickets>
+      </Text>
+
+      <Text weight="bold" color="#8c8c8c" fontSize={1.1}>
         Tickets available: <span>{stock}</span>
-      </EventTickets>
-      <EventCardButtons>
-        <Button px="2.2rem" py="0.8rem" color="white" hoverBgColor={primary} bgColor={secondary}>
+      </Text>
+
+      <Flex gap={2} mt={1}>
+        <Button px="2.2rem" py="0.8rem" hoverBgColor={primary} bgColor={secondary}>
           Share
         </Button>
-        <Button onClick={showModal}>Buy</Button>
-        <Modal
-          title="Buy Tickets"
-          visible={visible}
-          onOk={handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          footer={null}
-          width="50%"
-        >
+
+        <BuyModal title="Buy Tickets" btnText="Buy">
           <EventCarousel imgs={images} isLoading={isLoading} />
           <BuyEventform modal eventId={id} />
-        </Modal>
-      </EventCardButtons>
-    </EventCardDiv>
+        </BuyModal>
+
+      </Flex>
+    </Card>
   )
 }
-
-const EventCardDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  padding: 2.4rem 1.8rem;
-  border: 1px solid #e6e6e6;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 470px;
-  max-width: 525px;
-
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    height: auto;
-  }
-`
 
 const EventCardTitle = styled.h3`
   color: ${({ theme }) => theme.primary};
@@ -107,28 +73,5 @@ const EventCardTitle = styled.h3`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`
-
-const EventLocation = styled.p`
-  color: #8c8c8c;
-  span {
-    margin-right: 0.4rem;
-  }
-`
-
-const EventDate = styled.p`
-  color: #8c8c8c;
-`
-
-const EventTickets = styled.p`
-  color: #8c8c8c;
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 0;
-`
-
-const EventCardButtons = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 5.2rem;
+  margin-bottom: 0rem;
 `

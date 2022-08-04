@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { getProp } from '../../utils'
 
 interface IProps {
-  radius?: TRadius;
+  radius?: TBorderRadius;
   width?: TWidth;
   height?: THeight;
   maxWidth?: TMaxWidth;

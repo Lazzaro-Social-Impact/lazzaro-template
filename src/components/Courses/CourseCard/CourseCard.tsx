@@ -2,6 +2,7 @@ import moment from 'moment'
 import parse from 'react-html-parser'
 import { CalendarIcon } from '../../Icons'
 import {
+  Box,
   Card, Flex, Image, Link,
 } from '../../common'
 
@@ -22,7 +23,7 @@ function CourseCard({ course }: IProps) {
 
   return (
     <Card mode="row" smMode="column" my={2} p={1} maxWidth="45rem">
-      <div style={{ position: 'relative', height: '235px' }}>
+      <Box height={14.5}>
         <CalendarIcon
           date={date}
           type="filled"
@@ -31,12 +32,12 @@ function CourseCard({ course }: IProps) {
           top={-1.23}
           right={1.5}
         />
-        <Image src={course.imageURL} alt="course" width="800px" />
-      </div>
+        <Image src={course.imageURL} alt={course.title} width="800px" />
+      </Box>
       <Flex direction="column" justify="space-between" p={1} textAlign="left">
         <h2>{course.title.slice(0, 23)}</h2>
         {parse(course.description.slice(0, 100))}
-        <Link to={`/courses/${course.id}`} align="flex-end">
+        <Link to={`/courses/${course.id}`} align="flex-end" underlined size={1.3}>
           Read more
         </Link>
       </Flex>

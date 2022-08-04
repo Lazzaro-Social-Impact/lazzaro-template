@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { getProp } from '../../utils'
 
 interface IProps {
-  mode?: TFlexDirection;
-  smMode?: TFlexDirection;
   maxWidth?: TMaxWidth;
   width?: TWidth;
+  height?: THeight;
+  maxHeight?: TMaxHeight;
   py?: TPaddingBlock;
   px?: TPaddingInline;
   pl?: TPaddingLeft;
@@ -22,19 +22,20 @@ interface IProps {
   m?: TMargin;
   bgColor?: TBgColor;
   textAlign?: TTextAlign;
-  gap?: TGap;
+  fontSize?: TFontSize;
+  lineHeight?: TLineHeight;
+  position?: TPosition;
+  cursor?: TCursor;
+  border?: TBorder;
+  onHover?: TOnHover;
   flex?: TFlex;
 }
 
-const Card = styled.div<IProps>`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: ${({ mode }) => mode};
-  width: ${({ width }) => width && width};
-  max-width: ${({ maxWidth }) => maxWidth && maxWidth};
-  gap: ${({ gap }) => getProp(gap)};
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease-in-out;
+const Box = styled.div<IProps>`
+  width: ${({ width }) => width};
+  max-width: ${({ maxWidth }) => maxWidth};
+  height: ${({ height }) => (typeof height === 'number' ? `${height}rem` : height)};
+  max-height: ${({ maxHeight }) => maxHeight && maxHeight};
   padding: ${({ p }) => p && getProp(p)};
   padding-block: ${({ py }) => py && getProp(py)};
   padding-inline: ${({ px }) => px && getProp(px)};
@@ -51,24 +52,24 @@ const Card = styled.div<IProps>`
   margin-inline: ${({ mx }) => mx && getProp(mx)};
   background-color: ${({ bgColor }) => bgColor && bgColor};
   text-align: ${({ textAlign }) => textAlign && textAlign};
+  font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
+  line-height: ${({ lineHeight }) => lineHeight && lineHeight};
+  position: ${({ position }) => position};
+  cursor: ${({ cursor }) => cursor && cursor};
   flex: ${({ flex }) => flex && flex};
 
-  cursor: pointer;
-
   &:hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: ${({ smMode }) => smMode};
-    max-width: 100%;
+    border: 
+    ${({ onHover, theme }) => onHover?.border && `${onHover.border} solid ${theme.primary}`};
   }
 `
 
-Card.defaultProps = {
-  mode: 'row',
-  smMode: 'row',
-  gap: 0.8,
+Box.defaultProps = {
+  width: 'auto',
+  maxWidth: '100%',
+  height: 'auto',
+  maxHeight: '100%',
+  position: 'relative',
 }
 
-export default Card
+export default Box
