@@ -30,8 +30,8 @@ export default function LogosCarousel(): ReactElement {
           ...chunk(logos, 4).map((fourLogos, i) => (
             <ImageContainer key={fourLogos[i]?.id}>
               {fourLogos.map(({ id, logo }) => (
-                <Box>
-                  <Image key={id} src={logo} alt="logo" maxHeight="8rem" />
+                <Box key={id}>
+                  <Image src={logo} alt="logo" maxHeight="8rem" />
                 </Box>
               ))}
             </ImageContainer>
