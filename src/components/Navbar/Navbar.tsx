@@ -95,6 +95,15 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()
 
+  const drawerArray = featuresArray.map((feature) => ({
+    key: feature,
+    label: (
+      <li key={feature}>
+        <a href={`/#${feature}`}>{capitlaize(feature)}</a>
+      </li>
+    ),
+  }))
+
   return (
     <NavBar position={position} bgColor={navBarBackground}>
       <div style={{ padding: '0.5rem' }}>
@@ -133,9 +142,9 @@ function Navbar({ transparent, position }: IProps): ReactElement {
         </CustomNav>
       )}
 
-      {/* <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
-        <Links items={featuresArray} mode="inline" />
-      </Drawer> */}
+      <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
+        <Links items={drawerArray} mode="inline" />
+      </Drawer>
     </NavBar>
   )
 }
