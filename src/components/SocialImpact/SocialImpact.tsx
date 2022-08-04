@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
-import { Typography } from 'antd'
+import { useTheme } from 'styled-components'
 import ImpactPart from './ImpactPart/ImpactPart'
 import { Flex, SectionTitle } from '../common'
 
-const { Title } = Typography
 interface INumber {
   key: string
   num: number
