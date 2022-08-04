@@ -16,3 +16,4 @@ export const getProductImages = (id: string) => `/api/private/productImages/${id
 export const getEventImages = (id: string) => `/api/private/eventimages/${id}`
 export const getTransparencyURL = (ongId: string) => `/api/private/ongs/${ongId}/transparency`
 export const getCoursesURL = (ongId:string) => `/api/private/courses/ong/${ongId}`
+export const getOngLogos = (ongId:string) => `/api/private/ongs/${ongId}/logos`

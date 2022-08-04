@@ -178,7 +178,7 @@ const CustomNav = styled.nav`
     display: flex;
     justify-content: center;
     gap: 1.8rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     list-style-type: none;
     margin-bottom: 0;
     li a {
