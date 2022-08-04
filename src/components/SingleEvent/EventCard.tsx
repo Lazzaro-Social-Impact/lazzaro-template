@@ -10,8 +10,9 @@ import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
-import { IImages } from '../../types/interfaces'
+import { IImage } from '../../types/interfaces'
 import BuyModal from '../BuyModal'
+import BuyCourseForm from '../Forms/BuyCourseForm'
 import { ShareModal } from '../ShareModal/ShareModal'
 
 interface IProps {
@@ -21,11 +22,12 @@ interface IProps {
   end_time: string;
   location: string;
   stock: number;
+  course:boolean;
 }
 
 export function EventCard(props: IProps): ReactElement {
   const {
-    id, title, start_time, end_time, location, stock
+    id, title, start_time, end_time, location, stock, course
   } = props
 
   const { pathname } = useLocation()
@@ -33,7 +35,7 @@ export function EventCard(props: IProps): ReactElement {
   const endDate = moment(end_time).format('Do MMM YYYY')
   const {
     data: images = [], isLoading
-  } = useDependant<IImages[]>(getEventImages(id), [`event_images_form_${id}`], id)
+  } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
   return (
     <Card mode="column" px={1.8} py={2.4} smMode="column" my={2}>
@@ -55,11 +57,10 @@ export function EventCard(props: IProps): ReactElement {
       <Flex gap={2} mt={1}>
         <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
-        <BuyModal title="Buy Tickets" btnText="Buy">
+        <BuyModal title={`Buy ${course ? 'course' : 'ticket'}`} btnText="Buy">
           <EventCarousel imgs={images} isLoading={isLoading} />
-          <BuyEventform modal eventId={id} />
+          {course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />}
         </BuyModal>
-
       </Flex>
     </Card>
   )
