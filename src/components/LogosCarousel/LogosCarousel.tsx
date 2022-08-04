@@ -28,10 +28,10 @@ export default function LogosCarousel(): ReactElement {
       <Carousel dots={false} bgColor={primary} mt={4.2}>
         {[
           ...chunk(logos, 4).map((fourLogos, i) => (
-            <ImageContainer key={fourLogos[i].id}>
+            <ImageContainer key={fourLogos[i]?.id}>
               {fourLogos.map(({ id, logo }) => (
                 <Box>
-                  <Image key={id} src={logo} alt="logo" maxHeight="130px" />
+                  <Image key={id} src={logo} alt="logo" maxHeight="8rem" />
                 </Box>
               ))}
             </ImageContainer>
@@ -44,9 +44,15 @@ export default function LogosCarousel(): ReactElement {
 
 const ImageContainer = styled.div`
   display: flex !important;
-  justify-content: space-between;
+  justify-content: center;
+  gap:20rem;
   height: 150px !important;
   padding: 0 3.8rem;
   align-items: center;
   align-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: space-around;
+    gap:0;
+  }
 `
