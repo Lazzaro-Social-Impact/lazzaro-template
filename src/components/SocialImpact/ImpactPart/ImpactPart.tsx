@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Flex, Text } from '../../common'
 
 interface ImpactPartProps {
-  amount: number | string;
+  amount: string;
   name: string;
 }
 
