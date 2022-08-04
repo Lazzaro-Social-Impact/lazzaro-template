@@ -58,6 +58,11 @@ export interface IAppState {
     ongId: string;
   }
 
+export interface IImpact {
+    name: string
+    amount: number | string
+    id: string
+  }
 export interface IMember {
     id: string,
     name: string,

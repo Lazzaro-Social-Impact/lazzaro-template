@@ -3,12 +3,7 @@ import { useTheme } from 'styled-components'
 import ImpactPart from './ImpactPart/ImpactPart'
 import { Flex, SectionTitle } from '../common'
 import { useAppSelector } from '../../hooks'
-
-interface INumber {
-  name: string
-  amount: number | string
-  id: string
-}
+import { IImpact } from '../../types/interfaces'
 
 export default function SocialImpact(): ReactElement {
   const { primary } = useTheme()
@@ -19,7 +14,7 @@ export default function SocialImpact(): ReactElement {
       <SectionTitle color="white" fontSize={2.8} marginTop={3}>Social Impact </SectionTitle>
 
       <Flex wrap="nowrap" mt={1.2} mb={4}>
-        {impact?.map((section: INumber) => (<ImpactPart {...section} key={section.id} />))}
+        {impact?.map((section: IImpact) => (<ImpactPart {...section} key={section.id} />))}
       </Flex>
     </Flex>
   )
