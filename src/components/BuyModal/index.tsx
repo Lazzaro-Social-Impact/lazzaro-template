@@ -3,15 +3,17 @@ import { ReactElement, useState } from 'react'
 import { Button } from '../common'
 
 interface IProps {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   title?: string;
   width?: string;
   btnText?: string;
 }
 
-function Modal({
-  children, title, width, btnText
-}:IProps) {
+function Modal(props:IProps) {
+  const {
+    children, title, width, btnText
+  } = props
+
   const [visible, setVisible] = useState(false)
 
   const showModal = () => {
@@ -24,9 +26,7 @@ function Modal({
 
   return (
     <>
-      <Button px="2.8rem" py="0.8rem" onClick={showModal}>
-        {btnText}
-      </Button>
+      <Button px="2.8rem" onClick={showModal}>{btnText}</Button>
 
       <AntdModal
         visible={visible}

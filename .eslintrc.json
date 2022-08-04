@@ -65,6 +65,7 @@
     "no-nested-ternary": "off",
     "react/react-in-jsx-scope": "off",
     "camelcase": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "max-len": ["warn", {"code": 120}]
   }
 }

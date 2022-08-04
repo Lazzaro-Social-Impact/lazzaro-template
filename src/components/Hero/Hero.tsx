@@ -22,13 +22,14 @@ function Hero() {
       <HeroSection id="hero" heroImage={heroImage}>
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
-        <Flex gap={1.2}>
+        <Flex gap={1.2} justify="center">
           <Button color="white"> Donar </Button>
           <Button
             hoverBgColor={primary}
             bgColor={secondary}
             onClick={() => navigate('/partners')}
-          >Become a member
+          >
+            Become a member
           </Button>
         </Flex>
       </HeroSection>
@@ -41,7 +42,6 @@ const HeroSection = styled.section<IProps>`
     url(${({ heroImage }) => heroImage});
   background-size: cover;
   background-position: center;
-  object-fit: cover;
   height: 620px;
   display: flex;
   flex-direction: column;

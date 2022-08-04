@@ -11,22 +11,26 @@ interface IProps {
   mt?:TMarginTop;
 }
 
-const Carousel: FC<IProps> = ({
-  children, arrows, dots, bgColor, mt
-}) => (
-  <CustomCarousel
-    arrows={arrows}
-    nextArrow={arrows ? <ArrowRightOutlined /> : undefined}
-    prevArrow={arrows ? <ArrowLeftOutlined /> : undefined}
-    autoplay
-    autoplaySpeed={5000}
-    dots={dots}
-    bgColor={bgColor}
-    mt={mt}
-  >
-    {children}
-  </CustomCarousel>
-)
+const Carousel: FC<IProps> = (props) => {
+  const {
+    children, arrows, dots, bgColor, mt
+  } = props
+
+  return (
+    <CustomCarousel
+      arrows={arrows}
+      nextArrow={arrows ? <ArrowRightOutlined /> : undefined}
+      prevArrow={arrows ? <ArrowLeftOutlined /> : undefined}
+      autoplay
+      autoplaySpeed={5000}
+      dots={dots}
+      bgColor={bgColor}
+      mt={mt}
+    >
+      {children}
+    </CustomCarousel>
+  )
+}
 
 Carousel.defaultProps = {
   arrows: false,
@@ -39,7 +43,7 @@ export default Carousel
 
 const CustomCarousel = styled(antdCarousel)<IProps>`
 background-color: ${({ bgColor }) => bgColor};
-margin-top: ${({ mt }) => mt};
+margin-top: ${({ mt }) => mt && mt};
   @media (min-width: 768px) {
     & .slick-prev,
     & .slick-prev:hover {
@@ -73,7 +77,7 @@ margin-top: ${({ mt }) => mt};
   }
 
   .slick-dots-bottom {
-    bottom: -10px;
+    bottom: -35px;
   }
 
   .slick-dots li button {

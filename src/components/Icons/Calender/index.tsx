@@ -1,7 +1,7 @@
 import { CalendarFilled, CalendarOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { getProp } from '../../../utils'
 
 interface IProps {
@@ -18,6 +18,7 @@ interface IProps {
 }
 
 const CalenderIcon = (props: IProps) => {
+  const { primary } = useTheme()
   const {
     date, type, size, position, top, left, right, bottom, style, color
   } = props
@@ -34,7 +35,7 @@ const CalenderIcon = (props: IProps) => {
       left={left}
       right={right}
       bottom={bottom}
-      color={color}
+      color={color || primary}
     >
       <Icon style={IconStyles} />
       <Date>{date}</Date>

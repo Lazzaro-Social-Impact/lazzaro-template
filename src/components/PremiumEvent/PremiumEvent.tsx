@@ -1,44 +1,9 @@
-import React, { ReactElement, useLayoutEffect, useState } from 'react'
-import styled, { useTheme } from 'styled-components'
+import { ReactElement } from 'react'
+import styled from 'styled-components'
 import { Progress } from 'antd'
-import { ReadMore, SectionTitle, Button } from '../common'
+import { SectionTitle, Button, Link } from '../common'
 
 export default function PremiumEvent(): ReactElement {
-  const [progressWidth, setProgressWidth] = useState<number>(250)
-  const [windowSize, setWindowSize] = useState<number>(window.outerWidth)
-  const { primary } = useTheme()
-  // Watch for window resize (width)
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      setWindowSize(window.outerWidth)
-    }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  // Watch for watch for width so that we can set the progress circle width
-  useLayoutEffect(() => {
-    switch (true) {
-      case windowSize <= 768 && windowSize > 621:
-        setProgressWidth(200)
-        break
-      case windowSize <= 621 && windowSize > 450:
-        setProgressWidth(120)
-        break
-      case windowSize <= 450:
-        setProgressWidth(100)
-        break
-      default:
-        setProgressWidth(250)
-    }
-
-    return () => {
-      setProgressWidth(250)
-    }
-  })
-
   return (
     <PremiumEventSection>
       <EventDetails>
@@ -50,7 +15,7 @@ export default function PremiumEvent(): ReactElement {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
-        <ReadMore hoverColor={primary}>Read more</ReadMore>
+        <Link align="left" to="">Read more</Link>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
@@ -61,7 +26,7 @@ export default function PremiumEvent(): ReactElement {
             strokeWidth={2}
             strokeColor="#000"
             trailColor="none"
-            width={progressWidth}
+            width={250}
           />
           <Donated>Donated</Donated>
         </ProgressContainer>

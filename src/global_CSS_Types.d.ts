@@ -39,9 +39,13 @@ declare global {
   type TLeft = CSS.Properties['left'] | number;
   type TTextShadow = CSS.Properties['textShadow'];
   type TLineHeight = CSS.Properties['lineHeight'] | number;
-  type TRadius = CSS.Properties['borderRadius'];
   type TWidth = CSS.Properties['width'];
-  type THeight = CSS.Properties['height'];
+  type THeight = CSS.Properties['height'] | number;
+  type TMaxHeight = CSS.Properties['maxHeight'];
+  type TFlex = CSS.Properties['flex'];
+  type TBorder = CSS.Properties['border'];
+  type TCursor = CSS.Properties['cursor'];
+  type TOnHover = Partial<Record<keyof CSS.Properties, string>>;
 }
 
 export { }

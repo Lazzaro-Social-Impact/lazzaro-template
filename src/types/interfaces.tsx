@@ -41,12 +41,13 @@ export interface IDonation {
   }
 
 export interface IProject {
-    id: string;
-    title: string;
-    donated: number;
-    amount: number;
-    description: string;
-  }
+  id: string;
+  title: string;
+  donated: number;
+  amount: number;
+  description: string;
+  imageURL: string;
+}
 export interface IProjects {
     imageURL: string;
     id: string;
@@ -84,12 +85,6 @@ export interface IImages {
     img_url: string;
   }
 
-export interface IEvent {
-    title: string;
-    description: string;
-    location: string;
-  }
-
 export interface ICourse {
     title: string;
     description: string;
@@ -100,11 +95,12 @@ export interface ICourse {
     id: string;
     course: boolean;
   }
-export interface IEvents {
+export interface IEvent {
     course: boolean;
     id: string;
     title: string;
     description: string;
     imageURL: string;
     start_time: string;
+    location: string
   }
