@@ -18,7 +18,7 @@ interface ProjectProps {
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const navigate = useNavigate()
-  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
   const navigateTo = (path: `projects/${string}`) => () => navigate(path)
 
   const { mutateAsync, ...states } = usePostData<{ data: string }, DonateSubmitForm>(

@@ -14,7 +14,7 @@ import { TImages } from '../../types/types'
 
 function ProjectDetails(): ReactElement {
   const projectId = useParams().id as string
-  const ongId = useAppSelector(({ ong }) => ong.ongId)
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
 
   const {
     data: projects = [], isLoading: isProjectsLoading
@@ -39,7 +39,7 @@ function ProjectDetails(): ReactElement {
           )}
 
           {projects?.map((project) => (
-            <ProjectCard project={project} />
+            <ProjectCard project={project} key={project.id} />
           ))}
         </OtherProjects>
       </Flex>

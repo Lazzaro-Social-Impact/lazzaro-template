@@ -15,7 +15,7 @@ interface IProps {
 
 function Tabs({ projectDetails } : IProps) {
   const { id, description } = projectDetails || {}
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { mutateAsync, ...states } = usePostData(getStartProjectDonationUrl(ongId))
 
   const handleSubmit = async (values: any) => {

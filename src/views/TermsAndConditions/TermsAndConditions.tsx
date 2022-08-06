@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'
-import { Flex, SectionTitle } from '../../components/common'
+import { Box, Flex, SectionTitle } from '../../components/common'
 import { useAppSelector } from '../../hooks'
 
 const TermsAndConditions:FC = () => {
-  const termsAndConditions = useAppSelector(({ ong }) => ong.ongConfig?.brand.terms_and_conditions)
+  const termsAndConditions = useAppSelector(({ ong }) => ong.ongConfig?.brand.terms_and_conditions) || ''
 
   return (
     <>
@@ -16,7 +16,7 @@ const TermsAndConditions:FC = () => {
           Term And Conditions
         </SectionTitle>
 
-        <div>{HtmlParser(termsAndConditions)}</div>
+        <Box>{HtmlParser(termsAndConditions)}</Box>
       </Flex>
 
       <Footer />

@@ -54,8 +54,8 @@ export interface IProjects {
     title: string;
   }
 export interface IAppState {
-    ongConfig: IOngConfig | Record<string, never>;
-    ongId: string;
+    ongConfig: IOngConfig | Record<string, never> | undefined;
+    ongId: string | undefined;
   }
 
 export interface IMember {

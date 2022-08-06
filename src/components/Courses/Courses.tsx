@@ -12,7 +12,7 @@ import CourseCardSkeleton from '../Skeleton'
 import { ICourse } from '../../types/interfaces'
 
 function Courses(): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
   const isSectionVisible = useObserver(sectionRef)
 

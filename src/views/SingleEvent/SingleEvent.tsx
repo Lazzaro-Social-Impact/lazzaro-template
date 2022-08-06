@@ -10,7 +10,7 @@ import { useAppSelector, useDependant } from '../../hooks'
 import { TEvents } from '../../types/types'
 
 function SingleEvent(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { data: events, isLoading } = useDependant<TEvents>(getEventsURL(ongId), ['events'], ongId)
   const { pathname } = useLocation()
   const isEvent = pathname.startsWith('/events')

@@ -13,7 +13,7 @@ interface ILogo {
 }
 
 export default function LogosCarousel(): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong.ongId)
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
   const isSectionVisible = useObserver(sectionRef)
   const {

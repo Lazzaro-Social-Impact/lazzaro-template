@@ -21,7 +21,7 @@ export function ProjectCard({ project } : IProps) {
   const {
     id, title, donated, amount
   } = project
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
   const {
     mutateAsync, ...states

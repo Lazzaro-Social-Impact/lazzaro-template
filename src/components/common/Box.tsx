@@ -50,6 +50,7 @@ const Box = styled.div<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
+  color: ${({ color }) => color && color};
   background-color: ${({ bgColor }) => bgColor && bgColor};
   text-align: ${({ textAlign }) => textAlign && textAlign};
   font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};

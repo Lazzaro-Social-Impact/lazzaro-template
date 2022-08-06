@@ -28,7 +28,7 @@ export function ContactEventForm({ id }: IProps): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm<contactEventForm>({
     resolver: yupResolver(contactEventSchema),
   })
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     isLoading, isError, isSuccess, mutateAsync
   } = usePostData(getSendContactEventUrl(ongId, id))

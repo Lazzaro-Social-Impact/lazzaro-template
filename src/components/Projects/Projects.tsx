@@ -12,7 +12,7 @@ export default function Projects(): ReactElement {
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
   const isSectionVisible = useObserver(sectionRef)
 
-  const ongId = useAppSelector(({ ong }) => ong.ongId)
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
 
   const {
     data: projects = [], isLoading

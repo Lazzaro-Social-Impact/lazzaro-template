@@ -15,9 +15,7 @@ interface IProps {
 function LatestDonations({ title, projectId }: IProps) {
   const {
     data: donations, isLoading
-  } = useDependant<IDonation[]>(getProjectLatestDonationsURL(
-    projectId
-  ), [`donations${projectId}`], projectId)
+  } = useDependant<IDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
 
   const formatDate = (date: string) => moment(date).format('MM Do YYYY')
   return (
@@ -29,7 +27,7 @@ function LatestDonations({ title, projectId }: IProps) {
       {isLoading && <Skeleton width={32} height={11} number={3} px={3} />}
 
       {donations?.map((donation) => (
-        <Section>
+        <Section key={donation.id}>
           <Flex>
             <Text fontSize={1.2}>
               {donation.anonymous
