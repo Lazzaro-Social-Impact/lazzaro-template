@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 export const getStartDonationUrl = (ongId: string) => `/api/private/ong/${ongId}/start-donation`
-export const getFinalizeDonationUrl = (ongId: string) => `/api/private/donations/ong/${ongId}/donations`
+export const getFinalizeDonationUrl = (ongId: string) => `/api/private/ong/${ongId}/donations`
 export const getAddVolunteerUrl = () => '/api/private/volunteers'
 export const getStartProjectDonationUrl = (ongId: string) => `/api/private/ong/${ongId}/start-donation-cause`
 export const getFinalizeProjectDonationUrl = (ongId: string, token:string) => `/api/private/ong/${ongId}/finalice-donation-cause?token=${token}`

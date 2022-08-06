@@ -121,7 +121,7 @@ export function ContactusForm(): ReactElement {
             <ErrorInput msg={errors.terms?.message} />
           </label>
 
-          <Flex>
+          <Flex justify="center">
             <Button type="submit">Send Message</Button>
           </Flex>
         </ContactusFormBox>

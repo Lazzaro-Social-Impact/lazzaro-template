@@ -1,73 +1,34 @@
 import React from 'react'
-import { Typography } from 'antd'
-import styled from 'styled-components'
 import HtmlParser from 'react-html-parser'
-import { Link } from 'react-router-dom'
-import { SectionTitle } from '../common'
+import {
+  Box, Flex, Image, Link, SectionTitle
+} from '../common'
 import { useAppSelector } from '../../hooks'
 
-const { Paragraph } = Typography
-
 export default function AboutUs(): React.ReactElement {
-  const titleDesc = useAppSelector((state) => state.ong.ongConfig?.description?.title_description)
-  const description = useAppSelector((state) => state.ong.ongConfig?.description?.description)
-  const imgUrl = useAppSelector((state) => state.ong.ongConfig?.description?.img_url)
+  const {
+    description = '', img_url, title_description
+  } = useAppSelector(({ ong }) => ong.ongConfig?.description) || {}
 
   return (
-    <AboutUsSection id="about">
-      <LeftSection>
-        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>{titleDesc}</SectionTitle>
-        <AboutUsDescription>
-          { HtmlParser(description?.slice(0, 200))}
-        </AboutUsDescription>
-        <ReadMoreLink to="/about">
+    <Flex id="about" align="stretch" mt={4.2} pl={4.1}>
+      <Flex direction="column" align="stretch" justify="stretch" textAlign="left" flex={1}>
+        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>
+          {title_description}
+        </SectionTitle>
+
+        <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
+          {HtmlParser(description?.slice(0, 400))}
+        </Box>
+
+        <Link to="/about" align="flex-start" underlined>
           Read more
-        </ReadMoreLink>
-      </LeftSection>
-      <ImageContainer>
-        <img
-          src={imgUrl}
-          alt="About us"
-          style={{ maxWidth: '100%' }}
-        />
-      </ImageContainer>
-    </AboutUsSection>
+        </Link>
+      </Flex>
+
+      <Flex justify="flex-end" align="flex-start" flex={1}>
+        <Image src={img_url} alt="About us" />
+      </Flex>
+    </Flex>
   )
 }
-
-const AboutUsSection = styled.section`
-display: flex;
-justify-content: space-between;
-margin-top: 4.2rem;
-padding-left: 4.1rem;
-`
-
-const LeftSection = styled.div`
-display: flex;
-flex-direction: column;
-width: 100%;
-`
-const ImageContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-`
-
-const AboutUsDescription = styled(Paragraph)`
-font-size: 1.1rem;
-padding-right: 2.8rem;
-color: #777;
-line-height: 1.8;
-`
-
-const ReadMoreLink = styled(Link)`
-  font-size: 1rem;
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  color: #777;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
-`

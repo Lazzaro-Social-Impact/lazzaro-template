@@ -37,29 +37,7 @@ font-size: 2.1rem;
 font-weight: bold;
 margin-bottom: 0;
 `
-const CustomCarousel = styled(Carousel)`
-display: flex;
-justify-content: center;
-align-items: flex-start;
-text-align: center;
-height: 600px;
 
- .slick-dots li button {
-    width: 6px;
-    height: 6px;
-    border-radius: 100%;
-    background: #777;
-  }
-  .slick-dots li.slick-active button {
-    width: 7px;
-    height: 7px;
-    border-radius: 100%;
-    background: black;
-  }
-  @media screen and (max-width: 768px) {
-        height: 300px;
-    }
-`
 const VolunteerCards = styled.div`
 display: flex !important;
 justify-content: center;

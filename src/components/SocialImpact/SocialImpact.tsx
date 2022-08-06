@@ -1,71 +1,20 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
-import { Typography } from 'antd'
+import { useTheme } from 'styled-components'
 import ImpactPart from './ImpactPart/ImpactPart'
+import { Flex, SectionTitle } from '../common'
+import { useAppSelector } from '../../hooks'
 
-const { Title } = Typography
-interface INumber {
-  key: string
-  num: number
-  text: string
-}
-const numbers: INumber[] = [
-  {
-    key: '1',
-    num: 265,
-    text: 'Volunteers'
-  },
-  {
-    key: '2',
-    num: 120,
-    text: 'Candidates'
-  },
-  {
-    key: '3',
-    num: 1252,
-    text: 'Accounts raised'
-  },
-  {
-    key: '4',
-    num: 5015,
-    text: 'People supported'
-  },
-]
 export default function SocialImpact(): ReactElement {
+  const { primary } = useTheme()
+  const impact = useAppSelector((state) => state.ong.ongConfig?.impactData)
   return (
 
-    <SocialImpactSection id="impact">
-      <SectionTitle level={1}>Social Impact </SectionTitle>
-      <ImpactNumbers>
-        {numbers.map((number: INumber) => (
-          <ImpactPart {...number} />
-        ))}
-      </ImpactNumbers>
-    </SocialImpactSection>
+    <Flex id="impact" direction="column" bgColor={primary} gap={2.5} px={5}>
+      <SectionTitle color="white" fontSize={2.8} marginTop={3}>Social Impact </SectionTitle>
+
+      <Flex wrap="nowrap" mt={1.2} mb={4}>
+        {impact?.map((section) => (<ImpactPart {...section} key={section.id} />))}
+      </Flex>
+    </Flex>
   )
 }
-
-const SocialImpactSection = styled.section`
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 4.2rem;
-padding: 0 5.2rem;
-background-color: ${({ theme }) => theme.primary};
-`
-
-const SectionTitle = styled(Title)`
-color: #fff !important;
-margin-top: 3.8rem;
-font-size: 2.8rem !important;
-`
-
-const ImpactNumbers = styled.div`
-display: flex;
-justify-content: space-between;
-width: 100%;
-padding-bottom: 4.2rem;
-margin-top: 1.2rem;
-`

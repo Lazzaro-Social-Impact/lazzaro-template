@@ -8,15 +8,14 @@ import { MenuOutlined } from '@ant-design/icons'
 import { Link, NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
 
-type TTransparent = boolean | undefined;
 interface IProps {
-  transparent?: TTransparent;
+  transparent?: boolean;
   position?: TPosition;
 }
 
 function Navbar({ transparent, position }: IProps): ReactElement {
-  const logo = useAppSelector((state) => state.ong?.ongConfig?.brand?.logo)
-  const features = useAppSelector((state) => state.ong?.ongConfig?.features) || {}
+  const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
+  const features = useAppSelector((state) => state.ong.ongConfig?.features) || {} as TFeatures
 
   const featuresArray = Object.keys(features).filter((key) => features[key as keyof TFeatures] === true)
 
@@ -95,6 +94,15 @@ function Navbar({ transparent, position }: IProps): ReactElement {
   const { useBreakpoint } = Grid
   const { md } = useBreakpoint()
 
+  const drawerArray = featuresArray.map((feature) => ({
+    key: feature,
+    label: (
+      <li key={feature}>
+        <a href={`/#${feature}`}>{capitlaize(feature)}</a>
+      </li>
+    ),
+  }))
+
   return (
     <NavBar position={position} bgColor={navBarBackground}>
       <div style={{ padding: '0.5rem' }}>
@@ -133,9 +141,9 @@ function Navbar({ transparent, position }: IProps): ReactElement {
         </CustomNav>
       )}
 
-      {/* <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
-        <Links items={featuresArray} mode="inline" />
-      </Drawer> */}
+      <Drawer width={200} placement="right" onClose={() => setVisible(false)} visible={visible}>
+        <Links items={drawerArray} mode="inline" />
+      </Drawer>
     </NavBar>
   )
 }
@@ -169,7 +177,7 @@ const CustomNav = styled.nav`
     display: flex;
     justify-content: center;
     gap: 1.8rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     list-style-type: none;
     margin-bottom: 0;
     li a {

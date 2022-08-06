@@ -41,20 +41,21 @@ export interface IDonation {
   }
 
 export interface IProject {
-    id: string;
-    title: string;
-    donated: number;
-    amount: number;
-    description: string;
-  }
+  id: string;
+  title: string;
+  donated: number;
+  amount: number;
+  description: string;
+  imageURL: string;
+}
 export interface IProjects {
     imageURL: string;
     id: string;
     title: string;
   }
 export interface IAppState {
-    ongConfig: IOngConfig | Record<string, never>;
-    ongId: string;
+    ongConfig: IOngConfig | Record<string, never> | undefined;
+    ongId: string | undefined;
   }
 
 export interface IMember {
@@ -67,6 +68,7 @@ export interface IMember {
 export interface ErrorInputProps {
     msg?: string
     mt?: number
+    align?: TAlignSelf
 }
 export interface ITicket {
     amount: number;
@@ -79,15 +81,9 @@ export interface IEventDetails {
   price: number;
 }
 
-export interface IImages {
+export interface IImage {
     id: string;
     img_url: string;
-  }
-
-export interface IEvent {
-    title: string;
-    description: string;
-    location: string;
   }
 
 export interface ICourse {
@@ -100,11 +96,12 @@ export interface ICourse {
     id: string;
     course: boolean;
   }
-export interface IEvents {
+export interface IEvent {
     course: boolean;
     id: string;
     title: string;
     description: string;
     imageURL: string;
     start_time: string;
+    location: string
   }

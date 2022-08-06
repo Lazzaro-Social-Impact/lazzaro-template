@@ -1,36 +1,24 @@
-import React, { ReactElement, } from 'react'
+import { ReactElement, } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
-import { Button } from '../common'
+import { Button, Flex } from '../common'
 
 export default function SubscribeDivider(): ReactElement {
-  const { primary } = useTheme()
+  const { primary, secondary } = useTheme()
   const navigate = useNavigate()
+
+  const navigateTo = (path:'/partners') => () => navigate(path)
+
   return (
-    <SubscribeSection>
+    <Flex direction="column" bgColor={secondary} py={2.4} gap={1.2} mt={4}>
       <SectionTitle>Lets collaborate together </SectionTitle>
-      <Button
-        onClick={() => navigate('/partners')}
-        fontSize={1.2}
-        py={0.8}
-        px={2.8}
-        bgColor={primary}
-      >Join us
+      <Button onClick={navigateTo('/partners')} fontSize={1.2} hoverBgColor={primary}>
+        Join us
       </Button>
-    </SubscribeSection>
+    </Flex>
   )
 }
 
-const SubscribeSection = styled.section`
-    background-color: ${({ theme }) => theme.secondary};
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2.4rem 0;
-`
 const SectionTitle = styled.h1`
     font-size: 2.2rem;
     color: #fff;
@@ -39,7 +27,6 @@ const SectionTitle = styled.h1`
     line-height: 1.4;
 
     @media screen and (max-width: 768px) {
-      
       width: 50%;
     }
 `
