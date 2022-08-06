@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Routes, Route } from 'react-router-dom'
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
 import { ContactusForm } from '../../components/Forms/ContactusForm'
@@ -12,8 +13,11 @@ import {
   SingleProduct,
   TermsAndConditions,
   ErrorPage,
-  SuccessfulPayment,
+  FinalizeDonationPage,
+  FinalizeProjectDonationPage,
 } from '../../views'
+
+const BASE_PATH = ':firstName/:lastName/:home_address/:user_email/:certificate'
 
 export default function AllRoute() {
   return (
@@ -22,20 +26,24 @@ export default function AllRoute() {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<Aboutus />} />
         <Route path="/events/:id" element={<SingleEvent />} />
-        <Route path="/courses/:id" element={<SingleEvent />} />
+        <Route path="/courses">
+          <Route path=":id" element={<SingleEvent />} />
+          <Route path="" element={<SingleEvent />} />
+        </Route>
         <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
-        <Route path="/projects/:id" element={<ProjectDetails />} />
+        <Route path="/causes">
+          <Route path=":id" element={<ProjectDetails />} />
+          <Route path={`donation-done/${BASE_PATH}/:text/:anonymous/:amount/:project_id/:nif`} element={<FinalizeProjectDonationPage />} />
+        </Route>
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/partners" element={<BecomeMemberForm />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/volunteers" element={<BecomeVolunteerForm />} />
-        <Route path="/donate" element={<Donate />} />
+        <Route path="/donate">
+          <Route index element={<Donate />} />
+          <Route path={`donation-done/${BASE_PATH}/:text/:anonymous/:amount/:nif`} element={<FinalizeDonationPage />} />
+        </Route>
         <Route path="/contact" element={<ContactusForm />} />
-        <Route
-          // eslint-disable-next-line max-len
-          path="/:feature/donation-done/:firstName/:lastName/:home_address/:user_email/:certificate/:text/:anonymous/:amount/:tickets/:id/:nif"
-          element={<SuccessfulPayment />}
-        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
