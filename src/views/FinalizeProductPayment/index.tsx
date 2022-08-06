@@ -1,17 +1,22 @@
 import { useParams } from 'react-router-dom'
-import { getFinalizeCoursePaymentUrl } from '../../api/postApiServices'
+import { getFinalizeProductPaymentUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
 import { useAppSelector, useFinalizePayment } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
-type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
-  course_id: string;
+type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'> & {
+  product_id: string;
   mobilePhone: string;
+  productAmount:number;
+  cp:number;
+  city:string;
+  country:string;
+  address:string;
 };
 
-function FinalizeCoursePayment() {
+function FinalizeProductPayment() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const url = getFinalizeCoursePaymentUrl(ongId)
+  const url = getFinalizeProductPaymentUrl()
 
   const {
     firstName = '',
@@ -19,21 +24,31 @@ function FinalizeCoursePayment() {
     user_email = '',
     nif = '',
     home_address = '',
-    text = '',
-    course_id = '',
+    product_id = '',
     mobilePhone = '',
+    amount = '0',
+    productAmount = '0',
+    cp = '0',
+    city = '',
+    country = '',
+    address = '',
   } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>()
 
   const params: TParams = {
     firstName,
     lastName,
     user_email,
-    course_id,
+    product_id,
     nif,
     home_address,
-    text,
     ong_id: ongId,
-    mobilePhone
+    mobilePhone,
+    address,
+    city,
+    amount: +amount,
+    country,
+    cp: +cp,
+    productAmount: +productAmount,
   }
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
@@ -43,9 +58,9 @@ function FinalizeCoursePayment() {
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="#courses"
+      redirectPath="shop"
     />
   )
 }
 
-export default FinalizeCoursePayment
+export default FinalizeProductPayment

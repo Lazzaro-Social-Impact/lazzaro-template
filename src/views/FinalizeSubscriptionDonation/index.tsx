@@ -1,17 +1,16 @@
 import { useParams } from 'react-router-dom'
-import { getFinalizeCoursePaymentUrl } from '../../api/postApiServices'
+import { getFinalizeBecomeAPartnerUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
 import { useAppSelector, useFinalizePayment } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
-type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
-  course_id: string;
-  mobilePhone: string;
+type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {
+  comunications: boolean;
 };
 
-function FinalizeCoursePayment() {
+function FinalizeSubscriptionDonation() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const url = getFinalizeCoursePaymentUrl(ongId)
+  const url = getFinalizeBecomeAPartnerUrl()
 
   const {
     firstName = '',
@@ -20,20 +19,23 @@ function FinalizeCoursePayment() {
     nif = '',
     home_address = '',
     text = '',
-    course_id = '',
-    mobilePhone = '',
+    comunications,
+    certificate,
+    amount = '0',
   } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>()
 
   const params: TParams = {
     firstName,
     lastName,
     user_email,
-    course_id,
     nif,
     home_address,
     text,
     ong_id: ongId,
-    mobilePhone
+    comunications: comunications === 'true',
+    certificate: certificate === 'true',
+    amount: +amount,
+
   }
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
@@ -43,9 +45,9 @@ function FinalizeCoursePayment() {
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="#courses"
+      redirectPath="subscriptions"
     />
   )
 }
 
-export default FinalizeCoursePayment
+export default FinalizeSubscriptionDonation

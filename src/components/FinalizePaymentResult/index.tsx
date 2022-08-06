@@ -6,18 +6,18 @@ import TransactionId from './TransactionId'
 
 interface IProps {
   transactionId: string;
-  redirectPath: '/' | '#events' | '#courses' | '#causes' | 'store' | 'donate' | 'subscriptions';
+  redirectPath: '#events' | '#courses' | '#causes' | 'shop' | 'donate' | 'subscriptions';
   isLoading: boolean;
   isError: boolean;
 }
 
-const FinalizePaymentResult: FC<IProps> = (props) => (
+const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps }) => (
   <>
     <Navbar />
     <Result
-      status="success"
-      title="Purchase made successfully!"
-      extra={<TransactionId {...props} />}
+      status={isLoading ? 'info' : isError ? 'error' : 'success'}
+      title={isLoading ? 'loading...' : isError ? 'Something went wrong!' : '"Purchase made successfully!"'}
+      extra={<TransactionId {...restProps} />}
     />
     <Footer />
   </>

@@ -5,16 +5,10 @@ import { Button, Flex, Text } from '../common'
 
 interface IProps {
   transactionId: string;
-  redirectPath: '/' | '#events' | '#courses' | '#causes' | 'store' | 'donate' | 'subscriptions';
-  isLoading: boolean;
-  isError: boolean;
+  redirectPath: '#events' | '#courses' | '#causes' | 'shop' | 'donate' | 'subscriptions';
 }
 
-const TransactionId:FC<IProps> = (props) => {
-  const {
-    transactionId, redirectPath, isError, isLoading
-  } = props
-
+const TransactionId:FC<IProps> = ({ transactionId, redirectPath }) => {
   const navigate = useNavigate()
   const navigateTo = (path: string) => () => navigate(path)
   const { secondary, primary } = useTheme()
@@ -27,12 +21,11 @@ const TransactionId:FC<IProps> = (props) => {
         </Text>
 
         <Text weight="bold" fontSize={1} color={primary} textAlign="left">
-          {isLoading ? 'loading...' : transactionId}
-          {isError && 'something went wrong'}
+          {transactionId}
         </Text>
       </Flex>
 
-      <Button onClick={navigateTo(`/#${redirectPath}`)}>Return</Button>
+      <Button onClick={navigateTo(`/${redirectPath}`)}>Return</Button>
     </Flex>
   )
 }

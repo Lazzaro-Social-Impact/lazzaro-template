@@ -6,7 +6,7 @@ import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, | 'home_address'>
 
-function FinalizeDonationPage() {
+function FinalizeDonation() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
   const url = getFinalizeDonationUrl(ongId)
 
@@ -45,4 +45,4 @@ function FinalizeDonationPage() {
   )
 }
 
-export default FinalizeDonationPage
+export default FinalizeDonation
