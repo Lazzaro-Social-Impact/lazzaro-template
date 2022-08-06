@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks'
 
 export default function AboutUs(): React.ReactElement {
   const {
-    description, img_url, title_description
+    description = '', img_url, title_description
   } = useAppSelector(({ ong }) => ong.ongConfig?.description) || {}
 
   return (

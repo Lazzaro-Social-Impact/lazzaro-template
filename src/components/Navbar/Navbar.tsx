@@ -8,15 +8,14 @@ import { MenuOutlined } from '@ant-design/icons'
 import { Link, NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
 
-type TTransparent = boolean | undefined;
 interface IProps {
-  transparent?: TTransparent;
+  transparent?: boolean;
   position?: TPosition;
 }
 
 function Navbar({ transparent, position }: IProps): ReactElement {
-  const logo = useAppSelector((state) => state.ong?.ongConfig?.brand?.logo)
-  const features = useAppSelector((state) => state.ong?.ongConfig?.features) || {}
+  const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
+  const features = useAppSelector((state) => state.ong.ongConfig?.features) || {} as TFeatures
 
   const featuresArray = Object.keys(features).filter((key) => features[key as keyof TFeatures] === true)
 

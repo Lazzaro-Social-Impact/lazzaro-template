@@ -10,7 +10,7 @@ import Skeleton from '../Skeleton'
 import { IEvent } from '../../types/interfaces'
 
 function Events(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
   const isSectionVisible = useObserver(sectionRef)
 

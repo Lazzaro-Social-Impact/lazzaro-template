@@ -5,7 +5,7 @@ import { useAppSelector, usePostData } from '../../hooks'
 import { DonateSubmitForm } from '../../types/interfaces'
 
 function Donate() {
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     mutateAsync, ...states
   } = usePostData<{data:string}, DonateSubmitForm>(getStartDonationUrl(ongId))

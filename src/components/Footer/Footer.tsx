@@ -15,10 +15,9 @@ import { Image, SectionTitle } from '../common'
 
 export default function Footer(): ReactElement {
   const logo = useAppSelector(({ ong }) => ong.ongConfig?.brand.logo)
-  const phone = useAppSelector(({ ong }) => ong.ongConfig?.contact.phone)
-  const email = useAppSelector(({ ong }) => ong.ongConfig?.contact.email)
+  const { phone = '', email = '' } = useAppSelector(({ ong }) => ong.ongConfig?.contact) || {}
   const {
-    facebook, instagram, twitter, linkedin, web
+    facebook = '', instagram = '', twitter = '', linkedin = '', web = ''
   } = useAppSelector(({ ong }) => ong.ongConfig?.rrss) || {}
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')

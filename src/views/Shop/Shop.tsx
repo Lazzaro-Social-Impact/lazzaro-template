@@ -10,7 +10,7 @@ import Skeleton from '../../components/Skeleton'
 import { TProducts } from '../../types/types'
 
 function Shop() {
-  const ongId = useAppSelector((state) => state.ong?.ongId)
+  const ongId = useAppSelector((state) => state.ong?.ongId) || ''
   const {
     data: products, isLoading
   } = useDependant<TProducts>(getProductsURL(ongId), ['products'], ongId)
