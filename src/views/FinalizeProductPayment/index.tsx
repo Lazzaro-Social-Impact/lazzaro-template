@@ -59,6 +59,7 @@ function FinalizeProductPayment() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="shop"
+      sectionId={product_id}
     />
   )
 }

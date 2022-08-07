@@ -57,6 +57,7 @@ function FinalizeEventPayment() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="#events"
+      sectionId={event_id}
     />
   )
 }

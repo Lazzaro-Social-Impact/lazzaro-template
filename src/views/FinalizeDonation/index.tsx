@@ -41,6 +41,7 @@ function FinalizeDonation() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="donate"
+      sectionId={ongId}
     />
   )
 }

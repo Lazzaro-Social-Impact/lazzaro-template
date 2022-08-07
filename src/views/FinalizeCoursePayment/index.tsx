@@ -44,6 +44,7 @@ function FinalizeCoursePayment() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="#courses"
+      sectionId={course_id}
     />
   )
 }

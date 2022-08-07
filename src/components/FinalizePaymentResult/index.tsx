@@ -6,9 +6,10 @@ import TransactionId from './TransactionId'
 
 interface IProps {
   transactionId: string;
-  redirectPath: '#events' | '#courses' | '#causes' | 'shop' | 'donate' | 'subscriptions';
+  redirectPath: '#events' | '#courses' | '#causes' | 'shop' | 'donate' | 'partners';
   isLoading: boolean;
   isError: boolean;
+  sectionId: string;
 }
 
 const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps }) => (
@@ -17,7 +18,7 @@ const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps })
     <Result
       status={isLoading ? 'info' : isError ? 'error' : 'success'}
       title={isLoading ? 'loading...' : isError ? 'Something went wrong!' : '"Purchase made successfully!"'}
-      extra={<TransactionId {...restProps} />}
+      extra={<TransactionId isError={isError} {...restProps} />}
     />
     <Footer />
   </>

@@ -48,6 +48,7 @@ function FinalizeProjectDonation() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="#causes"
+      sectionId={project_id}
     />
   )
 }

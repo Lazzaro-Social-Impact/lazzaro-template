@@ -45,7 +45,8 @@ function FinalizeSubscriptionDonation() {
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="subscriptions"
+      redirectPath="partners"
+      sectionId={ongId}
     />
   )
 }
