@@ -2,7 +2,7 @@ import { type FC } from 'react'
 import { Result } from 'antd'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
-import TransactionId from './TransactionId'
+import TransactionResult from './TransactionResult'
 
 interface IProps {
   transactionId: string;
@@ -18,7 +18,7 @@ const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps })
     <Result
       status={isLoading ? 'info' : isError ? 'error' : 'success'}
       title={isLoading ? 'loading...' : isError ? 'Something went wrong!' : '"Purchase made successfully!"'}
-      extra={<TransactionId isError={isError} {...restProps} />}
+      extra={<TransactionResult isError={isError} {...restProps} />}
     />
     <Footer />
   </>

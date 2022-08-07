@@ -19,13 +19,13 @@ export default function Projects(): ReactElement {
   } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
 
   return (
-    <section ref={sectionRef}>
+    <section ref={sectionRef} id="causes">
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
       <Carousel arrows>
         {[
           ...chunk(projects, 3).map((ThreeProjects, i) => (
-            <Box key={projects[i].id} id="causes">
+            <Box key={projects[i].id}>
               <Grid>
                 {ThreeProjects.map((project) => (<Project {...project} key={project.id} />))}
               </Grid>
