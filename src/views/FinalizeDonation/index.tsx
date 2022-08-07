@@ -4,7 +4,7 @@ import FinalizePayment from '../../components/FinalizePaymentResult'
 import { useAppSelector, useFinalizePayment } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
-type TParams = Omit<TFinalizePaymentParams, | 'home_address'>
+type TParams = Omit<TFinalizePaymentParams, 'home_address'>
 
 function FinalizeDonation() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
