@@ -19,11 +19,6 @@ function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | bo
     isError,
     data,
     error,
-  } as {
-    isLoading: boolean;
-    isError: boolean;
-    data: TData;
-    error: Error;
   }
 }
 

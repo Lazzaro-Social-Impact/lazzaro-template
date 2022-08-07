@@ -23,15 +23,15 @@ function App() {
     data: config, isLoading: isLoadingPage, isError
   } = useDependant<TPlatformConfig>(getOngByUrl(staticUrl), ['ongConfigUrl'], staticUrl)
 
-  const ongId = config?.ong_id
+  const ongId = config?.ong_id || ''
 
   const {
     data: ongData, isLoading,
     isError: isErrorPage
   } = useDependant<IOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
 
-  const primary = ongData?.brand.primary_color_hex
-  const secondary = ongData?.brand.secondary_color_hex
+  const primary = ongData?.brand.primary_color_hex || ''
+  const secondary = ongData?.brand.secondary_color_hex || ''
 
   const theme: DefaultTheme = { primary, secondary }
 
@@ -49,7 +49,7 @@ function App() {
 
   useLayoutEffect(() => {
     const favIcon = document.getElementById('favicon') as HTMLLinkElement
-    favIcon.href = ongData?.brand?.favicon
+    favIcon.href = ongData?.brand?.favicon || ''
     document.title = ongData?.brand?.name || 'Home Page'
 
     return () => {
