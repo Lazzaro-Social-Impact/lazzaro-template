@@ -21,3 +21,16 @@ export type TEvents = {
     location: string;
     stock: number;
   }[];
+
+export type TFinalizePaymentParams = {
+    firstName: string;
+    lastName: string;
+    user_email: string;
+    amount: number;
+    certificate: boolean;
+    text: string;
+    nif: string;
+    anonymous: boolean;
+    ong_id: string;
+    home_address: string;
+  };
