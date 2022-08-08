@@ -14,14 +14,16 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const staticUrl = 'prehello.web.lazzaro.io'
+const ongUrl = ['development', 'staging'].includes(process.env.NODE_ENV)
+  ? 'prehelloo.web.lazzaro.io'
+  : window.location.hostname
 
 function App() {
   const dispatch = useAppDispatch()
 
   const {
-    data: config, isLoading: isLoadingPage, isError
-  } = useDependant<TPlatformConfig>(getOngByUrl(staticUrl), ['ongConfigUrl'], staticUrl)
+    data: config, isLoading: isLoadingPage, isError,
+  } = useDependant<TPlatformConfig>(getOngByUrl(ongUrl), ['ongConfigUrl'], ongUrl)
 
   const ongId = config?.ong_id || ''
 
