@@ -13,21 +13,26 @@ import {
   Navbar,
   Footer,
 } from '../../components'
+import { useAppSelector } from '../../hooks'
 
 export default function Landing(): ReactElement {
+  const {
+    causes, events, partners, volunteers, courses
+  } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+
   return (
     <>
       <Navbar transparent position="fixed" />
       <Hero />
       <AboutUs />
       <LogosCarousel />
-      <Projects />
-      <PremiumEvent />
+      {causes && <Projects />}
+      {events && <PremiumEvent />}
       <SocialImpact />
-      <Events />
-      <SubscribeDivider />
-      <Courses />
-      <Volunteers />
+      {events && <Events />}
+      {partners && <SubscribeDivider />}
+      {courses && <Courses />}
+      {volunteers && <Volunteers />}
       <Footer />
     </>
   )

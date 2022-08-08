@@ -15,7 +15,7 @@ import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 
 function SingleProduct(): ReactElement {
-  const id = useParams().id as string
+  const { id = '' } = useParams<Record<'id', string>>()
   const {
     data: product
   } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)
@@ -23,8 +23,8 @@ function SingleProduct(): ReactElement {
   const { data: images } = useDependant<TImages>(getProductImages(id), [`images${id}`], id)
 
   const {
-    title, price, description, amount
-  } = product
+    title = '', price = 0, description = '', amount
+  } = product || {}
   return (
     <>
       <Navbar />

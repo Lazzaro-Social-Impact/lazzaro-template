@@ -15,7 +15,7 @@ function Events(): ReactElement {
   const isSectionVisible = useObserver(sectionRef)
 
   const {
-    data: events, isLoading, isError,
+    data: events = [], isLoading, isError,
   } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
 
   // Get the nearest event
