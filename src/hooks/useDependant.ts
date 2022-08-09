@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { QueryKey, useQuery } from '@tanstack/react-query'
 
 function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | boolean) {
@@ -11,7 +11,7 @@ function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | bo
 
   const {
     isLoading, isError, data, error
-  } = useQuery<TData>(queryKey, fetchData, {
+  } = useQuery<TData, AxiosError>(queryKey, fetchData, {
     enabled: !!exist,
   })
   return {
