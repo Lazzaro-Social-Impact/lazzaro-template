@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const ongUrl = ['development', 'staging'].includes(process.env.NODE_ENV)
+const ongUrl = ['development', 'staging'].includes(process.env.REACT_APP_ENV || 'development')
   ? 'prehelloo.web.lazzaro.io'
   : window.location.hostname
 
