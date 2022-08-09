@@ -1,8 +1,8 @@
-import { MutableRefObject, ReactElement, useRef } from 'react'
+import { type ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { chunk } from 'lodash'
 import { Box, Carousel, Image } from '../common'
-import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { useAppSelector, useDependant } from '../../hooks'
 import { getOngLogos } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 import { ErrorInput } from '../common/ErrorInput'
@@ -14,15 +14,13 @@ interface ILogo {
 
 export default function LogosCarousel(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
-  const isSectionVisible = useObserver(sectionRef)
   const {
     data: logos = [], isLoading, isError,
-  } = useDependant<ILogo[]>(getOngLogos(ongId), ['logos'], isSectionVisible && ongId)
+  } = useDependant<ILogo[]>(getOngLogos(ongId), ['logos'], ongId)
 
   const { primary } = useTheme()
   return (
-    <Box ref={sectionRef}>
+    <Box>
       {isError && <ErrorInput msg="something went wrong" />}
       {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
       <Carousel dots={false} bgColor={primary} mt={4.2}>

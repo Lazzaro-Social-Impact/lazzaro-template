@@ -1,22 +1,20 @@
-import { MutableRefObject, ReactElement, useRef } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import NearEvent from './NearEvent/NearEvent'
 import OtherEvent from './OtherEvents'
 import { Flex, SectionTitle } from '../common'
-import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { useAppSelector, useDependant } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 import { IEvent } from '../../types/interfaces'
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
-  const isSectionVisible = useObserver(sectionRef)
 
   const {
     data: events = [], isLoading, isError,
-  } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], isSectionVisible && ongId)
+  } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
 
   // Get the nearest event
   const nearestEvent = events?.sort((a, b):number => {
@@ -30,7 +28,7 @@ function Events(): ReactElement {
   return (
     <>
       <SectionTitle>Events</SectionTitle>
-      <EventsSection id="events" ref={sectionRef}>
+      <EventsSection id="events">
         {isLoading && <Skeleton width={40} height={42} number={1} />}
         {!isLoading && <NearEvent {...nearestEvent} />}
 
