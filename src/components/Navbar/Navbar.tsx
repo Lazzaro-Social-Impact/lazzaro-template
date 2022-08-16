@@ -1,12 +1,18 @@
 /* eslint-disable max-len */
-import { useState, useLayoutEffect, ReactElement } from 'react'
+import {
+  useState, useLayoutEffect, ReactElement, Key
+} from 'react'
 import {
   Drawer, Grid, Dropdown, Menu, Space
 } from 'antd'
 import styled, { useTheme } from 'styled-components'
 import { MenuOutlined } from '@ant-design/icons'
 import { Link, NavLink } from 'react-router-dom'
+import i18n from 'i18next'
+import { useTranslation } from 'react-i18next'
 import { useAppSelector } from '../../hooks'
+import { Button } from '../common'
+import '../../i18n/config'
 
 interface IProps {
   transparent?: boolean;
@@ -16,13 +22,15 @@ interface IProps {
 function Navbar({ transparent, position }: IProps): ReactElement {
   const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
   const features = useAppSelector((state) => state.ong.ongConfig?.features) || {} as TFeatures
+  const [language, setLanguage] = useState(i18n.language)
+  const { t } = useTranslation()
 
   const featuresArray = Object.keys(features).filter((key) => features[key as keyof TFeatures] === true)
 
   const fiveElementsArray = featuresArray?.slice(0, 5)
 
-  const capitlaize = (str: string) => {
-    const words = str.split(' ')
+  const capitlaize = (str: string | TemplateStringsArray) => {
+    const words = (str as string).split(' ')
     const newWords = words
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
@@ -41,12 +49,12 @@ function Navbar({ transparent, position }: IProps): ReactElement {
     }))
 
   const filteredDropDown = <Menu items={filteredArray} />
-  const changeNavbarLinks = (feature: string) => {
+  const changeNavbarLinks = (feature: string | TemplateStringsArray) => {
     switch (feature) {
       case 'donations':
         return (
           <li key="donate">
-            <NavLink to="/donate">Donate</NavLink>
+            <NavLink to="/donate">{t('Donate')}</NavLink>
           </li>
         )
 
@@ -64,7 +72,7 @@ function Navbar({ transparent, position }: IProps): ReactElement {
         )
       default:
         return (
-          <li key={feature}>
+          <li key={feature as Key}>
             <a href={`/#${feature}`}>{capitlaize(feature)}</a>
           </li>
         )
@@ -135,7 +143,20 @@ function Navbar({ transparent, position }: IProps): ReactElement {
               </>
             )}
             <li key="contact-us">
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact">{t('Contact')}</Link>
+            </li>
+            <li key="translation">
+              <Button
+                onClick={() => {
+                  setLanguage(language === 'en' ? 'es' : 'en')
+                  i18n.changeLanguage(language === 'en' ? 'es' : 'en')
+                }}
+                color="primary"
+              >
+                {
+                        language === 'es' ? 'English' : 'Español'
+                      }
+              </Button>
             </li>
           </ul>
         </CustomNav>
