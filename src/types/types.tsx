@@ -1,3 +1,11 @@
+import { type JSXElementConstructor } from 'react'
+
+export type TRoutes = readonly{
+  path: string;
+  render: boolean;
+  Element: JSXElementConstructor<Record<string, never>>;
+}[]
+
 export type TModal = boolean | undefined
 export type TImages = {
     id: string;
