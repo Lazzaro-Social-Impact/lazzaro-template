@@ -1,6 +1,6 @@
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
 import { ContactusForm } from '../../components/Forms/ContactusForm'
-import { IROUTE } from '../../types/interfaces'
+import { TRoutes } from '../../types/types'
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -21,17 +21,17 @@ import {
 import FinalizeSubscriptionDonation from '../../views/FinalizeSubscriptionDonation'
 
 type TGetRoutes = {
-  (features: TFeatures): IROUTE[];
+  (features: TFeatures): TRoutes;
 };
 
-const BASE_PATH = ':firstName/:lastName/:home_address/:user_email'
+const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 
 const getRoutes: TGetRoutes = (features) => {
   const {
     causes, courses, events, partners, donations, volunteers, market
-  } = features
+  } = features || {}
 
-  return [
+  return Object.freeze([
     {
       path: '/',
       render: true,
@@ -49,7 +49,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: SingleEvent,
     },
     {
-      path: `/events/buy-done/${BASE_PATH}/:amount/:tickets/:event_id/:nif`,
+      path: `/events/buy-done/${COMMON_PATH}/:amount/:tickets/:event_id/:nif`,
       render: events,
       Element: FinalizeEventPaymentPage,
     },
@@ -59,7 +59,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: SingleEvent,
     },
     {
-      path: `/courses/buy-done/${BASE_PATH}/:amount/:ong_id/:course_id/:nif`,
+      path: `/courses/buy-done/${COMMON_PATH}/:amount/:ong_id/:course_id/:nif`,
       render: courses,
       Element: FinalizeCoursePaymentPage,
     },
@@ -69,7 +69,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: ProjectDetails,
     },
     {
-      path: `/causes/donation-done/${BASE_PATH}/:certificate/:text/:anonymous/:amount/:project_id/:nif`,
+      path: `/causes/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:project_id/:nif`,
       render: causes,
       Element: FinalizeProjectDonationPage,
     },
@@ -79,7 +79,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: BecomeMemberForm,
     },
     {
-      path: `/partners/donation-done/${BASE_PATH}/:certificate/:amount/:ong_id/:nif`,
+      path: `/partners/donation-done/${COMMON_PATH}/:certificate/:amount/:ong_id/:nif`,
       render: partners,
       Element: FinalizeSubscriptionDonation,
     },
@@ -89,7 +89,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: Shop,
     },
     {
-      path: `/shop/buy-done/${BASE_PATH}/:amount/:productAmount/:product_id/:cp/:city/:country/:address/:nif`,
+      path: `/shop/buy-done/${COMMON_PATH}/:amount/:productAmount/:product_id/:cp/:city/:country/:address/:nif`,
       render: market,
       Element: FinalizeProductPaymentPage,
     },
@@ -104,7 +104,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: Donate,
     },
     {
-      path: `/donate/donation-done/${BASE_PATH}/:certificate/:text/:anonymous/:amount/:nif`,
+      path: `/donate/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:nif`,
       render: donations,
       Element: FinalizeDonationPage,
     },
@@ -128,7 +128,7 @@ const getRoutes: TGetRoutes = (features) => {
       render: true,
       Element: ErrorPage,
     },
-  ]
+  ])
 }
 
 export default getRoutes
