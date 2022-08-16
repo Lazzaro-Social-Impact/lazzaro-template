@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { ProjectCard } from './Tabs/ProjectCard'
@@ -59,7 +59,6 @@ const Flex = styled.div`
   background-color: #fff;
   margin-inline: 6rem;
   margin-top: 5rem;
-  text-align: center;
 
   & div {
     flex: 1;

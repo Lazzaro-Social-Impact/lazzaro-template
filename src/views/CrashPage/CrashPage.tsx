@@ -1,5 +1,5 @@
 import { Result } from 'antd'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 
 export default function CrashPage(): ReactElement {
   return (

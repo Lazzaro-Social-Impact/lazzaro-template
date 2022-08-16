@@ -9,11 +9,11 @@ const { TabPane } = AntdTabs
 interface IProps {
   projectDetails: {
     id: string;
-    description: string
-  }
+    description: string;
+  };
 }
 
-function Tabs({ projectDetails } : IProps) {
+function Tabs({ projectDetails }: IProps) {
   const { id, description } = projectDetails || {}
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { mutateAsync, ...states } = usePostData(getStartProjectDonationUrl(ongId))
