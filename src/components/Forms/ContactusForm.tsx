@@ -5,12 +5,13 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import * as yup from 'yup'
 import { getSendContactUrl } from '../../api/postApiServices'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, usePostData, useGeocoding } from '../../hooks'
 import { Button, Flex } from '../common'
 import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 import Footer from '../Footer/Footer'
+import Map from '../Map'
 import Navbar from '../Navbar/Navbar'
 
 type ContactSubmitForm = {
@@ -34,9 +35,9 @@ export function ContactusForm(): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
     resolver: yupResolver(contactSchema),
   })
-  const phone = useAppSelector((state) => state.ong?.ongConfig?.contact.phone)
-  const email = useAppSelector((state) => state.ong?.ongConfig?.contact.email)
-  const address = useAppSelector((state) => state.ong?.ongConfig?.contact.address)
+  const phone = useAppSelector((state) => state.ong.ongConfig?.contact.phone)
+  const email = useAppSelector((state) => state.ong.ongConfig?.contact.email)
+  const address = useAppSelector((state) => state.ong.ongConfig?.contact.address) || ''
 
   const {
     isLoading, isSuccess, isError, mutateAsync
@@ -47,22 +48,13 @@ export function ContactusForm(): ReactElement {
       ongEmail: email,
     })
   }
+
+  const { lat, lng } = useGeocoding(address)
+
   return (
     <>
       <Navbar />
-      {/* Google map frame  */}
-      <iframe
-        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151
-          .89841008982!2d-122.4207305!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1
-          024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f65e9b%3A0x24a8c2b1f872403a!2s
-          ${address}!5e0!3m2!1sen!2sin!4v1574670105811!5m2!1sen!2sin`}
-        width="100%"
-        height="447px"
-        frameBorder="0"
-        style={{ position: 'absolute', top: '-50px', zIndex: '1' }}
-        allowFullScreen
-        title="google-map"
-      />
+      <Map lat={lat} lng={lng} height={28} />
       <Container>
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
