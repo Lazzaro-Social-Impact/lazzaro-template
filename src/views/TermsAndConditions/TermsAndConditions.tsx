@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { type FC } from 'react'
 import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'
 import { Box, Flex, SectionTitle } from '../../components/common'

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { ProjectCard } from './Tabs/ProjectCard'

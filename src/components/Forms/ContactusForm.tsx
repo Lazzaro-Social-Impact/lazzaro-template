@@ -31,7 +31,7 @@ const contactSchema = yup.object({
   terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions')
 })
 
-export function ContactusForm(): ReactElement {
+export default function ContactusForm(): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
     resolver: yupResolver(contactSchema),
   })

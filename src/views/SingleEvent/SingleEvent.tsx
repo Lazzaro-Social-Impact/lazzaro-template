@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { getEventsURL } from '../../api/getApiServices'

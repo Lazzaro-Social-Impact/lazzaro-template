@@ -1,5 +1,5 @@
 import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
-import { ContactusForm } from '../../components/Forms/ContactusForm'
+import ContactusForm from '../../components/Forms/ContactusForm'
 import { TRoutes } from '../../types/types'
 import {
   Aboutus,
@@ -17,8 +17,8 @@ import {
   FinalizeEventPaymentPage,
   FinalizeCoursePaymentPage,
   FinalizeProductPaymentPage,
+  FinalizeSubscriptionDonationPage,
 } from '../../views'
-import FinalizeSubscriptionDonation from '../../views/FinalizeSubscriptionDonation'
 
 type TGetRoutes = {
   (features: TFeatures): TRoutes;
@@ -81,7 +81,7 @@ const getRoutes: TGetRoutes = (features) => {
     {
       path: `/partners/donation-done/${COMMON_PATH}/:certificate/:amount/:ong_id/:nif`,
       render: partners,
-      Element: FinalizeSubscriptionDonation,
+      Element: FinalizeSubscriptionDonationPage,
     },
     {
       path: '/shop',
