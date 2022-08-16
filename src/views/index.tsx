@@ -2,7 +2,7 @@
 import { lazy } from 'react'
 
 export const Landing = lazy(() => import('./Landing/Landing' /* webpackChunkName: "Landing" */))
-export const Aboutus = lazy(() => import('./Aboutus/Aboutus' /* webpackChunkName: "Aboutus" */))
+export const Aboutus = lazy(() => import('./Aboutus/Aboutus' /* webpackChunkName: "Aboutus_page" */))
 export const ProjectDetails = lazy(() => import('./ProjectDetails' /* webpackChunkName: "ProjectDetails" */))
 export const Donate = lazy(() => import('./Donate/Donate' /* webpackChunkName: "Donate" */))
 export const Shop = lazy(() => import('./Shop/Shop' /* webpackChunkName: "Shop" */))

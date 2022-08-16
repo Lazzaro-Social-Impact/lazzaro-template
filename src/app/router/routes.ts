@@ -38,7 +38,7 @@ const getRoutes: TGetRoutes = (features) => {
       Element: Landing,
     },
     {
-      path: '/aboutus',
+      path: '/about',
       render: true,
       Element: Aboutus,
     },

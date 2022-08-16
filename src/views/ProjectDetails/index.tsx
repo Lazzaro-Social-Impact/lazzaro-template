@@ -59,7 +59,6 @@ const Flex = styled.div`
   background-color: #fff;
   margin-inline: 6rem;
   margin-top: 5rem;
-  text-align: center;
 
   & div {
     flex: 1;
