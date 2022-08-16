@@ -7,12 +7,12 @@ import { setOngConfig, setOngId } from './redux/features'
 import AllRoute from './app/router'
 import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 import { CrashPage } from './views'
-
 import './App.css'
 import 'antd/dist/antd.min.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
+import './i18n/config'
 
 const ongUrl = ['development', 'staging'].includes(process.env.REACT_APP_ENV || 'development')
   ? 'prehelloo.web.lazzaro.io'
