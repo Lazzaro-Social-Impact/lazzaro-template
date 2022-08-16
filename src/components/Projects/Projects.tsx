@@ -1,25 +1,22 @@
 import { chunk } from 'lodash'
-import { MutableRefObject, ReactElement, useRef } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
-import { useAppSelector, useDependant, useObserver } from '../../hooks'
+import { useAppSelector, useDependant } from '../../hooks'
 import { IProject } from '../../types/interfaces'
 import { Box, Carousel } from '../common'
 import ProjectCardSkeleton from '../Skeleton'
 import { Project } from './Project/Project'
 
 export default function Projects(): ReactElement {
-  const sectionRef = useRef() as MutableRefObject<HTMLDivElement>
-  const isSectionVisible = useObserver(sectionRef)
-
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
 
   const {
     data: projects = [], isLoading
-  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], isSectionVisible && ongId)
+  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
 
   return (
-    <section ref={sectionRef} id="causes">
+    <section id="causes">
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
       <Carousel arrows>
