@@ -1,3 +1,10 @@
+import { type JSXElementConstructor } from 'react'
+
+export interface IROUTE {
+  path: `/${string}`;
+  render: boolean | undefined;
+  Element: JSXElementConstructor<Record<string, never>>;
+}
 export interface IProduct {
     title: string;
     id: string;
