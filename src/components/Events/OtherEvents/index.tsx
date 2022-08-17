@@ -23,7 +23,11 @@ export default function EventsRow(props: IProps): ReactElement {
   const navigateTo = (path: string) => () => navigate(path)
 
   return (
-    <Box cursor="pointer" mx={1} onHover={{ border: '1px' }} onClick={navigateTo(`/events/${id}`)}>
+    <CustomBox
+      cursor="pointer"
+      p={1}
+      onClick={navigateTo(`/events/${id}`)}
+    >
       <FlexCard justify="center" align="flex-start" px={3} py={1}>
         <Box>
           <CalendarIcon size="4em" date={day} />
@@ -36,7 +40,7 @@ export default function EventsRow(props: IProps): ReactElement {
           </Box>
         </Box>
       </FlexCard>
-    </Box>
+    </CustomBox>
   )
 }
 
@@ -48,7 +52,16 @@ const Title = styled.h2`
     font-size: 1.8rem;
   }
 `
-
+const CustomBox = styled(Box)`
+border: 1px solid transparent;
+transition: all 0.2s ease-in-out;
+box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+&:hover {
+  border: 1px solid ${({ theme }) => theme.primary};
+  border-radius: 10px;
+  box-shadow: none;
+}
+`
 const FlexCard = styled(Flex)`
   text-align: left;
   @media (max-width: 769px) {

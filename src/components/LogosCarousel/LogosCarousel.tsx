@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import { Box, Carousel, Image } from '../common'
 import { useAppSelector, useDependant } from '../../hooks'
 import { getOngLogos } from '../../api/getApiServices'
@@ -26,10 +26,10 @@ export default function LogosCarousel(): ReactElement {
       <Carousel dots={false} bgColor={primary} mt={4.2}>
         {[
           ...chunk(logos, 4).map((fourLogos, i) => (
-            <ImageContainer key={fourLogos[i]?.id}>
+            <ImageContainer key={i && `logo-${i}`}>
               {fourLogos.map(({ id, logo }) => (
                 <Box key={id}>
-                  <Image src={logo} alt="logo" maxHeight="8rem" />
+                  <Image src={logo} alt="logo" maxHeight="8rem" key={logo} />
                 </Box>
               ))}
             </ImageContainer>

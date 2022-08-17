@@ -1,4 +1,4 @@
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'

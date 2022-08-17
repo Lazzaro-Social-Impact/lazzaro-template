@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { BookmarkIcon } from '../../Icons'
 import {
-  Box, Card, Image, Link, Text
+  Box, Card, Image, Link
 } from '../../common'
 
 interface IProps {
@@ -29,7 +29,7 @@ export default function NearEvent(props: IProps): ReactElement {
 
       <TextContainer>
         <h2>{title}</h2>
-        <Text>{HtmlParser(description?.slice(0, 150))}</Text>
+        {HtmlParser(description?.slice(0, 150))}
         <Link to={`/events/${id}`} align="right" size={1.2} underlined>
           Read more
         </Link>
