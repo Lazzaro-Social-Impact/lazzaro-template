@@ -48,7 +48,10 @@ const NavbarLinks:FC = () => {
   const NAVBAR_LINKS = featuresArray.map(
     (feature) => exceptFeatures[feature as keyof typeof exceptFeatures] || (
     <li key={feature}>
-      <a href={`/#${feature}`}>{t(properCase(feature))}</a>
+      <FeatureLink
+        href={`/#${feature}`}
+      >{t(properCase(feature))}
+      </FeatureLink>
     </li>
     )
   )
@@ -85,9 +88,9 @@ const NavbarLinks:FC = () => {
         <Links>
           {NAVBAR_LINKS}
 
-          <Button onClick={handleChangeLanguage} p={0.5}>
+          <LanguageItem onClick={handleChangeLanguage}>
             {language.current === 'es' ? 'English' : 'Español'}
-          </Button>
+          </LanguageItem>
         </Links>
       )}
       <Drawer
@@ -103,6 +106,24 @@ const NavbarLinks:FC = () => {
 }
 export default NavbarLinks
 
+const LanguageItem = styled.li`
+color: white;
+cursor: pointer;
+font-weight: bold;
+transition: all 0.2s ease-in-out;
+&:hover {
+  color: ${({ theme }) => theme.primary};
+  text-decoration: underline;
+  
+}
+`
+
+const FeatureLink = styled.a`
+transition: all 0.2s ease-in-out;
+&:hover {
+  text-decoration: underline;
+}
+`
 const ImageContainer = styled.div`
   max-width: 180px;
 

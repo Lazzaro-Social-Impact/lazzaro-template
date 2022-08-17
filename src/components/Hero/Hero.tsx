@@ -27,7 +27,7 @@ function Hero() {
         <Flex gap={1.2} justify="center">
           <Button color="white"> {t('Donate')} </Button>
           <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
-            Become a member
+            {t('Become a member')}
           </Button>
         </Flex>
       </HeroSection>
