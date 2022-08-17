@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { toast } from 'react-toastify'
-import { LoadingSpinner } from './LoadingSpinner'
 
+const LoadingSpinner = lazy(() => import('./LoadingSpinner'))
 interface IProps {
     isLoading: boolean
     isSuccess: boolean

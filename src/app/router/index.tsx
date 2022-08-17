@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { LoadingIndex } from '../../components'
+import LoadingIndex from '../../components/LoadingIndex/LoadingIndex'
 import { useAppSelector } from '../../hooks'
 
 import getRoutes from './routes'
