@@ -109,6 +109,8 @@ export default NavbarLinks
 const LanguageItem = styled.li`
 color: white;
 cursor: pointer;
+color: #ddd;
+
 font-weight: bold;
 transition: all 0.2s ease-in-out;
 &:hover {
