@@ -152,7 +152,8 @@ const Container = styled.div`
 display: flex;
 justify-content: center;
 margin: 0 9.4rem;
-margin-top: 20.4rem;
+margin-top: -12.4rem;
+z-index: 1;
 `
 
 const ContactusFormBox = styled.form`

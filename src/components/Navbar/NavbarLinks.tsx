@@ -86,7 +86,9 @@ const NavbarLinks:FC = () => {
       {md && (
         <Links>
           {NAVBAR_LINKS}
-
+          <li key="contact">
+            <Link to="/contact">{t('Contact')}</Link>
+          </li>
           <LanguageToggle onClick={handleChangeLanguage}>
             {language.current === 'es' ? 'English' : 'Español'}
           </LanguageToggle>
