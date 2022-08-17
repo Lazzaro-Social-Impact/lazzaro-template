@@ -9,7 +9,7 @@ import i18next from 'i18next'
 import { useAppSelector } from '../../hooks'
 import { properCase } from '../../utils'
 import {
-  Box, Button, Image, Link
+  Box, Image, Link
 } from '../common'
 
 const { useBreakpoint } = Grid
