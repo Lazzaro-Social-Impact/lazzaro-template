@@ -18,13 +18,13 @@ const NavbarLinks:FC = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const language = useRef<'en' | 'es'>('en')
   const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
-  const { features = {} } = useAppSelector((state) => state.ong.ongConfig) || {}
+  const { features } = useAppSelector((state) => state.ong.ongConfig) || {}
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 
   const includedFeatures = ['causes', 'courses', 'events', 'partners', 'donations', 'market']
   const featuresArray = Object.keys(features)
-    .filter((feature) => includedFeatures.includes(feature))
+    .filter((feature) => includedFeatures.includes(feature) && features[feature as keyof TFeatures])
     .sort()
 
   const exceptFeatures = {
@@ -48,9 +48,8 @@ const NavbarLinks:FC = () => {
   const NAVBAR_LINKS = featuresArray.map(
     (feature) => exceptFeatures[feature as keyof typeof exceptFeatures] || (
     <li key={feature}>
-      <FeatureLink
-        href={`/#${feature}`}
-      >{t(properCase(feature))}
+      <FeatureLink href={`/#${feature}`}>
+        {t(properCase(feature))}
       </FeatureLink>
     </li>
     )
@@ -88,9 +87,9 @@ const NavbarLinks:FC = () => {
         <Links>
           {NAVBAR_LINKS}
 
-          <LanguageItem onClick={handleChangeLanguage}>
+          <LanguageToggle onClick={handleChangeLanguage}>
             {language.current === 'es' ? 'English' : 'Español'}
-          </LanguageItem>
+          </LanguageToggle>
         </Links>
       )}
       <Drawer
@@ -106,7 +105,7 @@ const NavbarLinks:FC = () => {
 }
 export default NavbarLinks
 
-const LanguageItem = styled.li`
+const LanguageToggle = styled.li`
 color: white;
 cursor: pointer;
 color: #ddd;
