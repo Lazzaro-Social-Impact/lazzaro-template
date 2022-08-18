@@ -1,10 +1,9 @@
 import { ReactElement } from 'react'
 import { Tabs } from 'antd'
-import { useParams } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
-import { getEventURL, getEventImages } from '../../api/getApiServices'
+import { getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
@@ -12,11 +11,8 @@ import Skeleton from '../Skeleton'
 import { IEvent, IImage } from '../../types/interfaces'
 import Map from '../Map'
 
-export function SingleEventDetails(): ReactElement {
-  const { id } = useParams() as { id: string }
-  const {
-    data: event, isLoading: isLoadingEvent
-  } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id)
+export function SingleEventDetails({ event, id, isLoadingEvent }
+  : { event: IEvent | undefined, id: string, isLoadingEvent: boolean }): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
