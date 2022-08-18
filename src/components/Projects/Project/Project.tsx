@@ -57,7 +57,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
 const ProjectCard = styled(Flex)`
   flex: 1;
-  height: 37rem;
+  height: 50rem;
   border: 1px solid #ccc;
   overflow: hidden;
   flex-direction: column;
