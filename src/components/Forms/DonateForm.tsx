@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Input } from '../common'
+import { Button, Center, Input } from '../common'
 import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
@@ -134,7 +134,12 @@ function Form({ projectId, submitHandler, states }: IProps) {
         <ErrorMsg msg={errors.terms?.message} />
       </FormControl>
 
-      <button hidden type="submit" aria-label="submit" />
+      <Center>
+
+        <Button type="submit" aria-label="submit">
+          Donate
+        </Button>
+      </Center>
     </CustomForm>
   )
 }
