@@ -51,7 +51,7 @@ export function ProjectCard({ project } : IProps) {
         Goal <br />${amount}
       </Text>
       <Flex gap={1}>
-        <Button px={1.8} py={0.8} bgColor="#F1F1F1" color="#777777">
+        <Button px={1.8} py={0.8}>
           Share
         </Button>
         <BuyModal btnText={donateBtnText}>
