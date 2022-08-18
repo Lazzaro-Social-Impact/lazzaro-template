@@ -7,14 +7,14 @@ import LatestDonations from './HistoricalDonations'
 
 const { TabPane } = AntdTabs
 interface IProps {
-  projectDetails: {
-    id: string;
-    description: string;
+  projectDetails?: {
+    id: string,
+    description: string,
   };
 }
 
 function Tabs({ projectDetails }: IProps) {
-  const { id, description } = projectDetails || {}
+  const { id = '', description = '' } = projectDetails || {}
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { mutateAsync, ...states } = usePostData(getStartProjectDonationUrl(ongId))
 
@@ -40,4 +40,10 @@ function Tabs({ projectDetails }: IProps) {
   )
 }
 
+Tabs.defaultProps = {
+  projectDetails: {
+    id: '',
+    description: '',
+  }
+}
 export default Tabs

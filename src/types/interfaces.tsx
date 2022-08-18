@@ -104,4 +104,6 @@ export interface IEvent {
   imageURL: string;
   start_time: string;
   location: string;
+  end_time: string;
+  stock: number;
 }
