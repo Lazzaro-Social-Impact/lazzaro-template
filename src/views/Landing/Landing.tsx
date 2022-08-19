@@ -1,4 +1,5 @@
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
   Hero,
   Events,
@@ -16,9 +17,19 @@ import {
 import { useAppSelector } from '../../hooks'
 
 export default function Landing(): ReactElement {
+  const { hash } = useLocation()
   const {
     causes, events, partners, volunteers, courses
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.slice(1))
+      if (element) {
+        element.scrollIntoView()
+      }
+    }
+  }, [hash])
 
   return (
     <>

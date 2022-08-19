@@ -48,9 +48,9 @@ const NavbarLinks:FC = () => {
   const NAVBAR_LINKS = featuresArray.map(
     (feature) => exceptFeatures[feature as keyof typeof exceptFeatures] || (
     <li key={feature}>
-      <FeatureLink href={`/#${feature}`}>
+      <Link to={`/#${feature}`}>
         {t(properCase(feature))}
-      </FeatureLink>
+      </Link>
     </li>
     )
   )
