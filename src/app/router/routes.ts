@@ -1,6 +1,4 @@
-import { BecomeMemberForm } from '../../components/Forms/BecomeMemberForm'
-import ContactusForm from '../../components/Forms/ContactusForm'
-import { TRoutes } from '../../types/types'
+import type { TRoutes } from '../../types/types'
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -18,20 +16,18 @@ import {
   FinalizeCoursePaymentPage,
   FinalizeProductPaymentPage,
   FinalizeSubscriptionDonationPage,
+  BecomeMemberForm,
+  ContactusForm,
 } from '../../views'
-
-type TGetRoutes = {
-  (features: TFeatures): TRoutes;
-};
 
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 
-const getRoutes: TGetRoutes = (features) => {
+const getRoutes = (features:TFeatures): TRoutes => {
   const {
     causes, courses, events, partners, donations, volunteers, market
   } = features || {}
 
-  return Object.freeze([
+  return [
     {
       path: '/',
       render: true,
@@ -128,7 +124,7 @@ const getRoutes: TGetRoutes = (features) => {
       render: true,
       Element: ErrorPage,
     },
-  ])
+  ]
 }
 
 export default getRoutes

@@ -27,7 +27,7 @@ type memberSubmitForm = {
   phone: string
 }
 
-export function BecomeMemberForm(): ReactElement {
+export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
   const {
     register, handleSubmit, formState: { errors }, control
