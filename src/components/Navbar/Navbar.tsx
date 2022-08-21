@@ -1,5 +1,5 @@
 import {
-  useState, useLayoutEffect, type ReactElement
+  useState, useLayoutEffect, type ReactElement, memo
 } from 'react'
 import styled, { useTheme } from 'styled-components'
 import '../../i18n/config'
@@ -58,4 +58,4 @@ Navbar.defaultProps = {
   transparent: false,
   position: 'static',
 }
-export default Navbar
+export default memo(Navbar)

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { Box, Carousel, Image } from '../common'
+import Skeleton from '../Skeleton'
 
 interface IProps {
   imgs: { id: string; img_url: string }[];
@@ -7,7 +8,7 @@ interface IProps {
 }
 
 export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
-  if (isLoading) return <h1>Loading</h1>
+  if (isLoading) return <Skeleton width={25} height={27} number={1} />
   return (
     <>
       {!isLoading && (
