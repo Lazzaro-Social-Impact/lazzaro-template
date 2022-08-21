@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import styled from 'styled-components'
 import chunk from 'lodash/chunk'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
@@ -9,19 +9,24 @@ import { IMember } from '../../types/interfaces'
 export default function Volunteers(): ReactElement {
   const members = useAppSelector((state) => state.ong.ongConfig?.team)
 
+  const memoizedMembersCards = useMemo(
+    () => [
+      ...chunk<IMember>(members, 3).map((memberCards, i: number) => (
+        <VolunteerCards key={`memberCards ${memberCards[i].id}`}>
+          {memberCards.map((member: IMember) => (
+            <VolunteerCard {...member} key={member.id} />
+          ))}
+        </VolunteerCards>
+      )),
+    ],
+    [members]
+  )
+
   return (
     <VolunteersSection id="volunteers">
       <SectionTitle>Our Volunteers</SectionTitle>
       <Carousel dots>
-        {members && [
-          ...chunk<IMember>(members, 3).map((memberCards, i: number) => (
-            <VolunteerCards key={`memberCards ${memberCards[i].id}`}>
-              {memberCards.map((member: IMember) => (
-                <VolunteerCard {...member} key={member.id} />
-              ))}
-            </VolunteerCards>
-          )),
-        ]}
+        {memoizedMembersCards}
       </Carousel>
     </VolunteersSection>
   )
