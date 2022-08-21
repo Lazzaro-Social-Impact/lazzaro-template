@@ -1,5 +1,6 @@
 import React from 'react'
 import HtmlParser from 'react-html-parser'
+import { useTranslation } from 'react-i18next'
 import {
   Box, Flex, Image, Link, SectionTitle
 } from '../common'
@@ -9,7 +10,7 @@ export default function AboutUs(): React.ReactElement {
   const {
     description = '', img_url, title_description
   } = useAppSelector(({ ong }) => ong.ongConfig?.description) || {}
-
+  const { t } = useTranslation()
   return (
     <Flex id="about" align="stretch" mt={4.2} pl={4.1}>
       <Flex direction="column" align="stretch" justify="stretch" textAlign="left" flex={1}>
@@ -22,7 +23,7 @@ export default function AboutUs(): React.ReactElement {
         </Box>
 
         <Link to="/about" align="flex-start" underlined>
-          Read more
+          {t('Read More')}
         </Link>
       </Flex>
 

@@ -9,7 +9,7 @@ export default function SocialImpact(): ReactElement {
   const impact = useAppSelector((state) => state.ong.ongConfig?.impactData)
   return (
 
-    <Flex id="impact" direction="column" bgColor={primary} gap={2.5} px={5}>
+    <Flex id="impact" mt={2.4} direction="column" bgColor={primary} gap={2.5} px={5}>
       <SectionTitle color="white" fontSize={2.8} marginTop={3}>Social Impact </SectionTitle>
 
       <Flex wrap="nowrap" mt={1.2} mb={4}>

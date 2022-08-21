@@ -1,5 +1,5 @@
 import { Fragment, type ReactElement } from 'react'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import CourseCard from './CourseCard/CourseCard'
 import {
   Box, Carousel, Flex, SectionTitle

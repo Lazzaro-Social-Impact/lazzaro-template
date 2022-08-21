@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-export function LoadingIndex(): ReactElement {
+export default function LoadingIndex(): ReactElement {
   return (
     <Spinner>
       <div className="dot1" />

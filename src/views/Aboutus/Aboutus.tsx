@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import HtmlParser from 'react-html-parser'
 import { Footer, Navbar } from '../../components'

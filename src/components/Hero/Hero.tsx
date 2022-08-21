@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { useAppSelector } from '../../hooks'
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 function Hero() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { heroImage = '', textHeader, textSubHeader } = useAppSelector((state) => ({
     heroImage: state.ong.ongConfig?.brand?.default_img,
@@ -23,9 +25,9 @@ function Hero() {
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
-          <Button color="white"> Donar </Button>
+          <Button color="white"> {t('Donate')} </Button>
           <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
-            Become a member
+            {t('Become a member')}
           </Button>
         </Flex>
       </HeroSection>

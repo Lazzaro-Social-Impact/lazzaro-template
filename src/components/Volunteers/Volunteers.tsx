@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 import { useAppSelector } from '../../hooks'
 import { Carousel } from '../common'
@@ -15,7 +15,7 @@ export default function Volunteers(): ReactElement {
       <Carousel dots>
         {members && [
           ...chunk<IMember>(members, 3).map((memberCards, i: number) => (
-            <VolunteerCards key={`memberCards ${memberCards[i]}`}>
+            <VolunteerCards key={`memberCards ${memberCards[i].id}`}>
               {memberCards.map((member: IMember) => (
                 <VolunteerCard {...member} key={member.id} />
               ))}

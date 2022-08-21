@@ -1,34 +1,33 @@
-import React, { ReactElement } from 'react'
-import { useLocation } from 'react-router-dom'
+import { type ReactElement } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { getEventsURL } from '../../api/getApiServices'
+import { getEventURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
 import Skeleton from '../../components/Skeleton'
-import { useAppSelector, useDependant } from '../../hooks'
-import { TEvents } from '../../types/types'
+import { useDependant } from '../../hooks'
+import { IEvent } from '../../types/interfaces'
 
 function SingleEvent(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const { data: events, isLoading } = useDependant<TEvents>(getEventsURL(ongId), ['events'], ongId)
   const { pathname } = useLocation()
   const isEvent = pathname.startsWith('/events')
   const isCourse = pathname.startsWith('/courses')
-
+  const { id } = useParams() as { id: string }
+  const { data: event, isLoading } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
   return (
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails />
+        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} />
         <OtherEvents>
-          {isLoading && <Skeleton number={3} height={22} width={26} />}
+          {isLoading && <Skeleton number={1} height={22} width={26} />}
 
           {isEvent
-            && events?.map((event) => !event.course && <EventCard {...event} key={event.id} />)}
+            && event?.course === false && <EventCard {...event} key={event?.id} />}
 
           {isCourse
-            && events?.map((event) => event.course && <EventCard {...event} key={event.id} />)}
+            && event?.course && <EventCard {...event} key={event?.id} />}
         </OtherEvents>
       </Container>
       <Footer />
@@ -55,7 +54,7 @@ const Container = styled.div`
 const OtherEvents = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0.3;
   height: 75rem;
   gap: 1.2rem;
   overflow-y: auto;

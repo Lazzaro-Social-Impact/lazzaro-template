@@ -1,24 +1,25 @@
 import { ReactElement } from 'react'
 import { Tabs } from 'antd'
-import { useParams } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import styled from 'styled-components'
-import { useDependant } from '../../hooks'
-import { getEventURL, getEventImages } from '../../api/getApiServices'
+import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
+import { getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
 import { IEvent, IImage } from '../../types/interfaces'
+import Map from '../Map'
 
-export function SingleEventDetails(): ReactElement {
-  const { id } = useParams() as { id: string }
-  const {
-    data: event, isLoading: isLoadingEvent
-  } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id)
+export function SingleEventDetails({ event, id, isLoadingEvent }
+  : { event: IEvent | undefined, id: string, isLoadingEvent: boolean }): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
+  const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
+
+  const { lat, lng } = useGeocoding(address)
+
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
@@ -35,19 +36,7 @@ export function SingleEventDetails(): ReactElement {
             <BuyEventform eventId={id} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Location" key="2">
-            {/* Google Map frame  */}
-            <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151
-                     .89841008982!2d-122.4207305!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1
-                     024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f65e9b%3A0x24a8c2b1f872403a!2s
-                     ${event?.location}!5e0!3m2!1sen!2sin!4v1574670105811!5m2!1sen!2sin`}
-              width="100%"
-              height="450"
-              frameBorder="0"
-              style={{ border: 0 }}
-              aria-hidden="false"
-              title="google-map"
-            />
+            <Map lat={lat} lng={lng} height={28} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Contact" key="3">
             <ContactEventForm id={id} />
@@ -64,6 +53,7 @@ const Event = styled.div`
     flex-direction: column;
     gap: 0.8rem;
     width: 920px;
+    flex:1;
     @media screen and (max-width: 768px) {
       width: 100%;
     }

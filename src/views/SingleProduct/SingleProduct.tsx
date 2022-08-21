@@ -1,5 +1,5 @@
 import { Tabs, Breadcrumb } from 'antd'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import HtmlParser from 'react-html-parser'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'

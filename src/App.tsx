@@ -1,19 +1,19 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, lazy } from 'react'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import { useDependant, useAppDispatch } from './hooks'
 import { setOngConfig, setOngId } from './redux/features'
 import AllRoute from './app/router'
-import { LoadingIndex } from './components/LoadingIndex/LoadingIndex'
 import { CrashPage } from './views'
-
 import './App.css'
 import 'antd/dist/antd.min.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
+import './i18n/config'
 
+const LoadingIndex = lazy(() => import('./components/LoadingIndex/LoadingIndex'))
 const ongUrl = ['development', 'staging'].includes(process.env.REACT_APP_ENV || 'development')
   ? 'prehelloo.web.lazzaro.io'
   : window.location.hostname

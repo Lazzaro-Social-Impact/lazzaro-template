@@ -1,4 +1,4 @@
-import { chunk } from 'lodash'
+import chunk from 'lodash/chunk'
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
@@ -36,7 +36,7 @@ export default function Projects(): ReactElement {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   margin-top: 4.2rem;
   padding-inline: 4.1rem;
   gap: 2rem;

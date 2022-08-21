@@ -1,16 +1,21 @@
-export { default as Navbar } from './Navbar/Navbar'
-export { default as AboutUs } from './Aboutus/Aboutus'
-export { default as Events } from './Events/Events'
-export { default as Hero } from './Hero/Hero'
-export { default as LogosCarousel } from './LogosCarousel/LogosCarousel'
-export { default as PremiumEvent } from './PremiumEvent/PremiumEvent'
-export { default as Projects } from './Projects/Projects'
-export { default as SocialImpact } from './SocialImpact/SocialImpact'
-export { default as SubscribeDivider } from './SubscribeDivider/SubscribeDivider'
-export { default as Footer } from './Footer/Footer'
-export { default as Volunteers } from './Volunteers/Volunteers'
-export { default as Divider } from './Divider/Divider'
-export { default as Courses } from './Courses/Courses'
-export { default as DonateForm } from './Forms/DonateForm'
-export { default as BuyModal } from './BuyModal'
-export { default as FinalizePaymentResult } from './FinalizePaymentResult'
+/* eslint-disable max-len */
+import { lazy } from 'react'
+
+export const Navbar = lazy(() => import('./Navbar/Navbar' /* webpackChunkName: "Navbar" */))
+export const AboutUs = lazy(() => import('./Aboutus/Aboutus' /* webpackChunkName: "AboutUs section" */))
+export const Events = lazy(() => import('./Events/Events' /* webpackChunkName: "Events_section" */))
+export const Hero = lazy(() => import('./Hero/Hero' /* webpackChunkName: "Hero" */))
+export const LogosCarousel = lazy(() => import('./LogosCarousel/LogosCarousel' /* webpackChunkName: "LogosCarousel" */))
+export const PremiumEvent = lazy(() => import('./PremiumEvent/PremiumEvent' /* webpackChunkName: "PremiumEventSection" */))
+export const Projects = lazy(() => import('./Projects/Projects' /* webpackChunkName: "Projects_section" */))
+export const SocialImpact = lazy(() => import('./SocialImpact/SocialImpact' /* webpackChunkName: "SocialImpact_section" */))
+export const SubscribeDivider = lazy(() => import('./SubscribeDivider/SubscribeDivider' /* webpackChunkName: "SubscribeDivider" */))
+export const Footer = lazy(() => import('./Footer/Footer' /* webpackChunkName: "Footer" */))
+export const Volunteers = lazy(() => import('./Volunteers/Volunteers' /* webpackChunkName: "Volunteers section" */))
+export const Divider = lazy(() => import('./Divider/Divider' /* webpackChunkName: "Divider" */))
+export const Courses = lazy(() => import('./Courses/Courses' /* webpackChunkName: "Courses_section" */))
+export const DonateForm = lazy(() => import('./Forms/DonateForm' /* webpackChunkName: "DonateForm" */))
+export const BuyModal = lazy(() => import('./BuyModal' /* webpackChunkName: "BuyModal" */))
+export const FinalizePaymentResult = lazy(() => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */))
+export const Map = lazy(() => import('./Map' /* webpackChunkName: "Map" */))
+export const LoadingIndex = lazy(() => import('./LoadingIndex/LoadingIndex' /* webpackChunkName: "LoadingIndex" */))

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-export function LoadingSpinner(): ReactElement {
+export default function LoadingSpinner(): ReactElement {
   return (
     <Loading>
       <div className="sk-chase">
