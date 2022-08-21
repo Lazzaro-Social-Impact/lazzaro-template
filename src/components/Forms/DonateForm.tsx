@@ -166,7 +166,6 @@ const TextArea = styled.textarea`
 `
 
 const RadioBtn = styled.input`
-  accent-color: ${({ theme }) => theme.primary};
   border: none;
   outline: none;
   cursor: pointer;
