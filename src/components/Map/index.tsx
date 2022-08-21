@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { memo, type FC } from 'react'
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
 import Skeleton from '../Skeleton'
 
@@ -24,4 +24,4 @@ const Map: FC<IProps> = ({ height, lat, lng }) => {
     </>
   )
 }
-export default Map
+export default memo(Map)
