@@ -1,5 +1,5 @@
 import { Tabs, Breadcrumb } from 'antd'
-import { type ReactElement } from 'react'
+import { useMemo, type ReactElement } from 'react'
 import HtmlParser from 'react-html-parser'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -25,6 +25,15 @@ function SingleProduct(): ReactElement {
   const {
     title = '', price = 0, description = '', amount
   } = product || {}
+
+  const memoizedImages = useMemo(
+    () => images?.map((image) => (
+      <ImageContainer key={image.id}>
+        <img src={image.img_url} alt="product" />
+      </ImageContainer>
+    )),
+    [images]
+  )
   return (
     <>
       <Navbar />
@@ -36,11 +45,7 @@ function SingleProduct(): ReactElement {
       </Center>
       <Container>
         <Flex gap={2.4}>
-          {images?.map((image) => (
-            <ImageContainer key={image.id}>
-              <img src={image.img_url} alt="" />
-            </ImageContainer>
-          ))}
+          {memoizedImages}
         </Flex>
         <ProductSidebar>
           <Card mode="column" smMode="column" maxWidth="400px" py={2.4} px={1.8}>

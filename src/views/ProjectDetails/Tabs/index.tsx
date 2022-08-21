@@ -3,7 +3,7 @@ import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateForm } from '../../../components'
 import { useAppSelector, usePostData } from '../../../hooks'
 import Description from './Description'
-import LatestDonations from './HistoricalDonations'
+import LatestDonations from './LatestDonations'
 
 const { TabPane } = AntdTabs
 interface IProps {
