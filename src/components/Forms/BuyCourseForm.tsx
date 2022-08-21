@@ -2,9 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
-import * as yup from 'yup'
 import { getBuyCourseUrl } from '../../api/getApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
+import { buyCourseTicketSchema } from '../../validation/schemas'
 import {
   Button, Input, Label, Link
 } from '../common'
@@ -22,13 +22,6 @@ type buyCourseFormSubmit = {
   mobilePhone: string;
   terms: boolean;
 };
-const buyTicketSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  mobilePhone: yup.string().required('Mobile phone is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
-})
 
 export default function BuyCourseForm({ courseId }: Props): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
@@ -39,7 +32,7 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<buyCourseFormSubmit>({
-    resolver: yupResolver(buyTicketSchema),
+    resolver: yupResolver(buyCourseTicketSchema),
   })
 
   const { mutateAsync, ...states } = usePostData<{ data: string }, buyCourseFormSubmit>(

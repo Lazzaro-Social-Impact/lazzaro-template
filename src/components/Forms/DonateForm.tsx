@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, Center, Input } from '../common'
@@ -8,6 +7,7 @@ import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { DonateSubmitForm } from '../../types/interfaces'
+import { donationSchema } from '../../validation/schemas'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -18,17 +18,6 @@ interface IProps {
     isSuccess: boolean;
   }
 }
-
-const donationSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  home_address: yup.string().required('Address is required'),
-  nif: yup.string().required('ID is required').typeError('ID must be a number'),
-  terms: yup.boolean().required('You must accept the terms and conditions'),
-  amount: yup.number().required('Amount is required').typeError('Amount must be a number'),
-  text: yup.string()
-})
 
 function Form({ projectId, submitHandler, states }: IProps) {
   const {

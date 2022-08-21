@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import * as yup from 'yup'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
+import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea
 } from '../common'
@@ -17,21 +18,6 @@ interface IProps {
   price: number;
   title: string;
 }
-
-const schema = yup.object({
-  firstName: yup.string().trim().required('FirstName is required'),
-  lastName: yup.string().trim().required('LastName is required'),
-  user_email: yup.string().email().trim().required('Email is required'),
-  home_address: yup.string().required('Address is required'),
-  productAmount: yup.number().typeError('please enter an amount').required(),
-  city: yup.string().required('City is required'),
-  country: yup.string().required('Country is required'),
-  nif: yup.string().required('DNI is required'),
-  cp: yup.number().typeError('CP is required').required(),
-  mobile_phone: yup.string().required('Phone is required'),
-  birthDate: yup.date().typeError('date of birth is required').required(),
-  privacy_policy: yup.boolean().isTrue('You must accept the privacy policy').required(),
-})
 
 interface IFormSubmit {
   amount: number;
@@ -61,7 +47,7 @@ export function BuyProductForm(props: IProps): ReactElement {
 
   const {
     handleSubmit, register, formState: { errors },
-  } = useForm<IFormSubmit>({ resolver: yupResolver(schema), })
+  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema), })
 
   const onSubmit = async (data: IFormSubmit) => {
     const donationInfo = {

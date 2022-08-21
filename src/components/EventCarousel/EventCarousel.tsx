@@ -7,9 +7,9 @@ interface IProps {
 }
 
 export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
+  if (isLoading) return <h1>Loading</h1>
   return (
     <>
-      {isLoading && <h1>Loading</h1>}
       {!isLoading && (
         <Carousel dots>
           {imgs?.map((img) => (

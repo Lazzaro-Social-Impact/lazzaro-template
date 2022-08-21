@@ -2,12 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import * as yup from 'yup'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, usePostData } from '../../hooks'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
+import { buyTicketSchema } from '../../validation/schemas'
 import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
@@ -26,18 +26,6 @@ type buyTicketFormSubmit = {
   terms_and_conditions: boolean;
   tickets: ITicket[];
 }
-const buyTicketSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  mobilePhone: yup.string().required('Mobile phone is required'),
-  terms_and_conditions: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
-  tickets: yup.array().of(yup.object({
-    amount: yup.number().required('Amount is required'),
-    id: yup.string().required('Ticket id is required'),
-  })).required('Tickets are required'),
-
-})
 
 export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.currency_symbol)
