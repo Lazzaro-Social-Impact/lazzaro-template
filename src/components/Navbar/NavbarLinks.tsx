@@ -121,12 +121,12 @@ transition: all 0.2s ease-in-out;
 }
 `
 
-const FeatureLink = styled.a`
-transition: all 0.2s ease-in-out;
-&:hover {
-  text-decoration: underline;
-}
-`
+// const FeatureLink = styled.a`
+// transition: all 0.2s ease-in-out;
+// &:hover {
+//   text-decoration: underline;
+// }
+// `
 const ImageContainer = styled.div`
   max-width: 180px;
 

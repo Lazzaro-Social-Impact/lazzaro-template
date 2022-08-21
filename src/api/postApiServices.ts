@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import BASE_URL from './BASE_URL'
+import BASE_URL from './baseUrl'
 
 export const getStartDonationUrl = (ongId: string) => `${BASE_URL}/api/private/ong/${ongId}/start-donation`
 export const getFinalizeDonationUrl = (ongId: string) => `${BASE_URL}/api/private/ong/${ongId}/donations`
