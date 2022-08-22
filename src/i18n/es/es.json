@@ -28,9 +28,121 @@
     "Projects": "Proyectos",
     "Legal notice and privacy policy": "Aviso legal y política de privacidad",
     "Links": "Enlaces",
+    "link": "Enlace",
     "Become a member": "Hazte miembro",
     "Us": "Nosotros",
     "Causes": "Causas",
     "Courses": "Cursos",
-    "Market": "Mercado"
-}
+    "Market": "Mercado",
+    "share": "Compartir",
+    "make a donation": "Hacer una Donación",
+    "details": "Detalles",
+    "your_donation": "Tu donación",
+    "pay": "Pagar",
+    "Certificate question": "¿Quieres recibir un certificado de donación?",
+    "communication_question": "¿Quiere que le enviemos comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras?",
+    "contribute_annually": "Elige la cantidad que quieres aportar anualmente",
+    "join_us": "Únete a nosotros",
+    "personal_information": "Información personal",
+    "send": "Enviar",
+    "placeholders": {
+      "name": "Nombre",
+      "firstname": "Primer nombre",
+      "lastname": "Apelido",
+      "email": "Correo electrónico",
+      "address": "Dirección de casa",
+      "ID": "Identificación",
+      "dob": "Fecha de nacimiento",
+      "message": "Mensaje",
+      "quantity": "Cantidad",
+      "subject": "Tema",
+      "ticket": "Por favor ingrese el número de boletos",
+      "phone": "Teléfono",
+      "postal_code": "Código postal",
+      "city": "Ciudad",
+      "country": "País"
+    },
+    "send_message": "Enviar mensaje",
+    "yes": "Sí",
+    "no": "No",
+    "I accept": "Acepto",
+    "privacy policy": "Política de privacidad",
+    "donation_amount": "Ingrese el monto de la donación",
+    "errors": {
+      "name": "Por favor ingrese su nombre",
+      "firstname": "Por favor, ingrese su nombre",
+      "lastname": "Por favor, ingrese su apellido",
+      "email": "Por favor, ingrese su correo electrónico",
+      "address": "Por favor, ingrese su dirección",
+      "ID": "Por favor, ingrese su número de identificación",
+      "dob": "Por favor, ingrese su fecha de nacimiento",
+      "message": "Por favor, ingrese su mensaje",
+      "privacypolicy": "Por favor, acepte la política de privacidad",
+      "donation_amount": "Por favor, ingrese el monto de la donación",
+      "ID_number": "Por favor, ingrese un número de identificación válido",
+      "subject": "Por favor, ingrese el tema",
+      "invalid_email": "Por favor, ingrese un correo electrónico válido",
+      "phone": "Por favor, ingrese un número de teléfono válido",
+      "image_rights": "Debe aceptar los Términos y Condiciones"
+    },
+    "success": {
+      "donation": "Gracias por su donación",
+      "paypal_navigate": "Por favor, espere mientras se redirecciona a PayPal",
+      "message": "Gracias por su mensaje"
+    },
+    "fail": {
+      "donate": "Lo sentimos, no se pudo realizar la donación",
+      "message": "Lo sentimos, no se pudo enviar el mensaje",
+      "error": "Lo sentimos, ha ocurrido un error"
+    },
+    "contact_page": {
+      "get_in_touch": "Contáctenos",
+      "official_address": "Dirección oficial",
+      "official_mail": "Correo electrónico oficial",
+      "official_phone": "Teléfono oficial"
+    },
+    "case_single": {
+      "donations": "Donaciones",
+      "historical": "Histórico",
+      "raised": "Recaudado",
+      "goal": "Meta",
+      "donate": "Donar",
+      "latest_donations": "Últimas donaciones"
+    },
+    "event_single": {
+      "location": "Ubicación",
+      "image_rights": "He leído y acepto las condiciones relativas a la cesión de mis derechos de imagen contenidas en la política de privacidad y autorizo ​​su uso",
+      "num_of_entries": "Número de entradas",
+      "ticket_person": "Solo una entrada por persona. Puedes comprar más entradas repitiendo el proceso de compra.",
+      "send_information": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",
+      "share_event": "Comparte el evento"
+    },
+    "error_page": {
+      "oops": "¡ups! ¡Página no encontrada!",
+  
+      "404": "Lo sentimos, pero parece que no podemos encontrar la página que solicitó. Esto puede deberse a que ha escrito incorrectamente la dirección web.",
+      "home": "De vuelta a casa"
+    },
+    "Products_page": {
+      "Our_Products": "Nuestros productos",
+      "to_buy": "Comprar",
+      "more": "Más"
+    },
+  
+    "Products_single": {
+      "Description": "Descripción",
+      "to_buy": "Comprar",
+      "contact": "Contacto",
+      "contact_form": {
+        "title": "Tú compraste",
+        "Delivery_data": "Datos de entrega",
+        "accept": "Acepto",
+        "the_privacy_policy": "la política de privacidad",
+        "pay": "Pagar",
+        "placeholders": {
+          "amount": "Pon el número de"
+        }
+      }
+    }
+  }
+  

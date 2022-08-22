@@ -28,9 +28,120 @@
     "Projects": "Projects",
     "Legal notice and privacy policy": "Legal notice and privacy policy",
     "Links": "Links",
+    "link": "Link",
     "Become a member": "Become a member",
     "Us": "Us",
     "Causes": "Causes",
     "Courses": "Courses",
-    "Market": "Shop"
-}
+    "Market": "Market",
+    "make a donation": "Make a Donation",
+    "details": "Details",
+    "send": "Send",
+    "Certificate question": "Do you want to receive a donation certificate?",
+    "communication_question": "Do you want us to send you communications related to our activity and/or any of our partner or collaborating entities?",
+    "contribute_annually": "Choose the amount you want to contribute annually",
+    "join_us": "Join us",
+    "personal_information": "Personal Information",
+    "share": "Share",
+    "pay": "Pay",
+    "your_donation": "Your donation",
+    "placeholders": {
+      "firstname": "First Name",
+      "lastname": "Last Name",
+      "name": "Your name",
+      "email": "Email",
+      "address": "Address",
+      "ID": "ID",
+      "dob": "Date of Birth",
+      "message": "Message",
+      "quantity": "Quantity",
+      "subject": "Subject",
+      "ticket": "Please enter the number of tickets",
+      "phone": "Mobile Phone",
+      "postal_code": "Postal Code",
+      "city": "City",
+      "country": "Country"
+    },
+    "yes": "Yes",
+    "no": "No",
+    "I accept": "I accept",
+    "privacy policy": "Privacy Policy",
+    "donation_amount": "Enter the amount you want to donate",
+    "send_message": "Send Message",
+    "errors": {
+      "name": "Please enter your name",
+      "firstname": "Please enter your first name",
+      "lastname": "Please enter your last name",
+      "email": "Please enter your email",
+      "address": "Please enter your address",
+      "ID": "Please enter your ID",
+      "dob": "Please enter your date of birth",
+      "message": "Please enter your message",
+      "privacypolicy": "You must accept the privacy policy",
+      "donation_amount": "Please enter the amount you want to donate",
+      "ID_number": "Please enter a valid ID number",
+      "subject": "Please enter the subject",
+      "invalid_email": "Please enter a valid email",
+      "phone": "Please enter your phone number",
+      "image_rights": "You must accept the terms and conditions"
+    },
+    "success": {
+      "donation": "Thank you for your donation",
+      "paypal_navigate": "You will be redirected to PayPal to complete the payment",
+      "message": "Your message has been sent successfully"
+    },
+    "fail": {
+      "donate": "An error occurred while processing your donation",
+      "message": "An error occurred while sending your message",
+      "error": "Something went wrong, please try again later"
+    },
+    "contact_page": {
+      "get_in_touch": "Get In Touch",
+      "official_address": "Official Address",
+      "official_mail": "Official Mail",
+      "official_phone": "Official Phone"
+    },
+    "case_single": {
+      "donations": "Donations",
+      "historical": "Historical",
+      "raised": "Raised",
+      "goal": "Goal",
+      "donate": "Donate",
+      "latest_donations": "Latest Donations"
+    },
+    "event_single": {
+      "location": "Location",
+      "image_rights": "I have read and accept the conditions related to the transfer of my image rights contained in the privacy policy and I authorize its use",
+      "num_of_entries": "Number of entries",
+      "ticket_person": "Only one ticket per person. You can buy more tickets by repeating the purchase process.",
+      "send_information": "Do authorize us to send you information about our entity and how to become a member?",
+      "share_event": "Share the event"
+    },
+    "error_page": {
+      "oops": "Oops! Page Not Found!",
+      "404": "We are sorry but we can not seem to find the page you requested. This might be because you have typed the web address incorrectly.",
+      "home": "Back to home"
+    },
+    "Products_page": {
+      "Our_Products": "Our Products",
+      "to_buy": "to buy",
+      "more": "more"
+    },
+  
+    "Products_single": {
+      "Description": "Description",
+      "to_buy": "to buy",
+      "contact": "Contact",
+      "contact_form": {
+        "title": "You Purchase",
+        "Delivery_data": "Delivery Data",
+        "accept": "I accept",
+        "the_privacy_policy": "the privacy policy",
+        "pay": "Pay",
+        "placeholders": {
+          "amount": "Put The number of"
+        }
+      }
+    }
+  }
+  

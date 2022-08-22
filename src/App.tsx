@@ -1,4 +1,6 @@
-import { useEffect, useLayoutEffect, lazy } from 'react'
+import {
+  useEffect, useLayoutEffect, lazy, useCallback
+} from 'react'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
@@ -40,17 +42,24 @@ function App() {
 
   const theme: DefaultTheme = { primary, secondary }
 
-  useEffect(() => {
+  const setOngIdDispatch = useCallback(() => {
     dispatch(setOngId(ongId))
-
+  }, [dispatch, ongId])
+  const setOngConfigDispatch = useCallback(() => {
     dispatch(setOngConfig(ongData))
+  }, [dispatch, ongData])
+
+  useEffect(() => {
+    setOngIdDispatch()
+
+    setOngConfigDispatch()
 
     return () => {
       dispatch(setOngId(null))
 
       dispatch(setOngConfig(null))
     }
-  }, [dispatch, ongId, ongData])
+  }, [dispatch, setOngIdDispatch, setOngConfigDispatch])
 
   useLayoutEffect(() => {
     const favIcon = document.getElementById('favicon') as HTMLLinkElement
