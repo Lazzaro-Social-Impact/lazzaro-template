@@ -20,7 +20,8 @@
   },
   "rules": {
     "semi": [2, "never"],
-    
+    "camelcase": "off",
+    "linebreak-style": 0,
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/member-delimiter-style": "off",
@@ -28,6 +29,8 @@
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-explicit-any": "off",
     "no-restricted-syntax": "off",
     "no-use-before-define": "off",
     "import/extensions": "off",
@@ -59,7 +62,10 @@
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-prototype-builtins": "off",
-    "no-nested-ternary": "off"
-
+    "no-nested-ternary": "off",
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "off",
+    "no-unused-vars": "warn",
+    "max-len": ["warn", {"code": 120}]
   }
 }
