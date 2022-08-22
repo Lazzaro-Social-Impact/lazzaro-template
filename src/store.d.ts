@@ -1,5 +1,5 @@
 declare global {
-  type TFeatures = {
+  type TFeatures = Readonly<{
     causes: boolean;
     courses: boolean;
     donations: boolean;
@@ -8,9 +8,9 @@ declare global {
     market: boolean;
     partners: boolean;
     volunteers: boolean;
-  };
+  }>;
 
-  type TBrand = {
+  type TBrand = Readonly<{
     id: string;
     ong_id: string;
     logo: string;
@@ -23,16 +23,16 @@ declare global {
     text_header1: string;
     text_header2: string;
     favicon: string;
-  };
+  }>;
 
-  type TContact = {
-    id:string;
+  type TContact = Readonly<{
+    id: string;
     address: string;
     email: string;
     phone: string;
-  };
+  }>;
 
-  type TDescription = {
+  type TDescription = Readonly<{
     id: string;
     description: string;
     img_url: string;
@@ -41,16 +41,16 @@ declare global {
     title_description: string;
     subtitle: string;
     text_color: string;
-  };
+  }>;
 
-  type TImpactData = {
+  type TImpactData = ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+    readonly amount: string;
+  }>;
+
+  type TPlatformConfig = Readonly<{
     id: string;
-    name: string;
-    amount: string;
-  }[];
-
-  type TPlatformConfig = {
-    id:string;
     ong_id: string;
     active: boolean;
     currency: string;
@@ -58,28 +58,28 @@ declare global {
     language: string;
     powered_by_lazzaro: boolean;
     url: string;
-  };
+  }>;
 
-  type TRrss = {
+  type TRrss = Readonly<{
     id: string;
     facebook: string;
     instagram: string;
     linkedin: string;
     twitter: string;
     web: string;
-  };
+  }>;
 
-  type TTeam = {
-    id: string;
-    img_url: string;
-    linkedin: string;
-    name: string;
-    ongId: string;
-    order: number;
-    position: string;
-  }[];
+  type TTeam = ReadonlyArray<{
+    readonly id: string;
+    readonly img_url: string;
+    readonly linkedin: string;
+    readonly name: string;
+    readonly ongId: string;
+    readonly order: number;
+    readonly position: string;
+  }>;
 
-  interface IOngConfig {
+  type TOngConfig = Readonly<{
     brand: TBrand;
     contact: TContact;
     description: TDescription;
@@ -88,7 +88,7 @@ declare global {
     platformConfig: TPlatformConfig;
     rrss: TRrss;
     team: TTeam;
-  }
+  }>
 }
 
 export {}

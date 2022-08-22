@@ -18,7 +18,7 @@ const NavbarLinks:FC = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const language = useRef<'en' | 'es'>('en')
   const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
-  const { features } = useAppSelector((state) => state.ong.ongConfig) || {}
+  const { features, team } = useAppSelector((state) => state.ong.ongConfig) || {}
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 

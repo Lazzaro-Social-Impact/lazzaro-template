@@ -22,15 +22,18 @@ function App() {
   const dispatch = useAppDispatch()
 
   const {
-    data: config, isLoading: isLoadingPage, isError,
+    data: config,
+    isLoading: isLoadingPage,
+    isError,
   } = useDependant<TPlatformConfig>(getOngByUrl(ongUrl), ['ongConfigUrl'], ongUrl)
 
   const ongId = config?.ong_id || ''
 
   const {
-    data: ongData, isLoading,
-    isError: isErrorPage
-  } = useDependant<IOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
+    data: ongData,
+    isLoading,
+    isError: isErrorPage,
+  } = useDependant<TOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
 
   const primary = ongData?.brand.primary_color_hex || ''
   const secondary = ongData?.brand.secondary_color_hex || ''
@@ -64,15 +67,14 @@ function App() {
     <ThemeProvider theme={theme}>
       {isError || isErrorPage || config === null ? (
         <CrashPage />
-      )
-        : isLoading || isLoadingPage ? (
-          <LoadingIndex />
-        ) : (
-          <>
-            <AllRoute />
-            <ToastContainer />
-          </>
-        )}
+      ) : isLoading || isLoadingPage ? (
+        <LoadingIndex />
+      ) : (
+        <>
+          <AllRoute />
+          <ToastContainer />
+        </>
+      )}
     </ThemeProvider>
   )
 }
