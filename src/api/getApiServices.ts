@@ -1,4 +1,4 @@
-import BASE_URL from './BASE_URL'
+import BASE_URL from './baseUrl'
 
 export const getProjectsURL = (ongId: string) => `${BASE_URL}/api/private/projects/ong/${ongId}`
 export const getProjectDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`

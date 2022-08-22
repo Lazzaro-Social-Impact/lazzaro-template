@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import * as yup from 'yup'
 import { getAddVolunteerUrl } from '../../api/postApiServices'
 import { Footer, Navbar } from '../../components'
 import {
@@ -11,6 +10,7 @@ import { CustomInput, CustomInputDiv } from '../../components/common/CustomInput
 import { ErrorInput } from '../../components/common/ErrorInput'
 import HandleResponse from '../../components/common/HandleResponse'
 import { useAppSelector, usePostData } from '../../hooks'
+import { volunteerSchema } from '../../validation/schemas'
 
 type volunteerSubmitForm = {
   firstName: string
@@ -18,13 +18,6 @@ type volunteerSubmitForm = {
   user_email: string
   home_address: string
 }
-
-const volunteerSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  home_address: yup.string().required('Address is required'),
-}).required()
 
 function BecomeVolunteerForm() {
   const { handleSubmit, register, formState: { errors } } = useForm<volunteerSubmitForm>({

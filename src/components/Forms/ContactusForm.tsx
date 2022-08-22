@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import * as yup from 'yup'
 import { getSendContactUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData, useGeocoding } from '../../hooks'
+import { contactSchema } from '../../validation/schemas'
 import { Button, Flex } from '../common'
 import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
@@ -22,14 +23,6 @@ type ContactSubmitForm = {
   message: string
   terms: boolean
 }
-const contactSchema = yup.object({
-  name: yup.string().required('Name is required'),
-  lastName: yup.string().required('Last Name is required'),
-  email: yup.string().required('Email is required').email('Invalid email'),
-  subject: yup.string().required('Subject is required'),
-  message: yup.string().required('Message is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions')
-})
 
 export default function ContactusForm(): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({

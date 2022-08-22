@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import ongConfigReducer from '../redux/features'
+import ongConfigReducer from './features'
 
 export const store = configureStore({
   reducer: {

@@ -9,12 +9,8 @@ import { ErrorInput } from '../common/ErrorInput'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getSendContactEventUrl } from '../../api/postApiServices'
 import HandleResponse from '../common/HandleResponse'
+import { contactEventSchema } from '../../validation/schemas'
 
-const contactEventSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  email: yup.string().required('Email is required'),
-  text: yup.string().required('Message is required'),
-}).required()
 interface IProps {
   id: string
 }

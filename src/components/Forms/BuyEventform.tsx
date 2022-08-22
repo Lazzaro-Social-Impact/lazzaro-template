@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import * as yup from 'yup'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, usePostData } from '../../hooks'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
+import { buyTicketSchema } from '../../validation/schemas'
 import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
@@ -26,18 +26,6 @@ type buyTicketFormSubmit = {
   terms_and_conditions: boolean;
   tickets: ITicket[];
 }
-const buyTicketSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  mobilePhone: yup.string().required('Mobile phone is required'),
-  terms_and_conditions: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
-  tickets: yup.array().of(yup.object({
-    amount: yup.number().required('Amount is required'),
-    id: yup.string().required('Ticket id is required'),
-  })).required('Tickets are required'),
-
-})
 
 export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.currency_symbol)
@@ -45,7 +33,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const {
     data: eventDetails
   } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
-  const { EventTickets, price } = eventDetails || {}
+  const { EventTickets = [], price } = eventDetails || {}
   const { register, handleSubmit, formState: { errors } } = useForm<buyTicketFormSubmit>({
     resolver: yupResolver(buyTicketSchema),
   })
@@ -63,6 +51,24 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
     const { data: { data: payPayLink } } = await mutateAsync(formData)
     window.open(payPayLink, '_blank')
   }
+
+  const ticketsInputs:JSX.Element[] = useMemo(
+    () => EventTickets.map((ticket, i: number) => (
+      <>
+        <CustomLabel key={ticket.id}>
+          {ticket.type} ({ticket.price}
+          {currency})
+        </CustomLabel>
+        <CustomInput type="hidden" {...register(`tickets.${i}.id`)} value={ticket.id} />
+        <CustomInput
+          type="number"
+          placeholder="Please enter the number of tickets"
+          {...register(`tickets.${i}.amount`)}
+        />
+      </>
+    )),
+    [EventTickets, register, currency]
+  )
   return (
     <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
@@ -84,29 +90,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
           can buy more tickets by repeating the purchase process.
         </p>
 
-        {EventTickets.map((ticket, i: number) => (
-          <>
-            <CustomLabel key={ticket.id}>
-              {ticket.type}
-              {' '}
-
-              (
-              {ticket.price}
-              {currency}
-              )
-            </CustomLabel>
-            <CustomInput
-              type="hidden"
-              {...register(`tickets.${i}.id`)}
-              value={ticket.id}
-            />
-            <CustomInput
-              type="number"
-              placeholder="Please enter the number of tickets"
-              {...register(`tickets.${i}.amount`)}
-            />
-          </>
-        ))}
+        {ticketsInputs}
       </div>
       )}
       <FormTitle>

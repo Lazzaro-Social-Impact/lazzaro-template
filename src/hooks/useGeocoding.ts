@@ -1,7 +1,7 @@
 import useDependant from './useDependant'
 
 type TGeocode = {
-  features: [{ center: [number, number] }]
+  features: [{ center: [lng:number, lat:number] }]
 }
 
 const { REACT_APP_MAPBOX_TOKEN: token } = process.env

@@ -2,7 +2,6 @@ import { Radio } from 'antd'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useForm, Controller } from 'react-hook-form'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
@@ -14,6 +13,7 @@ import { useAppSelector, usePostData } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
+import { memberSchema } from '../../validation/schemas'
 
 type memberSubmitForm = {
   firstName: string
@@ -26,20 +26,8 @@ type memberSubmitForm = {
   membership: boolean
   phone: string
 }
-const memberSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
-  home_address: yup.string().required('Address is required'),
-  birthDate: yup.date().required('Birth of Date is required')
-    .typeError('Birth of Date is required'),
-  nif: yup.string().required('ID is required').typeError('ID must be a number'),
-  terms: yup.boolean().typeError('You must accept the terms and conditions'),
-  membership: yup.boolean().typeError('You must accept the membership'),
-  phone: yup.string().required('Phone is required')
-}).required()
 
-export function BecomeMemberForm(): ReactElement {
+export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId)
   const {
     register, handleSubmit, formState: { errors }, control

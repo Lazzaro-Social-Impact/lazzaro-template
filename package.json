@@ -40,7 +40,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_ENV=development react-scripts start",
     "start:staging": "cross-env REACT_APP_ENV=staging react-scripts start",
     "start:prod": "cross-env REACT_APP_ENV=production react-scripts start",
     "build": "cross-env REACT_APP_ENV=production react-scripts build",

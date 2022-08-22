@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react'
+import { useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import NearEvent from './NearEvent/NearEvent'
@@ -17,13 +17,23 @@ function Events(): ReactElement {
   } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
 
   // Get the nearest event
-  const nearestEvent = events?.sort((a, b):number => {
-    if (!a.course || !b.course) return 0
+  const nearestEvent = useMemo(
+    () => events?.sort((a, b): number => {
+      if (!a.course || !b.course) return 0
 
-    const aDate = moment(a.start_time)
-    const bDate = moment(b.start_time)
-    return aDate.diff(bDate)
-  })[0]
+      const aDate = moment(a.start_time)
+      const bDate = moment(b.start_time)
+      return aDate.diff(bDate)
+    })[0],
+    [events]
+  )
+
+  const memoizedEvents = useMemo(
+    () => events?.map(
+      (event) => event.id !== nearestEvent.id && !event.course && <OtherEvent key={event.id} {...event} />
+    ),
+    [events]
+  )
 
   return (
     <>
@@ -34,10 +44,8 @@ function Events(): ReactElement {
 
         <OtherEvents gap={1}>
           {isLoading && <Skeleton width={25} height={12} number={3} />}
-          {events?.map(
-            (event) => event.id !== nearestEvent.id && !event.course
-            && <OtherEvent key={event.id} {...event} />
-          )}
+
+          {memoizedEvents}
 
           {isError && <h1>Error</h1>}
         </OtherEvents>

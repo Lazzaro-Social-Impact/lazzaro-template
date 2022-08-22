@@ -1,5 +1,5 @@
 import chunk from 'lodash/chunk'
-import { type ReactElement } from 'react'
+import { useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
 import { useAppSelector, useDependant } from '../../hooks'
@@ -15,20 +15,22 @@ export default function Projects(): ReactElement {
     data: projects = [], isLoading
   } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
 
+  const memoizedProjects = useMemo(() => [
+    ...chunk(projects, 3).map((ThreeProjects, i) => (
+      <Box key={projects[i].id}>
+        <Grid>
+          {ThreeProjects.map((project) => (<Project {...project} key={project.id} />))}
+        </Grid>
+      </Box>
+    )),
+  ], [projects])
+
   return (
     <section id="causes">
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
       <Carousel arrows>
-        {[
-          ...chunk(projects, 3).map((ThreeProjects, i) => (
-            <Box key={projects[i].id}>
-              <Grid>
-                {ThreeProjects.map((project) => (<Project {...project} key={project.id} />))}
-              </Grid>
-            </Box>
-          )),
-        ]}
+        {memoizedProjects}
       </Carousel>
     </section>
   )

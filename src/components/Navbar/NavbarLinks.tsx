@@ -1,7 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons'
 import { Drawer, Grid, Menu } from 'antd'
 import {
-  type FC, useCallback, useRef, useState
+  type FC, useCallback, useRef, useState, useMemo
 } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -22,10 +22,13 @@ const NavbarLinks:FC = () => {
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 
-  const includedFeatures = ['causes', 'courses', 'events', 'partners', 'donations', 'market']
-  const featuresArray = Object.keys(features)
-    .filter((feature) => includedFeatures.includes(feature) && features[feature as keyof TFeatures])
-    .sort()
+  const includedFeatures = ['causes', 'courses', 'events', 'partners', 'donations', 'market'] as const
+  const featuresArray:string[] = useMemo(() => Object.keys(features)
+    .filter(
+      (feature) => includedFeatures
+        .includes(feature as typeof includedFeatures[number]) && features[feature as keyof TFeatures]
+    )
+    .sort(), [features])
 
   const exceptFeatures = {
     partners: (
@@ -45,17 +48,15 @@ const NavbarLinks:FC = () => {
       </li>
     ),
   }
-  const NAVBAR_LINKS = featuresArray.map(
+  const NAVBAR_LINKS:JSX.Element[] = useMemo(() => featuresArray.map(
     (feature) => exceptFeatures[feature as keyof typeof exceptFeatures] || (
-    <li key={feature}>
-      <Link to={`/#${feature}`}>
-        {t(properCase(feature))}
-      </Link>
-    </li>
+      <li key={feature}>
+        <Link to={`/#${feature}`}>{t(properCase(feature))}</Link>
+      </li>
     )
-  )
+  ), [featuresArray, exceptFeatures, t])
 
-  const handleChangeLanguage = () => {
+  const handleChangeLanguage = ():void => {
     language.current = language.current === 'en' ? 'es' : 'en'
     i18next.changeLanguage(language.current === 'en' ? 'es' : 'en')
   }
@@ -64,14 +65,17 @@ const NavbarLinks:FC = () => {
     setIsDrawerVisible(!isDrawerVisible)
   }, [isDrawerVisible])
 
-  const DRAWER_LINKS = featuresArray.map((feature) => ({
-    key: feature,
-    label: (
-      <li key={feature}>
-        <a href={`/#${feature}`}>{properCase(feature)}</a>
-      </li>
-    ),
-  }))
+  const DRAWER_LINKS: { key: typeof featuresArray[number]; label: JSX.Element }[] = useMemo(
+    () => featuresArray.map((feature) => ({
+      key: feature,
+      label: (
+        <li key={feature}>
+          <a href={`/#${feature}`}>{properCase(feature)}</a>
+        </li>
+      ),
+    })),
+    [featuresArray]
+  )
 
   return (
     <>
@@ -121,12 +125,12 @@ transition: all 0.2s ease-in-out;
 }
 `
 
-const FeatureLink = styled.a`
-transition: all 0.2s ease-in-out;
-&:hover {
-  text-decoration: underline;
-}
-`
+// const FeatureLink = styled.a`
+// transition: all 0.2s ease-in-out;
+// &:hover {
+//   text-decoration: underline;
+// }
+// `
 const ImageContainer = styled.div`
   max-width: 180px;
 
@@ -138,23 +142,23 @@ const ImageContainer = styled.div`
 `
 
 const Links = styled.ul`
-    display: flex;
-    justify-content: center;
-    gap: 1.8rem;
-    font-size: 1rem;
-    list-style-type: none;
-    margin-bottom: 0;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  font-size: 1rem;
+  list-style-type: none;
+  margin-bottom: 0;
+  align-items: center;
 
-    li a {
-      color: #ddd;
-      text-decoration: none;
-      font-weight: bold;
+  li a {
+    color: #ddd;
+    text-decoration: none;
+    font-weight: bold;
 
-      &:hover {
-        color: ${({ theme }) => theme.primary};
-      }
+    &:hover {
+      color: ${({ theme }) => theme.primary};
     }
+  }
 `
 
 const MenuLinks = styled(Menu)`

@@ -15,11 +15,16 @@ interface IProps {
     start_time: string;
     end_time: string;
     id: string;
-  };
+  }
 }
 
-function CourseCard({ course }: IProps) {
-  const date = Number(moment(course.start_time).format('D'))
+function CourseCard({
+  course: {
+    title, description,
+    imageURL, start_time: startTime, id,
+  }
+}: IProps) {
+  const date = Number(moment(startTime).format('D'))
 
   return (
     <Card mode="row" smMode="column" my={2} p={1} maxWidth="45rem">
@@ -32,12 +37,12 @@ function CourseCard({ course }: IProps) {
           top={-1.23}
           right={1.5}
         />
-        <Image src={course.imageURL} alt={course.title} width="800px" />
+        <Image src={imageURL} alt={title} width="800px" />
       </Box>
       <Flex direction="column" justify="space-between" p={1} textAlign="left">
-        <h2>{course.title.slice(0, 23)}</h2>
-        {parse(course.description.slice(0, 100))}
-        <Link to={`/courses/${course.id}`} align="flex-end" underlined size={1.3}>
+        <h2>{title?.slice(0, 23)}</h2>
+        {parse(description?.slice(0, 100))}
+        <Link to={`/courses/${id}`} align="flex-end" underlined size={1.3}>
           Read more
         </Link>
       </Flex>
@@ -45,4 +50,7 @@ function CourseCard({ course }: IProps) {
   )
 }
 
+CourseCard.defaultProps = {
+
+}
 export default CourseCard

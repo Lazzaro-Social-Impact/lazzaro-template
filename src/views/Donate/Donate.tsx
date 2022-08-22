@@ -21,7 +21,7 @@ function Donate() {
   return (
     <>
       <Navbar />
-      <Flex direction="column">
+      <Flex direction="column" textAlign="left">
         <SectionTitle fontSize={3}>Make a donation</SectionTitle>
         <DonateForm submitHandler={handleSubmit} states={states} />
       </Flex>
