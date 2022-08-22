@@ -1,11 +1,9 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { useLocation } from 'react-router-dom'
-import {
-  Card, Flex, Text
-} from '../common'
+import { Card, Flex, Text } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { useDependant } from '../../hooks'
@@ -37,6 +35,8 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
+  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
+
   return (
     <Card mode="column" px={1.8} py={2.4} smMode="column" my={2}>
       <EventCardTitle title={title}>{title}</EventCardTitle>
@@ -59,7 +59,7 @@ export function EventCard(props: IProps): ReactElement {
 
         <BuyModal title={`Buy ${course ? 'course' : 'ticket'}`} btnText="Buy">
           <EventCarousel imgs={images} isLoading={isLoading} />
-          {course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />}
+          {Form}
         </BuyModal>
       </Flex>
     </Card>

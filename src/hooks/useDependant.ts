@@ -11,9 +11,8 @@ function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | bo
   }
   const {
     isLoading, isError, data, error
-  } = useQuery<TData, AxiosError>(queryKey, fetchData, {
-    enabled: !!exist,
-  })
+  } = useQuery<TData, AxiosError>(queryKey, fetchData, { enabled: !!exist, })
+
   return {
     isLoading,
     isError,
