@@ -70,12 +70,27 @@ const NavbarLinks:FC = () => {
       key: feature,
       label: (
         <li key={feature}>
-          <a href={`/#${feature}`}>{properCase(feature)}</a>
+          <a href={`/#${feature}`}>{`${t(feature)}`}</a>
         </li>
       ),
     })),
-    [featuresArray]
+    [featuresArray, i18next.language]
   )
+  const mobileLink = {
+    key: 'language-mobile',
+    label: (
+      <LanguageToggle
+        as="a"
+        onClick={handleChangeLanguage}
+        key="language-mobile"
+        style={{
+          color: 'black',
+        }}
+      >
+        {language.current === 'en' ? 'English' : 'Español'}
+      </LanguageToggle>
+    ),
+  }
 
   return (
     <>
@@ -104,7 +119,13 @@ const NavbarLinks:FC = () => {
         onClose={handleDrawerVisibility}
         visible={isDrawerVisible}
       >
-        <MenuLinks items={DRAWER_LINKS} mode="inline" />
+        <MenuLinks items={[...DRAWER_LINKS, mobileLink]} mode="inline">
+          <Menu.Item key="language">
+            <LanguageToggle onClick={handleChangeLanguage}>
+              {language.current === 'es' ? 'English' : 'Español'}
+            </LanguageToggle>
+          </Menu.Item>
+        </MenuLinks>
       </Drawer>
     </>
   )
@@ -112,7 +133,6 @@ const NavbarLinks:FC = () => {
 export default NavbarLinks
 
 const LanguageToggle = styled.li`
-color: white;
 cursor: pointer;
 color: #ddd;
 

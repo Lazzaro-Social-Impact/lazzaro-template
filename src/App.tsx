@@ -63,8 +63,8 @@ function App() {
 
   useLayoutEffect(() => {
     const favIcon = document.getElementById('favicon') as HTMLLinkElement
-    favIcon.href = ongData?.brand?.favicon || ''
-    document.title = ongData?.brand?.name || 'Home Page'
+    favIcon.href = ongData?.brand?.logo || ''
+    document.title = ongData?.brand?.name || 'Loading...'
 
     return () => {
       favIcon.href = ''

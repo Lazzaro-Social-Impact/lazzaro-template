@@ -44,6 +44,12 @@
     "personal_information": "Personal Information",
     "share": "Share",
     "pay": "Pay",
+    "market": "Market",
+    "courses": "Courses",
+    "donations": "Donations",
+    "causes": "Causes",
+    "events": "Events",
+    "partners": "Partners",
     "your_donation": "Your donation",
     "placeholders": {
       "firstname": "First Name",
