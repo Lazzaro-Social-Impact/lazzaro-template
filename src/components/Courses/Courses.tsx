@@ -10,7 +10,7 @@ import CourseCardSkeleton from '../Skeleton'
 import { ICourse } from '../../types/interfaces'
 
 function Courses(): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
 
   const {
     data: events = [], isLoading

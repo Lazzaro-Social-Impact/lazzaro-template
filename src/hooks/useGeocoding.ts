@@ -4,7 +4,7 @@ type TGeocode = {
   features: [{ center: [lng:number, lat:number] }]
 }
 
-const { REACT_APP_MAPBOX_TOKEN: token } = process.env
+const token = import.meta.env.VITE_MAPBOX_TOKEN
 
 const useGeocoding = (address: string) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${token}&limit=1;`

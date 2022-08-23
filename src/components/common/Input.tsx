@@ -3,6 +3,7 @@ import styled from 'styled-components'
 interface IProps {
   w?:TWidth;
   mt?:TMarginTop;
+  mr?:TMarginRight;
 }
 
 const Input = styled.input<IProps>`
@@ -12,6 +13,7 @@ const Input = styled.input<IProps>`
   border-radius: 0.3rem;
   font-size: 1rem;
   margin-top: ${({ mt }) => mt}rem;
+  margin-right: ${({ mr }) => mr && mr}rem;
   flex: 1;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 

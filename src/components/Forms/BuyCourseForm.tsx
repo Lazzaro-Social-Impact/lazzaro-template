@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
 import { getBuyCourseUrl } from '../../api/getApiServices'
@@ -31,13 +31,11 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<buyCourseFormSubmit>({
-    resolver: yupResolver(buyCourseTicketSchema),
-  })
+  } = useForm<buyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
 
-  const { mutateAsync, ...states } = usePostData<{ data: string }, buyCourseFormSubmit>(
-    getBuyCourseUrl(courseId)
-  )
+  const {
+    mutateAsync, ...states
+  } = usePostData<{ data: string }, buyCourseFormSubmit>(getBuyCourseUrl(courseId))
 
   const onSubmit = async (data: buyCourseFormSubmit) => {
     const formData = { ...data, course_id: courseId, ong_id: ongId }

@@ -17,8 +17,9 @@ const { useBreakpoint } = Grid
 const NavbarLinks:FC = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const language = useRef<'en' | 'es'>('en')
-  const logo = useAppSelector((state) => state.ong.ongConfig?.brand.logo)
-  const { features } = useAppSelector((state) => state.ong.ongConfig) || {}
+  const {
+    logo, features = {} as TFeatures,
+  } = useAppSelector(({ ong }) => ({ logo: ong.ongConfig?.brand.logo, features: ong.ongConfig?.features, })) || {}
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 
