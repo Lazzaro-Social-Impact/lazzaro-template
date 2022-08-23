@@ -1,5 +1,5 @@
 import { Modal as AntdModal } from 'antd'
-import { ReactElement, useState } from 'react'
+import { type ReactElement, useState } from 'react'
 import { Button } from '../common'
 
 interface IProps {

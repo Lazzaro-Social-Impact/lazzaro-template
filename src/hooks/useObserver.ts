@@ -1,5 +1,5 @@
 import {
-  MutableRefObject, useEffect, useMemo, useState
+  type MutableRefObject, useEffect, useMemo, useState
 } from 'react'
 
 function useObserver(ref: MutableRefObject<HTMLElement>) {

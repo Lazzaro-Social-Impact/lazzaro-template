@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios'
-import { QueryKey, useQuery } from '@tanstack/react-query'
+import axios, { type AxiosError } from 'axios'
+import { type QueryKey, useQuery } from '@tanstack/react-query'
 
 function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | boolean) {
   const fetchData = async () => {

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { ErrorInputProps } from '../../types/interfaces'
 

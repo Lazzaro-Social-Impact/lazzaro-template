@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Carousel as antdCarousel } from 'antd'
-import { type FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
 interface IProps {

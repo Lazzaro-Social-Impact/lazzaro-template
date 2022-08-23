@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { type AxiosError, type AxiosResponse } from 'axios'
 import { useMutation } from '@tanstack/react-query'
 
 export default function usePostData<TData, TMutate>(url: string) {

@@ -1,4 +1,3 @@
-import React from 'react'
 import HtmlParser from 'react-html-parser'
 import { useTranslation } from 'react-i18next'
 import {
