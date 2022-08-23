@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Button, Center, Input } from '../common'
+import {
+  Button, Center, Input, TextArea
+} from '../common'
 import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
@@ -19,7 +21,7 @@ interface IProps {
   }
 }
 
-function Form({ projectId, submitHandler, states }: IProps) {
+function DonateForm({ projectId, submitHandler, states }: IProps) {
   const {
     register, handleSubmit, formState: { errors },
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
@@ -80,7 +82,7 @@ function Form({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl>
-        <TextArea placeholder="Message" {...register('text')} />
+        <TextArea rows={4} placeholder="Message" {...register('text')} />
       </FormControl>
 
       {projectId && (
@@ -132,6 +134,7 @@ function Form({ projectId, submitHandler, states }: IProps) {
     </CustomForm>
   )
 }
+export default DonateForm
 
 interface IFormControlProps {
   mode?: TFlexDirection;
@@ -154,17 +157,6 @@ const FormControl = styled.div<IFormControlProps>`
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `
 
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 10rem;
-  border-radius: 5px;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  resize: none;
-  font-size: 1rem;
-  outline: none;
-`
-
 const RadioBtn = styled.input`
   border: none;
   outline: none;
@@ -172,8 +164,6 @@ const RadioBtn = styled.input`
   margin-left: 1.5rem;
 `
 
-export default Form
-
-Form.defaultProps = {
+DonateForm.defaultProps = {
   projectId: '',
 }

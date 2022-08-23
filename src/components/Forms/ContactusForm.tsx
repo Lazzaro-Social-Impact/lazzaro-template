@@ -7,9 +7,8 @@ import { getSendContactUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData, useGeocoding } from '../../hooks'
 import { contactSchema } from '../../validation/schemas'
 import {
-  Button, Center, Flex, Input, TextArea
+  Button, Center, Flex, Input, Label, TextArea
 } from '../common'
-import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 import Footer from '../Footer/Footer'
@@ -60,15 +59,15 @@ export default function ContactusForm(): ReactElement {
           />
           <FormTitle>Contact us</FormTitle>
           <FormRow>
-            <CustomInputDiv>
+            <Flex>
               <Input placeholder="Name" {...register('name')} />
               <ErrorInput msg={errors.name?.message} />
-            </CustomInputDiv>
+            </Flex>
 
-            <CustomInputDiv>
+            <Flex>
               <Input placeholder="Surname" {...register('lastName')} />
               <ErrorInput msg={errors.lastName?.message} />
-            </CustomInputDiv>
+            </Flex>
           </FormRow>
           <Input placeholder="Email" {...register('email')} />
           <ErrorInput msg={errors.email?.message} />
@@ -76,7 +75,7 @@ export default function ContactusForm(): ReactElement {
           <ErrorInput msg={errors.subject?.message} />
           <TextArea placeholder="Message" rows={4} {...register('message')} />
           <ErrorInput msg={errors.message?.message} />
-          <label>
+          <Label>
             <Input
               w="15px"
               mr={0.625}
@@ -85,7 +84,7 @@ export default function ContactusForm(): ReactElement {
             />
             <span>I agree to the privacy policy</span>
             <ErrorInput msg={errors.terms?.message} />
-          </label>
+          </Label>
 
           <Center>
             <Button type="submit">Send Message</Button>

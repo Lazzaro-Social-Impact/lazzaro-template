@@ -1,9 +1,10 @@
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { CustomInput, CustomTextArea } from '../common/CustomInput'
-import { Button, Center } from '../common'
+import {
+  Button, Center, Input, TextArea
+} from '../common'
 import { ErrorInput } from '../common/ErrorInput'
 import { useAppSelector, usePostData } from '../../hooks'
 import { getSendContactEventUrl } from '../../api/postApiServices'
@@ -43,21 +44,21 @@ export function ContactEventForm({ id }: IProps): ReactElement {
         successId={`contact-event-form-${id}`}
         errorId={`contact-event-form-${id}`}
       />
-      <CustomInput
+      <Input
         placeholder="Name"
         {...register('name')}
       />
       <ErrorInput msg={errors?.name?.message} />
-      <CustomInput
+      <Input
+        mt={0}
         placeholder="Email"
         {...register('email')}
       />
       <ErrorInput msg={errors?.email?.message} />
-      <CustomTextArea
+      <TextArea
         placeholder="Message"
         rows={4}
         {...register('text')}
-
       />
       <ErrorInput msg={errors?.text?.message} />
 
@@ -71,6 +72,6 @@ export function ContactEventForm({ id }: IProps): ReactElement {
 const ContactForm = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
     text-align: left;
 `

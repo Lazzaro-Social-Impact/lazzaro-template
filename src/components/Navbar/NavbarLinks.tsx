@@ -19,7 +19,7 @@ const NavbarLinks:FC = () => {
   const language = useRef<'en' | 'es'>('en')
   const {
     logo, features = {} as TFeatures,
-  } = useAppSelector(({ ong }) => ({ logo: ong.ongConfig?.brand.logo, features: ong.ongConfig?.features, })) || {}
+  } = useAppSelector(({ ong }) => ({ logo: ong.ongConfig?.brand.logo, features: ong.ongConfig?.features, }))
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 

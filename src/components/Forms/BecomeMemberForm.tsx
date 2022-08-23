@@ -39,7 +39,10 @@ export default function BecomeMemberForm(): ReactElement {
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
     isLoading, isSuccess, isError, mutateAsync
-  } = usePostData< { data: string }, TMemberSubmitForm >(getBecomePartnerUrl())
+  } = usePostData<
+    { data: string },
+    TMemberSubmitForm
+  >(getBecomePartnerUrl())
 
   const onSubmit = async (data: TMemberSubmitForm) => {
     const formData = {
@@ -61,7 +64,7 @@ export default function BecomeMemberForm(): ReactElement {
         <ImageContainer>
           <img src="https://via.placeholder.com/1254x290" alt="" />
         </ImageContainer>
-        <form style={{ padding: '0 10.2rem' }} onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
             isLoading={isLoading}
             isSuccess={isSuccess}
@@ -149,7 +152,7 @@ export default function BecomeMemberForm(): ReactElement {
           <Center>
             <Button type="submit">Submit</Button>
           </Center>
-        </form>
+        </Form>
       </Container>
       <Footer />
     </>
@@ -161,15 +164,19 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 4.2rem;
-  padding: 0 8.8rem;
   gap: 2.4rem;
 `
 
+const Form = styled.form`
+  padding-inline: 5.2rem;
+  margin-block: 3.4rem;
+`
 const ImageContainer = styled.div`
-  width: 1254px;
-  height: 240px;
+  max-width: 78rem;
+  max-height: 240px;
   img {
     width: 100%;
+    object-fit: cover;
     height: 100%;
   }
 `
