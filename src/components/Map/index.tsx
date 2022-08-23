@@ -7,10 +7,10 @@ interface IProps {
     lng: number;
     height: number;
 }
-const { REACT_APP_GOOGLE_MAP_KEY = '' } = process.env
+const API_KEY = import.meta.env.VITE_GOOGLE_MAP_KEY
 
 const Map: FC<IProps> = ({ height, lat, lng }) => {
-  const { isLoaded } = useLoadScript({ googleMapsApiKey: REACT_APP_GOOGLE_MAP_KEY, })
+  const { isLoaded } = useLoadScript({ googleMapsApiKey: API_KEY })
 
   return (
     <>

@@ -7,18 +7,34 @@ import {
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
-import { ReactElement, useId } from 'react'
+import { type ReactElement, useId } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
-import { Image, SectionTitle } from '../common'
+import {
+  Flex, Image, Link, SectionTitle
+} from '../common'
 
 export default function Footer(): ReactElement {
-  const logo = useAppSelector(({ ong }) => ong.ongConfig?.brand.logo)
-  const { phone = '', email = '' } = useAppSelector(({ ong }) => ong.ongConfig?.contact) || {}
   const {
-    facebook = '', instagram = '', twitter = '', linkedin = '', web = ''
-  } = useAppSelector(({ ong }) => ong.ongConfig?.rrss) || {}
+    logo,
+    phone = '',
+    email = '',
+    facebook = '',
+    instagram = '',
+    linkedin = '',
+    twitter = '',
+    web = '',
+  } = useAppSelector(({ ong }) => ({
+    logo: ong.ongConfig?.brand.logo,
+    phone: ong.ongConfig?.contact.phone,
+    email: ong.ongConfig?.contact?.email,
+    facebook: ong.ongConfig?.rrss.facebook,
+    instagram: ong.ongConfig?.rrss.instagram,
+    linkedin: ong.ongConfig?.rrss.linkedin,
+    twitter: ong.ongConfig?.rrss.twitter,
+    web: ong.ongConfig?.rrss.web,
+  }))
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')
 
@@ -35,24 +51,21 @@ export default function Footer(): ReactElement {
         </SectionTitle>
 
         <ContactInfo>
-          <Contact key={useId()}>
+          <Contact>
             <PhoneFilled />
             <a href="tel:+1-844-844-8444">{phone}</a>
           </Contact>
-          <Contact key={useId()}>
+          <Contact>
             <MailFilled />
             <a href={`mailto:${email}`}>{email}</a>
           </Contact>
-
         </ContactInfo>
       </MainFooter>
 
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link to="/terms_and_conditions">
-            Terms and conditions
-          </Link>
+          <Link hoverColor="white" to="/terms_and_conditions" underlined>Terms and conditions</Link>
         </div>
 
         <Icons>
@@ -90,15 +103,8 @@ const MainFooter = styled.footer`
   }
 `
 
-const Link = styled(NavLink)`
-  color: #969696;
-  letter-spacing: 3px;
-  position: relative;
-  text-decoration: underline;
-`
-
 const ImageContainer = styled.div`
-  padding:0.5rem;
+  padding: 0.5rem;
   width: 6rem;
   cursor: pointer;
 `
@@ -130,20 +136,15 @@ const Contact = styled.div`
   }
 `
 
-const SubFooter = styled.div`
-  display: flex;
+const SubFooter = styled(Flex)`
   background-color: ${({ theme }) => `${theme.secondary}`};
-  justify-content: space-between;
-  align-items: center;
   padding: 2rem 4rem;
   border-bottom: 1px solid #ccc;
-  align-items: center;
-  width: 100%;
   border-bottom: none;
-  z-index: 99;
   transition: all 0.4s ease;
   color: #969696;
   border-top: 1px solid ${({ theme }) => `${theme.primary}`};
+  text-align: left;
 
   @media (max-width: 768px) {
     flex-direction: column;

@@ -28,7 +28,7 @@ type memberSubmitForm = {
 }
 
 export default function BecomeMemberForm(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     register, handleSubmit, formState: { errors }, control
   } = useForm<memberSubmitForm>({ resolver: yupResolver(memberSchema), })

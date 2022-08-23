@@ -1,5 +1,5 @@
 import {
-  useEffect, useLayoutEffect, lazy, useCallback
+  useEffect, useLayoutEffect, useCallback
 } from 'react'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
@@ -8,6 +8,7 @@ import { useDependant, useAppDispatch } from './hooks'
 import { setOngConfig, setOngId } from './redux/features'
 import AllRoute from './app/router'
 import { CrashPage } from './views'
+import { LoadingIndex } from './components'
 import './App.css'
 import 'antd/dist/antd.min.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -15,8 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 import './i18n/config'
 
-const LoadingIndex = lazy(() => import('./components/LoadingIndex/LoadingIndex'))
-const ongUrl = ['development', 'staging'].includes(process.env.REACT_APP_ENV || 'development')
+const ongUrl = ['development', 'staging'].includes(import.meta.env.VITE_ENV)
   ? 'prehelloo.web.lazzaro.io'
   : window.location.hostname
 
@@ -63,8 +63,8 @@ function App() {
 
   useLayoutEffect(() => {
     const favIcon = document.getElementById('favicon') as HTMLLinkElement
-    favIcon.href = ongData?.brand?.logo || ''
-    document.title = ongData?.brand?.name || 'Loading...'
+    favIcon.href = ongData?.brand.logo || ''
+    document.title = ongData?.brand.name || 'Loading...'
 
     return () => {
       favIcon.href = ''

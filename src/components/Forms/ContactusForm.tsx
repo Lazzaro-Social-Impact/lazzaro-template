@@ -1,12 +1,14 @@
 import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getSendContactUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData, useGeocoding } from '../../hooks'
 import { contactSchema } from '../../validation/schemas'
-import { Button, Flex } from '../common'
+import {
+  Button, Center, Flex, Input, TextArea
+} from '../common'
 import { CustomInput, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -24,21 +26,18 @@ type ContactSubmitForm = {
 }
 
 export default function ContactusForm(): ReactElement {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactSubmitForm>({
-    resolver: yupResolver(contactSchema),
-  })
-  const phone = useAppSelector((state) => state.ong.ongConfig?.contact.phone)
-  const email = useAppSelector((state) => state.ong.ongConfig?.contact.email)
-  const address = useAppSelector((state) => state.ong.ongConfig?.contact.address) || ''
+  const { phone, email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
+
+  const {
+    register, handleSubmit, formState: { errors }
+  } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
 
   const {
     isLoading, isSuccess, isError, mutateAsync
-  } = usePostData(getSendContactUrl())
-  const onSubmit = async (data: any) => {
-    await mutateAsync({
-      ...data,
-      ongEmail: email,
-    })
+  } = usePostData<{ data:string }, ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
+
+  const onSubmit = async (data: ContactSubmitForm) => {
+    await mutateAsync({ ...data, ongEmail: email, })
   }
 
   const { lat, lng } = useGeocoding(address)
@@ -62,53 +61,37 @@ export default function ContactusForm(): ReactElement {
           <FormTitle>Contact us</FormTitle>
           <FormRow>
             <CustomInputDiv>
-
-              <CustomInput
-                placeholder="Name"
-                {...register('name')}
-              />
+              <Input placeholder="Name" {...register('name')} />
               <ErrorInput msg={errors.name?.message} />
             </CustomInputDiv>
-            <CustomInputDiv>
 
-              <CustomInput
-                placeholder="Surname"
-                {...register('lastName')}
-              />
+            <CustomInputDiv>
+              <Input placeholder="Surname" {...register('lastName')} />
               <ErrorInput msg={errors.lastName?.message} />
             </CustomInputDiv>
           </FormRow>
-          <CustomInput
-            placeholder="Email"
-            {...register('email')}
-          />
+          <Input placeholder="Email" {...register('email')} />
           <ErrorInput msg={errors.email?.message} />
-          <CustomInput
-            placeholder="Subject"
-            {...register('subject')}
-          />
+          <Input placeholder="Subject" {...register('subject')} />
           <ErrorInput msg={errors.subject?.message} />
-          <CustomTextArea
-            placeholder="Message"
-            style={{ width: '100%' }}
-            rows={4}
-            {...register('message')}
-          />
+          <TextArea placeholder="Message" rows={4} {...register('message')} />
           <ErrorInput msg={errors.message?.message} />
           <label>
-            <input
+            <Input
+              w="15px"
+              mr={0.625}
               type="checkbox"
-              style={{ width: '15px', marginRight: '10px' }}
               {...register('terms')}
             />
             <span>I agree to the privacy policy</span>
             <ErrorInput msg={errors.terms?.message} />
           </label>
 
-          <Flex justify="center">
+          <Center>
             <Button type="submit">Send Message</Button>
-          </Flex>
+          </Center>
         </ContactusFormBox>
+
         <ContactDetailsBox>
           <BoxTitle>Contact info</BoxTitle>
           <InfoBox>
