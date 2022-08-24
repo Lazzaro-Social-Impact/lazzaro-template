@@ -18,7 +18,7 @@ const NavbarFeatures: TNavbarFeatures = {
     link: '/#courses',
     text: 'Courses',
   },
-  market: {
+  shop: {
     link: '/shop',
     text: 'Shop',
   },
