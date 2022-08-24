@@ -81,18 +81,20 @@ function App() {
   }, [ongData])
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {isError || isErrorPage || config === null ? (
         <CrashPage />
       ) : isLoading || isLoadingPage ? (
         <LoadingIndex />
       ) : (
         <>
-          <AllRoute />
-          <ToastContainer />
+          <ThemeProvider theme={theme}>
+            <AllRoute />
+            <ToastContainer />
+          </ThemeProvider>
         </>
       )}
-    </ThemeProvider>
+    </>
   )
 }
 
