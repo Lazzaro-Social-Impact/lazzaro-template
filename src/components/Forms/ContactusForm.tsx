@@ -44,7 +44,7 @@ export default function ContactusForm(): ReactElement {
   return (
     <>
       <Navbar />
-      <Map lat={lat} lng={lng} height={28} />
+      {address && <Map lat={lat} lng={lng} height={28} />}
       <Container>
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
