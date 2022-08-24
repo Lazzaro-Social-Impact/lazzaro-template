@@ -18,7 +18,7 @@ import './i18n/config'
 
 const ongUrl = ['development', 'staging'].includes(import.meta.env.VITE_ENV)
   ? 'prehelloo.web.lazzaro.io'
-  : window.location.hostname
+  : window.location.origin.replace('https://', '')
 
 function App() {
   const dispatch = useAppDispatch()
