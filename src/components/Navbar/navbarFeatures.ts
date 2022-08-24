@@ -1,8 +1,6 @@
 type TNavbarFeatures = {
   [feat in keyof TFeatures as Exclude<feat, 'impact' | 'volunteers'>]: feat extends
-    | 'donations'
-    | 'partners'
-    | 'market'
+    | 'shop'
     ? { link: string; text: string }
     : { link: `/#${feat}`; text: `${Capitalize<feat>}` };
 };
@@ -20,18 +18,11 @@ const NavbarFeatures: TNavbarFeatures = {
     link: '/#courses',
     text: 'Courses',
   },
-  donations: {
-    link: '/donate',
-    text: 'Donate',
-  },
   market: {
     link: '/shop',
-    text: 'market',
+    text: 'Shop',
   },
-  partners: {
-    link: '/partners',
-    text: 'Become a Partner',
-  },
+
 }
 
 export default NavbarFeatures
