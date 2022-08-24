@@ -16,27 +16,27 @@ function Courses(): ReactElement {
     data: events = [], isLoading
   } = useDependant<ICourse[]>(getCoursesURL(ongId), ['courses'], ongId)
 
-  const memoizedCourses:JSX.Element[] = useMemo(
-    () => [
-      ...chunk(events, 2).map((e, i) => (
-        <Fragment key={events[i].id}>
-          {e.map((event) => (
-            <Flex key={event.id} direction="column">
-              <CourseCard course={event} />
-            </Flex>
-          ))}
-        </Fragment>
-      )),
-    ],
-    [events]
-  )
+  // const memoizedCourses:JSX.Element[] = useMemo(
+  //   () => [
+  //     ...chunk(events, 2).map((e, i) => (
+  //       <Fragment key={events[i].id}>
+  //         {e.map((event) => (
+  //           <Flex key={event.id} direction="column">
+  //             <CourseCard course={event} />
+  //           </Flex>
+  //         ))}
+  //       </Fragment>
+  //     )),
+  //   ],
+  //   [events]
+  // )
 
   return (
     <Box id="courses" px={4.1} mt={4}>
       <SectionTitle padding={0}>Courses</SectionTitle>
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
       <Carousel arrows dots>
-        {memoizedCourses}
+        {/* {memoizedCourses} */}
       </Carousel>
     </Box>
   )
