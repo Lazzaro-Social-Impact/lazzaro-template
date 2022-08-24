@@ -35,9 +35,11 @@ export function SingleEventDetails({ event, id, isLoadingEvent }
           <Tabs.TabPane tab="Buy" key="1">
             <BuyEventform eventId={id} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Location" key="2">
-            <Map lat={lat} lng={lng} height={28} />
-          </Tabs.TabPane>
+          {event?.location !== 'online' && (
+            <Tabs.TabPane tab="Location" key="2">
+              <Map lat={lat} lng={lng} height={28} />
+            </Tabs.TabPane>
+          )}
           <Tabs.TabPane tab="Contact" key="3">
             <ContactEventForm id={id} />
           </Tabs.TabPane>

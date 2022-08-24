@@ -7,6 +7,7 @@ interface IProps {
   size?:TFontSize;
   align?:TAlignSelf
   underlined?:boolean;
+  mt?: TMarginTop;
 }
 
 const Link = styled(DomLink)<IProps>`
@@ -14,6 +15,7 @@ const Link = styled(DomLink)<IProps>`
     font-size: ${({ size }) => size}rem;
     align-self: ${({ align }) => align};
     text-decoration: ${({ underlined }) => (underlined ? 'underline' : 'none')};
+    margin-top: ${({ mt }) => mt && mt}rem;
     cursor: pointer;
 
     &:hover {

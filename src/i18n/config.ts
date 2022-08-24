@@ -14,7 +14,7 @@ export const resources = {
 } as const
 
 i18n.use(initReactI18next).init({
-  lng: 'es',
+  lng: localStorage.getItem('lang') || 'es',
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
   },

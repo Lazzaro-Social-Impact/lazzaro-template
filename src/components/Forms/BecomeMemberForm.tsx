@@ -61,9 +61,7 @@ export default function BecomeMemberForm(): ReactElement {
     <>
       <Navbar />
       <Container>
-        <ImageContainer>
-          <img src="https://via.placeholder.com/1254x290" alt="" />
-        </ImageContainer>
+
         <Form onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
             isLoading={isLoading}
@@ -170,15 +168,6 @@ const Container = styled.div`
 const Form = styled.form`
   padding-inline: 5.2rem;
   margin-block: 3.4rem;
-`
-const ImageContainer = styled.div`
-  max-width: 78rem;
-  max-height: 240px;
-  img {
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
-  }
 `
 
 const FormTitle = styled.h1`

@@ -41,6 +41,7 @@
     "communication_question": "Do you want us to send you communications related to our activity and/or any of our partner or collaborating entities?",
     "contribute_annually": "Choose the amount you want to contribute annually",
     "join_us": "Join us",
+    "Shop": "Shop",
     "personal_information": "Personal Information",
     "share": "Share",
     "pay": "Pay",
@@ -74,6 +75,7 @@
     "privacy policy": "Privacy Policy",
     "donation_amount": "Enter the amount you want to donate",
     "send_message": "Send Message",
+    "About us": "About us",
     "errors": {
       "name": "Please enter your name",
       "firstname": "Please enter your first name",

@@ -6,6 +6,7 @@ declare global {
     events: boolean;
     impact: boolean;
     market: boolean;
+    shop: boolean;
     partners: boolean;
     volunteers: boolean;
   }>;

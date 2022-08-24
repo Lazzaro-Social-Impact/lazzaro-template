@@ -50,6 +50,14 @@ function App() {
   }, [dispatch, ongData])
 
   useEffect(() => {
+    if (!localStorage.getItem('lang')) {
+      localStorage.setItem('lang', 'es')
+    }
+    return () => {
+      localStorage.removeItem('lang')
+    }
+  }, [])
+  useEffect(() => {
     setOngIdDispatch()
 
     setOngConfigDispatch()
