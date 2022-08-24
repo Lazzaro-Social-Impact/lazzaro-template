@@ -1,86 +1,78 @@
 import { MenuOutlined } from '@ant-design/icons'
 import { Drawer, Grid, Menu } from 'antd'
 import {
-  type FC, useCallback, useRef, useState, useMemo
+  type FC, useCallback, useMemo, useReducer
 } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
 import { useAppSelector } from '../../hooks'
-import { properCase } from '../../utils'
-import {
-  Box, Image, Link
-} from '../common'
+import { Box, Image, Link } from '../common'
+import navbarFeatures from './navbarFeatures'
+import navbarReducer, { initialState } from './navbarReducer'
 
 const { useBreakpoint } = Grid
 
-const NavbarLinks:FC = () => {
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false)
-  const language = useRef<'en' | 'es'>('en')
-  const {
-    logo, features = {} as TFeatures,
-  } = useAppSelector(({ ong }) => ({ logo: ong.ongConfig?.brand.logo, features: ong.ongConfig?.features, }))
+const NavbarLinks: FC = () => {
+  const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 
-  const includedFeatures = ['causes', 'courses', 'events', 'market'] as const
-  const featuresArray:string[] = useMemo(() => Object.keys(features)
-    .filter(
-      (feature) => includedFeatures
-        .includes(feature as typeof includedFeatures[number]) && features[feature as keyof TFeatures]
-    )
-    .sort(), [features])
+  const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
+    logo: ong.ongConfig?.brand.logo,
+    features: ong.ongConfig?.features,
+  }))
 
-  const exceptFeatures = {
-    market: (
-      <li key="market">
-        <Link to="/shop">{t('Shop')}</Link>
-      </li>
-    ),
-  }
-  const NAVBAR_LINKS:JSX.Element[] = useMemo(() => featuresArray.map(
-    (feature) => exceptFeatures[feature as keyof typeof exceptFeatures] || (
-      <li key={feature}>
-        <Link to={`/#${feature}`}>{t(properCase(feature))}</Link>
-      </li>
-    )
-  ), [featuresArray, exceptFeatures, t])
-
-  const handleChangeLanguage = ():void => {
-    language.current = language.current === 'en' ? 'es' : 'en'
-    i18next.changeLanguage(language.current === 'en' ? 'es' : 'en')
+  const handleChangeLanguage = (): void => {
+    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: langLinkText === 'en' ? 'es' : 'en' })
+    i18next.changeLanguage(langLinkText === 'en' ? 'es' : 'en')
   }
 
   const handleDrawerVisibility = useCallback(() => {
-    setIsDrawerVisible(!isDrawerVisible)
+    dispatch({ type: 'SET_DRAWER_VISIBILITY', payload: !isDrawerVisible })
   }, [isDrawerVisible])
 
-  const DRAWER_LINKS: { key: typeof featuresArray[number]; label: JSX.Element }[] = useMemo(
-    () => featuresArray.map((feature) => ({
-      key: feature,
-      label: (
-        <li key={feature}>
-          <a href={`/#${feature}`}>{`${t(feature)}`}</a>
-        </li>
-      ),
-    })),
-    [featuresArray, i18next.language]
-  )
-  const mobileLink = {
-    key: 'language-mobile',
-    label: (
-      <LanguageToggle
-        as="a"
-        onClick={handleChangeLanguage}
-        key="language-mobile"
-        style={{
-          color: 'black',
-        }}
-      >
-        {language.current === 'en' ? 'English' : 'Español'}
+  const featuresArray = useMemo(
+    () => Object.keys(features)
+      .filter(
+        (feature) => navbarFeatures[feature as keyof typeof navbarFeatures]
+            && features[feature as keyof TFeatures]
+      )
+      .sort(),
+    [features]
+  ) as [keyof typeof navbarFeatures]
+
+  const languageToggleLink = useMemo(
+    () => (
+      <LanguageToggle onClick={handleChangeLanguage}>
+        {langLinkText === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
-  }
+    [langLinkText, handleChangeLanguage]
+  )
+
+  const NAVBAR_LINKS: JSX.Element[] = useMemo(
+    () => featuresArray.map((feature) => (
+      <li key={feature}>
+        <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+      </li>
+    )),
+    [featuresArray, t]
+  )
+  const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] = useMemo(
+    () => [
+      ...featuresArray.map((feature) => ({
+        key: feature,
+        label: (
+          <li key={feature}>
+            <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+          </li>
+        ),
+      })),
+      { key: 'lang-toggle', label: languageToggleLink },
+    ],
+    [featuresArray, i18next.language]
+  )
 
   return (
     <>
@@ -91,7 +83,9 @@ const NavbarLinks:FC = () => {
           </ImageContainer>
         </Link>
       </Box>
+
       {!md && <MenuOutlined onClick={handleDrawerVisibility} style={{ color: 'white' }} />}
+
       {md && (
         <Links>
           <li key="about-us">
@@ -101,24 +95,18 @@ const NavbarLinks:FC = () => {
           <li key="contact">
             <Link to="/contact">{t('Contact')}</Link>
           </li>
-          <LanguageToggle onClick={handleChangeLanguage}>
-            {language.current === 'es' ? 'English' : 'Español'}
-          </LanguageToggle>
+
+          {languageToggleLink}
         </Links>
       )}
+
       <Drawer
         width={200}
         placement="right"
         onClose={handleDrawerVisibility}
         visible={isDrawerVisible}
       >
-        <MenuLinks items={[...DRAWER_LINKS, mobileLink]} mode="inline">
-          <Menu.Item key="language">
-            <LanguageToggle onClick={handleChangeLanguage}>
-              {language.current === 'es' ? 'English' : 'Español'}
-            </LanguageToggle>
-          </Menu.Item>
-        </MenuLinks>
+        <MenuLinks items={DRAWER_LINKS} mode="inline" />
       </Drawer>
     </>
   )
@@ -126,24 +114,20 @@ const NavbarLinks:FC = () => {
 export default NavbarLinks
 
 const LanguageToggle = styled.li`
-cursor: pointer;
-color: #ddd;
+  cursor: pointer;
+  color: #ddd;
 
-font-weight: bold;
-transition: all 0.2s ease-in-out;
-&:hover {
-  color: ${({ theme }) => theme.primary};
-  text-decoration: underline;
-  
-}
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    color:black;
+  }
 `
 
-// const FeatureLink = styled.a`
-// transition: all 0.2s ease-in-out;
-// &:hover {
-//   text-decoration: underline;
-// }
-// `
 const ImageContainer = styled.div`
   max-width: 180px;
 
@@ -167,7 +151,6 @@ const Links = styled.ul`
     color: #ddd;
     text-decoration: none;
     font-weight: bold;
-
     &:hover {
       color: ${({ theme }) => theme.primary};
     }

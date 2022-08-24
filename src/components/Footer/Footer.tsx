@@ -7,8 +7,7 @@ import {
   PhoneFilled,
   TwitterOutlined,
 } from '@ant-design/icons'
-import { type ReactElement, useId } from 'react'
-import { NavLink } from 'react-router-dom'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import {
