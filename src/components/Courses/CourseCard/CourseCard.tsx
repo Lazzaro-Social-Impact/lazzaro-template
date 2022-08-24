@@ -2,7 +2,8 @@ import moment from 'moment'
 import HtmlParser from 'html-react-parser'
 import { CalendarIcon } from '../../Icons'
 import {
-  Box, Card, Flex, Image, Link
+  Box,
+  Card, Flex, Image, Link,
 } from '../../common'
 
 interface IProps {
@@ -14,16 +15,15 @@ interface IProps {
     start_time: string;
     end_time: string;
     id: string;
-  };
+  }
 }
 
-function CourseCard(props: IProps) {
-  const {
-    course: {
-      title, description, imageURL, start_time: startTime, id
-    },
-  } = props
-
+function CourseCard({
+  course: {
+    title, description,
+    imageURL, start_time: startTime, id,
+  }
+}: IProps) {
   const date = Number(moment(startTime).format('D'))
 
   return (
@@ -50,4 +50,7 @@ function CourseCard(props: IProps) {
   )
 }
 
+CourseCard.defaultProps = {
+
+}
 export default CourseCard
