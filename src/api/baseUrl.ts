@@ -10,6 +10,6 @@ const ENV_BASE_URL: IEnvironments = {
   staging: 'https://elbpre.backend.lazzaro.io:8080',
 }
 
-const { VITE_ENV } = import.meta.env
+const { VITE_ENV = 'staging' } = import.meta.env
 
 export default ENV_BASE_URL[VITE_ENV as keyof IEnvironments]

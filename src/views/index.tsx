@@ -20,3 +20,4 @@ export const FinalizeEventPaymentPage = lazy(() => import('./FinalizeEventPaymen
 export const FinalizeProductPaymentPage = lazy(() => import('./FinalizeProductPayment' /* webpackChunkName: "FinalizeProductPayment" */))
 export const FinalizeSubscriptionDonationPage = lazy(() => import('./FinalizeSubscriptionDonation' /* webpackChunkName: "FinalizeSubscriptionDonation" */))
 export const BecomeMemberForm = lazy(() => import('../components/Forms/BecomeMemberForm' /* webpackChunkName: "BecomeMemberForm" */))
+export { default as CrashPage } from './CrashPage/CrashPage'
