@@ -46,8 +46,8 @@
     "start": "cross-env VITE_ENV=development vite",
     "start:staging": "cross-env VITE_ENV=staging vite",
     "start:prod": "cross-env VITE_ENV=production vite",
-    "build": "cross-env VITE_ENV=production react-scripts tsc && vite build",
-    "build:staging": "cross-env VITE_ENV=staging react-scripts tsc && vite build",
+    "build": "cross-env VITE_ENV=production tsc && vite build",
+    "build:staging": "cross-env VITE_ENV=staging tsc && vite build",
     "lint": "eslint --ext .tsx,.ts src",
     "lint:fix": "eslint --ext .tsx,.ts --fix src"
   },
