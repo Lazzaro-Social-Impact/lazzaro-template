@@ -21,6 +21,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    sourcemap: true,
     rollupOptions: {
       plugins: [
         splitVendorChunkPlugin()
