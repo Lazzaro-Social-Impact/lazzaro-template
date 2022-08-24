@@ -1,9 +1,8 @@
-import styled from 'styled-components'
 import { useMemo } from 'react'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import {
-  Flex, Image, SectionTitle, Text
+  Flex, SectionTitle, Text
 } from '../../components/common'
 import { ProductCard } from '../../components/ProductCard/ProductCard'
 import { useAppSelector, useDependant } from '../../hooks'
@@ -23,9 +22,6 @@ function Shop() {
   return (
     <>
       <Navbar />
-      <ImageContainer>
-        <Image src="https://via.placeholder.com/817x420" alt="" />
-      </ImageContainer>
 
       <SectionTitle textAlign="center">Shop</SectionTitle>
       <Text fontSize={1.5} textAlign="center">
@@ -42,11 +38,5 @@ function Shop() {
     </>
   )
 }
-
-const ImageContainer = styled.div`
-  position: relative;
-  height: 26.5rem;
-  cursor: pointer;
-`
 
 export default Shop
