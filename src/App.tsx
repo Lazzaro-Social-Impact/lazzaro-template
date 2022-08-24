@@ -7,7 +7,6 @@ import { getOngByUrl, getOngConfig } from './api/getApiServices'
 import { useDependant, useAppDispatch } from './hooks'
 import { setOngConfig, setOngId } from './redux/features'
 import AllRoute from './app/router'
-import { CrashPage } from './views'
 import { LoadingIndex } from './components'
 import './App.css'
 import 'antd/dist/antd.min.css'
@@ -15,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 import './i18n/config'
+import CrashPage from './views/CrashPage/CrashPage'
 
 const ongUrl = ['development', 'staging'].includes(import.meta.env.VITE_ENV)
   ? 'prehelloo.web.lazzaro.io'
@@ -85,7 +85,9 @@ function App() {
       {isError || isErrorPage || config === null ? (
         <CrashPage />
       ) : isLoading || isLoadingPage ? (
-        <LoadingIndex />
+        <ThemeProvider theme={theme}>
+          <LoadingIndex />
+        </ThemeProvider>
       ) : (
         <>
           <ThemeProvider theme={theme}>

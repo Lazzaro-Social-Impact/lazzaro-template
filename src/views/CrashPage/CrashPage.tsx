@@ -1,7 +1,10 @@
 import { Result } from 'antd'
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 
 export default function CrashPage(): ReactElement {
+  useEffect(() => {
+    document.title = 'Error'
+  }, [])
   return (
     <Result
       status="500"
