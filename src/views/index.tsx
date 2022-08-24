@@ -13,7 +13,6 @@ export const SingleEvent = lazy(() => import('./SingleEvent/SingleEvent' /* webp
 export const SingleProduct = lazy(() => import('./SingleProduct/SingleProduct' /* webpackChunkName: "SingleProduct" */))
 export const TermsAndConditions = lazy(() => import('./TermsAndConditions/TermsAndConditions' /* webpackChunkName: "TermsAndConditions" */))
 export const ErrorPage = lazy(() => import('./ErrorPage/ErrorPage' /* webpackChunkName: "ErrorPage" */))
-export const CrashPage = lazy(() => import('./CrashPage/CrashPage' /* webpackChunkName: "CrashPage" */))
 export const FinalizeDonationPage = lazy(() => import('./FinalizeDonation' /* webpackChunkName: "FinalizeDonation" */))
 export const FinalizeProjectDonationPage = lazy(() => import('./FinalizeProjectDonation' /* webpackChunkName: "FinalizeProjectDonation" */))
 export const FinalizeCoursePaymentPage = lazy(() => import('./FinalizeCoursePayment' /* webpackChunkName: "FinalizeCoursePayment" */))

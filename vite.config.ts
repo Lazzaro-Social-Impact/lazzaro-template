@@ -11,6 +11,13 @@ export default defineConfig({
     react(),
     svgrPlugin(),
     tsconfigPaths(),
-
+    checker({
+      typescript: true,
+      eslint: {
+        lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
+      },
+      terminal: true,
+      overlay: false,
+    }),
   ],
 })
