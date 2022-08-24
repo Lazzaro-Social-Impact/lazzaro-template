@@ -16,7 +16,7 @@ const { useBreakpoint } = Grid
 
 const NavbarLinks:FC = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
-  const language = useRef<'en' | 'es'>('en')
+  const language = useRef<'en' | 'es' | string | null>(localStorage.getItem('lang'))
   const {
     logo, features = {} as TFeatures,
   } = useAppSelector(({ ong }) => ({ logo: ong.ongConfig?.brand.logo, features: ong.ongConfig?.features, }))
@@ -47,8 +47,9 @@ const NavbarLinks:FC = () => {
   ), [featuresArray, exceptFeatures, t])
 
   const handleChangeLanguage = ():void => {
+    localStorage.setItem('lang', language.current === 'en' ? 'es' : 'en')
     language.current = language.current === 'en' ? 'es' : 'en'
-    i18next.changeLanguage(language.current === 'en' ? 'es' : 'en')
+    i18next.changeLanguage(language.current === 'en' ? 'en' : 'es')
   }
 
   const handleDrawerVisibility = useCallback(() => {

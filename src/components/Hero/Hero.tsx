@@ -25,7 +25,7 @@ function Hero() {
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
-          <Button color="white"> {t('Donate')} </Button>
+          <Button color="white" onClick={() => navigate('/donate')}> {t('Donate')} </Button>
           <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
             {t('Become a member')}
           </Button>
