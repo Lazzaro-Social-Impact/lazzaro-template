@@ -1,6 +1,8 @@
 import { Tabs, Breadcrumb } from 'antd'
 import { useMemo, type ReactElement } from 'react'
-import HtmlParser from 'react-html-parser'
+
+import HtmlParser from 'html-react-parser'
+
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'

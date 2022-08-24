@@ -22,6 +22,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-react": "^7.28.0",
+    "html-react-parser": "^3.0.4",
     "i18next": "^21.9.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
@@ -48,6 +49,7 @@
     "start:prod": "cross-env VITE_ENV=production vite",
     "build": "cross-env VITE_ENV=production tsc && vite build",
     "build:staging": "cross-env VITE_ENV=staging tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint --ext .tsx,.ts src",
     "lint:fix": "eslint --ext .tsx,.ts --fix src"
   },
