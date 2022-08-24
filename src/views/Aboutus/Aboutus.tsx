@@ -1,6 +1,8 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import HtmlParser from 'react-html-parser'
+
+import HtmlParser from 'html-react-parser'
+
 import { Footer, Navbar } from '../../components'
 import { useAppSelector } from '../../hooks'
 import { Box, Image } from '../../components/common'

@@ -1,4 +1,4 @@
-import HtmlParser from 'react-html-parser'
+import HtmlParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
 import {
   Box, Flex, Image, Link, SectionTitle
@@ -18,11 +18,11 @@ export default function AboutUs(): React.ReactElement {
         </SectionTitle>
 
         <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description).length > 1180 ? (
+          {HtmlParser(description).toString().length > 1180 ? (
             <>
 
               <Box>
-                {HtmlParser(description).slice(0, 1180)}...
+                {HtmlParser(description).toString().slice(0, 1180)}...
               </Box>
 
               <Link to="/about" align="flex-end" mt={1.8} underlined>

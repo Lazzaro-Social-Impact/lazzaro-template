@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import HtmlParser from 'react-html-parser'
+import HtmlParser from 'html-react-parser'
 import { BookmarkIcon } from '../../Icons'
 import {
   Box, Card, Image, Link

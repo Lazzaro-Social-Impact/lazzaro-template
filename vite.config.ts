@@ -20,4 +20,7 @@ export default defineConfig({
       overlay: false,
     }),
   ],
+  // build: {
+  //   sourcemap: true,
+  // }
 })

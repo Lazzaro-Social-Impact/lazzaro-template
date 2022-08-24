@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
 import { Tabs } from 'antd'
-import HtmlParser from 'react-html-parser'
+
+import HtmlParser from 'html-react-parser'
+
 import styled from 'styled-components'
 import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
