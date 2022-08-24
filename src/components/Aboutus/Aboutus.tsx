@@ -18,17 +18,14 @@ export default function AboutUs(): React.ReactElement {
         </SectionTitle>
 
         <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description)?.length > 1180 ? (
+          {HtmlParser(description).length > 1180 ? (
             <>
-              <p>
-                {HtmlParser(description)?.slice(0, 1180)}...
-              </p>
-              <Link
-                to="/about"
-                align="flex-end"
-                style={{ marginRight: '1.8rem' }}
-                underlined
-              >
+
+              <Box>
+                {HtmlParser(description).slice(0, 1180)}...
+              </Box>
+
+              <Link to="/about" align="flex-end" mt={1.8} underlined>
                 {t('Read More')}
               </Link>
             </>
