@@ -2,7 +2,7 @@ import { type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
-import { Button, Center, Image } from '../../components/common'
+import { Button, Center } from '../../components/common'
 
 export default function ErrorPage(): ReactElement {
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ export default function ErrorPage(): ReactElement {
       <Navbar />
       <Container>
         <ImageContainer>
-          <Image src="./assets/img/lazz-error-page.svg" alt="error" />
+          <img src="./assets/img/lazz-error-page.svg" alt="error" />
           <ErrorText>tenemos que hablar</ErrorText>
           <ErrorText style={{ top: '90%' }}> esto no funciona</ErrorText>
         </ImageContainer>
@@ -31,10 +31,11 @@ const Container = styled.div`
 display: flex;
 flex-direction: column;
 margin: 1.2rem 9.2rem;
+margin-top: -3.8rem;
 justify-content: center;
 align-items: center;
     img {
-        width: 1200px;
+        width: 850px;
         max-width: 100%;
     }
 

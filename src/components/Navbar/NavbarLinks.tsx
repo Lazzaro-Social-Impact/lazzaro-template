@@ -23,7 +23,7 @@ const NavbarLinks:FC = () => {
   const { t } = useTranslation()
   const { md } = useBreakpoint()
 
-  const includedFeatures = ['causes', 'courses', 'events', 'partners', 'donations', 'market'] as const
+  const includedFeatures = ['causes', 'courses', 'events', 'market'] as const
   const featuresArray:string[] = useMemo(() => Object.keys(features)
     .filter(
       (feature) => includedFeatures
@@ -32,20 +32,9 @@ const NavbarLinks:FC = () => {
     .sort(), [features])
 
   const exceptFeatures = {
-    partners: (
-      <li key="partners">
-        <Link to="/partners">{t('Become a member')}</Link>
-      </li>
-    ),
-    donations: (
-      <li key="donate">
-        <Link to="/donate">{t('Donate')}</Link>
-      </li>
-    ),
-
     market: (
       <li key="market">
-        <Link to="/shop">{t('Market')}</Link>
+        <Link to="/shop">{t('Shop')}</Link>
       </li>
     ),
   }
@@ -105,6 +94,9 @@ const NavbarLinks:FC = () => {
       {!md && <MenuOutlined onClick={handleDrawerVisibility} style={{ color: 'white' }} />}
       {md && (
         <Links>
+          <li key="about-us">
+            <a href="/#about">{t('About us')}</a>
+          </li>
           {NAVBAR_LINKS}
           <li key="contact">
             <Link to="/contact">{t('Contact')}</Link>
