@@ -1,5 +1,5 @@
 import moment from 'moment'
-import parse from 'react-html-parser'
+import HtmlParser from 'html-react-parser'
 import { CalendarIcon } from '../../Icons'
 import {
   Box,
@@ -41,7 +41,7 @@ function CourseCard({
       </Box>
       <Flex direction="column" justify="space-between" p={1} textAlign="left">
         <h2>{title?.slice(0, 23)}</h2>
-        {parse(description?.slice(0, 100))}
+        {HtmlParser(description?.slice(0, 100))}
         <Link to={`/courses/${id}`} align="flex-end" underlined size={1.3}>
           Read more
         </Link>

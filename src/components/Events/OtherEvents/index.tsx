@@ -1,7 +1,8 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import HtmlParser from 'react-html-parser'
+import HtmlParser from 'html-react-parser'
+
 import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
 import { Box, Flex } from '../../common'

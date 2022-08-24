@@ -22,6 +22,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-react": "^7.28.0",
+    "html-react-parser": "^3.0.4",
     "i18next": "^21.9.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
@@ -29,7 +30,6 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
-    "react-html-parser": "^2.0.2",
     "react-i18next": "^11.18.4",
     "react-loading-skeleton": "^3.1.0",
     "react-redux": "^8.0.1",
@@ -48,6 +48,7 @@
     "start:prod": "cross-env VITE_ENV=production vite",
     "build": "cross-env VITE_ENV=production tsc && vite build",
     "build:staging": "cross-env VITE_ENV=staging tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint --ext .tsx,.ts src",
     "lint:fix": "eslint --ext .tsx,.ts --fix src"
   },
@@ -78,7 +79,6 @@
   "devDependencies": {
     "@types/moment": "^2.13.0",
     "@types/react-datepicker": "^4.4.2",
-    "@types/react-html-parser": "^2.0.2",
     "@types/styled-components": "^5.1.25",
     "@types/yup": "^0.29.14",
     "@typescript-eslint/parser": "^5.30.0",
