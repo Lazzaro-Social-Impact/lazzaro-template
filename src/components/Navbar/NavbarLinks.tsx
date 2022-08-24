@@ -17,14 +17,15 @@ const NavbarLinks: FC = () => {
   const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
   const { t } = useTranslation()
   const { md } = useBreakpoint()
+  const lang = localStorage.getItem('lang') === 'en' ? 'es' : 'en'
   const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
     features: ong.ongConfig?.features,
   }))
 
   const handleChangeLanguage = (): void => {
-    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: localStorage.getItem('lang') === 'en' ? 'es' : 'en' })
-    i18next.changeLanguage(localStorage.getItem('lang') === 'en' ? 'es' : 'en')
+    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: localStorage.setItem('lang', lang) })
+    i18next.changeLanguage(lang)
   }
 
   const handleDrawerVisibility = useCallback(() => {
@@ -44,16 +45,16 @@ const NavbarLinks: FC = () => {
   const languageToggleLink = useMemo(
     () => (
       <LanguageToggle onClick={handleChangeLanguage}>
-        {langLinkText === 'en' ? 'English' : 'Español'}
+        {lang === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
-    [langLinkText, handleChangeLanguage]
+    [langLinkText, handleChangeLanguage, lang]
   )
 
   const NAVBAR_LINKS: JSX.Element[] = useMemo(
     () => featuresArray.map((feature) => (
       <li key={feature}>
-        {/* <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link> */}
+        <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
       </li>
     )),
     [featuresArray, t]
@@ -64,7 +65,7 @@ const NavbarLinks: FC = () => {
         key: feature,
         label: (
           <li key={feature}>
-            {/* <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link> */}
+            <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
           </li>
         ),
       })),

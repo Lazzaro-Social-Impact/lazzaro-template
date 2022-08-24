@@ -6,7 +6,7 @@ enum ACTIONS {
 
 type TActions = {
   type: keyof typeof ACTIONS;
-  payload: boolean | 'en' | 'es';
+  payload: void | boolean | 'en' | 'es';
 };
 
 type TState = {
