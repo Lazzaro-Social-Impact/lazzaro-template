@@ -1,27 +1,32 @@
-import { memo, type FC } from 'react'
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
-import Skeleton from '../Skeleton'
+import {
+  memo, useEffect, useRef, type FC
+} from 'react'
+import mapboxgl from 'mapbox-gl'
+import { Box } from '../common'
 
 interface IProps {
     lat: number;
     lng: number;
     height: number;
 }
-const API_KEY = import.meta.env.VITE_GOOGLE_MAP_KEY
 
 const Map: FC<IProps> = ({ height, lat, lng }) => {
-  const { isLoaded } = useLoadScript({ googleMapsApiKey: API_KEY })
+  const mapContainerRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<mapboxgl.Map>()
+  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN
 
-  return (
-    <>
-      {!isLoaded && <Skeleton width={100} height={height} number={1} px={0} mt={0} />}
+  useEffect(() => {
+    if (mapRef.current) return
 
-      {isLoaded && (
-      <GoogleMap zoom={13} center={{ lat, lng }} mapContainerStyle={{ width: '100%', height: `${height}rem` }}>
-        <Marker position={{ lat, lng }} />
-      </GoogleMap>
-      )}
-    </>
-  )
+    mapRef.current = new mapboxgl.Map({
+      container: mapContainerRef.current as HTMLElement,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      zoom: 12,
+      attributionControl: false,
+    })
+  }, [lat, lng])
+
+  return <Box ref={mapContainerRef} height={height} />
 }
 export default memo(Map)
