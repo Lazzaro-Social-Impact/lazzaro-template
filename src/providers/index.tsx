@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -6,7 +6,7 @@ import ReactQueryProvider from '../queryclient'
 import { store } from '../redux/store'
 
 type TChildern = {
-    children: React.ReactNode
+    children: ReactNode
 }
 const Providers = ({ children }: TChildern) => (
   <BrowserRouter>
