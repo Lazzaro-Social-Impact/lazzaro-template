@@ -17,15 +17,17 @@ const NavbarLinks: FC = () => {
   const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
   const { t } = useTranslation()
   const { md } = useBreakpoint()
-  const lang = localStorage.getItem('lang') === 'en' ? 'es' : 'en'
   const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
     features: ong.ongConfig?.features,
   }))
 
   const handleChangeLanguage = (): void => {
-    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: localStorage.setItem('lang', lang) })
-    i18next.changeLanguage(lang)
+    const chosenLanguage = langLinkText === 'es' ? 'en' : 'es'
+
+    localStorage.setItem('lang', chosenLanguage)
+    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: chosenLanguage })
+    i18next.changeLanguage(chosenLanguage)
   }
 
   const handleDrawerVisibility = useCallback(() => {
@@ -45,10 +47,10 @@ const NavbarLinks: FC = () => {
   const languageToggleLink = useMemo(
     () => (
       <LanguageToggle onClick={handleChangeLanguage}>
-        {lang === 'en' ? 'English' : 'Español'}
+        {langLinkText === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
-    [langLinkText, handleChangeLanguage, lang]
+    [langLinkText, handleChangeLanguage, langLinkText]
   )
 
   const NAVBAR_LINKS: JSX.Element[] = useMemo(
