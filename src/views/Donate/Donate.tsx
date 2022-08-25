@@ -16,7 +16,11 @@ function Donate() {
       ong_id: ongId,
     }
 
-    await mutateAsync(donationInfo)
+    const {
+      data: { data: paypal },
+    } = await mutateAsync(donationInfo)
+
+    window.open(paypal, '_blank')?.focus()
   }
   return (
     <>
