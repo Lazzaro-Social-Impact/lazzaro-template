@@ -16,7 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 import './i18n/config'
 
-const ongUrl = ['development', 'staging'].includes(import.meta.env.VITE_ENV || 'staging')
+const ongUrl = ['development', 'staging'].includes(import.meta.env.MODE)
   ? 'prehelloo.web.lazzaro.io'
   : window.location.origin.replace('https://', '')
 
