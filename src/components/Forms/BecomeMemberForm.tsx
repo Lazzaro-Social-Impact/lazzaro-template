@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
@@ -31,6 +32,7 @@ type TMemberSubmitForm = {
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -44,12 +46,18 @@ export default function BecomeMemberForm(): ReactElement {
     TMemberSubmitForm
   >(getBecomePartnerUrl())
 
+  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
+
   const onSubmit = async (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       amount: 1, // TODO: Ask Ivan about this
       ong_id: ongId,
+    }
+    if (paymentMethod === 'stripe') {
+      const { data: { clientSecret } } : any = await mutateAsync(formData)
+      return navigate(`/checkout/${clientSecret}`)
     }
     const {
       data: { data: payPalLink },

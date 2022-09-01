@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { getBuyCourseUrl } from '../../api/getApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
@@ -36,10 +37,14 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
   const {
     mutateAsync, ...states
   } = usePostData<{ data: string }, buyCourseFormSubmit>(getBuyCourseUrl(courseId))
-
+  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
+  const navigate = useNavigate()
   const onSubmit = async (data: buyCourseFormSubmit) => {
     const formData = { ...data, course_id: courseId, ong_id: ongId }
-
+    if (paymentMethod === 'stripe') {
+      const { data: { clientSecret } } : any = await mutateAsync(formData)
+      return navigate(`/checkout/${clientSecret}`)
+    }
     const { data: { data: payPalLink } = {} } = await mutateAsync(formData)
     window.open(payPalLink, '_blank')
   }
