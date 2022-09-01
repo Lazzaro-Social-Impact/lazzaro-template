@@ -20,7 +20,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const navigate = useNavigate()
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
   const navigateTo = (path: `causes/${string}`) => () => navigate(path)
-
+  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
   const { mutateAsync, ...states } = usePostData<{ data: string }, DonateSubmitForm>(
     getStartProjectDonationUrl(ongId)
   )
@@ -28,6 +28,10 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const handleSubmit = async (values: DonateSubmitForm) => {
     const donationInfo = { ...values, ong_id: ongId }
 
+    if (paymentMethod === 'stripe') {
+      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
+      return navigate(`/checkout/${clientSecret}`)
+    }
     const {
       data: { data: paypal },
     } = await mutateAsync(donationInfo)

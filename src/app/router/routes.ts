@@ -1,3 +1,4 @@
+import StripeContainer from '../../components/StripeContainer/StripeContainer'
 import type { TRoutes } from '../../types/types'
 import {
   Aboutus,
@@ -19,6 +20,7 @@ import {
   BecomeMemberForm,
   ContactusForm,
 } from '../../views'
+import PaymentSuccess from '../../views/PaymentSuccess/PaymentSuccess'
 
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 
@@ -118,6 +120,16 @@ const getRoutes = (features:TFeatures): TRoutes => {
       path: '/terms_and_conditions',
       render: true,
       Element: TermsAndConditions,
+    },
+    {
+      path: '/checkout/:secret',
+      render: true,
+      Element: StripeContainer
+    },
+    {
+      path: '/payment-success',
+      render: true,
+      Element: PaymentSuccess
     },
     {
       path: '/*',

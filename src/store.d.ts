@@ -58,6 +58,7 @@ declare global {
     language: string;
     powered_by_lazzaro: boolean;
     url: string;
+    payment_method: string;
   }>;
 
   type TRrss = Readonly<{

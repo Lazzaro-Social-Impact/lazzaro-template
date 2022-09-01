@@ -3,7 +3,7 @@ import { type JSXElementConstructor } from 'react'
 export type TRoutes = readonly{
   path: `/${string}`;
   render: boolean;
-  Element: JSXElementConstructor<Record<string, never>>;
+  Element: JSXElementConstructor<Record<string, never>> | any
 }[]
 
 export type TModal = boolean | undefined
