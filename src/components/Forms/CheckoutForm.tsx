@@ -81,7 +81,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
   }, [stripe, secret, navigate])
 
   return (
-    <div className="checkout-form-stripe">
+    <CheckoutFormStripe>
       <form
         id="payment-form"
         onSubmit={handleSubmit}
@@ -97,11 +97,11 @@ export default function CheckoutForm({ secret }: TClientSecret) {
         {/* /* Show any error or success messages */}
         {message && <div id="payment-message">{message}</div>}
       </form>
-    </div>
+    </CheckoutFormStripe>
   )
 }
 
-const CheckoutFormStrip = styled.div`
+const CheckoutFormStripe = styled.div`
     display: flex;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;

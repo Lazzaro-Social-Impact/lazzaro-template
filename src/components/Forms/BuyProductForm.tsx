@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, usePostData } from '../../hooks'
@@ -47,7 +48,8 @@ export function BuyProductForm(props: IProps): ReactElement {
   const {
     handleSubmit, register, formState: { errors },
   } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema), })
-
+  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
+  const navigate = useNavigate()
   const onSubmit = async (data: IFormSubmit) => {
     const donationInfo = {
       ...data,
@@ -55,7 +57,10 @@ export function BuyProductForm(props: IProps): ReactElement {
       product_id: id,
       amount: price,
     }
-
+    if (paymentMethod === 'stripe') {
+      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
+      return navigate(`/checkout/${clientSecret}`)
+    }
     const {
       data: { data: paypal },
     } = await mutateAsync(donationInfo)

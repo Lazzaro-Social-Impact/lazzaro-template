@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { getStartDonationUrl } from '../../api/postApiServices'
 import { Footer, DonateForm, Navbar } from '../../components'
 import { Flex, SectionTitle } from '../../components/common'
@@ -9,13 +10,17 @@ function Donate() {
   const {
     mutateAsync, ...states
   } = usePostData<{data:string}, DonateSubmitForm>(getStartDonationUrl(ongId))
-
+  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
+  const navigate = useNavigate()
   const handleSubmit = async (values: DonateSubmitForm) => {
     const donationInfo = {
       ...values,
       ong_id: ongId,
     }
-
+    if (paymentMethod === 'stripe') {
+      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
+      return navigate(`/checkout/${clientSecret}`)
+    }
     const {
       data: { data: paypal },
     } = await mutateAsync(donationInfo)
