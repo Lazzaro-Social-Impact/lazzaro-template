@@ -58,7 +58,7 @@ declare global {
     language: string;
     powered_by_lazzaro: boolean;
     url: string;
-    payment_method: string;
+    payment_method: 'paypal' | 'stripe';
   }>;
 
   type TRrss = Readonly<{

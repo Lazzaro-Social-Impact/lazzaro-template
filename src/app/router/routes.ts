@@ -1,4 +1,3 @@
-import StripeContainer from '../../components/StripeContainer/StripeContainer'
 import type { TRoutes } from '../../types/types'
 import {
   Aboutus,
@@ -19,15 +18,21 @@ import {
   FinalizeSubscriptionDonationPage,
   BecomeMemberForm,
   ContactusForm,
+  StripeContainer,
+  SuccessfulStripePayment
 } from '../../views'
-import PaymentSuccess from '../../views/PaymentSuccess/PaymentSuccess'
 
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 
-const getRoutes = (features:TFeatures): TRoutes => {
+type TParameters = {
+  features: TFeatures,
+  isStripe: boolean,
+}
+
+const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
   const {
     causes, courses, events, partners, donations, volunteers, market
-  } = features || {}
+  } = features
 
   return [
     {
@@ -123,13 +128,13 @@ const getRoutes = (features:TFeatures): TRoutes => {
     },
     {
       path: '/checkout/:secret',
-      render: true,
-      Element: StripeContainer
+      render: isStripe,
+      Element: StripeContainer,
     },
     {
       path: '/payment-success',
-      render: true,
-      Element: PaymentSuccess
+      render: isStripe,
+      Element: SuccessfulStripePayment,
     },
     {
       path: '/*',
