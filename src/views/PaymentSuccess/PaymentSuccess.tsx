@@ -18,6 +18,9 @@ const PaymentSuccess: FC = () => {
             Go to home
           </Button>,
         ]}
+        style={{
+          marginTop: '7.8rem'
+        }}
       />
       <Footer />
     </>
