@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { getAddVolunteerUrl } from '../../api/postApiServices'
 import { Footer, Navbar } from '../../components'
 import {
-  Button, Flex, SectionTitle
+  Button, Center, Flex, SectionTitle
 } from '../../components/common'
 import { CustomInput, CustomInputDiv } from '../../components/common/CustomInput'
 import { ErrorInput } from '../../components/common/ErrorInput'
@@ -66,9 +66,9 @@ function BecomeVolunteerForm() {
         <CustomInput placeholder="Address" {...register('home_address')} />
         <ErrorInput msg={errors.home_address?.message} />
 
-        <Flex>
+        <Center>
           <Button px="2.8rem" type="submit">Send</Button>
-        </Flex>
+        </Center>
       </CustomForm>
       <Footer />
     </>
