@@ -24,7 +24,7 @@ export default function Volunteers(): ReactElement {
 
   return (
     <VolunteersSection id="volunteers">
-      <SectionTitle>Our Volunteers</SectionTitle>
+      <SectionTitle>Our Team</SectionTitle>
       <Carousel dots>
         {memoizedMembersCards}
       </Carousel>

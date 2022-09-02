@@ -42,7 +42,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   padding: 0 4.2rem;
-  gap: 4.2rem;
+  gap: 2.4rem;
   margin-top: 3.2rem;
 
   @media screen and (max-width: 768px) {
@@ -54,9 +54,7 @@ const Container = styled.div`
 const OtherEvents = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0.3;
-  height: 75rem;
-  gap: 1.2rem;
-  overflow-y: auto;
-  padding-inline: 1rem;
+  flex: 1;
+  width: 100%;
+  padding-inline: 1.2rem;
 `

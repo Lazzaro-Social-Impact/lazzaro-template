@@ -75,7 +75,7 @@ export function BuyProductForm(props: IProps): ReactElement {
         successId={`donation_success${id}`}
         errorId={`donation_failed${id}`}
       />
-      {modal && <SectionTitle>{title}</SectionTitle>}
+      {modal && <CustomSectionTitle padding={0} textAlign="center" fontSize="x-large">{title}</CustomSectionTitle>}
 
       <InputTitle>Your Shopping</InputTitle>
 
@@ -167,6 +167,12 @@ const InputRow = styled.div`
   gap: 1.2rem;
   margin-top: 0.8rem;
   justify-content: space-between;
+`
+
+const CustomSectionTitle = styled(SectionTitle)`
+ @media screen and (max-width: 540px) {
+   font-size: 1.4rem;
+ }
 `
 
 BuyProductForm.defaultProps = {

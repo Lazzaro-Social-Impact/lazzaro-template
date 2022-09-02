@@ -7,12 +7,12 @@ export default function SubscribeDivider(): ReactElement {
   const { primary, secondary } = useTheme()
   const navigate = useNavigate()
 
-  const navigateTo = (path:'/partners') => () => navigate(path)
+  const navigateTo = (path:'/volunteers') => () => navigate(path)
 
   return (
     <Flex direction="column" bgColor={secondary} py={2.4} gap={1.2} mt={4}>
-      <SectionTitle>Lets collaborate together </SectionTitle>
-      <Button onClick={navigateTo('/partners')} fontSize={1.2} hoverBgColor={primary}>
+      <SectionTitle>Do you want to be a volunteer?</SectionTitle>
+      <Button onClick={navigateTo('/volunteers')} fontSize={1.2} hoverBgColor={primary}>
         Join us
       </Button>
     </Flex>
@@ -22,7 +22,7 @@ export default function SubscribeDivider(): ReactElement {
 const SectionTitle = styled.h1`
     font-size: 2.2rem;
     color: #fff;
-    width: 25%;
+    width: 33%;
     margin-bottom: 0;
     line-height: 1.4;
 

@@ -25,7 +25,7 @@ export function ProductCard({
           {price.toFixed(2)} {currency}
         </Text>
       </Flex>
-      {!!discount && <BookmarkIcon position="absolute" top={0} right={0} text={`${discount}%`} />}
+      {!!discount && <BookmarkIcon position="absolute" top={0} right={0} text={`${discount}`} />}
     </SingleProductCard>
   )
 }
