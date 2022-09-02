@@ -86,31 +86,31 @@ export default function BecomeMemberForm(): ReactElement {
             need some information from you.
           </FormSubtitle>
           <FormRow>
-            <Flex>
+
+            <CustomInputDiv>
               <Input placeholder="Name" {...register('firstName')} />
               <ErrorInput msg={errors.firstName?.message} mt={0.4} />
-            </Flex>
-            <Flex>
+            </CustomInputDiv>
+            <CustomInputDiv>
               <Input placeholder="Surname" {...register('lastName')} />
               <ErrorInput msg={errors.lastName?.message} mt={0.4} />
-            </Flex>
+            </CustomInputDiv>
           </FormRow>
           <FormRow>
-            <Flex>
+            <CustomInputDiv>
               <Input type="number" placeholder="DNI/NIF/Passport" {...register('nif')} />
               <ErrorInput msg={errors.nif?.message} mt={0.4} />
-            </Flex>
-            <Flex>
+            </CustomInputDiv>
+            <CustomInputDiv>
               <Input placeholder="Phone" {...register('phone')} />
               <ErrorInput msg={errors.phone?.message} mt={0.4} />
-            </Flex>
+            </CustomInputDiv>
           </FormRow>
           <FormRow>
-            <Flex>
+            <CustomInputDiv>
               <Input placeholder="Email" {...register('user_email')} />
               <ErrorInput msg={errors.user_email?.message} mt={0.4} />
-            </Flex>
-
+            </CustomInputDiv>
             <CustomInputDiv>
               <Controller
                 control={control}
