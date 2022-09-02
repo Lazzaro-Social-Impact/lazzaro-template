@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
-  Button, Center, Flex, Input
+  Button, Center, Input
 } from '../common'
 import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, usePostData } from '../../hooks'
