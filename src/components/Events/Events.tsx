@@ -19,7 +19,7 @@ function Events(): ReactElement {
   // Get the nearest event
   const nearestEvent = useMemo(
     () => events?.sort((a, b): number => {
-      if (!a.course || !b.course) return 0
+      if (a.course || b.course) return 0
 
       const aDate = moment(a.start_time)
       const bDate = moment(b.start_time)

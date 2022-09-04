@@ -1,10 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea
@@ -40,31 +39,23 @@ export function BuyProductForm(props: IProps): ReactElement {
     modal, id, price, title
   } = props
 
-  const {
-    mutateAsync, ...states
-  } = usePostData<{data:string}, IFormSubmit>(getStartProductPaymentUrl())
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
 
   const {
     handleSubmit, register, formState: { errors },
-  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema), })
-  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
-  const navigate = useNavigate()
-  const onSubmit = async (data: IFormSubmit) => {
+  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
+
+  const { submit, ...states } = useFormSubmit<IFormSubmit>(getStartProductPaymentUrl())
+
+  const onSubmit = (data: IFormSubmit) => {
     const donationInfo = {
       ...data,
       ong_id: ongId,
       product_id: id,
       amount: price,
     }
-    if (paymentMethod === 'stripe') {
-      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
-      return navigate(`/checkout/${clientSecret}`)
-    }
-    const {
-      data: { data: paypal },
-    } = await mutateAsync(donationInfo)
-    window.open(paypal, '_blank')?.focus()
+
+    submit(donationInfo)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
