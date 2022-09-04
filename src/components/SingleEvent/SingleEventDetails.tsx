@@ -39,7 +39,7 @@ export function SingleEventDetails({ event, id, isLoadingEvent }
           </Tabs.TabPane>
           {event?.location !== 'online' && (
             <Tabs.TabPane tab="Location" key="2">
-              <Map lat={lat} lng={lng} height={28} />
+              {!!lat && !!lng && <Map lat={lat} lng={lng} height={28} />}
             </Tabs.TabPane>
           )}
           <Tabs.TabPane tab="Contact" key="3">
