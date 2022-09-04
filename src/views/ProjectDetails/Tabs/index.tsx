@@ -1,7 +1,8 @@
 import { Tabs as AntdTabs } from 'antd'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateForm } from '../../../components'
-import { useAppSelector, usePostData } from '../../../hooks'
+import { useAppSelector, useFormSubmit } from '../../../hooks'
+import { DonateSubmitForm } from '../../../types/interfaces'
 import Description from './Description'
 import LatestDonations from './LatestDonations'
 
@@ -16,12 +17,11 @@ interface IProps {
 function Tabs({ projectDetails }: IProps) {
   const { id = '', description = '' } = projectDetails || {}
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const { mutateAsync, ...states } = usePostData(getStartProjectDonationUrl(ongId))
+  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
-
-    await mutateAsync(donationInfo)
+    submit(donationInfo)
   }
   return (
     <AntdTabs defaultActiveKey="1">

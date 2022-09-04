@@ -8,13 +8,14 @@ import styled from 'styled-components'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
-  Button, Card, Center, Flex
+  Card, Center, Flex
 } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
 import { useDependant } from '../../hooks'
 import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
+import { ShareModal } from '../../components/ShareModal/ShareModal'
 
 function SingleProduct(): ReactElement {
   const { id = '' } = useParams<Record<'id', string>>()
@@ -54,9 +55,7 @@ function SingleProduct(): ReactElement {
             <ProductName>{product?.title}</ProductName>
             <ProductsAvailable>Stock: {amount}</ProductsAvailable>
             <Flex justify="space-around" mt={1}>
-              <Button px="2.8rem" py="0.8rem" color="#777777" bgColor="F#1F1F1">
-                Share
-              </Button>
+              <ShareModal section="products" sectionId={id} />
               <BuyModal btnText="Buy">
                 <BuyProductForm modal id={id} price={price} title={title} />
               </BuyModal>

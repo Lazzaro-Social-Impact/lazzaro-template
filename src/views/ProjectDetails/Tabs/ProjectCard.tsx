@@ -5,7 +5,7 @@ import { BuyModal, DonateForm } from '../../../components'
 import {
   Button, Card, Flex, Text
 } from '../../../components/common'
-import { useAppSelector, usePostData } from '../../../hooks'
+import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { DonateSubmitForm } from '../../../types/interfaces'
 
 interface IProps {
@@ -23,14 +23,12 @@ export function ProjectCard({ project } : IProps) {
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
-  const {
-    mutateAsync, ...states
-  } = usePostData<{data:string}, DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
-  const handleSubmit = async (values: DonateSubmitForm) => {
+  const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
 
-    await mutateAsync(donationInfo)
+    submit(donationInfo)
   }
 
   const { primary } = useTheme()

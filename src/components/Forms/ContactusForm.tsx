@@ -4,7 +4,9 @@ import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getSendContactUrl } from '../../api/postApiServices'
-import { useAppSelector, usePostData, useGeocoding } from '../../hooks'
+import {
+  useAppSelector, useGeocoding, useFormSubmit
+} from '../../hooks'
 import { contactSchema } from '../../validation/schemas'
 import {
   Button, Center, Flex, Input, Label, TextArea
@@ -31,12 +33,10 @@ export default function ContactusForm(): ReactElement {
     register, handleSubmit, formState: { errors }
   } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
 
-  const {
-    isLoading, isSuccess, isError, mutateAsync
-  } = usePostData<{ data:string }, ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
+  const { submit, ...states } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
 
-  const onSubmit = async (data: ContactSubmitForm) => {
-    await mutateAsync({ ...data, ongEmail: email, })
+  const onSubmit = (data: ContactSubmitForm) => {
+    submit({ ...data, ongEmail: email })
   }
 
   const { lat, lng } = useGeocoding(address)
@@ -49,9 +49,7 @@ export default function ContactusForm(): ReactElement {
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-            isError={isError}
+            {...states}
             successMsg="Your message has been sent successfully"
             errorMsg="Something went wrong, please try again"
             successId="contact-success"

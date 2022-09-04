@@ -1,12 +1,12 @@
-import { ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
 import {
-  ReadMore, Text, Image, Flex
+  Text, Image, Flex, Link
 } from '../../common'
 import DonateForm from '../../Forms/DonateForm'
 import DonateModal from '../../BuyModal'
-import { useAppSelector, usePostData } from '../../../hooks'
+import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateSubmitForm } from '../../../types/interfaces'
 
@@ -17,26 +17,17 @@ interface ProjectProps {
 }
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const navigate = useNavigate()
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const navigateTo = (path: `causes/${string}`) => () => navigate(path)
-  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
-  const { mutateAsync, ...states } = usePostData<{ data: string }, DonateSubmitForm>(
-    getStartProjectDonationUrl(ongId)
-  )
+  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
-  const handleSubmit = async (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, ong_id: ongId }
-
-    if (paymentMethod === 'stripe') {
-      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
-      return navigate(`/checkout/${clientSecret}`)
+  const handleSubmit = (values: DonateSubmitForm) => {
+    const donationInfo = {
+      ...values,
+      ong_id: ongId,
+      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
     }
-    const {
-      data: { data: paypal },
-    } = await mutateAsync(donationInfo)
 
-    window.open(paypal, '_blank')
+    submit(donationInfo)
   }
 
   return (
@@ -47,9 +38,9 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
       </Text>
 
       <ProjectFooter>
-        <ReadMore fontSize={1} onClick={navigateTo(`causes/${id}`)}>
+        <Link size={1} to={`causes/${id}`} underlined>
           Read more
-        </ReadMore>
+        </Link>
 
         <DonateModal btnText="Donate" title={`Donate to ${title}`}>
           <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />

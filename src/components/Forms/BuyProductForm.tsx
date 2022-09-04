@@ -1,14 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
+import { type ReactElement } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea
 } from '../common'
+import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 
@@ -40,31 +41,24 @@ export function BuyProductForm(props: IProps): ReactElement {
     modal, id, price, title
   } = props
 
-  const {
-    mutateAsync, ...states
-  } = usePostData<{data:string}, IFormSubmit>(getStartProductPaymentUrl())
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
 
   const {
-    handleSubmit, register, formState: { errors },
-  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema), })
-  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
-  const navigate = useNavigate()
-  const onSubmit = async (data: IFormSubmit) => {
+    handleSubmit, register, formState: { errors }, control
+  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
+
+  const { submit, ...states } = useFormSubmit<IFormSubmit>(getStartProductPaymentUrl())
+
+  const onSubmit = (data: IFormSubmit) => {
     const donationInfo = {
       ...data,
       ong_id: ongId,
       product_id: id,
       amount: price,
+      birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
     }
-    if (paymentMethod === 'stripe') {
-      const { data: { clientSecret } } : any = await mutateAsync(donationInfo)
-      return navigate(`/checkout/${clientSecret}`)
-    }
-    const {
-      data: { data: paypal },
-    } = await mutateAsync(donationInfo)
-    window.open(paypal, '_blank')?.focus()
+
+    submit(donationInfo)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -119,8 +113,28 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <Input placeholder="Date of Birth" type="date" {...register('birthDate')} />
-        <Input placeholder="Postal Code" {...register('cp')} type="number" />
+        <CustomInputDiv>
+          <Controller
+            control={control}
+            name="birthDate"
+            render={({ field }: any) => (
+              <CustomDatePicker
+                name="birthDate"
+                placeholderText="Birth of Date"
+                selected={field.value}
+                onChange={(date: Date) => field.onChange(date)}
+                dateFormat="dd/MM/yyyy"
+                autoComplete="off"
+                dropdownMode="select"
+                showYearDropdown
+                showMonthDropdown
+              />
+            )}
+          />
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder="Postal Code" {...register('cp')} type="number" />
+        </CustomInputDiv>
       </InputRow>
 
       <InputRow>

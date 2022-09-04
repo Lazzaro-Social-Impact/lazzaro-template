@@ -1,5 +1,5 @@
-import React, { ReactElement, useMemo } from 'react'
-import { useTheme } from 'styled-components'
+import { type ReactElement, useMemo } from 'react'
+import styled, { useTheme } from 'styled-components'
 import ImpactPart from './ImpactPart/ImpactPart'
 import { Flex, SectionTitle } from '../common'
 import { useAppSelector } from '../../hooks'
@@ -19,9 +19,21 @@ export default function SocialImpact(): ReactElement {
         Social Impact{' '}
       </SectionTitle>
 
-      <Flex wrap="nowrap" mt={1.2} mb={4}>
+      <ImpactContainer>
         {memoizedImpactData}
-      </Flex>
+      </ImpactContainer>
     </Flex>
   )
 }
+
+const ImpactContainer = styled(Flex)`
+  flex-wrap: nowrap;
+  margin-top: 1.2rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 500px) {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+`

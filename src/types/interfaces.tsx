@@ -18,7 +18,7 @@ export interface DonateSubmitForm {
   lastName: string;
   user_email: string;
   home_address: string;
-  birthDate: Date;
+  birthDate: Date | string;
   nif: number;
   amount: number;
   anonymous: boolean;
