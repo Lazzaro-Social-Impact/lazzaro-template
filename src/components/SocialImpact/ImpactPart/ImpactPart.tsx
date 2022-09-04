@@ -23,17 +23,19 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
 const ImpactSection = styled(Flex)`
 
 
-  @media (min-width: 768px) and (max-width: 1220px) {
+// Carlota screen size ;-;
+
+  @media (min-width: 900px) and (max-width: 1220px) {
     p:first-child {
-      font-size: 3rem;
+      font-size: 2.9rem;
     }
 
     p:last-child {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     p:first-child {
       font-size: 2.5rem;
     }
@@ -52,7 +54,15 @@ const ImpactSection = styled(Flex)`
       font-size: 2rem;
     }
   }
+  @media (min-width: 500px) and (max-width: 550px) {
+    p:first-child {
+      font-size: 2rem;
+    }
 
+    p:last-child {
+      font-size: 0.9rem;
+    }
+  }
   @media (max-width: 500px) {
     width: 40%;
   }
