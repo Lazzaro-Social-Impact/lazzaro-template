@@ -14,7 +14,7 @@ export default function SocialImpact(): ReactElement {
   )
 
   return (
-    <Flex id="impact" mt={2.4} direction="column" bgColor={primary} gap={2.5} px={5}>
+    <Flex id="impact" mt={2.4} direction="column" bgColor={primary} gap={1.2} px={5}>
       <SectionTitle color="white" fontSize={2.8} marginTop={3}>
         Social Impact{' '}
       </SectionTitle>

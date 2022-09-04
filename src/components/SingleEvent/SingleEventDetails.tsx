@@ -56,8 +56,7 @@ const Event = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    width: 920px;
-    flex:1;
+    width: 60%;
     @media screen and (max-width: 768px) {
       width: 100%;
     }

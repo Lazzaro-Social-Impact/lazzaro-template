@@ -53,7 +53,7 @@ const SubTitle = styled.h2`
   font-weight: bold;
   color: #fff;
   margin-bottom: 1.2rem;
-  width: 35%;
+  width: 50%;
   text-align: center;
 `
 const Title = styled.h2`
@@ -61,7 +61,7 @@ const Title = styled.h2`
   font-size: 2.5rem;
   text-align: center;
   font-weight: bold;
-  width: 25%;
+  width: 40%;
 
   @media (max-width: 765px) {
     width: 60%;

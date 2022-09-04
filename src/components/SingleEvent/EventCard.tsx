@@ -38,7 +38,7 @@ export function EventCard(props: IProps): ReactElement {
   const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
 
   return (
-    <Card mode="column" px={1.8} py={2.4} smMode="column" my={2}>
+    <Card mode="column" px={1.8} py={2.4} smMode="column">
       <EventCardTitle title={title}>{title}</EventCardTitle>
 
       <Text color="#8c8c8c">
@@ -70,9 +70,6 @@ const EventCardTitle = styled.h3`
   color: ${({ theme }) => theme.primary};
   font-size: 1.8rem;
   font-weight: 600;
-  width: 90%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 100%;
   margin-bottom: 0rem;
 `

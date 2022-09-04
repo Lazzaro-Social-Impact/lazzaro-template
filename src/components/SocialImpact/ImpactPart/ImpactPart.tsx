@@ -13,7 +13,7 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
         {amount}
       </Text>
-      <Text color="#fff" lineHeight={0} fontSize={2} weight="200">
+      <Text color="#fff" fontSize={2} weight="200">
         {name}
       </Text>
     </ImpactSection>

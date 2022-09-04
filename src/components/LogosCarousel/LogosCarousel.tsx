@@ -47,8 +47,7 @@ export default function LogosCarousel(): ReactElement {
 
 const ImageContainer = styled.div`
   display: flex !important;
-  justify-content: center;
-  gap:20rem;
+  justify-content: space-around;
   height: 150px !important;
   padding: 0 3.8rem;
   align-items: center;
