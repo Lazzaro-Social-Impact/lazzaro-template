@@ -31,7 +31,7 @@ const ImpactContainer = styled(Flex)`
   margin-top: 1.2rem;
   margin-bottom: 4rem;
 
-  @media (max-width: 450px) {
+  @media (max-width: 500px) {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 3rem;

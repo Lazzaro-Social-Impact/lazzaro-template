@@ -11,7 +11,7 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
-        {amount}
+        +{amount}
       </Text>
       <Text color="#fff" fontSize={2} weight="200">
         {name}
@@ -21,7 +21,9 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
 }
 
 const ImpactSection = styled(Flex)`
-  @media (min-width: 768px) {
+
+
+  @media (min-width: 768px) and (max-width: 1220px) {
     p:first-child {
       font-size: 3rem;
     }
@@ -41,7 +43,17 @@ const ImpactSection = styled(Flex)`
     }
   }
 
-  @media (max-width: 450px) {
+    @media (min-width: 1220px) {
+    p:first-child {
+      font-size: 4rem;
+    }
+
+    p:last-child {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 500px) {
     width: 40%;
   }
 `
