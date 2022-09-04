@@ -1,10 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { getBuyCourseUrl } from '../../api/getApiServices'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyCourseTicketSchema } from '../../validation/schemas'
 import {
   Button, Input, Label, Link
@@ -16,7 +15,7 @@ interface Props {
   courseId: string;
 }
 
-type buyCourseFormSubmit = {
+type TBuyCourseFormSubmit = {
   firstName: string;
   lastName: string;
   user_email: string;
@@ -29,24 +28,14 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
   const { secondary } = useTheme()
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<buyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
+    register, handleSubmit, formState: { errors }
+  } = useForm<TBuyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
+  const { submit, ...states } = useFormSubmit<TBuyCourseFormSubmit>(getBuyCourseUrl(courseId))
 
-  const {
-    mutateAsync, ...states
-  } = usePostData<{ data: string }, buyCourseFormSubmit>(getBuyCourseUrl(courseId))
-  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
-  const navigate = useNavigate()
-  const onSubmit = async (data: buyCourseFormSubmit) => {
+  const onSubmit = (data: TBuyCourseFormSubmit) => {
     const formData = { ...data, course_id: courseId, ong_id: ongId }
-    if (paymentMethod === 'stripe') {
-      const { data: { clientSecret } } : any = await mutateAsync(formData)
-      return navigate(`/checkout/${clientSecret}`)
-    }
-    const { data: { data: payPalLink } = {} } = await mutateAsync(formData)
-    window.open(payPalLink, '_blank')
+
+    submit(formData)
   }
 
   return (

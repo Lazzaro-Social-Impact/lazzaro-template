@@ -5,14 +5,13 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
   Button, Center, Input
 } from '../common'
 import HandleResponse from '../common/HandleResponse'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
 import { CustomInputDiv } from '../common/CustomInput'
@@ -32,38 +31,21 @@ type TMemberSubmitForm = {
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const navigate = useNavigate()
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
+    register, handleSubmit, formState: { errors }, control,
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
-    isLoading, isSuccess, isError, mutateAsync
-  } = usePostData<
-    { data: string },
-    TMemberSubmitForm
-  >(getBecomePartnerUrl())
+    submit, isError, isLoading, isSuccess
+  } = useFormSubmit<TMemberSubmitForm>(getBecomePartnerUrl())
 
-  const paymentMethod = useAppSelector((state) => state.ong.ongConfig?.platformConfig?.payment_method)
-
-  const onSubmit = async (data: TMemberSubmitForm) => {
+  const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
-      amount: 1, // TODO: Ask Ivan about this
+      amount: 1,
       ong_id: ongId,
     }
-    if (paymentMethod === 'stripe') {
-      const { data: { clientSecret } } : any = await mutateAsync(formData)
-      return navigate(`/checkout/${clientSecret}`)
-    }
-    const {
-      data: { data: payPalLink },
-    } = await mutateAsync(formData)
-
-    window.open(payPalLink, '_blank')
+    submit(formData)
   }
   return (
     <>

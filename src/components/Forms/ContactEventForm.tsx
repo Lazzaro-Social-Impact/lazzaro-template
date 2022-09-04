@@ -6,7 +6,7 @@ import {
   Button, Center, Input, TextArea
 } from '../common'
 import { ErrorInput } from '../common/ErrorInput'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getSendContactEventUrl } from '../../api/postApiServices'
 import HandleResponse from '../common/HandleResponse'
 import { contactEventSchema } from '../../validation/schemas'
@@ -15,30 +15,24 @@ interface IProps {
   id: string
 }
 
-type contactEventForm = {
+type TContactEventForm = {
   name: string
   email: string
   text: string
 }
 export function ContactEventForm({ id }: IProps): ReactElement {
-  const { register, handleSubmit, formState: { errors } } = useForm<contactEventForm>({
-    resolver: yupResolver(contactEventSchema),
-  })
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const {
-    isLoading, isError, isSuccess, mutateAsync
-  } = usePostData(getSendContactEventUrl(ongId, id))
 
-  const onSubmit = async (data: any) => {
-    await mutateAsync(data)
-  }
+  const {
+    register, handleSubmit, formState: { errors }
+  } = useForm<TContactEventForm>({ resolver: yupResolver(contactEventSchema), })
+
+  const { submit, ...states } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
 
   return (
-    <ContactForm onSubmit={handleSubmit(onSubmit)}>
+    <ContactForm onSubmit={handleSubmit(submit)}>
       <HandleResponse
-        isLoading={isLoading}
-        isError={isError}
-        isSuccess={isSuccess}
+        {...states}
         successMsg="Message sent successfully"
         errorMsg="Error sending message"
         successId={`contact-event-form-${id}`}

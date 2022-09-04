@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
-import { useAppSelector, useDependant, usePostData } from '../../hooks'
+import {
+  useAppSelector, useDependant, useFormSubmit
+} from '../../hooks'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
@@ -38,26 +40,19 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const { EventTickets = [], price } = eventDetails || {}
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register, handleSubmit, formState: { errors }
   } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
 
-  const {
-    mutateAsync, isLoading, isError, isSuccess
-  } = usePostData<{ data: string }, TBuyTicketFormSubmit>(getBuyEventTicketUrl(eventId))
+  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>(getBuyEventTicketUrl(eventId))
 
-  const onSubmit = async (data: TBuyTicketFormSubmit) => {
+  const onSubmit = (data: TBuyTicketFormSubmit) => {
     const formData = {
       ...data,
       event_id: eventId,
       ong_id: ongId,
     }
 
-    const {
-      data: { data: payPayLink },
-    } = await mutateAsync(formData)
-    window.open(payPayLink, '_blank')
+    submit(formData)
   }
 
   const ticketsInputs: JSX.Element[] = useMemo(
@@ -80,9 +75,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   return (
     <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
-        isLoading={isLoading}
-        isError={isError}
-        isSuccess={isSuccess}
+        {...states}
         successMsg="Please navigate to the payment page to complete your purchase"
         errorMsg="Something went wrong, please try again later"
         successId={`${eventId}_success`}

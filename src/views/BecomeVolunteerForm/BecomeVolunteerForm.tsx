@@ -9,10 +9,10 @@ import {
 import { CustomInput, CustomInputDiv } from '../../components/common/CustomInput'
 import { ErrorInput } from '../../components/common/ErrorInput'
 import HandleResponse from '../../components/common/HandleResponse'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { volunteerSchema } from '../../validation/schemas'
 
-type volunteerSubmitForm = {
+type TVolunteerSubmitForm = {
   firstName: string
   lastName: string
   user_email: string
@@ -20,28 +20,23 @@ type volunteerSubmitForm = {
 }
 
 function BecomeVolunteerForm() {
-  const { handleSubmit, register, formState: { errors } } = useForm<volunteerSubmitForm>({
-    resolver: yupResolver(volunteerSchema)
-  })
-  const ongId = useAppSelector((state) => state.ong.ongId)
+  const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
-    isLoading, isError, isSuccess, mutateAsync
-  } = usePostData(getAddVolunteerUrl())
-  const onSubmit = async (data: any) => {
-    const formData = {
-      ...data,
-      ong_id: ongId
-    }
-    await mutateAsync(formData)
+    handleSubmit, register, formState: { errors }
+  } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
+
+  const { submit, ...states } = useFormSubmit<TVolunteerSubmitForm>(getAddVolunteerUrl())
+
+  const onSubmit = (data: TVolunteerSubmitForm) => {
+    const formData = { ...data, ong_id: ongId }
+    submit(formData)
   }
   return (
     <>
       <Navbar />
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <HandleResponse
-          isLoading={isLoading}
-          isError={isError}
-          isSuccess={isSuccess}
+          {...states}
           successMsg="Your request has been sent successfully"
           errorMsg="Something went wrong, please try again"
           successId="volunteer-form-success"
