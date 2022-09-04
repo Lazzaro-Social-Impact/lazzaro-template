@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import {
   Button, Center, Input, TextArea
 } from '../common'
@@ -10,6 +10,7 @@ import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { DonateSubmitForm } from '../../types/interfaces'
 import { donationSchema } from '../../validation/schemas'
+import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -23,7 +24,7 @@ interface IProps {
 
 function DonateForm({ projectId, submitHandler, states }: IProps) {
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors }, control
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
 
   return (
@@ -36,7 +37,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
         errorId={`${projectId}-form-error`}
       />
       <FormControl mb={0}>
-        <Label htmlFor="amount">You donation</Label>
+        <Label htmlFor="amount">Your donation</Label>
       </FormControl>
       <FormControl>
         <Input
@@ -72,8 +73,28 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl mode="row">
-        <Input type="text" placeholder="DNI" {...register('nif')} />
-        <Input type="text" placeholder="Date of birth" {...register('birthDate')} />
+        <CustomInputDiv>
+          <Input type="text" placeholder="DNI" {...register('nif')} />
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Controller
+            control={control}
+            name="birthDate"
+            render={({ field }: any) => (
+              <CustomDatePicker
+                name="birthDate"
+                placeholderText="Birth of Date"
+                selected={field.value}
+                onChange={(date: Date) => field.onChange(date)}
+                dateFormat="dd/MM/yyyy"
+                autoComplete="off"
+                dropdownMode="select"
+                showYearDropdown
+                showMonthDropdown
+              />
+            )}
+          />
+        </CustomInputDiv>
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
