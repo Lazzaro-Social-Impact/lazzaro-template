@@ -1,5 +1,6 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
 import {
   Text, Image, Flex, Link
 } from '../../common'
@@ -20,7 +21,11 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
 
   const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, ong_id: ongId }
+    const donationInfo = {
+      ...values,
+      ong_id: ongId,
+      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
+    }
 
     submit(donationInfo)
   }

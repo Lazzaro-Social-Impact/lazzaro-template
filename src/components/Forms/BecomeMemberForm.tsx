@@ -3,7 +3,6 @@ import type { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
@@ -14,7 +13,7 @@ import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
-import { CustomInputDiv } from '../common/CustomInput'
+import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
 
 type TMemberSubmitForm = {
@@ -103,8 +102,11 @@ export default function BecomeMemberForm(): ReactElement {
                     placeholderText="Birth of Date"
                     selected={field.value}
                     onChange={(date: Date) => field.onChange(date)}
-                    dateFormat="yyyy-MM-dd"
+                    dateFormat="dd/MM/yyyy"
                     autoComplete="off"
+                    dropdownMode="select"
+                    showYearDropdown
+                    showMonthDropdown
                   />
                 )}
               />
@@ -197,42 +199,5 @@ const CustomRadio = styled(Radio)`
   }
   .ant-radio-inner::after {
     background-color: ${({ theme }) => theme.primary} !important;
-  }
-`
-
-const CustomDatePicker = styled(DatePicker)`
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  align-self: flex-start;
-  box-shadow: ${({ theme }) => theme.primary};
-  box-sizing: border-box !important;
-  font-family: inherit;
-  overflow: visible;
-  margin: 0;
-  font-variant: tabular-nums;
-  list-style: none;
-  font-feature-settings: 'tnum';
-  position: relative;
-  display: inline-block;
-  min-width: 0;
-  padding: 9.5px 11px;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 14px;
-  line-height: 1.5715;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #d9d9d9;
-  border-radius: 2px;
-  transition: all 0.3s;
-  -webkit-appearance: none;
-  touch-action: manipulation;
-  text-overflow: ellipsis;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.7rem;
-
-  &:focus {
-    outline: none;
-    box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
   }
 `
