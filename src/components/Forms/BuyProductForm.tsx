@@ -10,7 +10,7 @@ import {
   Button, Center, Input, Label, SectionTitle, TextArea
 } from '../common'
 import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
-import { ErrorInput, ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 
 interface IProps {
@@ -131,9 +131,10 @@ export function BuyProductForm(props: IProps): ReactElement {
               />
             )}
           />
-          <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
         </CustomInputDiv>
-        <Input placeholder="Postal Code" {...register('cp')} type="number" />
+        <CustomInputDiv>
+          <Input placeholder="Postal Code" {...register('cp')} type="number" />
+        </CustomInputDiv>
       </InputRow>
 
       <InputRow>
