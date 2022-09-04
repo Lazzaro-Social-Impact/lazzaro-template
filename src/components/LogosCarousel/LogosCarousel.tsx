@@ -26,7 +26,7 @@ export default function LogosCarousel(): ReactElement {
         <ImageContainer key={i && `logo-${i}`}>
           {fourLogos.map(({ id, logo }) => (
             <Box key={id}>
-              <Image src={logo} alt="logo" maxHeight="8rem" key={logo} />
+              <Image src={logo} alt="logo" maxHeight="5.2rem" key={logo} />
             </Box>
           ))}
         </ImageContainer>
