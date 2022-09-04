@@ -29,7 +29,7 @@ const useFormSubmit = <TMutate>(url:string) => {
     isLoading,
     isSuccess,
     isError,
-    submit,
+    submit
   } as {
     isLoading: boolean;
     isSuccess: boolean;

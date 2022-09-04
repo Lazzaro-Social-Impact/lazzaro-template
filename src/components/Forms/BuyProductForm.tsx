@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import moment from 'moment'
 import { type ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
@@ -8,7 +9,8 @@ import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea
 } from '../common'
-import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
+import { ErrorInput, ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 
 interface IProps {
@@ -42,7 +44,7 @@ export function BuyProductForm(props: IProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
 
   const {
-    handleSubmit, register, formState: { errors },
+    handleSubmit, register, formState: { errors }, control
   } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
 
   const { submit, ...states } = useFormSubmit<IFormSubmit>(getStartProductPaymentUrl())
@@ -53,6 +55,7 @@ export function BuyProductForm(props: IProps): ReactElement {
       ong_id: ongId,
       product_id: id,
       amount: price,
+      birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
     }
 
     submit(donationInfo)
@@ -110,7 +113,26 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <Input placeholder="Date of Birth" type="date" {...register('birthDate')} />
+        <CustomInputDiv>
+          <Controller
+            control={control}
+            name="birthDate"
+            render={({ field }: any) => (
+              <CustomDatePicker
+                name="birthDate"
+                placeholderText="Birth of Date"
+                selected={field.value}
+                onChange={(date: Date) => field.onChange(date)}
+                dateFormat="dd/MM/yyyy"
+                autoComplete="off"
+                dropdownMode="select"
+                showYearDropdown
+                showMonthDropdown
+              />
+            )}
+          />
+          <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
+        </CustomInputDiv>
         <Input placeholder="Postal Code" {...register('cp')} type="number" />
       </InputRow>
 
