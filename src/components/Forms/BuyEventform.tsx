@@ -125,7 +125,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
 
       <ErrorInput msg={errors.terms_and_conditions?.message} />
       <Center>
-        <Button px="2.8rem">Pay</Button>
+        <Button mt="1.8rem" px="2.8rem">Pay</Button>
       </Center>
     </BuyFrom>
   )
@@ -133,6 +133,10 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
 const BuyFrom = styled.form<{ modal: TModal }>`
   width: ${({ modal }) => (modal ? '60%' : '100%')};
   margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+  }
 `
 const FormTitle = styled.h2`
   color: ${({ theme }) => theme.primary};
