@@ -19,7 +19,9 @@ interface ProjectProps {
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  const {
+    submit, ...states
+  } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {

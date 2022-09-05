@@ -37,7 +37,9 @@ export default function ContactusForm(): ReactElement {
     register, handleSubmit, formState: { errors }
   } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
 
-  const { submit, ...states } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
+  const {
+    submit, ...states
+  } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>({ url: getSendContactUrl(), isPayment: false })
 
   const onSubmit = (data: ContactSubmitForm) => {
     submit({ ...data, ongEmail: email })

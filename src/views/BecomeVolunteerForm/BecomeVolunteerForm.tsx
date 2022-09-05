@@ -25,7 +25,9 @@ function BecomeVolunteerForm() {
     handleSubmit, register, formState: { errors }
   } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
 
-  const { submit, ...states } = useFormSubmit<TVolunteerSubmitForm>(getAddVolunteerUrl())
+  const {
+    submit, ...states
+  } = useFormSubmit<TVolunteerSubmitForm>({ url: getAddVolunteerUrl(), isPayment: false })
 
   const onSubmit = (data: TVolunteerSubmitForm) => {
     const formData = { ...data, ong_id: ongId }
