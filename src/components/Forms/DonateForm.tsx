@@ -165,6 +165,10 @@ interface IFormControlProps {
 
 const CustomForm = styled.form`
   padding: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+  }
 `
 
 const FormControl = styled.div<IFormControlProps>`

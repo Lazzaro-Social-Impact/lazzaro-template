@@ -9,16 +9,18 @@ import LatestDonations from './LatestDonations'
 
 const { TabPane } = AntdTabs
 interface IProps {
-  projectDetails?: {
+  projectDetails: {
     id: string,
     description: string,
   };
 }
 
 function Tabs({ projectDetails }: IProps) {
-  const { id = '', description = '' } = projectDetails || {}
+  const { id = '', description = '' } = projectDetails
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  const {
+    submit, ...states
+  } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
@@ -41,10 +43,4 @@ function Tabs({ projectDetails }: IProps) {
   )
 }
 
-Tabs.defaultProps = {
-  projectDetails: {
-    id: '',
-    description: '',
-  }
-}
 export default Tabs

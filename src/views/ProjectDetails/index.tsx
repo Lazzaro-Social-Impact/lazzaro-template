@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import { useParams } from 'react-router-dom'
+import { type Params, useParams } from 'react-router-dom'
 import { ProjectCard } from './Tabs/ProjectCard'
 import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
@@ -12,21 +12,21 @@ import { IProject } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 
 function ProjectDetails(): ReactElement {
-  const id = useParams().id as string
+  const { id = '' } = useParams<Params<'id'>>()
 
   const {
     data: images = [], isLoading: isImagesLoading
   } = useDependant<TImages>(getProjectImagesURL(id), [`project-images-${id}`], id)
 
   const {
-    data: projectDetails,
-    isLoading: isProjectLoading
+    data: projectDetails = {} as IProject, isLoading: isProjectLoading
   } = useDependant<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
+
   return (
     <>
       <Navbar />
-      {isImagesLoading && <Skeleton number={1} width={100} height={40} px={0} mt={0} />}
-      <ImageCarousel images={images} />
+      <ImageCarousel images={images} isLoading={isImagesLoading} />
+
       <Flex>
         <Tabs projectDetails={projectDetails} />
         <OtherProjects>
@@ -34,9 +34,7 @@ function ProjectDetails(): ReactElement {
             <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
           )}
 
-          {
-           projectDetails && <ProjectCard project={projectDetails} key={projectDetails.id} />
-          }
+          {projectDetails && <ProjectCard project={projectDetails} />}
         </OtherProjects>
       </Flex>
       <Footer />
@@ -64,8 +62,13 @@ const Flex = styled.div`
     max-width: 50%;
   }
 
-  @media (max-width: 768px) {
+  .ant-tabs-tab {
+    text-align: center;
+  }
+
+  @media (max-width: 968px) {
     flex-direction: column;
+    margin-inline: 0;
     width: initial;
     & .ant-tabs {
       max-width: 100%;

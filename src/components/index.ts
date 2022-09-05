@@ -14,8 +14,8 @@ export const Footer = lazy(() => import('./Footer/Footer' /* webpackChunkName: "
 export const Volunteers = lazy(() => import('./Volunteers/Volunteers' /* webpackChunkName: "Volunteers section" */))
 export const Divider = lazy(() => import('./Divider/Divider' /* webpackChunkName: "Divider" */))
 export const Courses = lazy(() => import('./Courses/Courses' /* webpackChunkName: "Courses_section" */))
-export const DonateForm = lazy(() => import('./Forms/DonateForm' /* webpackChunkName: "DonateForm" */))
 export const BuyModal = lazy(() => import('./BuyModal' /* webpackChunkName: "BuyModal" */))
 export const FinalizePaymentResult = lazy(() => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */))
 export const Map = lazy(() => import('./Map' /* webpackChunkName: "Map" */))
 export const LoadingIndex = lazy(() => import('./LoadingIndex/LoadingIndex' /* webpackChunkName: "LoadingIndex" */))
+export { default as DonateForm } from './Forms/DonateForm'

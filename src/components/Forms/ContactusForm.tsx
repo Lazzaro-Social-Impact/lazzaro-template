@@ -37,18 +37,20 @@ export default function ContactusForm(): ReactElement {
     register, handleSubmit, formState: { errors }
   } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
 
-  const { submit, ...states } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
+  const {
+    submit, ...states
+  } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>({ url: getSendContactUrl(), isPayment: false })
 
   const onSubmit = (data: ContactSubmitForm) => {
     submit({ ...data, ongEmail: email })
   }
 
-  const { lat, lng } = useGeocoding(address)
+  const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)
 
   return (
     <>
       <Navbar />
-      {!!lat && !!lng && <Map lat={lat} lng={lng} height={28} />}
+      <Map lat={lat} lng={lng} height={28} isLoading={isMapLoading} />
       <Container>
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
@@ -144,6 +146,10 @@ const ContactusFormBox = styled.form`
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
+
+  @media screen and (max-width: 768px) {
+    padding: 1.4rem;
+  }
 `
 
 const FormTitle = styled.h1`

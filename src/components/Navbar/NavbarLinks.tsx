@@ -79,7 +79,7 @@ const NavbarLinks: FC = () => {
   return (
     <>
       <Box p={0.5}>
-        <Link to="/">
+        <Link to="/#hero">
           <ImageContainer>
             <Image src={logo} alt="logo" />
           </ImageContainer>
@@ -90,11 +90,11 @@ const NavbarLinks: FC = () => {
 
       {md && (
         <Links>
-          <li key="about-us">
-            <a href="/#about">{t('About us')}</a>
+          <li>
+            <Link to="/#about">{t('About us')}</Link>
           </li>
           {NAVBAR_LINKS}
-          <li key="contact">
+          <li>
             <Link to="/contact">{t('Contact')}</Link>
           </li>
 

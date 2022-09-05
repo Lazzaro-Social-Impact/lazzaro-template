@@ -45,7 +45,9 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
     register, handleSubmit, formState: { errors }
   } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
 
-  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>(getBuyEventTicketUrl(eventId))
+  const {
+    submit, ...states
+  } = useFormSubmit<TBuyTicketFormSubmit>({ url: getBuyEventTicketUrl(eventId), isPayment: true, })
 
   const onSubmit = (data: TBuyTicketFormSubmit) => {
     const formData = {
