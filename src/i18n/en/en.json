@@ -132,8 +132,8 @@
       "share_event": "Share the event"
     },
     "error_page": {
-      "oops": "Oops! Page Not Found!",
-      "404": "We are sorry but we can not seem to find the page you requested. This might be because you have typed the web address incorrectly.",
+      "oops": "WE NEED TO TALK",
+      "404": "THIS DOES NOT WORK",
       "home": "Back to home"
     },
     "Products_page": {
