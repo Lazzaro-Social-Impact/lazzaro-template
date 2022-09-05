@@ -39,12 +39,12 @@ export default function ContactusForm(): ReactElement {
     submit({ ...data, ongEmail: email })
   }
 
-  const { lat, lng } = useGeocoding(address)
+  const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)
 
   return (
     <>
       <Navbar />
-      {!!lat && !!lng && <Map lat={lat} lng={lng} height={28} />}
+      <Map lat={lat} lng={lng} height={28} isLoading={isMapLoading} />
       <Container>
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
