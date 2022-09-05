@@ -8,9 +8,11 @@ import {
   TwitterOutlined,
 } from '@ant-design/icons'
 import { type ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import {
+
   Flex, Image, Link, SectionTitle
 } from '../common'
 
@@ -24,6 +26,7 @@ export default function Footer(): ReactElement {
     linkedin = '',
     twitter = '',
     web = '',
+    poweredBy = '',
   } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
     phone: ong.ongConfig?.contact.phone,
@@ -33,10 +36,11 @@ export default function Footer(): ReactElement {
     linkedin: ong.ongConfig?.rrss.linkedin,
     twitter: ong.ongConfig?.rrss.twitter,
     web: ong.ongConfig?.rrss.web,
+    poweredBy: ong.ongConfig?.platformConfig?.powered_by_lazzaro,
   }))
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')
-
+  const { t } = useTranslation()
   return (
     <>
       <MainFooter>
@@ -45,8 +49,8 @@ export default function Footer(): ReactElement {
         </ImageContainer>
 
         <SectionTitle fontSize={2.4}>
-          How can we help? <br />
-          Contact us anytime
+          {t('footer.title_1')} <br />
+          {t('footer.title_2')}
         </SectionTitle>
 
         <ContactInfo>
@@ -64,7 +68,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link hoverColor="white" to="/terms_and_conditions" underlined>Terms and conditions</Link>
+          <Link hoverColor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
         </div>
 
         <Icons>
@@ -74,7 +78,9 @@ export default function Footer(): ReactElement {
           <InstagramOutlined onClick={navigateTo(instagram)} />
           <GlobalOutlined onClick={navigateTo(web)} />
         </Icons>
+        {poweredBy && <p>Powered by <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a></p> }
       </SubFooter>
+
     </>
   )
 }
@@ -142,9 +148,18 @@ const SubFooter = styled(Flex)`
   border-bottom: none;
   transition: all 0.4s ease;
   color: #969696;
+  
   border-top: 1px solid ${({ theme }) => `${theme.primary}`};
   text-align: left;
 
+  p a {
+  color: #969696;
+  text-decoration: underline;
+  transition: all 0.4s ease;
+  &:hover {
+    color: ${({ theme }) => `${theme.primary}`};
+  }
+  }
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 1rem;

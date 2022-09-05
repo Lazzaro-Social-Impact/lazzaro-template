@@ -41,6 +41,7 @@
     "donations": "Donaciones",
     "Market": "Tienda",
     "market": "Tienda",
+    "Store": "Tienda",
     "share": "Compartir",
     "make a donation": "Haz una donación",
     "details": "Detalles",
@@ -68,7 +69,8 @@
       "phone": "Móvil",
       "postal_code": "Código postal",
       "city": "Ciudad",
-      "country": "País"
+      "country": "País",
+      "amount": "Por favor, introduzca la cantidad que desea donar"
     },
     "send_message": "Enviar mensaje",
     "yes": "Sí",
@@ -91,7 +93,12 @@
       "subject": "Por favor, indique el tema",
       "invalid_email": "Por favor, indique un email válido",
       "phone": "Por favor, indique un número de teléfono válido",
-      "image_rights": "Debe aceptar los Términos y Condiciones"
+      "image_rights": "Debe aceptar los Términos y Condiciones",
+      "city": "Por favor, indique su ciudad",
+      "country": "Por favor, indique su país",
+      "amount":"Por favor, indique la cantidad que desea donar",
+      "membership": "Debe aceptar los Términos y Condiciones de la membresía",
+      "cp": "Por favor, indique un código postal válido"
     },
     "success": {
       "donation": "Gracias por su donación",
@@ -107,7 +114,8 @@
       "get_in_touch": "Ponte en contacto",
       "official_address": "Dirección oficial",
       "official_mail": "Email oficial",
-      "official_phone": "Teléfono oficial"
+      "official_phone": "Teléfono oficial",
+      "write": "Escríbenos"
     },
     "case_single": {
       "donations": "Donaciones",
@@ -141,6 +149,9 @@
       "Description": "Descripción",
       "to_buy": "Comprar",
       "contact": "Contactar",
+      "stock": "Valores",
+      "your_shopping":"Su compra",
+      "delivery_details": "Detalles de entrega",
       "contact_form": {
         "title": "Tu compra",
         "Delivery_data": "Datos de envío",
@@ -151,6 +162,31 @@
           "amount": "Poner el número de"
         }
       }
-    }
+    },
+    "social_impact": "Impacto social",
+    "volunteer_question": "¿Quieres ser voluntario?",
+    "footer": {
+      "title_1":"¿CÓMO PODEMOS AYUDAR?",
+      "title_2": "CONTÁCTENOS EN CUALQUIER MOMENTO",
+      "terms": "Términos y condiciones"
+    },
+    "contact_us": "Contáctenos",
+    "accept_to": "Acepto la",
+    "contact_info": "Información de contacto",
+    "donation_publicity": {
+      "question":"¿Cómo quieres que se vea tu donación?",
+      "public": "Donación pública",
+      "anonymous":"Donación anónima"
+    },
+    "membership": {
+      "dont_accept_membership": "No acepto (en este caso, no podremos procesar su membresía)",
+      "question": "¿Quieres que procesemos tu registro como miembro de la ONG?",
+      "title": "Registro de membresía",
+      "subtitle":  "Nos complace tenerle como miembro, pero para completar su membresía, necesitamos información suya."
+    },
+    "course": "curso",
+    "ticket": "entrada"
+
+
   }
   

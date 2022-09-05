@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { getStartDonationUrl } from '../../api/postApiServices'
 import { Footer, DonateForm, Navbar } from '../../components'
 import { Flex, SectionTitle } from '../../components/common'
@@ -8,7 +9,7 @@ function Donate() {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartDonationUrl(ongId))
-
+  const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, ong_id: ongId, }
 
@@ -19,7 +20,7 @@ function Donate() {
     <>
       <Navbar />
       <Flex direction="column" textAlign="left">
-        <SectionTitle fontSize={3}>Make a donation</SectionTitle>
+        <SectionTitle fontSize={3}>{t('make a donation')}</SectionTitle>
         <DonateForm submitHandler={handleSubmit} states={states} />
       </Flex>
       <Footer />

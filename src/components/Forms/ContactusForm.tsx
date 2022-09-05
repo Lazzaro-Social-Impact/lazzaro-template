@@ -2,6 +2,7 @@ import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getSendContactUrl } from '../../api/postApiServices'
 import {
@@ -9,10 +10,12 @@ import {
 } from '../../hooks'
 import { contactSchema } from '../../validation/schemas'
 import {
-  Button, Center, Flex, Input, Label, TextArea
+  Button, Center, Input, Label
 } from '../common'
+import { CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 import Footer from '../Footer/Footer'
 import Map from '../Map'
 import Navbar from '../Navbar/Navbar'
@@ -29,6 +32,7 @@ type ContactSubmitForm = {
 export default function ContactusForm(): ReactElement {
   const { phone, email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
 
+  const { t } = useTranslation()
   const {
     register, handleSubmit, formState: { errors }
   } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
@@ -50,28 +54,28 @@ export default function ContactusForm(): ReactElement {
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
             {...states}
-            successMsg="Your message has been sent successfully"
-            errorMsg="Something went wrong, please try again"
+            successMsg={t('success.message')}
+            errorMsg={t('fail.message')}
             successId="contact-success"
             errorId="contact-error"
           />
-          <FormTitle>Contact us</FormTitle>
+          <FormTitle>{t('contact_us')}</FormTitle>
           <FormRow>
-            <Flex>
-              <Input placeholder="Name" {...register('name')} />
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.firstname')} {...register('name')} />
               <ErrorInput msg={errors.name?.message} />
-            </Flex>
+            </CustomInputDiv>
 
-            <Flex>
-              <Input placeholder="Surname" {...register('lastName')} />
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
               <ErrorInput msg={errors.lastName?.message} />
-            </Flex>
+            </CustomInputDiv>
           </FormRow>
-          <Input placeholder="Email" {...register('email')} />
+          <Input placeholder={t('placeholders.email')} {...register('email')} />
           <ErrorInput msg={errors.email?.message} />
-          <Input placeholder="Subject" {...register('subject')} />
+          <Input placeholder={t('placeholders.subject')} {...register('subject')} />
           <ErrorInput msg={errors.subject?.message} />
-          <TextArea placeholder="Message" rows={4} {...register('message')} />
+          <CustomTextArea placeholder={t('placeholders.message')} rows={4} {...register('message')} />
           <ErrorInput msg={errors.message?.message} />
           <Label>
             <Input
@@ -80,35 +84,35 @@ export default function ContactusForm(): ReactElement {
               type="checkbox"
               {...register('terms')}
             />
-            <span>I agree to the privacy policy</span>
-            <ErrorInput msg={errors.terms?.message} />
+            <PrivacyPolicy />
           </Label>
+          <ErrorInput msg={errors.terms?.message} />
 
           <Center>
-            <Button type="submit">Send Message</Button>
+            <Button type="submit">{t('send_message')}</Button>
           </Center>
         </ContactusFormBox>
 
         <ContactDetailsBox>
-          <BoxTitle>Contact info</BoxTitle>
+          <BoxTitle>{t('contact_info')}</BoxTitle>
           <InfoBox>
             <MailOutlined />
             <InfoText>
-              <TextTitle>Our office</TextTitle>
+              <TextTitle>{t('contact_page.official_mail')}</TextTitle>
               <TextHolder>{address}</TextHolder>
             </InfoText>
           </InfoBox>
           <InfoBox>
             <PhoneFilled />
             <InfoText>
-              <TextTitle>Get in touch</TextTitle>
+              <TextTitle>{t('contact_page.get_in_touch')}</TextTitle>
               <TextHolder>{phone}</TextHolder>
             </InfoText>
           </InfoBox>
           <InfoBox>
             <MailFilled />
             <InfoText>
-              <TextTitle>Write to us</TextTitle>
+              <TextTitle>{t('contact_page.write')}</TextTitle>
               <TextHolder>{email}</TextHolder>
             </InfoText>
           </InfoBox>
@@ -126,6 +130,10 @@ justify-content: center;
 margin: 0 9.4rem;
 margin-top: -12.4rem;
 z-index: 1;
+
+@media screen and (max-width: 768px) {
+  margin-inline: 2.4rem;
+}
 `
 
 const ContactusFormBox = styled.form`
@@ -146,6 +154,10 @@ const FormTitle = styled.h1`
 const FormRow = styled.div`
 display: flex;
 gap: 1.2rem;
+
+@media screen and (max-width: 540px) {
+  flex-direction: column;
+}
 `
 const ContactDetailsBox = styled.div`
 display: flex;

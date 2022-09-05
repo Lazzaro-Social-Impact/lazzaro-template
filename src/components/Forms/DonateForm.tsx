@@ -1,16 +1,17 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import {
-  Button, Center, Input, TextArea
+  Button, Center, Input
 } from '../common'
 import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { DonateSubmitForm } from '../../types/interfaces'
 import { donationSchema } from '../../validation/schemas'
-import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
+import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -27,34 +28,35 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
     register, handleSubmit, formState: { errors }, control
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
 
+  const { t } = useTranslation()
   return (
     <CustomForm onSubmit={handleSubmit(submitHandler)}>
       <HandleResponse
         {...states}
-        successMsg="Your request has been sent successfully"
-        errorMsg="Something went wrong, please try again"
+        successMsg={t('success.paypal_navigate')}
+        errorMsg={t('fail.error')}
         successId={`${projectId}-form-success`}
         errorId={`${projectId}-form-error`}
       />
       <FormControl mb={0}>
-        <Label htmlFor="amount">Your donation</Label>
+        <Label htmlFor="amount">{t('your_donation')}</Label>
       </FormControl>
       <FormControl>
         <Input
           type="number"
-          placeholder="Please enter the amount of your donation"
+          placeholder={t('placeholders.amount')}
           {...register('amount')}
         />
         <ErrorMsg msg={errors.amount?.message} />
       </FormControl>
 
       <FormControl mb={0}>
-        <Label htmlFor="amount">Details</Label>
+        <Label htmlFor="amount">{t('details')}</Label>
       </FormControl>
 
       <FormControl mode="row">
-        <Input type="text" placeholder="Name" {...register('firstName')} />
-        <Input type="text" placeholder="Surname" {...register('lastName')} />
+        <Input type="text" placeholder={t('placeholders.firstname')} {...register('firstName')} />
+        <Input type="text" placeholder={t('placeholders.lastname')} {...register('lastName')} />
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
@@ -63,8 +65,8 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl mode="row">
-        <Input type="email" placeholder="Email" {...register('user_email')} />
-        <Input type="text" placeholder="Address" {...register('home_address')} />
+        <Input type="email" placeholder={t('placeholders.email')} {...register('user_email')} />
+        <Input type="text" placeholder={t('placeholders.address')} {...register('home_address')} />
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
@@ -74,7 +76,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
 
       <FormControl mode="row">
         <CustomInputDiv>
-          <Input type="text" placeholder="DNI" {...register('nif')} />
+          <Input type="text" placeholder={t('placeholders.ID')} {...register('nif')} />
         </CustomInputDiv>
         <CustomInputDiv>
           <Controller
@@ -83,7 +85,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
             render={({ field }: any) => (
               <CustomDatePicker
                 name="birthDate"
-                placeholderText="Birth of Date"
+                placeholderText={t('placeholders.dob')}
                 selected={field.value}
                 onChange={(date: Date) => field.onChange(date)}
                 dateFormat="dd/MM/yyyy"
@@ -103,53 +105,50 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl>
-        <TextArea rows={4} placeholder="Message" {...register('text')} />
+        <CustomTextArea rows={4} placeholder={t('placeholders.message')} {...register('text')} />
       </FormControl>
 
       {projectId && (
         <>
           <FormControl>
-            <Label>What you want your donation to look like?</Label>
+            <Label>{t('donation_publicity.question')}</Label>
           </FormControl>
 
           <FormControl mode="row" justify="start" mb={0}>
             <RadioBtn type="radio" defaultChecked {...register('anonymous')} />
-            <Label color="#777777">Public donation</Label>
+            <Label color="#777777">{t('donation_publicity.public')}</Label>
           </FormControl>
 
           <FormControl mode="row" justify="start" mb={0}>
             <RadioBtn type="radio" {...register('anonymous')} />
-            <Label color="#777777">Anonymous donation</Label>
+            <Label color="#777777">{t('donation_publicity.anonymous')}</Label>
           </FormControl>
         </>
       )}
 
       <FormControl mt={1.5}>
-        <Label>Would you like to receive a donation certificate?</Label>
+        <Label>{t('Certificate question')}</Label>
       </FormControl>
       <FormControl mode="row" justify="start" mb={0}>
         <RadioBtn type="radio" defaultChecked {...register('certificate')} />
-        <Label color="#777777">Yes</Label>
+        <Label color="#777777">{t('yes')}</Label>
       </FormControl>
 
       <FormControl mode="row" justify="start" mb={0}>
         <RadioBtn type="radio" {...register('certificate')} />
-        <Label color="#777777">No</Label>
+        <Label color="#777777">{t('no')}</Label>
       </FormControl>
 
       <FormControl mode="row" justify="start" mt={2}>
         <input type="checkbox" {...register('terms')} />
-        <Label color="#777777">
-          I agree to the <Link to="/terms_and_conditions">Privacy policy</Link>
-        </Label>
-
-        <ErrorMsg msg={errors.terms?.message} />
+        <PrivacyPolicy />
       </FormControl>
+      <ErrorMsg msg={errors.terms?.message} />
 
       <Center>
 
-        <Button type="submit" aria-label="submit">
-          Donate
+        <Button mt="1.2rem" type="submit" aria-label="submit">
+          {t('Donate')}
         </Button>
       </Center>
     </CustomForm>

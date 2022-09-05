@@ -1,6 +1,7 @@
 import { useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import NearEvent from './NearEvent/NearEvent'
 import OtherEvent from './OtherEvents'
 import { Flex, SectionTitle } from '../common'
@@ -11,7 +12,7 @@ import { IEvent } from '../../types/interfaces'
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
-
+  const { t } = useTranslation()
   const {
     data: events = [], isLoading, isError,
   } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
@@ -37,7 +38,7 @@ function Events(): ReactElement {
 
   return (
     <>
-      <SectionTitle>Events</SectionTitle>
+      <SectionTitle>{t('Events')}</SectionTitle>
       <EventsSection id="events">
         {isLoading && <Skeleton width={40} height={42} number={1} />}
         {!isLoading && <NearEvent {...nearestEvent} />}

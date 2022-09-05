@@ -4,6 +4,7 @@ import { Tabs } from 'antd'
 import HtmlParser from 'html-react-parser'
 
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
@@ -19,7 +20,7 @@ export function SingleEventDetails({ event, id, isLoadingEvent }
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
   const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
-
+  const { t } = useTranslation()
   const { lat, lng } = useGeocoding(address)
 
   return (
@@ -34,15 +35,15 @@ export function SingleEventDetails({ event, id, isLoadingEvent }
           {HtmlParser(event?.description || '')}
 
         <CustomTabs defaultActiveKey="1">
-          <Tabs.TabPane tab="Buy" key="1">
+          <Tabs.TabPane tab={t('Buy')} key="1">
             <BuyEventform eventId={id} />
           </Tabs.TabPane>
           {event?.location !== 'online' && (
-            <Tabs.TabPane tab="Location" key="2">
+            <Tabs.TabPane tab={t('event_single.location')} key="2">
               {!!lat && !!lng && <Map lat={lat} lng={lng} height={28} />}
             </Tabs.TabPane>
           )}
-          <Tabs.TabPane tab="Contact" key="3">
+          <Tabs.TabPane tab={t('Contact')} key="3">
             <ContactEventForm id={id} />
           </Tabs.TabPane>
         </CustomTabs>

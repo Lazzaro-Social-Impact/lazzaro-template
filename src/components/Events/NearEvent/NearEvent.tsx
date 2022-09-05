@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'html-react-parser'
+import { useTranslation } from 'react-i18next'
 import { BookmarkIcon } from '../../Icons'
 import {
   Box, Card, Image, Link
@@ -17,6 +18,7 @@ export default function NearEvent(props: IProps): ReactElement {
   const {
     id, title, description, imageURL
   } = props
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const navigateTo = (path: `/events/${string}`) => () => navigate(path)
 
@@ -31,7 +33,7 @@ export default function NearEvent(props: IProps): ReactElement {
         <h2>{title}</h2>
         {HtmlParser(description?.slice(0, 150))}
         <Link to={`/events/${id}`} align="right" size={1.2} underlined>
-          Read more
+          {t('Read More')}
         </Link>
       </TextContainer>
     </Card>
