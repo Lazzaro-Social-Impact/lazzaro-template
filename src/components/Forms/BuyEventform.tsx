@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
@@ -14,6 +15,7 @@ import { Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface Props {
   modal?: TModal;
@@ -33,7 +35,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
-
+  const { t } = useTranslation()
   const {
     data: eventDetails
   } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
@@ -65,7 +67,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
         <CustomInput type="hidden" {...register(`tickets.${i}.id`)} value={ticket.id} />
         <CustomInput
           type="number"
-          placeholder="Please enter the number of tickets"
+          placeholder={t('placeholders.ticket')}
           {...register(`tickets.${i}.amount`)}
         />
       </>
@@ -76,56 +78,54 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
     <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
-        successMsg="Please navigate to the payment page to complete your purchase"
-        errorMsg="Something went wrong, please try again later"
+        successMsg={t('success.paypal_navigate')}
+        errorMsg={t('fail.error')}
         successId={`${eventId}_success`}
         errorId={`${eventId}_error`}
       />
       {EventTickets && (
         <div>
-          <FormTitle>Number of entries {price}</FormTitle>
+          <FormTitle>{t('event_single.num_of_entries')} {price}</FormTitle>
           <p>
-            Only one ticket per person. You can buy more tickets by repeating the purchase process.
+            {t('event_single.ticket_person')}
           </p>
 
           {ticketsInputs}
         </div>
       )}
 
-      <FormTitle>Personal Details</FormTitle>
+      <FormTitle>{t('personal_information')}</FormTitle>
       <FormRow modal={modal}>
         <CustomInputDiv>
-          <CustomInput placeholder="First Name" {...register('firstName')} />
+          <CustomInput placeholder={t('placeholders.firstname')} {...register('firstName')} />
           <ErrorInput msg={errors.firstName?.message} />
         </CustomInputDiv>
 
         <CustomInputDiv>
-          <CustomInput placeholder="SurName" {...register('lastName')} />
+          <CustomInput placeholder={t('placeholders.lastname')} {...register('lastName')} />
           <ErrorInput msg={errors.lastName?.message} />
         </CustomInputDiv>
       </FormRow>
 
       <FormRow modal={modal}>
         <CustomInputDiv>
-          <CustomInput placeholder="Email" {...register('user_email')} />
+          <CustomInput placeholder={t('placeholders.email')} {...register('user_email')} />
           <ErrorInput msg={errors.user_email?.message} />
         </CustomInputDiv>
 
         <CustomInputDiv>
-          <CustomInput placeholder="Phone" {...register('mobilePhone')} />
+          <CustomInput placeholder={t('placeholders.phone')} {...register('mobilePhone')} />
           <ErrorInput msg={errors.mobilePhone?.message} />
         </CustomInputDiv>
       </FormRow>
 
       <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
 
-      <span>
-        I accept the <a href="#">privacy terms</a>
-      </span>
+      <PrivacyPolicy />
 
       <ErrorInput msg={errors.terms_and_conditions?.message} />
       <Center>
-        <Button mt="1.8rem" px="2.8rem">Pay</Button>
+        <Button mt="1.8rem" px="2.8rem">{t('pay')}</Button>
       </Center>
     </BuyFrom>
   )

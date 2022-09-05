@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import {
@@ -14,7 +15,7 @@ function Shop() {
   const {
     data: products, isLoading
   } = useDependant<TProducts>(getProductsURL(ongId), ['products'], ongId)
-
+  const { t } = useTranslation()
   const memoizedProducts = useMemo(
     () => products?.map((product) => <ProductCard key={product.id} {...product} />),
     [products]
@@ -23,7 +24,7 @@ function Shop() {
     <>
       <Navbar />
 
-      <SectionTitle textAlign="center">Shop</SectionTitle>
+      <SectionTitle textAlign="center">{t('Store')}</SectionTitle>
       <Text fontSize={1.5} textAlign="center">
         lorem ipusm its simply an text with placeholder ant
       </Text>

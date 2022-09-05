@@ -44,3 +44,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+/* 
+* {
+  border: 1px red solid;
+} */

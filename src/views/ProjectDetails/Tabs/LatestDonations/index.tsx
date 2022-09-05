@@ -8,7 +8,7 @@ import Skeleton from '../../../../components/Skeleton'
 import DonationCard from './DonationCard'
 
 interface IProps {
-  title: 'Latest Donations' | 'Historical';
+  title: 'Latest Donations' | 'Historical' | string;
   projectId: string;
 }
 
