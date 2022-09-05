@@ -42,6 +42,7 @@ const SectionTitle = styled.h1`
 font-size: 2.1rem;
 font-weight: bold;
 margin-bottom: 0;
+color: ${({ theme }) => theme.primary};
 `
 
 const VolunteerCards = styled.div`
@@ -53,7 +54,6 @@ padding-bottom: 2.4rem;
 gap: 4.8rem;
 margin-top: 4.8rem;
 @media screen and (max-width: 768px) {
-       margin-top: 1.2rem;
        height: 250px !important;
     }
 `
