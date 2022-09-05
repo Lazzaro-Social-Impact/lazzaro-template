@@ -21,3 +21,5 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'es',
   resources,
 })
+
+export default i18n

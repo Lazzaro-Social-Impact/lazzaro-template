@@ -2,16 +2,18 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import moment from 'moment'
 import { type ReactElement } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
 import {
-  Button, Center, Input, Label, SectionTitle, TextArea
+  Button, Center, Input, Label, SectionTitle
 } from '../common'
-import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
+import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface IProps {
   modal?: boolean;
@@ -42,7 +44,7 @@ export function BuyProductForm(props: IProps): ReactElement {
   } = props
 
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
-
+  const { t } = useTranslation()
   const {
     handleSubmit, register, formState: { errors }, control
   } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
@@ -64,27 +66,27 @@ export function BuyProductForm(props: IProps): ReactElement {
     <form onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
-        successMsg="Payment done successfully"
-        errorMsg="Payment failed"
+        successMsg={t('success.paypal_navigate')}
+        errorMsg={t('fail.error')}
         successId={`donation_success${id}`}
         errorId={`donation_failed${id}`}
       />
       {modal && <CustomSectionTitle padding={0} textAlign="center" fontSize="x-large">{title}</CustomSectionTitle>}
 
-      <InputTitle>Your Shopping</InputTitle>
+      <InputTitle>{t('Products_single.your_shopping')}</InputTitle>
 
       <Input
-        placeholder="Enter the quantity of products"
+        placeholder={t('Products_single.contact_form.placeholders.amount')}
         type="number"
         min="1"
         defaultValue={1}
         {...register('productAmount')}
       />
       <ErrorMsg msg={errors.productAmount?.message} />
-      <InputTitle>Personal Details</InputTitle>
+      <InputTitle>{t('personal_information')}</InputTitle>
       <InputRow>
-        <Input placeholder="Name" {...register('firstName')} />
-        <Input placeholder="Surname" {...register('lastName')} />
+        <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
+        <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
       </InputRow>
 
       <InputRow>
@@ -93,8 +95,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <Input placeholder="Email" {...register('user_email')} />
-        <Input placeholder="Phone" {...register('mobile_phone')} />
+        <Input placeholder={t('placeholders.email')} {...register('user_email')} />
+        <Input placeholder={t('placeholders.phone')} {...register('mobile_phone')} />
       </InputRow>
 
       <InputRow>
@@ -102,10 +104,10 @@ export function BuyProductForm(props: IProps): ReactElement {
         <ErrorMsg msg={errors.mobile_phone?.message} />
       </InputRow>
 
-      <InputTitle>Delivery Details</InputTitle>
+      <InputTitle>{t('Products_single.delivery_details')}</InputTitle>
       <InputRow>
-        <Input placeholder="Address" {...register('home_address')} />
-        <Input placeholder="DNI" {...register('nif')} />
+        <Input placeholder={t('placeholders.address')} {...register('home_address')} />
+        <Input placeholder={t('placeholders.ID')} {...register('nif')} />
       </InputRow>
       <InputRow>
         <ErrorMsg msg={errors.home_address?.message} />
@@ -120,7 +122,7 @@ export function BuyProductForm(props: IProps): ReactElement {
             render={({ field }: any) => (
               <CustomDatePicker
                 name="birthDate"
-                placeholderText="Birth of Date"
+                placeholderText={t('placeholders.dob')}
                 selected={field.value}
                 onChange={(date: Date) => field.onChange(date)}
                 dateFormat="dd/MM/yyyy"
@@ -133,7 +135,7 @@ export function BuyProductForm(props: IProps): ReactElement {
           />
         </CustomInputDiv>
         <CustomInputDiv>
-          <Input placeholder="Postal Code" {...register('cp')} type="number" />
+          <Input placeholder={t('placeholders.postal_code')} {...register('cp')} type="number" />
         </CustomInputDiv>
       </InputRow>
 
@@ -143,8 +145,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <Input placeholder="City" {...register('city')} />
-        <Input placeholder="Country" {...register('country')} />
+        <Input placeholder={t('placeholders.city')} {...register('city')} />
+        <Input placeholder={t('placeholders.country')} {...register('country')} />
       </InputRow>
 
       <InputRow>
@@ -152,17 +154,17 @@ export function BuyProductForm(props: IProps): ReactElement {
         <ErrorMsg msg={errors.nif?.message} />
       </InputRow>
 
-      <TextArea placeholder="Additional message" rows={4} />
+      <CustomTextArea placeholder={t('placeholders.message')} rows={4} />
 
       <Label>
-        <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />I accept the
-        privacy policy
-        <ErrorMsg msg={errors.privacy_policy?.message} />
+        <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />
+        <PrivacyPolicy />
       </Label>
+      <ErrorMsg msg={errors.privacy_policy?.message} />
       <br />
       <Center my={1.5}>
         <Button py="0.8rem" px="2.4rem" type="submit">
-          Pay
+          {t('pay')}
         </Button>
       </Center>
     </form>

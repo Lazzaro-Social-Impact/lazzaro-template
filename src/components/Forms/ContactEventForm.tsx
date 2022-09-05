@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'react-i18next'
 import {
   Button, Center, Input, TextArea
 } from '../common'
@@ -28,36 +29,36 @@ export function ContactEventForm({ id }: IProps): ReactElement {
   } = useForm<TContactEventForm>({ resolver: yupResolver(contactEventSchema), })
 
   const { submit, ...states } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
-
+  const { t } = useTranslation()
   return (
     <ContactForm onSubmit={handleSubmit(submit)}>
       <HandleResponse
         {...states}
-        successMsg="Message sent successfully"
-        errorMsg="Error sending message"
+        successMsg={t('success.message')}
+        errorMsg={t('fail.message')}
         successId={`contact-event-form-${id}`}
         errorId={`contact-event-form-${id}`}
       />
       <Input
-        placeholder="Name"
+        placeholder={t('placeholders.name')}
         {...register('name')}
       />
       <ErrorInput msg={errors?.name?.message} />
       <Input
         mt={0}
-        placeholder="Email"
+        placeholder={t('placeholders.email')}
         {...register('email')}
       />
       <ErrorInput msg={errors?.email?.message} />
       <TextArea
-        placeholder="Message"
+        placeholder={t('placeholders.message')}
         rows={4}
         {...register('text')}
       />
       <ErrorInput msg={errors?.text?.message} />
 
       <Center>
-        <Button px={2.4} type="submit">Send</Button>
+        <Button px={2.4} type="submit">{t('send_message')}</Button>
       </Center>
     </ContactForm>
   )

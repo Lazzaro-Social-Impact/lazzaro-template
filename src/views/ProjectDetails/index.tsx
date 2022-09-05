@@ -34,7 +34,7 @@ function ProjectDetails(): ReactElement {
             <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
           )}
 
-          {projectDetails && <ProjectCard project={projectDetails} key={projectDetails.id} />}
+          {projectDetails && <ProjectCard project={projectDetails} />}
         </OtherProjects>
       </Flex>
       <Footer />

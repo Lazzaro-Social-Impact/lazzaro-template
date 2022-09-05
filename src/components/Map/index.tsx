@@ -20,7 +20,10 @@ const Map: FC<IProps> = ({
   mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN
 
   useEffect(() => {
-    if (mapRef.current || !mapContainerRef.current) return
+    const mapAlreadyDefined = mapRef.current
+    const mapContainerNotDefined = !mapContainerRef.current
+
+    if (mapAlreadyDefined || mapContainerNotDefined) return
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,

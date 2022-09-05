@@ -1,6 +1,7 @@
 import { ReactElement, useMemo } from 'react'
 import styled from 'styled-components'
 import chunk from 'lodash/chunk'
+import { useTranslation } from 'react-i18next'
 import { VolunteerCard } from './VolunteerCard/VolunteerCard'
 import { useAppSelector } from '../../hooks'
 import { Carousel } from '../common'
@@ -8,7 +9,7 @@ import { IMember } from '../../types/interfaces'
 
 export default function Volunteers(): ReactElement {
   const members = useAppSelector((state) => state.ong.ongConfig?.team)
-
+  const { t } = useTranslation()
   const memoizedMembersCards = useMemo(
     () => [
       ...chunk<IMember>(members, 3).map((memberCards, i: number) => (
@@ -24,7 +25,7 @@ export default function Volunteers(): ReactElement {
 
   return (
     <VolunteersSection id="volunteers">
-      <SectionTitle>Our Team</SectionTitle>
+      <SectionTitle>{t('Meet Our Team')}</SectionTitle>
       <Carousel dots>
         {memoizedMembersCards}
       </Carousel>

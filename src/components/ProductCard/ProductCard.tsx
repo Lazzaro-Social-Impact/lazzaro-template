@@ -14,16 +14,16 @@ export function ProductCard({
   const navigate = useNavigate()
   const navigateTo = (path: `/products/${string}`) => () => navigate(path)
 
-  const handleBrokenImages = () => {
+  const handleBrokenImage = () => {
     if (imageRef.current) {
       imageRef.current.src = 'https://via.placeholder.com/150'
     }
   }
 
   return (
-    <SingleProductCard onClick={navigateTo(`/products/${id}`)} key={id}>
+    <SingleProductCard onClick={navigateTo(`/products/${id}`)}>
       <ProductImage>
-        <Image src={img} alt={title} ref={imageRef} onError={handleBrokenImages} />
+        <Image src={img} alt={title} ref={imageRef} onError={handleBrokenImage} />
       </ProductImage>
       <Flex wrap="nowrap" py={0.4} px={0.8} align="flex-start">
         <P textAlign="left" flex={1}>

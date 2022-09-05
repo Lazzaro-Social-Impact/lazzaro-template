@@ -1,6 +1,7 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import {
   Text, Image, Flex, Link
 } from '../../common'
@@ -19,7 +20,7 @@ interface ProjectProps {
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
-
+  const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
       ...values,
@@ -39,10 +40,10 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
       <ProjectFooter>
         <Link size={1} to={`causes/${id}`} underlined>
-          Read more
+          {t('Read More')}
         </Link>
 
-        <DonateModal btnText="Donate" title={`Donate to ${title}`}>
+        <DonateModal btnText={t('Donate')} title={`Donate to ${title}`}>
           <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />
         </DonateModal>
       </ProjectFooter>

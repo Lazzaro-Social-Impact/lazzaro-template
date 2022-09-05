@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Card, Flex, Text } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
@@ -34,7 +35,7 @@ export function EventCard(props: IProps): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
-
+  const { t } = useTranslation()
   const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
 
   return (
@@ -51,13 +52,13 @@ export function EventCard(props: IProps): ReactElement {
       </Text>
 
       <Text weight="bold" color="#8c8c8c" fontSize={1.1}>
-        Tickets available: <span>{stock}</span>
+        {t('Tickets available')}: <span>{stock}</span>
       </Text>
 
       <Flex gap={2} mt={1}>
         <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
-        <BuyModal title={`Buy ${course ? 'course' : 'ticket'}`} btnText="Buy">
+        <BuyModal title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
           <EventCarousel imgs={images} isLoading={isLoading} />
           {Form}
         </BuyModal>
