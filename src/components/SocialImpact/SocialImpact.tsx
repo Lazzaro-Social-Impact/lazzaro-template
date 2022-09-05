@@ -5,7 +5,10 @@ import ImpactPart from './ImpactPart/ImpactPart'
 import { Flex, SectionTitle } from '../common'
 import { useAppSelector } from '../../hooks'
 
-export default function SocialImpact(): ReactElement {
+interface IProps {
+  order: number
+}
+export default function SocialImpact({ order }: IProps): ReactElement {
   const { primary } = useTheme()
   const impact = useAppSelector((state) => state.ong.ongConfig?.impactData)
   const { t } = useTranslation()
@@ -15,7 +18,15 @@ export default function SocialImpact(): ReactElement {
   )
 
   return (
-    <Flex id="impact" mt={2.4} direction="column" bgColor={primary} gap={1.2} px={5}>
+    <Flex
+      id="impact"
+      mt={2.4}
+      direction="column"
+      bgColor={primary}
+      gap={1.2}
+      px={5}
+      style={{ order }}
+    >
       <SectionTitle color="white" fontSize={2.8} marginTop={3}>
         {t('social_impact')}{' '}
       </SectionTitle>
