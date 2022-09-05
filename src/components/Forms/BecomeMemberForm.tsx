@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
@@ -15,6 +16,7 @@ import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
 import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 
 type TMemberSubmitForm = {
   firstName: string;
@@ -36,7 +38,7 @@ export default function BecomeMemberForm(): ReactElement {
   const {
     submit, isError, isLoading, isSuccess
   } = useFormSubmit<TMemberSubmitForm>(getBecomePartnerUrl())
-
+  const { t } = useTranslation()
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
@@ -56,40 +58,39 @@ export default function BecomeMemberForm(): ReactElement {
             isLoading={isLoading}
             isSuccess={isSuccess}
             isError={isError}
-            successMsg="Please navigate to PayPal to complete the payment"
-            errorMsg="Something went wrong, please try again later"
+            successMsg={t('success.paypal_navigate')}
+            errorMsg={t('fail.message')}
             successId="success-become-member"
             errorId="error-become-member"
           />
-          <FormTitle>Membership registration</FormTitle>
+          <FormTitle>{t('membership.title')}</FormTitle>
           <FormSubtitle>
-            We are delighted to have you as a member, but in order to complete your membership, we
-            need some information from you.
+            {t('membership.subtitle')}
           </FormSubtitle>
           <FormRow>
 
             <CustomInputDiv>
-              <Input placeholder="Name" {...register('firstName')} />
+              <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
               <ErrorInput msg={errors.firstName?.message} mt={0.4} />
             </CustomInputDiv>
             <CustomInputDiv>
-              <Input placeholder="Surname" {...register('lastName')} />
+              <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
               <ErrorInput msg={errors.lastName?.message} mt={0.4} />
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
-              <Input type="number" placeholder="DNI/NIF/Passport" {...register('nif')} />
+              <Input type="number" placeholder={t('placeholders.ID')} {...register('nif')} />
               <ErrorInput msg={errors.nif?.message} mt={0.4} />
             </CustomInputDiv>
             <CustomInputDiv>
-              <Input placeholder="Phone" {...register('phone')} />
+              <Input placeholder={t('placeholders.phone')} {...register('phone')} />
               <ErrorInput msg={errors.phone?.message} mt={0.4} />
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
-              <Input placeholder="Email" {...register('user_email')} />
+              <Input placeholder={t('placeholders.email')} {...register('user_email')} />
               <ErrorInput msg={errors.user_email?.message} mt={0.4} />
             </CustomInputDiv>
             <CustomInputDiv>
@@ -99,7 +100,7 @@ export default function BecomeMemberForm(): ReactElement {
                 render={({ field }: any) => (
                   <CustomDatePicker
                     name="birthDate"
-                    placeholderText="Birth of Date"
+                    placeholderText={t('placeholders.dob')}
                     selected={field.value}
                     onChange={(date: Date) => field.onChange(date)}
                     dateFormat="dd/MM/yyyy"
@@ -114,33 +115,33 @@ export default function BecomeMemberForm(): ReactElement {
             </CustomInputDiv>
           </FormRow>
           <Input
-            placeholder="Address (street, city and postal code)"
+            placeholder={t('placeholders.address')}
             {...register('home_address')}
           />
           <ErrorInput msg={errors.home_address?.message} mt={0.4} />
 
-          <RadioQuestion>I have read and accepted the NGOs privacy policy.</RadioQuestion>
+          <PrivacyPolicy /> <br />
           <Radio.Group {...register('terms')}>
             <CustomRadio style={{ marginTop: '1.2rem' }} value>
-              I accept
+              {t('I accept')}
             </CustomRadio>
             <CustomRadio value={false}>
-              I dont accept (in this case, we will not be able to process your membership)
+              {t('membership.dont_accept_membership')}
             </CustomRadio>
           </Radio.Group>
           <ErrorInput msg={errors.terms?.message} mt={0.4} />
 
           <RadioQuestion>
-            Would you like us to process your registration as a member of the NGO?
+            {t('membership.question')}
           </RadioQuestion>
           <Radio.Group {...register('membership')}>
-            <CustomRadio value>Yes</CustomRadio>
-            <CustomRadio value={false}>No</CustomRadio>
+            <CustomRadio value>{t('yes')}</CustomRadio>
+            <CustomRadio value={false}>{t('no')}</CustomRadio>
           </Radio.Group>
           <ErrorInput msg={errors.membership?.message} mt={0.4} />
 
           <Center>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">{t('send')}</Button>
           </Center>
         </Form>
       </Container>
