@@ -148,6 +148,9 @@
       "Description": "Descripción",
       "to_buy": "Comprar",
       "contact": "Contactar",
+      "stock": "Valores",
+      "your_shopping":"Su compra",
+      "delivery_details": "Detalles de entrega",
       "contact_form": {
         "title": "Tu compra",
         "Delivery_data": "Datos de envío",

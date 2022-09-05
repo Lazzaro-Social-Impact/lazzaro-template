@@ -5,6 +5,7 @@ import HtmlParser from 'html-react-parser'
 
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
@@ -22,7 +23,7 @@ function SingleProduct(): ReactElement {
   const {
     data: product
   } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)
-
+  const { t } = useTranslation()
   const { data: images } = useDependant<TImages>(getProductImages(id), [`images${id}`], id)
 
   const {
@@ -42,7 +43,7 @@ function SingleProduct(): ReactElement {
       <Navbar />
       <Center mt={4.2}>
         <Breadcrumb separator=">">
-          <Breadcrumb.Item>Shop</Breadcrumb.Item>
+          <Breadcrumb.Item>{t('Store')}</Breadcrumb.Item>
           <Breadcrumb.Item>{product?.title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
@@ -51,26 +52,32 @@ function SingleProduct(): ReactElement {
           {memoizedImages}
         </Flex>
         <ProductSidebar>
-          <Card mode="column" smMode="column" maxWidth="400px" py={2.4} px={1.8}>
+          <CustomCard
+            mode="column"
+            smMode="column"
+            maxWidth="100%"
+            py={2.4}
+            px={1.8}
+          >
             <ProductName>{product?.title}</ProductName>
-            <ProductsAvailable>Stock: {amount}</ProductsAvailable>
+            <ProductsAvailable>{t('Products_single.stock')}: {amount}</ProductsAvailable>
             <Flex justify="space-around" mt={1}>
               <ShareModal section="products" sectionId={id} />
-              <BuyModal btnText="Buy">
+              <BuyModal btnText={t('Buy')}>
                 <BuyProductForm modal id={id} price={price} title={title} />
               </BuyModal>
             </Flex>
-          </Card>
+          </CustomCard>
 
           <CustomTabs>
-            <Tabs.TabPane tab="Details" key="1">
+            <Tabs.TabPane tab={t('details')} key="1">
               <ProductDetails>{HtmlParser(description)}</ProductDetails>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Buy" key="2">
+            <Tabs.TabPane tab={t('Buy')} key="2">
               <BuyProductForm id={id} price={price} title={title} />
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab="Contact" key="3">
+            <Tabs.TabPane tab={t('Contact')} key="3">
               <ContactEventForm id={id} />
             </Tabs.TabPane>
           </CustomTabs>
@@ -94,16 +101,16 @@ const Container = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 1.2rem 1.2rem;
+    justify-content: center;
+    align-items: center;
     gap: 2.4rem;
   }
 `
 
 const ImageContainer = styled.div`
-  width: 100%;
-  max-height: 590px;
+  max-width: 100%;
   img {
     width: 100%;
-    height: 100%;
   }
 `
 
@@ -133,7 +140,13 @@ const ProductDetails = styled.div`
 `
 
 const CustomTabs = styled(Tabs)`
-  max-width: 425px;
+  width: 100%;
+  align-self: center;
+
+  @media screen and (max-width: 768px) {
+    width: 80%
+    
+  }
   .ant-tabs-nav-list {
     display: flex;
     width: 100%;
@@ -143,4 +156,10 @@ const CustomTabs = styled(Tabs)`
     font-size: 1.1rem;
     font-weight: bold;
   }
+`
+
+const CustomCard = styled(Card)`
+@media screen and (max-width: 768px) {
+  order: 1;
+}
 `

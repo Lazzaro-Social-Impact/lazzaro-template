@@ -145,6 +145,9 @@
       "Description": "Description",
       "to_buy": "to buy",
       "contact": "Contact",
+      "stock": "Stock",
+      "your_shopping": "Your shopping",
+      "delivery_details": "Delivery details",
       "contact_form": {
         "title": "You Purchase",
         "Delivery_data": "Delivery Data",
