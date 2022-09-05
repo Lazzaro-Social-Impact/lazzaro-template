@@ -28,7 +28,7 @@ function Shop() {
         lorem ipusm its simply an text with placeholder ant
       </Text>
 
-      <Flex gap={3} px={9} py={4}>
+      <Flex gap={3} justify="space-evenly" my={4}>
         {isLoading && <Skeleton width={14} height={15} number={8} />}
 
         {memoizedProducts}

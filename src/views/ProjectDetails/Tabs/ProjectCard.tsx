@@ -14,12 +14,12 @@ interface IProps {
     title: string;
     donated: number;
     amount: number;
-  }
+  };
 }
 
-export function ProjectCard({ project } : IProps) {
+export function ProjectCard({ project }: IProps) {
   const {
-    id, title, donated, amount
+    id, title = '', donated = 0, amount = 0
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
@@ -33,19 +33,19 @@ export function ProjectCard({ project } : IProps) {
 
   const { primary } = useTheme()
 
-  const donationProgress = ((donated / amount) * 100).toFixed()
-  const donateBtnText = +donationProgress >= 100 ? 'Filled!' : 'Donate'
+  const donationProgress = +((donated / amount) * 100).toFixed()
+  const donateBtnText = donationProgress >= 100 ? 'Filled!' : 'Donate'
 
   return (
-    <Card mode="column" p={2.5} maxWidth="400px" smMode="column" m="1rem">
-      <Title title={title}>{title.slice(0, 15)}</Title>
+    <ProductCard>
+      <Title title={title}>{title?.slice(0, 15)}</Title>
       <ProgressBar>
-        <Progress percent={+donationProgress} strokeColor={primary} />
-        <ProgressPercents percent={+donationProgress}>
+        <Progress percent={donationProgress} strokeColor={primary} />
+        <ProgressPercents percent={donationProgress}>
           %{donationProgress}
         </ProgressPercents>
       </ProgressBar>
-      <Text weight="bold">
+      <Text weight="bold" textAlign="center">
         Goal <br />${amount}
       </Text>
       <Flex gap={1}>
@@ -56,9 +56,16 @@ export function ProjectCard({ project } : IProps) {
           <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
         </BuyModal>
       </Flex>
-    </Card>
+    </ProductCard>
   )
 }
+
+const ProductCard = styled(Card)`
+  max-width: 400px;
+  margin: 1rem;
+  flex-direction: column;
+  padding: 2.5rem;
+`
 
 const ProgressBar = styled.div`
   position: relative;

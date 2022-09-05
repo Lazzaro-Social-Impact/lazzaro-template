@@ -24,6 +24,7 @@ interface IProps {
   transform?: TTextTransform;
   decoration?: TTextDecoration;
   textShadow?: TTextShadow;
+  flex?: TFlex;
 }
 
 const Text = styled.p<IProps>`
@@ -49,7 +50,7 @@ const Text = styled.p<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
-  width:100%;
+  flex: ${({ flex }) => flex && flex};
 `
 export default Text
 
