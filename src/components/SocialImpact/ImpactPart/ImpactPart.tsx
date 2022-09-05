@@ -1,9 +1,10 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
+import CountUp from 'react-countup'
 import { Flex, Text } from '../../common'
 
 interface ImpactPartProps {
-  amount: string;
+  amount: string | number;
   name: string;
 }
 
@@ -11,7 +12,13 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
-        +{amount}
+        +<CountUp
+          end={+amount}
+          duration={2.2}
+          separator=","
+          scrollSpyOnce
+          start={0}
+        />
       </Text>
       <Text color="#fff" fontSize={2} weight="200">
         {name}
