@@ -8,6 +8,7 @@ declare global {
     market: boolean;
     partners: boolean;
     volunteers: boolean;
+    logos: boolean;
   }>;
 
   type TBrand = Readonly<{

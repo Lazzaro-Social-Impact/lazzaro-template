@@ -12,7 +12,11 @@ interface ILogo {
   logo:string;
 }
 
-export default function LogosCarousel(): ReactElement {
+interface IProps {
+  order: number
+}
+
+export default function LogosCarousel({ order }: IProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
   const {
     data: logos = [], isLoading, isError,
@@ -35,7 +39,7 @@ export default function LogosCarousel(): ReactElement {
     [logos]
   )
   return (
-    <Box>
+    <Box style={{ order, marginTop: order === 4 ? '4.2rem' : 'initial' }}>
       {isError && <ErrorInput msg="something went wrong" />}
       {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
       <Carousel dots={false} bgColor={primary} mt={4.2}>

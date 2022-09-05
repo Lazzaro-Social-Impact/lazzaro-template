@@ -12,10 +12,9 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
-        +<CountUp
+        <CountUp
           end={+amount}
           duration={3.2}
-          separator=","
           enableScrollSpy
           start={0}
         />
