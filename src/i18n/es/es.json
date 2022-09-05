@@ -97,7 +97,8 @@
       "city": "Por favor, indique su ciudad",
       "country": "Por favor, indique su país",
       "amount":"Por favor, indique la cantidad que desea donar",
-      "membership": "Debe aceptar los Términos y Condiciones de la membresía"
+      "membership": "Debe aceptar los Términos y Condiciones de la membresía",
+      "cp": "Por favor, indique un código postal válido"
     },
     "success": {
       "donation": "Gracias por su donación",

@@ -44,7 +44,8 @@ export const buyProductSchema = yup.object({
   nif: yup.string().required(t('errors.ID')).typeError(t('errors.ID')),
   cp: yup.number().typeError(t('errors.cp')).required(),
   mobile_phone: yup.string().required(t('errors.phone')),
-  birthDate: yup.date().typeError(t('errors.dob')).required(),
+  birthDate: yup.date().required(t('errors.dob')).typeError(t('errors.dob')),
+
   privacy_policy: yup.boolean().isTrue(t('errors.privacypolicy')).required(),
 })
 
@@ -71,6 +72,7 @@ export const donationSchema = yup.object({
   amount: yup.number().required(t('errors.amount')).typeError(t('errors.amount')),
   text: yup.string(),
   birthDate: yup.date().required(t('errors.dob')).typeError(t('errors.dob')),
+
 })
 
 export const volunteerSchema = yup.object().shape({

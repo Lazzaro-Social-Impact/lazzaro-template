@@ -95,7 +95,8 @@
       "phone": "Please enter your phone number",
       "image_rights": "You must accept the terms and conditions",
       "amount": "Please enter the amount you want to donate",
-      "membership": "You must accept the membership terms and conditions"
+      "membership": "You must accept the membership terms and conditions",
+      "cp": "Please enter a valid postal code"
     },
     "success": {
       "donation": "Thank you for your donation",
