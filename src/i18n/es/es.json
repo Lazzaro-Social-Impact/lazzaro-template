@@ -134,9 +134,8 @@
       "share_event": "Comparte el evento"
     },
     "error_page": {
-      "oops": "¡ups! ¡Página no encontrada!",
-  
-      "404": "Lo sentimos, pero parece que no podemos encontrar la página. Esto podría deberse a que ha escrito la dirección web incorrectamente",
+      "oops": "TENEMOS QUE HABLAR",
+      "404": "ESTO NO FUNCIONA",
       "home": "Volver"
     },
     "Products_page": {

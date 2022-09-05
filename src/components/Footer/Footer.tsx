@@ -49,7 +49,7 @@ export default function Footer(): ReactElement {
         </ImageContainer>
 
         <SectionTitle
-          style={{ width: '100% !important', padding: '0' }}
+          style={{ padding: '0', width: '100%' }}
           fontSize={1.8}
         >
           {t('footer.title_1')} <br />

@@ -14,9 +14,9 @@ import HandleResponse from '../common/HandleResponse'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
-import PrivacyPolicy from '../common/PrivacyPolicy'
 
 type TMemberSubmitForm = {
   firstName: string;

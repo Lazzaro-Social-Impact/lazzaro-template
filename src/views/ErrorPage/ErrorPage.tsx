@@ -1,4 +1,5 @@
 import { type ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Footer, Navbar } from '../../components'
@@ -6,18 +7,19 @@ import { Button, Center } from '../../components/common'
 
 export default function ErrorPage(): ReactElement {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   return (
     <>
       <Navbar />
       <Container>
         <ImageContainer>
           <img src="./assets/img/lazz-error-page.svg" alt="error" />
-          <ErrorText>tenemos que hablar</ErrorText>
-          <ErrorText style={{ top: '90%' }}> esto no funciona</ErrorText>
+          <ErrorText>{t('error_page.oops')}</ErrorText>
+          <ErrorText style={{ top: '90%' }}> {t('error_page.404')}</ErrorText>
         </ImageContainer>
         <Center>
           <Button px={2.8} py={1.2} onClick={() => navigate('/')}>
-            Back Home
+            {t('error_page.home')}
           </Button>
         </Center>
       </Container>
