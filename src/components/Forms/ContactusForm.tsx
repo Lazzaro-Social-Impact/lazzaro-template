@@ -144,6 +144,10 @@ const ContactusFormBox = styled.form`
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
+
+  @media screen and (max-width: 768px) {
+    padding: 1.4rem;
+  }
 `
 
 const FormTitle = styled.h1`
