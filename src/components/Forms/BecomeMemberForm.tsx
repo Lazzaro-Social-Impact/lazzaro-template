@@ -119,10 +119,12 @@ export default function BecomeMemberForm(): ReactElement {
             {...register('home_address')}
           />
           <ErrorInput msg={errors.home_address?.message} mt={0.4} />
-
-          <PrivacyPolicy /> <br />
+          <br />
+          <div>
+            <PrivacyPolicy style={RadioQuestionStyle} />
+          </div>
           <Radio.Group {...register('terms')}>
-            <CustomRadio style={{ marginTop: '1.2rem' }} value>
+            <CustomRadio value>
               {t('I accept')}
             </CustomRadio>
             <CustomRadio value={false}>
@@ -181,12 +183,16 @@ const FormRow = styled.div`
   margin-top: 0.8rem;
 `
 
+const RadioQuestionStyle = {
+  color: '#8c8c8c',
+  letterSpacing: '1.2px',
+  marginTop: '1.8rem',
+  marginBottom: '0',
+  fontSize: '1rem'
+}
+
 const RadioQuestion = styled.p`
-  color: #8c8c8c;
-  letter-spacing: 1.2px;
-  margin-top: 1.8rem;
-  margin-bottom: 0;
-  font-size: 1rem;
+  ${RadioQuestionStyle}
 `
 
 const CustomRadio = styled(Radio)`

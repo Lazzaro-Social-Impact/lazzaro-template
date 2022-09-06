@@ -1,11 +1,15 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { CSSProperties } from 'styled-components'
 import Link from './Link'
 
-const PrivacyPolicy = (): ReactElement => {
+interface IProps {
+  style?: CSSProperties
+}
+const PrivacyPolicy = ({ style }: IProps): ReactElement => {
   const { t } = useTranslation()
   return (
-    <span>{t('accept_to')} {' '}
+    <span style={style}>{t('accept_to')} {' '}
       <Link
         style={{ textDecoration: 'underline' }}
         to="/terms_and_conditions"
@@ -14,6 +18,10 @@ const PrivacyPolicy = (): ReactElement => {
       </Link>
     </span>
   )
+}
+
+PrivacyPolicy.defaultProps = {
+  style: {},
 }
 
 export default PrivacyPolicy
