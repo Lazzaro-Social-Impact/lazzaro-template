@@ -12,7 +12,7 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
       <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
-        <CountUp
+        +<CountUp
           end={+amount}
           duration={3.2}
           enableScrollSpy
@@ -27,7 +27,7 @@ function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
 }
 
 const ImpactSection = styled(Flex)`
-
+flex-direction: column;
 
 // Carlota screen size ;-;
 
@@ -53,11 +53,11 @@ const ImpactSection = styled(Flex)`
 
     @media (min-width: 1220px) {
     p:first-child {
-      font-size: 4rem;
+      font-size: 3.3rem;
     }
 
     p:last-child {
-      font-size: 2rem;
+      font-size: 1.4rem;
     }
   }
   @media (min-width: 500px) and (max-width: 550px) {
