@@ -16,7 +16,7 @@ interface IProps {
   disabled?: boolean;
   radius?: TBorderRadius;
   hoverBgColor?: TBgColor;
-  hoverColor?: TColor;
+  hovercolor?: TColor;
 }
 
 const Button = styled.button<IProps>`
@@ -42,7 +42,7 @@ const Button = styled.button<IProps>`
   &:hover {
     transform: scale(1.05);
     background-color: ${({ hoverBgColor, theme }) => hoverBgColor || theme.secondary};
-    color: ${({ hoverColor }) => hoverColor && hoverColor};
+    color: ${({ hovercolor }) => hovercolor && hovercolor};
   }
 
   &:disabled {

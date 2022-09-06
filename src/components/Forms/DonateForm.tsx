@@ -41,42 +41,51 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       <FormControl mb={0}>
         <Label htmlFor="amount">{t('your_donation')}</Label>
       </FormControl>
-      <FormControl>
+      <CustomInputDiv>
         <Input
           type="number"
           placeholder={t('placeholders.amount')}
           {...register('amount')}
         />
         <ErrorMsg msg={errors.amount?.message} />
-      </FormControl>
+      </CustomInputDiv>
 
-      <FormControl mb={0}>
+      <FormControl mt={1.8} mb={0}>
         <Label htmlFor="amount">{t('details')}</Label>
       </FormControl>
 
-      <FormControl mode="row">
-        <Input type="text" placeholder={t('placeholders.firstname')} {...register('firstName')} />
-        <Input type="text" placeholder={t('placeholders.lastname')} {...register('lastName')} />
-      </FormControl>
+      <FormRow>
 
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.firstName?.message} />
-        <ErrorMsg msg={errors.lastName?.message} />
-      </FormControl>
-
-      <FormControl mode="row">
-        <Input type="email" placeholder={t('placeholders.email')} {...register('user_email')} />
-        <Input type="text" placeholder={t('placeholders.address')} {...register('home_address')} />
-      </FormControl>
-
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.home_address?.message} />
-      </FormControl>
-
-      <FormControl mode="row">
         <CustomInputDiv>
-          <Input type="text" placeholder={t('placeholders.ID')} {...register('nif')} />
+          <Input type="text" placeholder={t('placeholders.firstname')} {...register('firstName')} />
+          <ErrorMsg msg={errors.firstName?.message} />
+        </CustomInputDiv>
+
+        <CustomInputDiv>
+          <Input type="text" placeholder={t('placeholders.lastname')} {...register('lastName')} />
+          <ErrorMsg msg={errors.lastName?.message} />
+        </CustomInputDiv>
+      </FormRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input type="email" placeholder={t('placeholders.email')} {...register('user_email')} />
+          <ErrorMsg msg={errors.user_email?.message} />
+        </CustomInputDiv>
+
+        <CustomInputDiv>
+          <Input type="text" placeholder={t('placeholders.address')} {...register('home_address')} />
+          <ErrorMsg msg={errors.home_address?.message} />
+        </CustomInputDiv>
+      </FormRow>
+
+      <FormRow>
+        <CustomInputDiv>
+          <Input
+            type="text"
+            placeholder={t('placeholders.ID')}
+            {...register('nif')}
+          />
+          <ErrorMsg msg={errors.nif?.message} />
         </CustomInputDiv>
         <CustomInputDiv>
           <Controller
@@ -96,17 +105,13 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
               />
             )}
           />
+          <ErrorMsg msg={errors.birthDate?.message} />
         </CustomInputDiv>
-      </FormControl>
+      </FormRow>
 
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.nif?.message} />
-        <ErrorMsg msg={errors.birthDate?.message} />
-      </FormControl>
-
-      <FormControl>
+      <FormRow>
         <CustomTextArea rows={4} placeholder={t('placeholders.message')} {...register('text')} />
-      </FormControl>
+      </FormRow>
 
       {projectId && (
         <>
@@ -187,7 +192,11 @@ const RadioBtn = styled.input`
   cursor: pointer;
   margin-left: 1.5rem;
 `
-
+const FormRow = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+`
 DonateForm.defaultProps = {
   projectId: '',
 }

@@ -71,7 +71,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link hoverColor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
+          <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
         </div>
 
         <Icons>
