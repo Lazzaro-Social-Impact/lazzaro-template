@@ -195,7 +195,7 @@ const RadioQuestion = styled.p`
   ${RadioQuestionStyle}
 `
 
-const CustomRadio = styled(Radio)`
+export const CustomRadio = styled(Radio)`
   display: block;
   span {
     font-weight: 600;

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { Radio } from 'antd'
 import {
   Button, Center, Input
 } from '../common'
@@ -12,6 +13,7 @@ import { DonateSubmitForm } from '../../types/interfaces'
 import { donationSchema } from '../../validation/schemas'
 import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import PrivacyPolicy from '../common/PrivacyPolicy'
+import { CustomRadio } from './BecomeMemberForm'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -115,34 +117,33 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
 
       {projectId && (
         <>
-          <FormControl>
+
+          <FormControl mt={2.4}>
             <Label>{t('donation_publicity.question')}</Label>
           </FormControl>
 
-          <FormControl mode="row" justify="start" mb={0}>
-            <RadioBtn type="radio" defaultChecked {...register('anonymous')} />
-            <Label color="#777777">{t('donation_publicity.public')}</Label>
-          </FormControl>
-
-          <FormControl mode="row" justify="start" mb={0}>
-            <RadioBtn type="radio" {...register('anonymous')} />
-            <Label color="#777777">{t('donation_publicity.anonymous')}</Label>
-          </FormControl>
+          <Radio.Group {...register('anonymous')}>
+            <CustomRadio value={false}>
+              {t('donation_publicity.public')}
+            </CustomRadio>
+            <CustomRadio value>
+              {t('donation_publicity.anonymous')}
+            </CustomRadio>
+          </Radio.Group>
         </>
       )}
 
       <FormControl mt={1.5}>
         <Label>{t('Certificate question')}</Label>
       </FormControl>
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn type="radio" defaultChecked {...register('certificate')} />
-        <Label color="#777777">{t('yes')}</Label>
-      </FormControl>
-
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn type="radio" {...register('certificate')} />
-        <Label color="#777777">{t('no')}</Label>
-      </FormControl>
+      <Radio.Group {...register('certificate')}>
+        <CustomRadio value>
+          {t('yes')}
+        </CustomRadio>
+        <CustomRadio value={false}>
+          {t('no')}
+        </CustomRadio>
+      </Radio.Group>
 
       <FormControl mode="row" justify="start" mt={2}>
         <input type="checkbox" {...register('terms')} />
@@ -186,12 +187,12 @@ const FormControl = styled.div<IFormControlProps>`
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `
 
-const RadioBtn = styled.input`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin-left: 1.5rem;
-`
+// const RadioBtn = styled.input`
+//   border: none;
+//   outline: none;
+//   cursor: pointer;
+//   margin-left: 1.5rem;
+// `
 const FormRow = styled.div`
   display: flex;
   gap: 1.2rem;
