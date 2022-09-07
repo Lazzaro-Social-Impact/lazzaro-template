@@ -59,7 +59,7 @@ const ErrorText = styled.p`
     align-self: center;
     position: absolute;
     top: 80%;
-    text-transform: uppercase   ;
+    text-transform: uppercase;
     left: 50%;
     color: white;
     transform: translate(-50%, -50%);
