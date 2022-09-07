@@ -5,10 +5,14 @@ import { useAppSelector } from '../../hooks'
 import { Button, Flex } from '../common'
 
 interface IProps {
-  heroImage: string;
+  heroImage?: string;
+  noBtns?: boolean;
+
 }
 
-function Hero() {
+type IHero = Omit<IProps, 'heroImage'>
+
+function Hero({ noBtns }:IHero) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { heroImage = '', textHeader, textSubHeader } = useAppSelector((state) => ({
@@ -25,10 +29,14 @@ function Hero() {
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
-          <Button color="white" onClick={() => navigate('/donate')}> {t('Donate')} </Button>
-          <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
-            {t('Become a member')}
-          </Button>
+          {!noBtns && (
+          <>
+            <Button color="white" onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+            <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
+              {t('Become a member')}
+            </Button>
+          </>
+          )}
         </Flex>
       </HeroSection>
     </>
@@ -68,4 +76,7 @@ const Title = styled.h2`
   }
 `
 
+Hero.defaultProps = {
+  noBtns: false,
+}
 export default Hero

@@ -35,7 +35,7 @@ export default function Landing(): ReactElement {
   }, [hash])
 
   const zones = [causes, events, courses].filter(Boolean).length
-
+  const noHeroBtns = zones === 0 && partners === false && logos === false && impact === false
   const logosSectionOrderNoZones = [logos, partners, impact].filter((item) => item).length >= 2 ? 3 : 0
 
   // courses,events,causes
@@ -45,7 +45,7 @@ export default function Landing(): ReactElement {
   return (
     <>
       <Navbar transparent position="fixed" />
-      <Hero />
+      <Hero noBtns={noHeroBtns} />
       <AboutUs />
       <LandingColumn>
         {zones === 1 && logos && !impact === false && <Divider />}
