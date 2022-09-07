@@ -63,10 +63,10 @@ export function ProjectCard({ project }: IProps) {
 }
 
 const ProductCard = styled(Card)`
-  max-width: 400px;
+  width: 380px;
   margin: 1rem;
   flex-direction: column;
-  padding: 2.5rem;
+  padding: 2.3rem;
 `
 
 const ProgressBar = styled.div`
@@ -77,13 +77,27 @@ const ProgressBar = styled.div`
 const ProgressPercents = styled.span<{ percent: number }>`
   position: absolute;
   top: -60%;
-  left: ${({ percent }) => `${percent}%`};
+  left: ${({ percent }) => `${percent - 6}%`};
   transform: translate(-50%, -50%);
   font-size: 0.9rem;
   font-weight: bold;
   color: white;
   background: ${({ theme }) => theme.primary};
   padding: 0.1rem 0.6rem;
+
+  ::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-top: .9rem solid ${({ theme }) => theme.primary};
+  }
+
 `
 
 const Title = styled.h1`

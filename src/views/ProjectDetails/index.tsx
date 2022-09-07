@@ -51,15 +51,18 @@ const Flex = styled.div`
   margin-bottom: 20px;
   border-radius: 5px;
   background-color: #fff;
-  margin-inline: 6rem;
+  margin-inline: 4rem;
   margin-top: 5rem;
 
   & div {
     flex: 1;
   }
+  & > div:last-child {
+    flex: 0.7;
+  }
 
   & .ant-tabs {
-    max-width: 50%;
+    max-width: 80%;
   }
 
   .ant-tabs-tab {
