@@ -17,14 +17,27 @@ import {
   Footer,
 } from '../../components'
 import Divider from '../../components/Divider/Divider'
-import { useAppSelector } from '../../hooks'
+// import { useAppSelector } from '../../hooks'
+import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
+  // const {
+  //   causes, events, partners, volunteers, courses, impact, logos
+  // } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+
+  // For Test purposes
   const {
     causes, events, partners, volunteers, courses, impact, logos
-  } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-
+  } = {
+    causes: false,
+    events: false,
+    partners: true,
+    volunteers: true,
+    courses: true,
+    impact: true,
+    logos: true
+  }
   useEffect(() => {
     if (hash) {
       const element = document.getElementById(hash.slice(1))
@@ -41,39 +54,47 @@ export default function Landing(): ReactElement {
   // courses,events,causes
   const logosSectionOrderWithZones = zones === 1 ? 4 : 0
   const socialImpactOrderWithZones = zones === 1 ? -1 : 0
-  const seperatorVisibility = [logos, impact, partners].every((item) => item === false) ? 'none' : 'block'
+  const seperatorVisibility = [logos, impact, partners].every((item) => item === false)
+  && zones === 0 ? 'none' : 'block'
   return (
     <>
       <Navbar transparent position="fixed" />
       <Hero noBtns={noHeroBtns} />
       <AboutUs />
       <LandingColumn>
-        {zones === 1 && logos && !impact === false && <Divider />}
-        {logos && zones ? <LogosCarousel order={logosSectionOrderWithZones} />
-          : !zones && logos ? <LogosCarousel order={logosSectionOrderNoZones} />
-            : (
-              <Divider
-                display={seperatorVisibility}
-                order={logosSectionOrderWithZones}
-              />
-            )}
+        {zones === 1 && logos === false && impact === false && <Divider display="block" />}
+        <ReorderComponent
+          feature={logos}
+          zones={zones}
+          Component={LogosCarousel}
+          orderWithZones={logosSectionOrderWithZones}
+          orderWithoutZones={logosSectionOrderNoZones}
+          display={seperatorVisibility}
+        />
         {causes && <Projects />}
+        {events && !causes && <Events />}
         {/* {events && <PremiumEvent />} */}
-        {impact ? <SocialImpact order={socialImpactOrderWithZones} />
-          : !zones && impact ? <SocialImpact order={0} /> : (
-            <Divider
-              display={seperatorVisibility}
-              order={socialImpactOrderWithZones}
-            />
-          )}
-        {events && <Events />}
-        {partners ? <SubscribeDivider />
-          : !zones && partners ? <SubscribeDivider /> : (
-            <Divider
-              display={seperatorVisibility}
-            />
-          )}
-        {courses && <Courses />}
+        <ReorderComponent
+          feature={impact}
+          zones={zones}
+          Component={SocialImpact}
+          orderWithZones={socialImpactOrderWithZones}
+          orderWithoutZones={0}
+          display={seperatorVisibility}
+        />
+        {courses && events && !causes && <Courses />}
+        {events && causes && <Events />}
+        {courses && !events && <Courses />}
+
+        <ReorderComponent
+          feature={partners}
+          zones={zones}
+          Component={SubscribeDivider}
+          orderWithZones={0}
+          orderWithoutZones={0}
+          display={seperatorVisibility}
+        />
+        {courses && events && causes && <Courses />}
       </LandingColumn>
       {volunteers && <Volunteers />}
       <Footer />
