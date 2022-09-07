@@ -51,6 +51,7 @@ const Container = styled.div`
   gap: 2rem;
   overflow-y: auto;
   height: 50rem;
+  padding: 2.5rem;
 `
 
 export default LatestDonations

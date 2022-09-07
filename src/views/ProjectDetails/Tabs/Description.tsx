@@ -4,7 +4,7 @@ import { Box } from '../../../components/common'
 
 function Description({ description }: { description: string }) {
   return (
-    <Box>
+    <Box p={2.6}>
       {HtmlParser(description)}
     </Box>
   )
