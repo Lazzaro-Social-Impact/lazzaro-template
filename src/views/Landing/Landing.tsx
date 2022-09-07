@@ -39,8 +39,8 @@ export default function Landing(): ReactElement {
   const logosSectionOrderNoZones = [logos, partners, impact].filter((item) => item).length >= 2 ? 3 : 0
 
   // courses,events,causes
-  const logosSectionOrderWithZones = [causes, events, courses].filter((item) => item).length === 1 ? 4 : 0
-  const socialImpactOrderWithZones = [causes, events, courses].filter((item) => item).length === 1 ? -1 : 0
+  const logosSectionOrderWithZones = zones === 1 ? 4 : 0
+  const socialImpactOrderWithZones = zones === 1 ? -1 : 0
   const seperatorVisibility = [logos, impact, partners].every((item) => item === false) ? 'none' : 'block'
   return (
     <>
