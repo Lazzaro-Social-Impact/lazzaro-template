@@ -17,27 +17,27 @@ import {
   Footer,
 } from '../../components'
 import Divider from '../../components/Divider/Divider'
-import { useAppSelector } from '../../hooks'
+// import { useAppSelector } from '../../hooks'
 import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
-  const {
-    causes, events, partners, volunteers, courses, impact, logos
-  } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-
-  // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos
-  // } = {
-  //   causes: true,
-  //   events: true,
-  //   partners: true,
-  //   volunteers: true,
-  //   courses: true,
-  //   impact: true,
-  //   logos: true
-  // }
+  // } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+
+  // For Test purposes
+  const {
+    causes, events, partners, volunteers, courses, impact, logos
+  } = {
+    causes: false,
+    events: false,
+    partners: true,
+    volunteers: true,
+    courses: true,
+    impact: true,
+    logos: true
+  }
   useEffect(() => {
     if (hash) {
       const element = document.getElementById(hash.slice(1))
@@ -72,6 +72,7 @@ export default function Landing(): ReactElement {
           display={seperatorVisibility}
         />
         {causes && <Projects />}
+        {events && !causes && <Events />}
         {/* {events && <PremiumEvent />} */}
         <ReorderComponent
           feature={impact}
@@ -81,7 +82,8 @@ export default function Landing(): ReactElement {
           orderWithoutZones={0}
           display={seperatorVisibility}
         />
-        {events && <Events />}
+        {courses && events && !causes && <Courses />}
+        {events && causes && <Events />}
         {courses && !events && <Courses />}
 
         <ReorderComponent
@@ -92,7 +94,7 @@ export default function Landing(): ReactElement {
           orderWithoutZones={0}
           display={seperatorVisibility}
         />
-        {courses && events && <Courses />}
+        {courses && events && causes && <Courses />}
       </LandingColumn>
       {volunteers && <Volunteers />}
       <Footer />
