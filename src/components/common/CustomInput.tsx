@@ -69,7 +69,7 @@ display: inline-block;
 min-width: 0;
 padding: 9.5px 11px;
 color: rgba(0, 0, 0, 0.85);
-font-size: 14px;
+font-size: 1rem;
 line-height: 1.5715;
 background-color: #fff;
 background-image: none;

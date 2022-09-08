@@ -66,7 +66,7 @@ export interface IMember {
   img_url: string;
 }
 export interface ErrorInputProps {
-  msg?: string;
+  msg?: string | any;
   mt?: number;
   align?: TAlignSelf;
 }

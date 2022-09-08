@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getAddVolunteerUrl } from '../../api/postApiServices'
 import { Footer, Navbar } from '../../components'
@@ -21,6 +22,7 @@ type TVolunteerSubmitForm = {
 
 function BecomeVolunteerForm() {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { t } = useTranslation()
   const {
     handleSubmit, register, formState: { errors }
   } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
@@ -39,32 +41,32 @@ function BecomeVolunteerForm() {
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <HandleResponse
           {...states}
-          successMsg="Your request has been sent successfully"
-          errorMsg="Something went wrong, please try again"
+          successMsg={t('success.message')}
+          errorMsg={t('fail.message')}
           successId="volunteer-form-success"
           errorId="volunteer-form-error"
         />
         <SectionTitle textAlign="center" fontSize={2.4}>
-          I want to volunteer
+          {t('want_volunteer')}
         </SectionTitle>
         <Flex wrap="nowrap" justify="space-around" gap={2}>
           <CustomInputDiv>
-            <CustomInput placeholder="First Name" {...register('firstName')} />
-            <ErrorInput msg={errors.firstName?.message} />
+            <CustomInput placeholder={t('placeholders.firstname')} {...register('firstName')} />
+            {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} />}
           </CustomInputDiv>
           <CustomInputDiv>
-            <CustomInput placeholder="Surname" {...register('lastName')} />
-            <ErrorInput msg={errors.lastName?.message} />
+            <CustomInput placeholder={t('placeholders.lastname')} {...register('lastName')} />
+            {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} />}
           </CustomInputDiv>
         </Flex>
 
-        <CustomInput placeholder="Email" {...register('user_email')} />
-        <ErrorInput msg={errors.user_email?.message} />
-        <CustomInput placeholder="Address" {...register('home_address')} />
-        <ErrorInput msg={errors.home_address?.message} />
+        <CustomInput placeholder={t('placeholders.email')} {...register('user_email')} />
+        {errors.user_email?.message && <ErrorInput msg={t('errors.email')} />}
+        <CustomInput placeholder={t('placeholders.address')} {...register('home_address')} />
+        {errors.home_address?.message && <ErrorInput msg={t('errors.address')} />}
 
         <Center>
-          <Button px="2.8rem" type="submit">Send</Button>
+          <Button px="2.8rem" type="submit">{t('send')}</Button>
         </Center>
       </CustomForm>
       <Footer />

@@ -14,6 +14,7 @@ import { donationSchema } from '../../validation/schemas'
 import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 import { CustomRadio } from './BecomeMemberForm'
+import { FormRow } from '../common/FormRow'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -27,7 +28,7 @@ interface IProps {
 
 function DonateForm({ projectId, submitHandler, states }: IProps) {
   const {
-    register, handleSubmit, formState: { errors }, control
+    register, handleSubmit, control, formState: { errors }
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
 
   const { t } = useTranslation()
@@ -49,7 +50,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
           placeholder={t('placeholders.amount')}
           {...register('amount')}
         />
-        <ErrorMsg msg={errors.amount?.message} />
+        {errors.amount?.message && <ErrorMsg msg={t('errors.amount')} />}
       </CustomInputDiv>
 
       <FormControl mt={1.8} mb={0}>
@@ -60,23 +61,23 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
 
         <CustomInputDiv>
           <Input type="text" placeholder={t('placeholders.firstname')} {...register('firstName')} />
-          <ErrorMsg msg={errors.firstName?.message} />
+          {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} />}
         </CustomInputDiv>
 
         <CustomInputDiv>
           <Input type="text" placeholder={t('placeholders.lastname')} {...register('lastName')} />
-          <ErrorMsg msg={errors.lastName?.message} />
+          {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
         </CustomInputDiv>
       </FormRow>
       <FormRow>
         <CustomInputDiv>
           <Input type="email" placeholder={t('placeholders.email')} {...register('user_email')} />
-          <ErrorMsg msg={errors.user_email?.message} />
+          {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} />}
         </CustomInputDiv>
 
         <CustomInputDiv>
           <Input type="text" placeholder={t('placeholders.address')} {...register('home_address')} />
-          <ErrorMsg msg={errors.home_address?.message} />
+          {errors.home_address?.message && <ErrorMsg msg={t('errors.address')} />}
         </CustomInputDiv>
       </FormRow>
 
@@ -87,7 +88,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
             placeholder={t('placeholders.ID')}
             {...register('nif')}
           />
-          <ErrorMsg msg={errors.nif?.message} />
+          {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
         </CustomInputDiv>
         <CustomInputDiv>
           <Controller
@@ -107,7 +108,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
               />
             )}
           />
-          <ErrorMsg msg={errors.birthDate?.message} />
+          {errors.birthDate?.message && <ErrorMsg msg={t('errors.dob')} />}
         </CustomInputDiv>
       </FormRow>
 
@@ -149,7 +150,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
         <input type="checkbox" {...register('terms')} />
         <PrivacyPolicy />
       </FormControl>
-      <ErrorMsg msg={errors.terms?.message} />
+      {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
 
       <Center>
 
@@ -193,11 +194,7 @@ const FormControl = styled.div<IFormControlProps>`
 //   cursor: pointer;
 //   margin-left: 1.5rem;
 // `
-const FormRow = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
-`
+
 DonateForm.defaultProps = {
   projectId: '',
 }
