@@ -1,12 +1,21 @@
+import './wdyr'
 import { createRoot } from 'react-dom/client'
+import React from 'react'
+import whyDidYouRender from '@welldone-software/why-did-you-render'
 import App from './App'
 import 'normalize.css'
 import './index.css'
 import Providers from './providers'
 
+whyDidYouRender(React, {
+  trackAllPureComponents: true,
+  trackExtraHooks: [[createRoot, 'useEffect']],
+  onlyLogs: true,
+  titleColor: 'green',
+  diffNameColor: 'darkturquoise',
+})
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
-
 root.render(
   <Providers>
     <App />
