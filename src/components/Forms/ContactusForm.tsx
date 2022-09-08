@@ -14,6 +14,7 @@ import {
 } from '../common'
 import { CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
+import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 import Footer from '../Footer/Footer'
@@ -65,20 +66,20 @@ export default function ContactusForm(): ReactElement {
           <FormRow>
             <CustomInputDiv>
               <Input placeholder={t('placeholders.firstname')} {...register('name')} />
-              <ErrorInput msg={errors.name?.message} />
+              {errors.name?.message && <ErrorInput msg={t('errors.firstname')} />}
             </CustomInputDiv>
 
             <CustomInputDiv>
               <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
-              <ErrorInput msg={errors.lastName?.message} />
+              {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} /> }
             </CustomInputDiv>
           </FormRow>
           <Input placeholder={t('placeholders.email')} {...register('email')} />
-          <ErrorInput msg={errors.email?.message} />
+          {errors.email?.message && <ErrorInput msg={t('errors.email')} />}
           <Input placeholder={t('placeholders.subject')} {...register('subject')} />
-          <ErrorInput msg={errors.subject?.message} />
+          {errors.subject?.message && <ErrorInput msg={t('errors.subject')} />}
           <CustomTextArea placeholder={t('placeholders.message')} rows={4} {...register('message')} />
-          <ErrorInput msg={errors.message?.message} />
+          {errors.message?.message && <ErrorInput msg={t('errors.message')} />}
           <Label>
             <Input
               w="15px"
@@ -88,7 +89,7 @@ export default function ContactusForm(): ReactElement {
             />
             <PrivacyPolicy />
           </Label>
-          <ErrorInput msg={errors.terms?.message} />
+          {errors.terms?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
 
           <Center>
             <Button type="submit">{t('send_message')}</Button>
@@ -157,14 +158,7 @@ const FormTitle = styled.h1`
   font-weight: bold;
   color:  ${({ theme }) => theme.primary};
 `
-const FormRow = styled.div`
-display: flex;
-gap: 1.2rem;
 
-@media screen and (max-width: 540px) {
-  flex-direction: column;
-}
-`
 const ContactDetailsBox = styled.div`
 display: flex;
 flex-direction: column;

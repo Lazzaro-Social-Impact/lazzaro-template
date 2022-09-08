@@ -100,24 +100,24 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       <FormRow modal={modal}>
         <CustomInputDiv>
           <CustomInput placeholder={t('placeholders.firstname')} {...register('firstName')} />
-          <ErrorInput msg={errors.firstName?.message} />
+          {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} /> }
         </CustomInputDiv>
 
         <CustomInputDiv>
           <CustomInput placeholder={t('placeholders.lastname')} {...register('lastName')} />
-          <ErrorInput msg={errors.lastName?.message} />
+          {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} />}
         </CustomInputDiv>
       </FormRow>
 
       <FormRow modal={modal}>
         <CustomInputDiv>
           <CustomInput placeholder={t('placeholders.email')} {...register('user_email')} />
-          <ErrorInput msg={errors.user_email?.message} />
+          {errors.user_email?.message && <ErrorInput msg={t('errors.email')} />}
         </CustomInputDiv>
 
         <CustomInputDiv>
           <CustomInput placeholder={t('placeholders.phone')} {...register('mobilePhone')} />
-          <ErrorInput msg={errors.mobilePhone?.message} />
+          {errors.mobilePhone?.message && <ErrorInput msg={t('errors.phone')} />}
         </CustomInputDiv>
       </FormRow>
 
@@ -125,7 +125,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
 
       <PrivacyPolicy />
 
-      <ErrorInput msg={errors.terms_and_conditions?.message} />
+      {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
       <Center>
         <Button mt="1.8rem" px="2.8rem">{t('pay')}</Button>
       </Center>

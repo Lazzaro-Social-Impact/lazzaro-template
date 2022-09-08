@@ -12,6 +12,7 @@ import {
 } from '../common'
 import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 
@@ -84,39 +85,47 @@ export function BuyProductForm(props: IProps): ReactElement {
         defaultValue={1}
         {...register('productAmount')}
       />
-      <ErrorMsg msg={errors.productAmount?.message} />
+      {errors.productAmount?.message && <ErrorMsg msg={t('errors.product_amount')} />}
       <InputTitle>{t('personal_information')}</InputTitle>
-      <InputRow>
-        <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
-        <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
+          {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} />}
 
-      <InputRow>
-        <ErrorMsg msg={errors.lastName?.message} />
-        <ErrorMsg msg={errors.firstName?.message} />
-      </InputRow>
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
+          {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
 
-      <InputRow>
-        <Input placeholder={t('placeholders.email')} {...register('user_email')} />
-        <Input placeholder={t('placeholders.phone')} {...register('mobile_phone')} />
-      </InputRow>
+        </CustomInputDiv>
+      </FormRow>
 
-      <InputRow>
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.mobile_phone?.message} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.email')} {...register('user_email')} />
+          {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} />}
+
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.phone')} {...register('mobile_phone')} />
+          {errors.mobile_phone?.message && <ErrorMsg msg={t('errors.phone')} />}
+        </CustomInputDiv>
+      </FormRow>
 
       <InputTitle>{t('Products_single.delivery_details')}</InputTitle>
-      <InputRow>
-        <Input placeholder={t('placeholders.address')} {...register('home_address')} />
-        <Input placeholder={t('placeholders.ID')} {...register('nif')} />
-      </InputRow>
-      <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.address')} {...register('home_address')} />
+          {errors.home_address?.message && <ErrorMsg msg={t('errors.address')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.ID')} {...register('nif')} />
+          {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
 
-      <InputRow>
+        </CustomInputDiv>
+      </FormRow>
+
+      <FormRow>
         <CustomInputDiv>
           <Controller
             control={control}
@@ -135,34 +144,34 @@ export function BuyProductForm(props: IProps): ReactElement {
               />
             )}
           />
+          {errors.birthDate?.message && <ErrorMsg msg={t('errors.dob')} />}
         </CustomInputDiv>
         <CustomInputDiv>
           <Input placeholder={t('placeholders.postal_code')} {...register('cp')} type="number" />
+          {errors.cp?.message && <ErrorMsg msg={t('errors.cp')} />}
         </CustomInputDiv>
-      </InputRow>
+      </FormRow>
 
-      <InputRow>
-        <ErrorMsg msg={errors.birthDate?.message} />
-        <ErrorMsg msg={errors.cp?.message} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.city')} {...register('city')} />
+          {errors.city?.message && <ErrorMsg msg={t('errors.city')} />}
 
-      <InputRow>
-        <Input placeholder={t('placeholders.city')} {...register('city')} />
-        <Input placeholder={t('placeholders.country')} {...register('country')} />
-      </InputRow>
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.country')} {...register('country')} />
+          {errors.country?.message && <ErrorMsg msg={t('errors.country')} />}
 
-      <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
-      </InputRow>
-
+        </CustomInputDiv>
+      </FormRow>
+      <br />
       <CustomTextArea placeholder={t('placeholders.message')} rows={4} />
 
       <Label>
         <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />
         <PrivacyPolicy />
       </Label>
-      <ErrorMsg msg={errors.privacy_policy?.message} />
+      {errors.privacy_policy?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
       <br />
       <Center my={1.5}>
         <Button py="0.8rem" px="2.4rem" type="submit">
@@ -178,13 +187,6 @@ const InputTitle = styled.h3`
   font-weight: 600;
   margin-top: 1.2rem;
   font-size: 1.1rem;
-`
-
-const InputRow = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
-  justify-content: space-between;
 `
 
 const CustomSectionTitle = styled(SectionTitle)`

@@ -45,19 +45,19 @@ export function ContactEventForm({ id }: IProps): ReactElement {
         placeholder={t('placeholders.name')}
         {...register('name')}
       />
-      <ErrorInput msg={errors?.name?.message} />
+      {errors.name?.message && <ErrorInput msg={t('errors.name')} />}
       <Input
         mt={0}
         placeholder={t('placeholders.email')}
         {...register('email')}
       />
-      <ErrorInput msg={errors?.email?.message} />
+      {errors.email?.message && <ErrorInput msg={t('errors.email')} />}
       <TextArea
         placeholder={t('placeholders.message')}
         rows={4}
         {...register('text')}
       />
-      <ErrorInput msg={errors?.text?.message} />
+      {errors.text?.message && <ErrorInput msg={t('errors.message')} />}
 
       <Center>
         <Button px={2.4} type="submit">{t('send_message')}</Button>

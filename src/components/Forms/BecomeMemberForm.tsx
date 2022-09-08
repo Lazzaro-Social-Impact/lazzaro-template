@@ -17,6 +17,7 @@ import { ErrorInput } from '../common/ErrorInput'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
+import { FormRow } from '../common/FormRow'
 
 type TMemberSubmitForm = {
   firstName: string;
@@ -32,13 +33,14 @@ type TMemberSubmitForm = {
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { t } = useTranslation()
+
   const {
-    register, handleSubmit, formState: { errors }, control,
+    register, handleSubmit, control, formState: { errors }
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
     submit, isError, isLoading, isSuccess
   } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: false })
-  const { t } = useTranslation()
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
@@ -71,27 +73,27 @@ export default function BecomeMemberForm(): ReactElement {
 
             <CustomInputDiv>
               <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
-              <ErrorInput msg={errors.firstName?.message} mt={0.4} />
+              {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} mt={0.4} /> }
             </CustomInputDiv>
             <CustomInputDiv>
               <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
-              <ErrorInput msg={errors.lastName?.message} mt={0.4} />
+              {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} mt={0.4} />}
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
               <Input type="number" placeholder={t('placeholders.ID')} {...register('nif')} />
-              <ErrorInput msg={errors.nif?.message} mt={0.4} />
+              {errors.nif?.message && <ErrorInput msg={t('errors.ID')} mt={0.4} />}
             </CustomInputDiv>
             <CustomInputDiv>
               <Input placeholder={t('placeholders.phone')} {...register('phone')} />
-              <ErrorInput msg={errors.phone?.message} mt={0.4} />
+              {errors.phone?.message && <ErrorInput msg={t('errors.phone')} mt={0.4} /> }
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
               <Input placeholder={t('placeholders.email')} {...register('user_email')} />
-              <ErrorInput msg={errors.user_email?.message} mt={0.4} />
+              {errors.user_email?.message && <ErrorInput msg={t('errors.email')} mt={0.4} /> }
             </CustomInputDiv>
             <CustomInputDiv>
               <Controller
@@ -111,17 +113,18 @@ export default function BecomeMemberForm(): ReactElement {
                   />
                 )}
               />
-              <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
+              {errors.birthDate?.message && <ErrorInput msg={t('errors.dob')} mt={0.4} /> }
             </CustomInputDiv>
           </FormRow>
           <Input
             placeholder={t('placeholders.address')}
             {...register('home_address')}
           />
-          <ErrorInput msg={errors.home_address?.message} mt={0.4} />
+          {errors.home_address?.message && <ErrorInput msg={t('errors.address')} mt={0.4} /> }
+          <br />
           <br />
           <div>
-            <PrivacyPolicy style={RadioQuestionStyle} />
+            <PrivacyPolicy style={RadioQuestionStyle} />?
           </div>
           <Radio.Group {...register('terms')}>
             <CustomRadio value>
@@ -131,7 +134,7 @@ export default function BecomeMemberForm(): ReactElement {
               {t('membership.dont_accept_membership')}
             </CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.terms?.message} mt={0.4} />
+          {errors.terms?.message && <ErrorInput msg={t('errors.privacypolicy')} mt={0.4} /> }
 
           <RadioQuestion>
             {t('membership.question')}
@@ -140,7 +143,7 @@ export default function BecomeMemberForm(): ReactElement {
             <CustomRadio value>{t('yes')}</CustomRadio>
             <CustomRadio value={false}>{t('no')}</CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.membership?.message} mt={0.4} />
+          {errors.membership?.message && <ErrorInput msg={t('errors.membership')} mt={0.4} /> }
 
           <Center>
             <Button type="submit">{t('send')}</Button>
@@ -175,12 +178,6 @@ const FormSubtitle = styled.p`
   color: #8c8c8c;
   letter-spacing: 1.2px;
   margin: 2.8rem 0;
-`
-
-const FormRow = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
 `
 
 const RadioQuestionStyle = {

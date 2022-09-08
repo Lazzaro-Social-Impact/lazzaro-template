@@ -98,7 +98,8 @@
       "country": "Por favor, indique su país",
       "amount":"Por favor, indique la cantidad que desea donar",
       "membership": "Debe aceptar los Términos y Condiciones de la membresía",
-      "cp": "Por favor, indique un código postal válido"
+      "cp": "Por favor, indique un código postal válido",
+      "product_amount":"Por favor, indique la cantidad de productos que desea comprar"
     },
     "success": {
       "donation": "Gracias por su donación",
@@ -184,7 +185,8 @@
       "subtitle":  "Nos complace tenerle como miembro, pero para completar su membresía, necesitamos información suya."
     },
     "course": "curso",
-    "ticket": "entrada"
+    "ticket": "entrada",
+    "want_volunteer": "Quiero ser voluntario"
 
 
   }
