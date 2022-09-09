@@ -63,7 +63,7 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
         <Input placeholder="Phone" {...register('mobilePhone')} />
         {errors.mobilePhone?.message && <ErrorMsg msg={t('errors.phone')} align="flex-start" />}
 
-        <Label>
+        <Label style={{ alignSelf: 'flex-start' }}>
           <Input w="25px" mt={1.8} type="checkbox" {...register('terms')} />
           <PrivacyPolicy />
         </Label>
@@ -83,5 +83,7 @@ const Form = styled.form`
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 1rem 6rem;
+  padding: 1rem 5.4rem;
+  text-align: center;
+
 `
