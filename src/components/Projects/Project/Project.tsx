@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import {
-  Text, Image, Flex, Link
+  Text, Flex, Link
 } from '../../common'
 import DonateForm from '../../Forms/DonateForm'
 import DonateModal from '../../BuyModal'
 import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateSubmitForm } from '../../../types/interfaces'
+import { LazyImageComponent } from '../../common/LazyImage'
 
 interface ProjectProps {
   imageURL: string;
@@ -22,6 +23,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const {
     submit, ...states
   } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
+
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
@@ -35,8 +37,15 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
   return (
     <ProjectCard>
-      <Image src={imageURL} alt="" />
-      <Text fontSize={1.1} px={1} color="white">
+      <LazyImageComponent
+        width="100%"
+        height="100%"
+        src={imageURL}
+        alt={title}
+        effect="blur"
+        placeholderSrc={imageURL}
+      />
+      <Text zIndex="1" fontSize={1.1} px={1} color="white">
         {title}
       </Text>
 
@@ -62,6 +71,10 @@ const ProjectCard = styled(Flex)`
   justify-content: flex-end;
   align-items: stretch;
   text-align: left;
+  .lazy-load-image-background.blur.lazy-load-image-loaded {
+    position: absolute;
+    width: 100% !important;
+  }
 
   img {
     position: absolute;

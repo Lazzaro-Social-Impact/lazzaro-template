@@ -1,29 +1,37 @@
-import { type MutableRefObject, type ReactElement, useRef } from 'react'
+import type { ReactElement, SyntheticEvent } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { BookmarkIcon } from '../Icons'
-import { Flex, Image, Text } from '../common'
+import { Flex, Text } from '../common'
 import { useAppSelector } from '../../hooks'
 import { IProductCard } from '../../types/interfaces'
+import { LazyImageComponent } from '../common/LazyImage'
 
 export function ProductCard({
   id, title, price, default_img: img, discount,
 }: IProductCard): ReactElement {
-  const imageRef = useRef(null) as MutableRefObject<HTMLImageElement | null>
   const currency = useAppSelector((state) => state.ong?.ongConfig?.platformConfig?.currency_symbol)
   const navigate = useNavigate()
   const navigateTo = (path: `/products/${string}`) => () => navigate(path)
 
-  const handleBrokenImage = () => {
-    if (imageRef.current) {
-      imageRef.current.src = 'https://via.placeholder.com/150'
-    }
+  const handleBrokenImage = (e:SyntheticEvent<HTMLImageElement>) => {
+    const fallBackImage = 'https://i.pinimg.com/originals/9b/96/92/9b9692c9f0db9f6276e6bd29a98c25e0.png';
+    (e.target as HTMLImageElement).src = fallBackImage
   }
 
   return (
     <SingleProductCard onClick={navigateTo(`/products/${id}`)}>
       <ProductImage>
-        <Image src={img} alt={title} ref={imageRef} onError={handleBrokenImage} />
+        <LazyImageComponent
+          height="230px"
+          width="100%"
+          src={img}
+          alt={title}
+          effect="blur"
+          onError={handleBrokenImage}
+          placeholderSrc={img}
+        />
+
       </ProductImage>
       <Flex wrap="nowrap" py={0.4} px={0.8} align="flex-start">
         <P textAlign="left" flex={1}>
@@ -42,7 +50,6 @@ const ProductImage = styled.div`
   width: 100%;
   height: 230px;
 `
-
 const SingleProductCard = styled.div`
   width: 300px;
   height: 340px;

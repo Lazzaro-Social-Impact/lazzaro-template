@@ -25,6 +25,7 @@ interface IProps {
   decoration?: TTextDecoration;
   textShadow?: TTextShadow;
   flex?: TFlex;
+  zIndex?: TzIndex;
 }
 
 const Text = styled.p<IProps>`
@@ -51,6 +52,7 @@ const Text = styled.p<IProps>`
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
   flex: ${({ flex }) => flex && flex};
+  z-index: ${({ zIndex }) => zIndex && getProp(zIndex)};
 `
 export default Text
 

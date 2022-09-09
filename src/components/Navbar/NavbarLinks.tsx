@@ -127,6 +127,8 @@ const LanguageToggle = styled.li`
   }
   @media (max-width: 768px) {
     color:black;
+    font-weight: 400;
+    font-size: 10px;
   }
 `
 

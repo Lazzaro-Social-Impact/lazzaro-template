@@ -24,7 +24,8 @@ export default function ReorderComponent({
         ? <Component order={orderWithZones} />
         : !zones && feature
           ? <Component order={orderWithoutZones} />
-          : zones === 2 && feature === false ? <Divider display={display} order={orderWithZones} /> : null}
+          : (zones === 3 || zones === 2) && feature === false ? <Divider display={display} order={orderWithZones} />
+            : null}
     </>
   )
 }

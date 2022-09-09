@@ -17,6 +17,7 @@ import { useDependant } from '../../hooks'
 import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 import { ShareModal } from '../../components/ShareModal/ShareModal'
+import { LazyImageComponent } from '../../components/common/LazyImage'
 
 function SingleProduct(): ReactElement {
   const { id = '' } = useParams<Record<'id', string>>()
@@ -32,9 +33,12 @@ function SingleProduct(): ReactElement {
 
   const memoizedImages = useMemo(
     () => images?.map((image) => (
-      <ImageContainer key={image.id}>
-        <img src={image.img_url} alt="product" />
-      </ImageContainer>
+      <LazyImageComponent
+        key={image.id}
+        src={image.img_url}
+        alt="product"
+        placeholderSrc={image.img_url}
+      />
     )),
     [images]
   )
@@ -48,9 +52,9 @@ function SingleProduct(): ReactElement {
         </Breadcrumb>
       </Center>
       <Container>
-        <Flex gap={2.4}>
+        <CustomFlex gap={2.4}>
           {memoizedImages}
-        </Flex>
+        </CustomFlex>
         <ProductSidebar>
           <CustomCard
             mode="column"
@@ -90,6 +94,11 @@ function SingleProduct(): ReactElement {
 
 export default SingleProduct
 
+const CustomFlex = styled(Flex)`
+@media screen and (max-width: 768px) {
+  flex-wrap: nowrap;
+}
+`
 const Container = styled.div`
   margin-top: 3.2rem;
   padding: 1.2rem 8.8rem;
@@ -104,13 +113,6 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2.4rem;
-  }
-`
-
-const ImageContainer = styled.div`
-  max-width: 100%;
-  img {
-    width: 100%;
   }
 `
 

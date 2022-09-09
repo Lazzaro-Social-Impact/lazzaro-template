@@ -15,6 +15,7 @@ const ErrorMsg = styled.p<ErrorInputProps>`
   margin-bottom: 0;
   margin-top: ${({ mt }) => `${mt}rem` || '0'};
   align-self: ${({ align }) => align && align};
+  font-size: 1rem;
 `
 
 ErrorInput.defaultProps = {

@@ -14,6 +14,8 @@ import 'antd/dist/antd.min.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 import './i18n/config'
 
 const ongUrl = ['development', 'staging'].includes(import.meta.env.MODE)

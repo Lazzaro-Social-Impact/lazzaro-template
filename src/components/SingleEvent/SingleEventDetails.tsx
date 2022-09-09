@@ -69,6 +69,9 @@ const EventTitle = styled.h2`
   font-size: 1.6rem;
   font-weight: bold;
   margin-top: 1.8rem;
+  @media screen and (max-width: 900px) {
+    margin-top: 4.2rem;
+  }
 `
 
 const CustomTabs = styled(Tabs)`
@@ -76,6 +79,7 @@ const CustomTabs = styled(Tabs)`
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
+
   }
 
   .ant-tabs-nav-list {
