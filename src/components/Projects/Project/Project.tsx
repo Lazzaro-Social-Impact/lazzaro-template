@@ -2,8 +2,9 @@ import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import {
-  Text, Image, Flex, Link
+  Text, Flex, Link
 } from '../../common'
 import DonateForm from '../../Forms/DonateForm'
 import DonateModal from '../../BuyModal'
@@ -35,8 +36,15 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
   return (
     <ProjectCard>
-      <Image src={imageURL} alt="" />
-      <Text fontSize={1.1} px={1} color="white">
+      <LazyLoadImage
+        width="100%"
+        height="100%"
+        src={imageURL}
+        style={{ objectFit: 'cover', zIndex: '-1' }}
+        alt={title}
+        effect="blur"
+      />
+      <Text zIndex="1" fontSize={1.1} px={1} color="white">
         {title}
       </Text>
 
@@ -62,6 +70,9 @@ const ProjectCard = styled(Flex)`
   justify-content: flex-end;
   align-items: stretch;
   text-align: left;
+  .lazy-load-image-background.blur.lazy-load-image-loaded {
+    position: absolute;
+  }
 
   img {
     position: absolute;

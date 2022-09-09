@@ -1,8 +1,9 @@
 import { type MutableRefObject, type ReactElement, useRef } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { BookmarkIcon } from '../Icons'
-import { Flex, Image, Text } from '../common'
+import { Flex, Text } from '../common'
 import { useAppSelector } from '../../hooks'
 import { IProductCard } from '../../types/interfaces'
 
@@ -23,7 +24,15 @@ export function ProductCard({
   return (
     <SingleProductCard onClick={navigateTo(`/products/${id}`)}>
       <ProductImage>
-        <Image src={img} alt={title} ref={imageRef} onError={handleBrokenImage} />
+        <LazyLoadImage
+          height="230px"
+          width="100%"
+          src={img}
+          alt={title}
+          effect="blur"
+          onError={handleBrokenImage}
+          loading="lazy"
+        />
       </ProductImage>
       <Flex wrap="nowrap" py={0.4} px={0.8} align="flex-start">
         <P textAlign="left" flex={1}>
@@ -42,7 +51,6 @@ const ProductImage = styled.div`
   width: 100%;
   height: 230px;
 `
-
 const SingleProductCard = styled.div`
   width: 300px;
   height: 340px;

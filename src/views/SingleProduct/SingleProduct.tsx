@@ -6,6 +6,7 @@ import HtmlParser from 'html-react-parser'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
@@ -17,6 +18,7 @@ import { useDependant } from '../../hooks'
 import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 import { ShareModal } from '../../components/ShareModal/ShareModal'
+import Skeleton from '../../components/Skeleton'
 
 function SingleProduct(): ReactElement {
   const { id = '' } = useParams<Record<'id', string>>()
@@ -32,9 +34,14 @@ function SingleProduct(): ReactElement {
 
   const memoizedImages = useMemo(
     () => images?.map((image) => (
-      <ImageContainer key={image.id}>
-        <img src={image.img_url} alt="product" />
-      </ImageContainer>
+      <LazyLoadImage
+        key={image.id}
+        placeholder={<Skeleton width={42} height={60} number={1} />}
+        width="100%"
+        effect="black-and-white"
+        src={image.img_url}
+        alt="product"
+      />
     )),
     [images]
   )
@@ -104,13 +111,6 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2.4rem;
-  }
-`
-
-const ImageContainer = styled.div`
-  max-width: 100%;
-  img {
-    width: 100%;
   }
 `
 

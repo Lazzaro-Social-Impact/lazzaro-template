@@ -1,7 +1,8 @@
 import HtmlParser from 'html-react-parser'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useTranslation } from 'react-i18next'
 import {
-  Box, Flex, Image, Link, SectionTitle
+  Box, Flex, Link, SectionTitle
 } from '../common'
 import { useAppSelector } from '../../hooks'
 
@@ -36,7 +37,12 @@ export default function AboutUs(): React.ReactElement {
       </Flex>
 
       <Flex justify="flex-end" align="flex-start" flex={1}>
-        <Image src={imgUrl} alt="About us" />
+        <LazyLoadImage
+          src={imgUrl}
+          alt="About us"
+          width="100%"
+          effect="blur"
+        />
       </Flex>
     </Flex>
   )

@@ -3,10 +3,12 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import HtmlParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { BookmarkIcon } from '../../Icons'
 import {
-  Box, Card, Image, Link
+  Box, Card, Link
 } from '../../common'
+import Skeleton from '../../Skeleton'
 
 interface IProps {
   id: string,
@@ -25,8 +27,16 @@ export default function NearEvent(props: IProps): ReactElement {
   return (
     <Card flex={1} mode="column" smMode="column" maxWidth="40%" p={1} onClick={navigateTo(`/events/${id}`)}>
       <Box>
-        <BookmarkIcon position="absolute" right={2.3} top={-1} />
-        <Image src={imageURL} alt="Near Event" p={1} />
+        <BookmarkIcon zIndex={1} position="absolute" right={2.3} top={-1} />
+        <LazyImage
+          width="100%"
+          height="100%"
+          src={imageURL}
+          alt="Near Event"
+          style={{ padding: '0.8rem', zIndex: -1 }}
+          effect="blur"
+          placeholder={<Skeleton number={1} width={30} height={20} />}
+        />
       </Box>
 
       <TextContainer>
@@ -40,6 +50,12 @@ export default function NearEvent(props: IProps): ReactElement {
   )
 }
 
+const LazyImage = styled(LazyLoadImage)`
+  .lazy-load-image-background.blur.lazy-load-image-loaded {
+    position: absolute;
+  }
+
+`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;

@@ -46,6 +46,7 @@ declare global {
   type TBorder = CSS.Properties['border'];
   type TCursor = CSS.Properties['cursor'];
   type TOnHover = Partial<Record<keyof CSS.Properties, string>>;
+  type TzIndex = CSS.Properties['zIndex'];
 }
 
 export { }
