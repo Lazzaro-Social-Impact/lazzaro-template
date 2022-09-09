@@ -6,7 +6,6 @@ import HtmlParser from 'html-react-parser'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
@@ -18,7 +17,7 @@ import { useDependant } from '../../hooks'
 import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 import { ShareModal } from '../../components/ShareModal/ShareModal'
-import Skeleton from '../../components/Skeleton'
+import { LazyImageComponent } from '../../components/common/LazyImage'
 
 function SingleProduct(): ReactElement {
   const { id = '' } = useParams<Record<'id', string>>()
@@ -34,13 +33,11 @@ function SingleProduct(): ReactElement {
 
   const memoizedImages = useMemo(
     () => images?.map((image) => (
-      <LazyLoadImage
+      <LazyImageComponent
         key={image.id}
-        placeholder={<Skeleton width={42} height={60} number={1} />}
-        width="100%"
-        effect="black-and-white"
         src={image.img_url}
         alt="product"
+        placeholderSrc={image.img_url}
       />
     )),
     [images]
@@ -55,9 +52,9 @@ function SingleProduct(): ReactElement {
         </Breadcrumb>
       </Center>
       <Container>
-        <Flex gap={2.4}>
+        <CustomFlex gap={2.4}>
           {memoizedImages}
-        </Flex>
+        </CustomFlex>
         <ProductSidebar>
           <CustomCard
             mode="column"
@@ -97,6 +94,11 @@ function SingleProduct(): ReactElement {
 
 export default SingleProduct
 
+const CustomFlex = styled(Flex)`
+@media screen and (max-width: 768px) {
+  flex-wrap: nowrap;
+}
+`
 const Container = styled.div`
   margin-top: 3.2rem;
   padding: 1.2rem 8.8rem;

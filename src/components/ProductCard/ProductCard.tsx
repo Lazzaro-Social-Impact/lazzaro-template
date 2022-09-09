@@ -1,11 +1,11 @@
 import { type MutableRefObject, type ReactElement, useRef } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { BookmarkIcon } from '../Icons'
 import { Flex, Text } from '../common'
 import { useAppSelector } from '../../hooks'
 import { IProductCard } from '../../types/interfaces'
+import { LazyImageComponent } from '../common/LazyImage'
 
 export function ProductCard({
   id, title, price, default_img: img, discount,
@@ -24,14 +24,14 @@ export function ProductCard({
   return (
     <SingleProductCard onClick={navigateTo(`/products/${id}`)}>
       <ProductImage>
-        <LazyLoadImage
+        <LazyImageComponent
           height="230px"
           width="100%"
           src={img}
           alt={title}
           effect="blur"
           onError={handleBrokenImage}
-          loading="lazy"
+          placeholderSrc={img}
         />
       </ProductImage>
       <Flex wrap="nowrap" py={0.4} px={0.8} align="flex-start">

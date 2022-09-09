@@ -1,6 +1,6 @@
 import { ReactElement, useMemo } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Box, Carousel } from '../common'
+import { LazyImageComponent } from '../common/LazyImage'
 import Skeleton from '../Skeleton'
 
 interface IProps {
@@ -13,8 +13,7 @@ export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
 
   const memoizedImages = useMemo(() => imgs?.map((img) => (
     <Box key={img.id} maxHeight="420px" width="817px">
-      <LazyLoadImage
-        width="100% !important"
+      <LazyImageComponent
         height="100%"
         style={{
           objectFit: 'cover',
@@ -24,6 +23,7 @@ export function EventCarousel({ imgs, isLoading }: IProps): ReactElement {
         effect="black-and-white"
         src={img.img_url}
         alt={img.id}
+        placeholderSrc={img.img_url}
       />
     </Box>
   )), [imgs])

@@ -1,9 +1,9 @@
 import { LinkedinFilled } from '@ant-design/icons'
 import React, { ReactElement } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import styled from 'styled-components'
 import { IMember } from '../../../types/interfaces'
 import { Card } from '../../common'
+import { LazyImageComponent } from '../../common/LazyImage'
 
 export function VolunteerCard({
   name,
@@ -14,7 +14,12 @@ export function VolunteerCard({
   return (
     <CustomCard mode="column" smMode="column" pb={1.5} textAlign="center">
       <ImageContainer>
-        <LazyImage effect="blur" src={imgUrl} alt="Volunteer" />
+        <LazyImageComponent
+          effect="blur"
+          src={imgUrl}
+          alt="Volunteer"
+          placeholderSrc={imgUrl}
+        />
       </ImageContainer>
       <VolunteerName>{name}</VolunteerName>
       <VolunteerPosition>{position}</VolunteerPosition>
@@ -28,17 +33,6 @@ const ImageContainer = styled.div`
   overflow: hidden;
   `
 
-const LazyImage = styled(LazyLoadImage)`
-    object-fit: cover;
-  object-position: center;
-  width: 100%;
-
-  @media screen and (max-width: 768px) {
-   width: 100% !important;
-   height: 100% !important;
-}
-
-`
 const VolunteerName = styled.p`
   font-size: 1.1rem;
   margin-top: 1.2rem;

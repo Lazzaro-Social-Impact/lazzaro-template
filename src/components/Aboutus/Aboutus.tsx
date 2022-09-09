@@ -1,10 +1,10 @@
 import HtmlParser from 'html-react-parser'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useTranslation } from 'react-i18next'
 import {
   Box, Flex, Link, SectionTitle
 } from '../common'
 import { useAppSelector } from '../../hooks'
+import { LazyImageComponent } from '../common/LazyImage'
 
 export default function AboutUs(): React.ReactElement {
   const {
@@ -37,11 +37,10 @@ export default function AboutUs(): React.ReactElement {
       </Flex>
 
       <Flex justify="flex-end" align="flex-start" flex={1}>
-        <LazyLoadImage
+        <LazyImageComponent
           src={imgUrl}
           alt="About us"
-          width="100%"
-          effect="blur"
+          placeholderSrc={imgUrl}
         />
       </Flex>
     </Flex>

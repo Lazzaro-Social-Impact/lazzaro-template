@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import styled from 'styled-components'
 import { Carousel } from '../../components/common'
+import { LazyImageComponent } from '../../components/common/LazyImage'
 import Skeleton from '../../components/Skeleton'
 
 interface IProps {
@@ -15,10 +15,13 @@ interface IProps {
 function ImageCarousel({ images, isLoading }: IProps) {
   const memoizedImages = useMemo(() => images.map(({ id, img_url: imgUrl }) => (
     <ImageWrapper key={id}>
-      <LazyImage
+      <LazyImageComponent
         effect="blur"
         src={imgUrl}
         alt="project"
+        placeholderSrc={imgUrl}
+        width="100%"
+        height="100%"
       />
     </ImageWrapper>
   )), [images])
@@ -42,13 +45,6 @@ const Section = styled.section`
   position: relative;
 `
 
-const LazyImage = styled(LazyLoadImage)`
-width: 100% !important;
-height: 100%;
-max-width: 100%;
-object-fit: cover;
-object-position: center;
-`
 const ImageWrapper = styled.div`
   width: 100%;
   max-height: 40rem;

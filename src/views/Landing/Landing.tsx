@@ -19,8 +19,6 @@ import {
 import Divider from '../../components/Divider/Divider'
 import { useAppSelector } from '../../hooks'
 import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
-import 'react-lazy-load-image-component/src/effects/blur.css'
-import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()

@@ -2,7 +2,6 @@ import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import {
   Text, Flex, Link
 } from '../../common'
@@ -11,6 +10,7 @@ import DonateModal from '../../BuyModal'
 import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateSubmitForm } from '../../../types/interfaces'
+import { LazyImageComponent } from '../../common/LazyImage'
 
 interface ProjectProps {
   imageURL: string;
@@ -23,6 +23,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const {
     submit, ...states
   } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
+
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
@@ -36,13 +37,13 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
   return (
     <ProjectCard>
-      <LazyLoadImage
+      <LazyImageComponent
         width="100%"
         height="100%"
         src={imageURL}
-        style={{ objectFit: 'cover', zIndex: '-1' }}
         alt={title}
         effect="blur"
+        placeholderSrc={imageURL}
       />
       <Text zIndex="1" fontSize={1.1} px={1} color="white">
         {title}
@@ -72,6 +73,7 @@ const ProjectCard = styled(Flex)`
   text-align: left;
   .lazy-load-image-background.blur.lazy-load-image-loaded {
     position: absolute;
+    width: 100% !important;
   }
 
   img {
