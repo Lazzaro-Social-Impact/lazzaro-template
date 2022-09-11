@@ -34,6 +34,7 @@ export interface IDonation {
   anonymous: boolean;
   amount: number;
   createdAt: string;
+  Payment:{ tx:string };
   User: {
     firstName: string;
     lastName: string;
