@@ -17,27 +17,27 @@ import {
   Footer,
 } from '../../components'
 import Divider from '../../components/Divider/Divider'
-import { useAppSelector } from '../../hooks'
+// import { useAppSelector } from '../../hooks'
 import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
-  const {
-    causes, events, partners, volunteers, courses, impact, logos
-  } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-
-  // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos
-  // } = {
-  //   causes: false,
-  //   events: false,
-  //   partners: true,
-  //   volunteers: true,
-  //   courses: true,
-  //   impact: true,
-  //   logos: true
-  // }
+  // } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+
+  // For Test purposes
+  const {
+    causes, events, partners, volunteers, courses, impact, logos
+  } = {
+    causes: true,
+    events: true,
+    partners: true,
+    volunteers: true,
+    courses: true,
+    impact: false,
+    logos: false
+  }
   useEffect(() => {
     if (hash) {
       const element = document.getElementById(hash.slice(1))

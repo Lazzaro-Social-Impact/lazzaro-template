@@ -49,7 +49,9 @@ export default function Footer(): ReactElement {
         </ImageContainer>
 
         <SectionTitle
-          style={{ padding: '0', width: '100%' }}
+          style={{
+            padding: '0', width: '100%', fontSize: '1.35rem'
+          }}
           fontSize={1.8}
         >
           {t('footer.title_1')} <br />
@@ -114,7 +116,7 @@ const MainFooter = styled.footer`
 const ImageContainer = styled.div`
   padding: 0.5rem;
   text-align: left;
-  width: 100%;
+  width: 82%;
   img {
     width: 6rem !important;
   }
