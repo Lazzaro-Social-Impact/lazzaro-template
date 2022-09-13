@@ -74,7 +74,11 @@ export function BuyProductForm(props: IProps): ReactElement {
         successId={`donation_success${id}`}
         errorId={`donation_failed${id}`}
       />
-      {modal && <CustomSectionTitle padding={0} textAlign="center" fontSize="x-large">{title}</CustomSectionTitle>}
+      {modal && (
+        <CustomSectionTitle padding={0} textAlign="center" fontSize="x-large">
+          {title}
+        </CustomSectionTitle>
+      )}
 
       <InputTitle>{t('Products_single.your_shopping')}</InputTitle>
 
@@ -91,12 +95,10 @@ export function BuyProductForm(props: IProps): ReactElement {
         <CustomInputDiv>
           <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
           {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} />}
-
         </CustomInputDiv>
         <CustomInputDiv>
           <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
           {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
-
         </CustomInputDiv>
       </FormRow>
 
@@ -104,7 +106,6 @@ export function BuyProductForm(props: IProps): ReactElement {
         <CustomInputDiv>
           <Input placeholder={t('placeholders.email')} {...register('user_email')} />
           {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} />}
-
         </CustomInputDiv>
         <CustomInputDiv>
           <Input placeholder={t('placeholders.phone')} {...register('mobile_phone')} />
@@ -121,47 +122,24 @@ export function BuyProductForm(props: IProps): ReactElement {
         <CustomInputDiv>
           <Input placeholder={t('placeholders.ID')} {...register('nif')} />
           {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
-
         </CustomInputDiv>
       </FormRow>
 
       <FormRow>
-        <CustomInputDiv>
-          <Controller
-            control={control}
-            name="birthDate"
-            render={({ field }: any) => (
-              <CustomDatePicker
-                name="birthDate"
-                placeholderText={t('placeholders.dob')}
-                selected={field.value}
-                onChange={(date: Date) => field.onChange(date)}
-                dateFormat="dd/MM/yyyy"
-                autoComplete="off"
-                dropdownMode="select"
-                showYearDropdown
-                showMonthDropdown
-              />
-            )}
-          />
-          {errors.birthDate?.message && <ErrorMsg msg={t('errors.dob')} />}
-        </CustomInputDiv>
         <CustomInputDiv>
           <Input placeholder={t('placeholders.postal_code')} {...register('cp')} type="number" />
           {errors.cp?.message && <ErrorMsg msg={t('errors.cp')} />}
         </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.city')} {...register('city')} />
+          {errors.city?.message && <ErrorMsg msg={t('errors.city')} />}
+        </CustomInputDiv>
       </FormRow>
 
       <FormRow>
         <CustomInputDiv>
-          <Input placeholder={t('placeholders.city')} {...register('city')} />
-          {errors.city?.message && <ErrorMsg msg={t('errors.city')} />}
-
-        </CustomInputDiv>
-        <CustomInputDiv>
           <Input placeholder={t('placeholders.country')} {...register('country')} />
           {errors.country?.message && <ErrorMsg msg={t('errors.country')} />}
-
         </CustomInputDiv>
       </FormRow>
       <br />
