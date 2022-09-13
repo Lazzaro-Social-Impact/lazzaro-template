@@ -132,7 +132,8 @@
       "num_of_entries": "Number of entries",
       "ticket_person": "Only one ticket per person. You can buy more tickets by repeating the purchase process.",
       "send_information": "Do authorize us to send you information about our entity and how to become a member?",
-      "share_event": "Share the event"
+      "share_event": "Share the event",
+      "newsletter": "Do you authorize us to send you information about our entity and how to become a member?"
     },
     "error_page": {
       "oops": "WE NEED TO TALK",

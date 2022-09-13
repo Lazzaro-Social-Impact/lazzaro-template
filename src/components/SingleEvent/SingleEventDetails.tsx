@@ -16,9 +16,12 @@ type TProps = {
   event: IEvent | undefined;
   id: string;
   isLoadingEvent: boolean;
+  isEvent: boolean;
 };
 
-export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): ReactElement {
+export function SingleEventDetails({
+  event, id, isLoadingEvent, isEvent
+}: TProps): ReactElement {
   const { data: images = [], isLoading } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
   const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
 
@@ -36,7 +39,7 @@ export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): React
 
           <CustomTabs defaultActiveKey="1">
             <Tabs.TabPane tab={t('Buy')} key="1">
-              <BuyEventform eventId={id} />
+              <BuyEventform eventId={id} isEvent={isEvent} />
             </Tabs.TabPane>
             {event?.location !== 'online' && (
               <Tabs.TabPane tab={t('event_single.location')} key="2">

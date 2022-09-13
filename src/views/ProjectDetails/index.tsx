@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 import styled from 'styled-components'
 import { type Params, useParams } from 'react-router-dom'
 import { ProjectCard } from './Tabs/ProjectCard'
@@ -21,6 +21,10 @@ function ProjectDetails(): ReactElement {
   const {
     data: projectDetails = {} as IProject, isLoading: isProjectLoading
   } = useDependant<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>

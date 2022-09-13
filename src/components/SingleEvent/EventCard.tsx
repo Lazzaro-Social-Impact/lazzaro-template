@@ -22,11 +22,12 @@ interface IProps {
   location: string;
   stock: number;
   course:boolean;
+  isEvent: boolean;
 }
 
 export function EventCard(props: IProps): ReactElement {
   const {
-    id, title, start_time, end_time, location, stock, course
+    id, title, start_time, end_time, location, stock, course, isEvent
   } = props
 
   const { pathname } = useLocation()
@@ -36,7 +37,8 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
   const { t } = useTranslation()
-  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
+  const Form = course ? (<BuyCourseForm courseId={id} />) : (<BuyEventform modal eventId={id} isEvent={isEvent} />
+  )
 
   return (
     <Card mode="column" px={1.8} py={2.4} smMode="column">

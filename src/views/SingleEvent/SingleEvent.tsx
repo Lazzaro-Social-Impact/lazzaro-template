@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
@@ -15,19 +15,24 @@ function SingleEvent(): ReactElement {
   const isCourse = pathname.startsWith('/courses')
   const { id } = useParams() as { id: string }
   const { data: event, isLoading } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} />
+        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} isEvent={isEvent} />
         <OtherEvents>
           {isLoading && <Skeleton number={1} height={22} width={26} />}
 
           {isEvent
-            && event?.course === false && <EventCard {...event} key={event?.id} />}
+            && event?.course === false && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
 
           {isCourse
-            && event?.course && <EventCard {...event} key={event?.id} />}
+            && event?.course && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
         </OtherEvents>
       </Container>
       <Footer />
