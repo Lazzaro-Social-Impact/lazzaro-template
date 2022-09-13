@@ -43,13 +43,13 @@ export const CustomInput = CustomComponent('input')
 export const CustomTextArea = CustomComponent('textarea')
 
 // used when there is an error and the input is inside a flex container
-export const CustomInputDiv = styled.div`
+export const CustomInputDiv = styled.div<{pr?:TPaddingRight}>`
 display: flex;
 flex-direction: column;
 gap: 0;
 align-items: flex-start;
 width: 100%;
-
+padding-right: ${({ pr }) => pr || 'initial'};
 `
 
 export const CustomDatePicker = styled(DatePicker)`

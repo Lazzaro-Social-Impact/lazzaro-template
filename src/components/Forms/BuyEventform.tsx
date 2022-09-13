@@ -11,7 +11,7 @@ import {
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
-import { Button, Center } from '../common'
+import { Button, Center, Flex } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -20,6 +20,7 @@ import PrivacyPolicy from '../common/PrivacyPolicy'
 interface Props {
   modal?: TModal;
   eventId: string;
+  isEvent: boolean;
 }
 
 type TBuyTicketFormSubmit = {
@@ -29,9 +30,12 @@ type TBuyTicketFormSubmit = {
   mobilePhone: string;
   terms_and_conditions: boolean;
   tickets: ITicket[];
+  nif: number;
+  image_rights: boolean;
+  newsletter: boolean;
 };
 
-export function BuyEventform({ modal, eventId }: Props): ReactElement {
+export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
@@ -87,10 +91,10 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       />
       {EventTickets && (
         <div>
-          <FormTitle>{t('event_single.num_of_entries')} {price}</FormTitle>
-          <p>
-            {t('event_single.ticket_person')}
-          </p>
+          <FormTitle>
+            {t('event_single.num_of_entries')} {price}
+          </FormTitle>
+          <p>{t('event_single.ticket_person')}</p>
 
           {ticketsInputs}
         </div>
@@ -100,7 +104,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       <FormRow modal={modal}>
         <CustomInputDiv>
           <CustomInput placeholder={t('placeholders.firstname')} {...register('firstName')} />
-          {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} /> }
+          {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} />}
         </CustomInputDiv>
 
         <CustomInputDiv>
@@ -121,13 +125,40 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
         </CustomInputDiv>
       </FormRow>
 
-      <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
+      {isEvent && (
+      <FormRow width="50%">
+        <CustomInputDiv pr="0.4rem">
+          <CustomInput placeholder={t('placeholders.ID')} {...register('nif')} />
+          {errors.nif?.message && <ErrorInput msg={t('errors.ID')} />}
+        </CustomInputDiv>
+      </FormRow>
+      )}
 
-      <PrivacyPolicy />
+      <>
+        <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
+        <PrivacyPolicy />
+      </>
+
+      {isEvent && (
+      <>
+
+        <Flex justify="flex-start" wrap="nowrap" align="baseline">
+          <CheckBoxInput type="checkbox" {...register('image_rights')} />
+          <p>{t('event_single.image_rights')}</p>
+        </Flex>
+
+        <Flex justify="flex-start" wrap="nowrap" align="baseline">
+          <CheckBoxInput type="checkbox" {...register('newsletter')} />
+          <p>{t('event_single.newsletter')}</p>
+        </Flex>
+      </>
+      )}
 
       {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
       <Center>
-        <Button mt="1.8rem" px="2.8rem">{t('pay')}</Button>
+        <Button mt="1.8rem" px="2.8rem">
+          {t('pay')} {currency}
+        </Button>
       </Center>
     </BuyFrom>
   )
@@ -146,11 +177,12 @@ const FormTitle = styled.h2`
   margin-top: 3.2rem;
 `
 
-const FormRow = styled.div<{ modal: TModal }>`
+const FormRow = styled.div<{ modal?: TModal, width?: TWidth }>`
   display: flex;
   flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
   gap: 0.8rem;
   margin-top: 1.2rem;
+  width: ${({ width }) => width || '100%'};
 `
 
 const CheckBoxInput = styled.input`
