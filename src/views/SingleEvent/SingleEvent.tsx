@@ -19,15 +19,15 @@ function SingleEvent(): ReactElement {
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} />
+        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} isEvent={isEvent} />
         <OtherEvents>
           {isLoading && <Skeleton number={1} height={22} width={26} />}
 
           {isEvent
-            && event?.course === false && <EventCard {...event} key={event?.id} />}
+            && event?.course === false && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
 
           {isCourse
-            && event?.course && <EventCard {...event} key={event?.id} />}
+            && event?.course && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
         </OtherEvents>
       </Container>
       <Footer />
