@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import moment from 'moment'
 import { type ReactElement } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
@@ -10,7 +10,7 @@ import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle
 } from '../common'
-import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
+import { CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
@@ -47,7 +47,7 @@ export function BuyProductForm(props: IProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
   const { t } = useTranslation()
   const {
-    handleSubmit, register, formState: { errors }, control
+    handleSubmit, register, formState: { errors }
   } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
 
   const {
