@@ -91,7 +91,7 @@ export default function Footer(): ReactElement {
 }
 
 const MainFooter = styled.footer`
-  margin-top: 4rem;
+  margin-top: 5.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -24,7 +24,9 @@ export default function Volunteers(): ReactElement {
     window.addEventListener('resize', handleResize)
     handleResize()
 
-    if (members?.length > 3 && screenWidth < 600) {
+    if (members?.length > 3 && screenWidth < 410) {
+      setNumOfCards(1)
+    } else if (members?.length > 3 && screenWidth < 600) {
       setNumOfCards(2)
     } else {
       setNumOfCards(3)
@@ -80,4 +82,5 @@ margin-top: 4.8rem;
 @media screen and (max-width: 768px) {
        height: 250px !important;
     }
+    
 `

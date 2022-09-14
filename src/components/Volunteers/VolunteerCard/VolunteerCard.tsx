@@ -54,7 +54,7 @@ justify-content: space-between;
 }
 
 @media screen and (max-width: 420px) {
-  height: 135px;
+  height: 250px;
 }
 
 `
