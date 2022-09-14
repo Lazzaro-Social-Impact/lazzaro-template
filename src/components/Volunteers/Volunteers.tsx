@@ -1,5 +1,5 @@
 import {
-  ReactElement, useEffect, useMemo, useState
+  ReactElement, useEffect, useMemo, useRef, useState
 } from 'react'
 import styled from 'styled-components'
 import chunk from 'lodash/chunk'
@@ -12,7 +12,7 @@ import { IMember } from '../../types/interfaces'
 export default function Volunteers(): ReactElement {
   const members = useAppSelector((state) => state.ong.ongConfig?.team) || []
   const { t } = useTranslation()
-  const [numOfCards, setNumOfCards] = useState(3)
+  const numOfCards = useRef(3)
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -25,20 +25,20 @@ export default function Volunteers(): ReactElement {
     handleResize()
 
     if (members?.length > 3 && screenWidth < 410) {
-      setNumOfCards(1)
+      numOfCards.current = 1
     } else if (members?.length > 3 && screenWidth < 600) {
-      setNumOfCards(2)
+      numOfCards.current = 2
     } else {
-      setNumOfCards(3)
+      numOfCards.current = 3
     }
 
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [numOfCards, screenWidth])
+  }, [numOfCards.current, screenWidth])
   const memoizedMembersCards = useMemo(
     () => [
-      ...chunk<IMember>(members, numOfCards).map((memberCards, i: number) => (
+      ...chunk<IMember>(members, numOfCards.current).map((memberCards, i: number) => (
         <VolunteerCards key={`memberCards ${memberCards[i]}`}>
           {memberCards.map((member: IMember) => (
             <VolunteerCard {...member} key={member.id} />
@@ -46,7 +46,7 @@ export default function Volunteers(): ReactElement {
         </VolunteerCards>
       )),
     ],
-    [members, numOfCards]
+    [members, numOfCards.current]
   )
 
   return (
