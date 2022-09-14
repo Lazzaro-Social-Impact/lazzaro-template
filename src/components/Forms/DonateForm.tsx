@@ -23,17 +23,23 @@ interface IProps {
     isLoading: boolean;
     isError: boolean;
     isSuccess: boolean;
-  }
+  };
+  modal?: boolean;
 }
 
-function DonateForm({ projectId, submitHandler, states }: IProps) {
+function DonateForm({
+  projectId, submitHandler, states, modal
+}: IProps) {
   const {
     register, handleSubmit, control, formState: { errors }
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
 
   const { t } = useTranslation()
   return (
-    <CustomForm onSubmit={handleSubmit(submitHandler)}>
+    <CustomForm
+      style={{ width: modal ? '100%' : '60%' }}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <HandleResponse
         {...states}
         successMsg={t('success.paypal_navigate')}
@@ -154,7 +160,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
 
       <Center>
 
-        <Button mt="1.2rem" type="submit" aria-label="submit">
+        <Button fontSize={0.9} mt="1.2rem" type="submit" aria-label="submit">
           {t('Donate')}
         </Button>
       </Center>
@@ -197,4 +203,5 @@ const FormControl = styled.div<IFormControlProps>`
 
 DonateForm.defaultProps = {
   projectId: '',
+  modal: false
 }

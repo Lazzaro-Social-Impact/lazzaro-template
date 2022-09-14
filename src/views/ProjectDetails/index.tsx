@@ -87,7 +87,12 @@ const OtherProjects = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
   height: 400px;
+  
+  @media screen and (max-width: 768px) {
+    padding-inline: 7.2rem;
+    margin-top: 3.2rem;
+
+  }
 `
 export default ProjectDetails

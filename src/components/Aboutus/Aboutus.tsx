@@ -14,12 +14,12 @@ export default function AboutUs(): React.ReactElement {
   return (
     <Flex id="about" align="stretch" mt={4.2} pl={4.1}>
       <Flex direction="column" align="stretch" justify="stretch" textAlign="left" flex={1}>
-        <SectionTitle marginTop={0} padding={0} fontSize={2.4}>
+        <SectionTitle marginTop={0} padding={0} fontSize={2.2}>
           {titleDescription}
         </SectionTitle>
 
-        <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description).toString().length > 1180 ? (
+        <Box fontSize={0.9} pr={2.8} color="#777" lineHeight={1.8}>
+          {HtmlParser(description).toString().length > 1200 ? (
             <>
 
               <Box>

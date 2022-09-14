@@ -28,7 +28,7 @@ const Button = styled.button<IProps>`
   margin-inline: ${({ mx }) => mx && getProp(mx)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-top: ${({ mt }) => mt && getProp(mt)};
-  font-size: ${({ fontSize }) => fontSize && getProp(fontSize)};
+  font-size: ${({ fontSize }) => (fontSize && getProp(fontSize)) || '0.9rem'};
   font-weight: ${({ weight }) => weight};
   border-radius: ${({ radius }) => `${radius}px`};
   border: none;

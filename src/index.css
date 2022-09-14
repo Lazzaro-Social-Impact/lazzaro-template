@@ -26,6 +26,10 @@ html {
   .ant-carousel .slick-slide img {
     width: 80px;
   }
+
+  .anticon.anticon-arrow-right.slick-arrow.slick-next {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 420px) {
@@ -35,6 +39,8 @@ html {
   .ant-carousel .slick-slide img {
     width: 65px;
   }
+
+
 }
 
 
@@ -52,3 +58,4 @@ input::-webkit-inner-spin-button {
 .ant-scrolling-effect {
   overflow: initial !important;
 }
+

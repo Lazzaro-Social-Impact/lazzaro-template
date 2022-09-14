@@ -43,7 +43,7 @@ function Navbar({ transparent, position }: IProps): ReactElement {
 const NavBar = styled.nav<{ position: TPosition; bgColor: TBgColor }>`
   display: flex;
   justify-content: space-between;
-  padding: 0.4rem 4.1rem;
+  padding: 0.4rem 2.4rem;
   border-bottom: 1px solid #ccc;
   position: ${({ position }) => position};
   align-items: center;

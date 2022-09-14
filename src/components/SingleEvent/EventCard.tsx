@@ -44,16 +44,16 @@ export function EventCard(props: IProps): ReactElement {
     <Card mode="column" px={1.8} py={2.4} smMode="column">
       <EventCardTitle title={title}>{title}</EventCardTitle>
 
-      <Text color="#8c8c8c">
+      <Text fontSize={1} color="#8c8c8c">
         <ClockCircleFilled /> {startDate} - {endDate}
       </Text>
 
-      <Text lineHeight={1.7}>
+      <Text fontSize={1} lineHeight={1.7}>
         <HeatMapOutlined />
         {location}
       </Text>
 
-      <Text weight="bold" color="#8c8c8c" fontSize={1.1}>
+      <Text weight="bold" color="#8c8c8c" fontSize={1}>
         {t('Tickets available')}: <span>{stock}</span>
       </Text>
 
@@ -71,7 +71,7 @@ export function EventCard(props: IProps): ReactElement {
 
 const EventCardTitle = styled.h3`
   color: ${({ theme }) => theme.primary};
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
   width: 100%;
   margin-bottom: 0rem;

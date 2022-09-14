@@ -29,6 +29,9 @@ export const buyTicketSchema = yup.object({
     amount: yup.number().required('errors.amount'),
     id: yup.string().required('errors.ticket'),
   })).required('errors.ticket'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  image_rights: yup.boolean().oneOf([true], 'errors.image_rights'),
+  newsletter: yup.boolean().oneOf([true], 'errors.newsletter'),
 
 })
 
