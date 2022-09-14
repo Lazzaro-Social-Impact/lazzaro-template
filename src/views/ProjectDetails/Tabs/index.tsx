@@ -2,6 +2,7 @@ import { Tabs as AntdTabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateForm } from '../../../components'
+import { CustomTabPane } from '../../../components/common/CustomInput'
 import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { DonateSubmitForm } from '../../../types/interfaces'
 import Description from './Description'
@@ -32,9 +33,9 @@ function Tabs({ projectDetails }: IProps) {
         <Description description={description} />
       </TabPane>
 
-      <TabPane tab={t('Donate')} key="2">
-        <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
-      </TabPane>
+      <CustomTabPane tab={t('Donate')} key="2">
+        <DonateForm modal submitHandler={handleSubmit} projectId={id} states={states} />
+      </CustomTabPane>
 
       <TabPane tab={t('case_single.historical')} key="3">
         <LatestDonations title={t('case_single.historical')} projectId={id} />

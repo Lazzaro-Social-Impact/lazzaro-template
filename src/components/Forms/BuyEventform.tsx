@@ -12,7 +12,7 @@ import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
 import {
-  Box, Button, Center, Flex
+  Box, Button, Center
 } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
@@ -91,7 +91,7 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
         successId={`${eventId}_success`}
         errorId={`${eventId}_error`}
       />
-      {EventTickets && (
+      {!!EventTickets.length && (
         <div>
           <FormTitle>
             {t('event_single.num_of_entries')} {price}
@@ -139,24 +139,22 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
       <>
         <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
         <PrivacyPolicy />
+        {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
       </>
 
       {isEvent && (
       <>
+        <CheckBoxInput type="checkbox" {...register('image_rights')} />
+        <span style={{ fontSize: '1rem' }}>{t('event_single.image_rights')}</span>
+        {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
 
-        <Flex justify="flex-start" wrap="nowrap" align="baseline">
-          <CheckBoxInput type="checkbox" {...register('image_rights')} />
-          <p>{t('event_single.image_rights')}</p>
-        </Flex>
+        <br />
+        <CheckBoxInput type="checkbox" {...register('newsletter')} />
+        <span style={{ fontSize: '1rem' }}>{t('event_single.newsletter')}</span>
 
-        <Flex justify="flex-start" wrap="nowrap" align="baseline">
-          <CheckBoxInput type="checkbox" {...register('newsletter')} />
-          <p>{t('event_single.newsletter')}</p>
-        </Flex>
       </>
       )}
 
-      {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
       <Center>
         <Button mt="1.8rem" px="2.8rem">
           {t('pay')} {currency}
@@ -177,6 +175,7 @@ const FormTitle = styled.h2`
   color: ${({ theme }) => theme.primary};
   font-weight: bold;
   margin-top: 3.2rem;
+  font-size: 1.8rem;
 `
 
 const FormRow = styled.div<{ modal?: TModal, width?: TWidth }>`
@@ -188,8 +187,9 @@ const FormRow = styled.div<{ modal?: TModal, width?: TWidth }>`
 `
 
 const CheckBoxInput = styled.input`
-  margin-top: 2.4rem;
+  margin-top: 1.8rem;
   width: 30px;
+
 `
 
 const CustomLabel = styled.label`

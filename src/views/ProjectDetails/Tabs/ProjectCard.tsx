@@ -49,13 +49,13 @@ export function ProjectCard({ project }: IProps) {
           %{donationProgress}
         </ProgressPercents>
       </ProgressBar>
-      <Text weight="bold" textAlign="center">
+      <Text fontSize={1.2} weight="bold" textAlign="center">
         {t('case_single.goal')} <br />${amount}
       </Text>
       <Flex gap={1}>
         <ShareModal section="causes" sectionId={id} />
         <BuyModal btnText={donateBtnText}>
-          <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
+          <DonateForm modal submitHandler={handleSubmit} projectId={id} states={states} />
         </BuyModal>
       </Flex>
     </ProductCard>
@@ -66,7 +66,8 @@ const ProductCard = styled(Card)`
   width: 380px;
   margin: 1rem;
   flex-direction: column;
-  padding: 2.3rem;
+  padding: 2.4rem;
+
 `
 
 const ProgressBar = styled.div`

@@ -31,8 +31,8 @@ function Hero({ noBtns }:IHero) {
         <Flex gap={1.2} justify="center">
           {!noBtns && (
           <>
-            <Button color="white" onClick={() => navigate('/donate')}> {t('Donate')} </Button>
-            <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
+            <Button color="white" fontSize={0.9} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+            <Button hoverBgColor={primary} fontSize={0.9} bgColor={secondary} onClick={() => navigate('/partners')}>
               {t('Become a member')}
             </Button>
           </>

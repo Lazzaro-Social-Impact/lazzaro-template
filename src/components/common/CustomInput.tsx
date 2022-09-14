@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
+import { Tabs } from 'antd'
 
 export function CustomComponent(component: any) {
   return styled(component)`
@@ -17,9 +18,9 @@ export function CustomComponent(component: any) {
     position: relative;
     display: inline-block;
     min-width: 0;
-    padding: 9.5px 11px;
+    padding: 9.5px 6px;
     color: rgba(0,0,0,.85);
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 1.5715;
     background-color: #fff;
     background-image: none;
@@ -86,5 +87,11 @@ padding: 0.7rem;
 &:focus {
   outline: none;
   box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
+}
+`
+
+export const CustomTabPane = styled(Tabs.TabPane)`
+@media screen and (max-width: 768px) {
+  padding-inline: 8.2rem;
 }
 `
