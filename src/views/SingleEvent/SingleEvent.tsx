@@ -61,5 +61,4 @@ const OtherEvents = styled.div`
   flex-direction: column;
   flex: 1;
   width: 100%;
-  padding-inline: 1.2rem;
 `
