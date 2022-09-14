@@ -10,6 +10,11 @@ html {
   scroll-behavior: smooth;
 }
 
+ .anticon.anticon-arrow-right.slick-arrow.slick-next:focus,
+ .anticon.anticon-arrow-left.slick-arrow.slick-prev:focus {
+  color: rgba(0, 0, 0, 0.65);
+}
+
 @media screen and (max-width: 962px) {
   html {
     font-size: 65%;
