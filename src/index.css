@@ -40,7 +40,14 @@ html {
     width: 65px;
   }
 
+}
 
+.pointer {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.pointer:hover {
+  color: #7a7a7a;
 }
 
 
