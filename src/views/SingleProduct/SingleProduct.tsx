@@ -1,4 +1,4 @@
-import { Tabs, Breadcrumb } from 'antd'
+import { Breadcrumb } from 'antd'
 import { useMemo, type ReactElement } from 'react'
 
 import HtmlParser from 'html-react-parser'
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
-  Card, Center, Flex
+  Card, Center, Flex, Tabs
 } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'

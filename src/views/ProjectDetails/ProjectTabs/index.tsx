@@ -1,22 +1,20 @@
-import { Tabs as AntdTabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateForm } from '../../../components'
-import { CustomTabPane } from '../../../components/common/CustomInput'
+import { Tabs } from '../../../components/common'
 import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { DonateSubmitForm } from '../../../types/interfaces'
 import Description from './Description'
 import LatestDonations from './LatestDonations'
 
-const { TabPane } = AntdTabs
 interface IProps {
   projectDetails: {
-    id: string,
-    description: string,
+    id: string;
+    description: string;
   };
 }
 
-function Tabs({ projectDetails }: IProps) {
+function ProjectTabs({ projectDetails }: IProps) {
   const { id = '', description = '' } = projectDetails
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
@@ -28,20 +26,20 @@ function Tabs({ projectDetails }: IProps) {
     submit(donationInfo)
   }
   return (
-    <AntdTabs defaultActiveKey="1">
-      <TabPane tab={t('details')} key="1">
+    <Tabs defaultActiveKey="1">
+      <Tabs.TabPane tab={t('details')} key="1">
         <Description description={description} />
-      </TabPane>
+      </Tabs.TabPane>
 
-      <CustomTabPane tab={t('Donate')} key="2">
+      <Tabs.TabPane tab={t('Donate')} key="2">
         <DonateForm modal submitHandler={handleSubmit} projectId={id} states={states} />
-      </CustomTabPane>
+      </Tabs.TabPane>
 
-      <TabPane tab={t('case_single.historical')} key="3">
+      <Tabs.TabPane tab={t('case_single.historical')} key="3">
         <LatestDonations title={t('case_single.historical')} projectId={id} />
-      </TabPane>
-    </AntdTabs>
+      </Tabs.TabPane>
+    </Tabs>
   )
 }
 
-export default Tabs
+export default ProjectTabs
