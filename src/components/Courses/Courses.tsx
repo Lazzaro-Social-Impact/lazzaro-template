@@ -1,5 +1,6 @@
 import { Fragment, useMemo, type ReactElement } from 'react'
 import chunk from 'lodash/chunk'
+import { useTranslation } from 'react-i18next'
 import CourseCard from './CourseCard/CourseCard'
 import {
   Box, Carousel, Flex, SectionTitle
@@ -11,7 +12,7 @@ import { ICourse } from '../../types/interfaces'
 
 function Courses(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-
+  const { t } = useTranslation()
   const {
     data: events = [], isLoading
   } = useDependant<ICourse[]>(getCoursesURL(ongId), ['courses'], ongId)
@@ -33,7 +34,7 @@ function Courses(): ReactElement {
 
   return (
     <Box id="courses" px={4.1} mt={4}>
-      <SectionTitle padding={0}>Courses</SectionTitle>
+      <SectionTitle padding={0}>{t('Courses')}</SectionTitle>
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
       <Carousel arrows dots>
         {memoizedCourses}

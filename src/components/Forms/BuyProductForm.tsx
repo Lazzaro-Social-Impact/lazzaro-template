@@ -1,15 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement } from 'react'
+import moment from 'moment'
+import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
 import {
-  Button, Center, Input, Label, SectionTitle, TextArea
+  Button, Center, Input, Label, SectionTitle
 } from '../common'
+import { CustomInputDiv, CustomTextArea } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
+import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface IProps {
   modal?: boolean;
@@ -39,111 +44,116 @@ export function BuyProductForm(props: IProps): ReactElement {
     modal, id, price, title
   } = props
 
-  const {
-    mutateAsync, ...states
-  } = usePostData<{data:string}, IFormSubmit>(getStartProductPaymentUrl())
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const { t } = useTranslation()
+  const {
+    handleSubmit, register, formState: { errors }
+  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
 
   const {
-    handleSubmit, register, formState: { errors },
-  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema), })
+    submit, ...states
+  } = useFormSubmit<IFormSubmit>({ url: getStartProductPaymentUrl(), isPayment: true })
 
-  const onSubmit = async (data: IFormSubmit) => {
+  const onSubmit = (data: IFormSubmit) => {
     const donationInfo = {
       ...data,
       ong_id: ongId,
       product_id: id,
       amount: price,
+      birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
     }
 
-    const {
-      data: { data: paypal },
-    } = await mutateAsync(donationInfo)
-    window.open(paypal, '_blank')?.focus()
+    submit(donationInfo)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
-        successMsg="Payment done successfully"
-        errorMsg="Payment failed"
+        successMsg={t('success.paypal_navigate')}
+        errorMsg={t('fail.error')}
         successId={`donation_success${id}`}
         errorId={`donation_failed${id}`}
       />
-      {modal && <SectionTitle>{title}</SectionTitle>}
+      {modal && (
+        <CustomSectionTitle padding={0} textAlign="center" fontSize="x-large">
+          {title}
+        </CustomSectionTitle>
+      )}
 
-      <InputTitle>Your Shopping</InputTitle>
+      <InputTitle>{t('Products_single.your_shopping')}</InputTitle>
 
       <Input
-        placeholder="Enter the quantity of products"
+        placeholder={t('Products_single.contact_form.placeholders.amount')}
         type="number"
         min="1"
         defaultValue={1}
         {...register('productAmount')}
       />
-      <ErrorMsg msg={errors.productAmount?.message} />
-      <InputTitle>Personal Details</InputTitle>
-      <InputRow>
-        <Input placeholder="Name" {...register('firstName')} />
-        <Input placeholder="Surname" {...register('lastName')} />
-      </InputRow>
+      {errors.productAmount?.message && <ErrorMsg msg={t('errors.product_amount')} />}
+      <InputTitle>{t('personal_information')}</InputTitle>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
+          {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
+          {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <InputRow>
-        <ErrorMsg msg={errors.lastName?.message} />
-        <ErrorMsg msg={errors.firstName?.message} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.email')} {...register('user_email')} />
+          {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.phone')} {...register('mobile_phone')} />
+          {errors.mobile_phone?.message && <ErrorMsg msg={t('errors.phone')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <InputRow>
-        <Input placeholder="Email" {...register('user_email')} />
-        <Input placeholder="Phone" {...register('mobile_phone')} />
-      </InputRow>
+      <InputTitle>{t('Products_single.delivery_details')}</InputTitle>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.address')} {...register('home_address')} />
+          {errors.home_address?.message && <ErrorMsg msg={t('errors.address')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.ID')} {...register('nif')} />
+          {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <InputRow>
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.mobile_phone?.message} />
-      </InputRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.postal_code')} {...register('cp')} type="number" />
+          {errors.cp?.message && <ErrorMsg msg={t('errors.cp')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.city')} {...register('city')} />
+          {errors.city?.message && <ErrorMsg msg={t('errors.city')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <InputTitle>Delivery Details</InputTitle>
-      <InputRow>
-        <Input placeholder="Address" {...register('home_address')} />
-        <Input placeholder="DNI" {...register('nif')} />
-      </InputRow>
-      <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
-      </InputRow>
-
-      <InputRow>
-        <Input placeholder="Date of Birth" type="date" {...register('birthDate')} />
-        <Input placeholder="Postal Code" {...register('cp')} type="number" />
-      </InputRow>
-
-      <InputRow>
-        <ErrorMsg msg={errors.birthDate?.message} />
-        <ErrorMsg msg={errors.cp?.message} />
-      </InputRow>
-
-      <InputRow>
-        <Input placeholder="City" {...register('city')} />
-        <Input placeholder="Country" {...register('country')} />
-      </InputRow>
-
-      <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
-      </InputRow>
-
-      <TextArea placeholder="Additional message" rows={4} />
+      <FormRow>
+        <CustomInputDiv>
+          <Input placeholder={t('placeholders.country')} {...register('country')} />
+          {errors.country?.message && <ErrorMsg msg={t('errors.country')} />}
+        </CustomInputDiv>
+      </FormRow>
+      <br />
+      <CustomTextArea placeholder={t('placeholders.message')} rows={4} />
 
       <Label>
-        <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />I accept the
-        privacy policy
-        <ErrorMsg msg={errors.privacy_policy?.message} />
+        <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />
+        <PrivacyPolicy />
       </Label>
+      {errors.privacy_policy?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
       <br />
       <Center my={1.5}>
         <Button py="0.8rem" px="2.4rem" type="submit">
-          Pay
+          {t('pay')}
         </Button>
       </Center>
     </form>
@@ -157,11 +167,10 @@ const InputTitle = styled.h3`
   font-size: 1.1rem;
 `
 
-const InputRow = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
-  justify-content: space-between;
+const CustomSectionTitle = styled(SectionTitle)`
+ @media screen and (max-width: 540px) {
+   font-size: 1.4rem;
+ }
 `
 
 BuyProductForm.defaultProps = {

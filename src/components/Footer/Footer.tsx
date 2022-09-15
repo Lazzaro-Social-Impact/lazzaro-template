@@ -5,12 +5,14 @@ import {
   LinkedinFilled,
   MailFilled,
   PhoneFilled,
-  TwitterOutlined,
+  TwitterOutlined
 } from '@ant-design/icons'
 import { type ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import {
+
   Flex, Image, Link, SectionTitle
 } from '../common'
 
@@ -24,6 +26,7 @@ export default function Footer(): ReactElement {
     linkedin = '',
     twitter = '',
     web = '',
+    poweredBy = '',
   } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
     phone: ong.ongConfig?.contact.phone,
@@ -33,10 +36,11 @@ export default function Footer(): ReactElement {
     linkedin: ong.ongConfig?.rrss.linkedin,
     twitter: ong.ongConfig?.rrss.twitter,
     web: ong.ongConfig?.rrss.web,
+    poweredBy: ong.ongConfig?.platformConfig?.powered_by_lazzaro,
   }))
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')
-
+  const { t } = useTranslation()
   return (
     <>
       <MainFooter>
@@ -44,9 +48,14 @@ export default function Footer(): ReactElement {
           <Image src={logo} alt="" />
         </ImageContainer>
 
-        <SectionTitle fontSize={2.4}>
-          How can we help? <br />
-          Contact us anytime
+        <SectionTitle
+          style={{
+            padding: '0', width: '100%', fontSize: '1.2rem', flexGrow: 1,
+          }}
+          fontSize={1.8}
+        >
+          {t('footer.title_1')}
+          {t('footer.title_2')}
         </SectionTitle>
 
         <ContactInfo>
@@ -64,7 +73,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link hoverColor="white" to="/terms_and_conditions" underlined>Terms and conditions</Link>
+          <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
         </div>
 
         <Icons>
@@ -74,13 +83,15 @@ export default function Footer(): ReactElement {
           <InstagramOutlined onClick={navigateTo(instagram)} />
           <GlobalOutlined onClick={navigateTo(web)} />
         </Icons>
+        {poweredBy && <p>Powered by <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a></p> }
       </SubFooter>
+
     </>
   )
 }
 
 const MainFooter = styled.footer`
-  margin-top: 4rem;
+  margin-top: 5.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,8 +115,17 @@ const MainFooter = styled.footer`
 
 const ImageContainer = styled.div`
   padding: 0.5rem;
-  width: 6rem;
+  text-align: left;
+  width: 50%;
+  img {
+    width: 6rem !important;
+  }
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    text-align: center;
+    
+  }
 `
 
 const ContactInfo = styled.div`
@@ -114,8 +134,9 @@ const ContactInfo = styled.div`
   gap: 1rem;
   background: #424242;
   padding-block: 1.5rem;
-  padding-inline: 1.5rem 6rem;
-
+  width: 65%;
+  padding-left: 1.2rem;
+  margin-left: 4.2rem;
   @media (max-width: 768px) {
     padding-inline: 1.5rem;
     font-size: 1rem;
@@ -132,19 +153,30 @@ const Contact = styled.div`
   }
   a {
     color: ${({ theme }) => theme.primary};
+    font-size: 0.8rem;
   }
 `
 
 const SubFooter = styled(Flex)`
   background-color: ${({ theme }) => `${theme.secondary}`};
-  padding: 2rem 4rem;
+  padding: 2rem 4.5rem;
   border-bottom: 1px solid #ccc;
   border-bottom: none;
   transition: all 0.4s ease;
   color: #969696;
+  display: flex;
+  justify-content: space-between;
   border-top: 1px solid ${({ theme }) => `${theme.primary}`};
   text-align: left;
 
+  p a {
+  color: #969696;
+  text-decoration: underline;
+  transition: all 0.4s ease;
+  &:hover {
+    color: ${({ theme }) => `${theme.primary}`};
+  }
+  }
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 1rem;
@@ -153,15 +185,14 @@ const SubFooter = styled(Flex)`
 `
 const Icons = styled.div`
   display: flex;
-  gap: 1.2rem;
+  gap: 0.8rem;
   border-radius: 50%;
-  padding: 0.7rem;
-
   span {
     border-radius: 50%;
     padding: 0.7rem;
     color: white;
     cursor: pointer;
+    background-color: transparent;
     transition: transform 0.2s ease-in-out;
   }
 

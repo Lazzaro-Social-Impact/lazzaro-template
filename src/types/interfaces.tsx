@@ -18,7 +18,7 @@ export interface DonateSubmitForm {
   lastName: string;
   user_email: string;
   home_address: string;
-  birthDate: Date;
+  birthDate: Date | string;
   nif: number;
   amount: number;
   anonymous: boolean;
@@ -34,6 +34,7 @@ export interface IDonation {
   anonymous: boolean;
   amount: number;
   createdAt: string;
+  Payment:{ tx:string };
   User: {
     firstName: string;
     lastName: string;
@@ -66,7 +67,7 @@ export interface IMember {
   img_url: string;
 }
 export interface ErrorInputProps {
-  msg?: string;
+  msg?: string | any;
   mt?: number;
   align?: TAlignSelf;
 }

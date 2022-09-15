@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 interface IProps {
   color?: TColor;
-  hoverColor?:TColor;
+  hovercolor?:TColor;
   size?:TFontSize;
   align?:TAlignSelf
   underlined?:boolean;
@@ -20,7 +20,7 @@ const Link = styled(DomLink)<IProps>`
 
     &:hover {
       text-decoration: underline;
-      color: ${({ hoverColor, theme }) => hoverColor || theme.secondary};
+      color: ${({ hovercolor, theme }) => hovercolor || theme.secondary};
     }
 `
 

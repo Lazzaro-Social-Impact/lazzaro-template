@@ -18,14 +18,21 @@ import {
   FinalizeSubscriptionDonationPage,
   BecomeMemberForm,
   ContactusForm,
+  StripeContainer,
+  SuccessfulStripePayment
 } from '../../views'
 
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 
-const getRoutes = (features:TFeatures): TRoutes => {
+type TParameters = {
+  features: TFeatures,
+  isStripe: boolean,
+}
+
+const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
   const {
     causes, courses, events, partners, donations, volunteers, market
-  } = features || {}
+  } = features
 
   return [
     {
@@ -118,6 +125,16 @@ const getRoutes = (features:TFeatures): TRoutes => {
       path: '/terms_and_conditions',
       render: true,
       Element: TermsAndConditions,
+    },
+    {
+      path: '/checkout/:secret',
+      render: isStripe,
+      Element: StripeContainer,
+    },
+    {
+      path: '/payment-success',
+      render: isStripe,
+      Element: SuccessfulStripePayment,
     },
     {
       path: '/*',

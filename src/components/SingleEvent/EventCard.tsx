@@ -1,8 +1,9 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
+import { Clock } from 'react-bootstrap-icons'
 import moment from 'moment'
 import { useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Card, Flex, Text } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
@@ -21,11 +22,12 @@ interface IProps {
   location: string;
   stock: number;
   course:boolean;
+  isEvent: boolean;
 }
 
 export function EventCard(props: IProps): ReactElement {
   const {
-    id, title, start_time, end_time, location, stock, course
+    id, title, start_time, end_time, location, stock, course, isEvent
   } = props
 
   const { pathname } = useLocation()
@@ -34,30 +36,30 @@ export function EventCard(props: IProps): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
-
-  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
+  const { t } = useTranslation()
+  const Form = course ? (<BuyCourseForm courseId={id} />) : (<BuyEventform modal eventId={id} isEvent={isEvent} />
+  )
 
   return (
-    <Card mode="column" px={1.8} py={2.4} smMode="column" my={2}>
+    <Card mode="column" px={1.8} py={2.4} smMode="column">
       <EventCardTitle title={title}>{title}</EventCardTitle>
 
-      <Text color="#8c8c8c">
-        <ClockCircleFilled /> {startDate} - {endDate}
+      <Text fontSize={1} color="#8c8c8c">
+        <Clock /> {startDate} - {endDate}
       </Text>
 
-      <Text lineHeight={1.7}>
-        <HeatMapOutlined />
+      <Text fontSize={1} lineHeight={1.7}>
         {location}
       </Text>
 
-      <Text weight="bold" color="#8c8c8c" fontSize={1.1}>
-        Tickets available: <span>{stock}</span>
+      <Text weight="bold" color="#8c8c8c" fontSize={1}>
+        {t('Tickets available')}: <span>{stock}</span>
       </Text>
 
       <Flex gap={2} mt={1}>
         <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
-        <BuyModal title={`Buy ${course ? 'course' : 'ticket'}`} btnText="Buy">
+        <BuyModal title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
           <EventCarousel imgs={images} isLoading={isLoading} />
           {Form}
         </BuyModal>
@@ -68,11 +70,8 @@ export function EventCard(props: IProps): ReactElement {
 
 const EventCardTitle = styled.h3`
   color: ${({ theme }) => theme.primary};
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  width: 90%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 100%;
   margin-bottom: 0rem;
 `

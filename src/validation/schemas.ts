@@ -1,76 +1,82 @@
 import * as yup from 'yup'
 
-const personalDetailsSchema = {
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  user_email: yup.string().required('Email is required'),
+export const personalDetailsSchema = {
+  firstName: yup.string().required('errors.firstname'),
+  lastName: yup.string().required('errors.lastname'),
+  user_email: yup.string().required('errors.email'),
 }
 export const memberSchema = yup.object().shape({
   ...personalDetailsSchema,
-  home_address: yup.string().required('Address is required'),
-  birthDate: yup.date().required('Birth of Date is required')
-    .typeError('Birth of Date is required'),
-  nif: yup.string().required('ID is required').typeError('ID must be a number'),
-  terms: yup.boolean().typeError('You must accept the terms and conditions'),
-  membership: yup.boolean().typeError('You must accept the membership'),
-  phone: yup.string().required('Phone is required')
+  home_address: yup.string().required('errors.address'),
+  birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
+  membership: yup.boolean().typeError('errors.membership').oneOf([true], 'errors.membership'),
+  phone: yup.string().required('errors.phone'),
+  amount: yup.number().required('errors.amount'),
 }).required()
 
 export const buyCourseTicketSchema = yup.object({
   ...personalDetailsSchema,
-  mobilePhone: yup.string().required('Mobile phone is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+  mobilePhone: yup.string().required('errors.phone'),
+  terms: yup.boolean().oneOf([true], 'errors.privacypolicy'),
 })
 
 export const buyTicketSchema = yup.object({
   ...personalDetailsSchema,
-  mobilePhone: yup.string().required('Mobile phone is required'),
-  terms_and_conditions: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
+  mobilePhone: yup.string().required('errors.phone'),
+  terms_and_conditions: yup.boolean().oneOf([true], 'errors.privacypolicy'),
   tickets: yup.array().of(yup.object({
-    amount: yup.number().required('Amount is required'),
-    id: yup.string().required('Ticket id is required'),
-  })).required('Tickets are required'),
+    amount: yup.number().required('errors.amount'),
+    id: yup.string().required('errors.ticket'),
+  })).required('errors.ticket'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  image_rights: yup.boolean().oneOf([true], 'errors.image_rights'),
+  newsletter: yup.boolean().oneOf([true], 'errors.newsletter'),
 
 })
 
 export const buyProductSchema = yup.object({
   ...personalDetailsSchema,
-  home_address: yup.string().required('Address is required'),
-  productAmount: yup.number().typeError('please enter an amount').required(),
-  city: yup.string().required('City is required'),
-  country: yup.string().required('Country is required'),
-  nif: yup.string().required('DNI is required'),
-  cp: yup.number().typeError('CP is required').required(),
-  mobile_phone: yup.string().required('Phone is required'),
-  birthDate: yup.date().typeError('date of birth is required').required(),
-  privacy_policy: yup.boolean().isTrue('You must accept the privacy policy').required(),
+  home_address: yup.string().required('errors.address'),
+  productAmount: yup.number().typeError('errors.amount').required(),
+  city: yup.string().required('errors.city'),
+  country: yup.string().required('errors.country'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  cp: yup.number().typeError('errors.cp').required(),
+  mobile_phone: yup.string().required('errors.phone'),
+  birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
+
+  privacy_policy: yup.boolean().isTrue('errors.privacypolicy').required(),
 })
 
 export const contactEventSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  email: yup.string().required('Email is required'),
-  text: yup.string().required('Message is required'),
+  name: yup.string().required('errors.name'),
+  email: yup.string().required('errors.email'),
+  text: yup.string().required('errors.message'),
 }).required()
 
 export const contactSchema = yup.object({
-  name: yup.string().required('Name is required'),
-  lastName: yup.string().required('Last Name is required'),
-  email: yup.string().required('Email is required').email('Invalid email'),
-  subject: yup.string().required('Subject is required'),
-  message: yup.string().required('Message is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions')
+  name: yup.string().required('errors.firstname'),
+  lastName: yup.string().required('errors.lastname'),
+  email: yup.string().required('errors.email').email('errors.invalid_email'),
+  subject: yup.string().required('errors.subject'),
+  message: yup.string().required('errors.message'),
+  terms: yup.boolean().oneOf([true], 'errors.privacypolicy')
 })
 
 export const donationSchema = yup.object({
   ...personalDetailsSchema,
-  home_address: yup.string().required('Address is required'),
-  nif: yup.string().required('ID is required').typeError('ID must be a number'),
-  terms: yup.boolean().required('You must accept the terms and conditions'),
-  amount: yup.number().required('Amount is required').typeError('Amount must be a number'),
-  text: yup.string()
+  home_address: yup.string().required('errors.address'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  terms: yup.boolean().required('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
+  amount: yup.number().required('errors.amount').typeError('errors.amount'),
+  text: yup.string(),
+  birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
+
 })
 
 export const volunteerSchema = yup.object().shape({
   ...personalDetailsSchema,
-  home_address: yup.string().required('Address is required'),
+  message: yup.string().required('errors.message'),
 }).required()

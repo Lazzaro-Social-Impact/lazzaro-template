@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
@@ -15,19 +15,24 @@ function SingleEvent(): ReactElement {
   const isCourse = pathname.startsWith('/courses')
   const { id } = useParams() as { id: string }
   const { data: event, isLoading } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} />
+        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} isEvent={isEvent} />
         <OtherEvents>
           {isLoading && <Skeleton number={1} height={22} width={26} />}
 
           {isEvent
-            && event?.course === false && <EventCard {...event} key={event?.id} />}
+            && event?.course === false && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
 
           {isCourse
-            && event?.course && <EventCard {...event} key={event?.id} />}
+            && event?.course && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
         </OtherEvents>
       </Container>
       <Footer />
@@ -42,7 +47,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   padding: 0 4.2rem;
-  gap: 4.2rem;
+  gap: 2.4rem;
   margin-top: 3.2rem;
 
   @media screen and (max-width: 768px) {
@@ -54,9 +59,6 @@ const Container = styled.div`
 const OtherEvents = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0.3;
-  height: 75rem;
-  gap: 1.2rem;
-  overflow-y: auto;
-  padding-inline: 1rem;
+  flex: 1;
+  width: 100%;
 `

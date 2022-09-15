@@ -3,19 +3,21 @@ import type { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
-  Button, Center, Flex, Input
+  Button, Center, Input
 } from '../common'
 import HandleResponse from '../common/HandleResponse'
-import { useAppSelector, usePostData } from '../../hooks'
+import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
-import { CustomInputDiv } from '../common/CustomInput'
+import PrivacyPolicy from '../common/PrivacyPolicy'
+import { CustomDatePicker, CustomDropdown, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
+import { FormRow } from '../common/FormRow'
 
 type TMemberSubmitForm = {
   firstName: string;
@@ -27,35 +29,26 @@ type TMemberSubmitForm = {
   terms: boolean;
   membership: boolean;
   phone: string;
+  amount: number;
 };
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { t } = useTranslation()
+
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
+    register, handleSubmit, control, formState: { errors }
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
-    isLoading, isSuccess, isError, mutateAsync
-  } = usePostData<
-    { data: string },
-    TMemberSubmitForm
-  >(getBecomePartnerUrl())
-
-  const onSubmit = async (data: TMemberSubmitForm) => {
+    submit, isError, isLoading, isSuccess
+  } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: false })
+  const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
-      amount: 1, // TODO: Ask Ivan about this
       ong_id: ongId,
     }
-    const {
-      data: { data: payPalLink },
-    } = await mutateAsync(formData)
-
-    window.open(payPalLink, '_blank')
+    submit(formData)
   }
   return (
     <>
@@ -67,42 +60,56 @@ export default function BecomeMemberForm(): ReactElement {
             isLoading={isLoading}
             isSuccess={isSuccess}
             isError={isError}
-            successMsg="Please navigate to PayPal to complete the payment"
-            errorMsg="Something went wrong, please try again later"
+            successMsg={t('success.paypal_navigate')}
+            errorMsg={t('fail.message')}
             successId="success-become-member"
             errorId="error-become-member"
           />
-          <FormTitle>Membership registration</FormTitle>
+          <FormTitle>{t('membership.title')}</FormTitle>
           <FormSubtitle>
-            We are delighted to have you as a member, but in order to complete your membership, we
-            need some information from you.
+            {t('membership.subtitle')}
           </FormSubtitle>
+          <RadioQuestion style={{ fontWeight: 'bold' }}>{t('membership.amount_label')}
+          </RadioQuestion>
           <FormRow>
-            <Flex>
-              <Input placeholder="Name" {...register('firstName')} />
-              <ErrorInput msg={errors.firstName?.message} mt={0.4} />
-            </Flex>
-            <Flex>
-              <Input placeholder="Surname" {...register('lastName')} />
-              <ErrorInput msg={errors.lastName?.message} mt={0.4} />
-            </Flex>
+            <CustomDropdown
+              {...register('amount')}
+            >
+              <option>{t('membership.quantity')}</option>
+              <option
+                value="10"
+              >{t('membership.annual_fee')} (€10)
+              </option>
+            </CustomDropdown>
           </FormRow>
-          <FormRow>
-            <Flex>
-              <Input type="number" placeholder="DNI/NIF/Passport" {...register('nif')} />
-              <ErrorInput msg={errors.nif?.message} mt={0.4} />
-            </Flex>
-            <Flex>
-              <Input placeholder="Phone" {...register('phone')} />
-              <ErrorInput msg={errors.phone?.message} mt={0.4} />
-            </Flex>
-          </FormRow>
-          <FormRow>
-            <Flex>
-              <Input placeholder="Email" {...register('user_email')} />
-              <ErrorInput msg={errors.user_email?.message} mt={0.4} />
-            </Flex>
+          {errors.amount?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
 
+          <RadioQuestion style={{ fontWeight: 'bold' }}>Personal Information</RadioQuestion>
+          <FormRow>
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
+              {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} mt={0.4} /> }
+            </CustomInputDiv>
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.lastname')} {...register('lastName')} />
+              {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} mt={0.4} />}
+            </CustomInputDiv>
+          </FormRow>
+          <FormRow>
+            <CustomInputDiv>
+              <Input type="number" placeholder={t('placeholders.ID')} {...register('nif')} />
+              {errors.nif?.message && <ErrorInput msg={t('errors.ID')} mt={0.4} />}
+            </CustomInputDiv>
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.phone')} {...register('phone')} />
+              {errors.phone?.message && <ErrorInput msg={t('errors.phone')} mt={0.4} /> }
+            </CustomInputDiv>
+          </FormRow>
+          <FormRow>
+            <CustomInputDiv>
+              <Input placeholder={t('placeholders.email')} {...register('user_email')} />
+              {errors.user_email?.message && <ErrorInput msg={t('errors.email')} mt={0.4} /> }
+            </CustomInputDiv>
             <CustomInputDiv>
               <Controller
                 control={control}
@@ -110,45 +117,51 @@ export default function BecomeMemberForm(): ReactElement {
                 render={({ field }: any) => (
                   <CustomDatePicker
                     name="birthDate"
-                    placeholderText="Birth of Date"
+                    placeholderText={t('placeholders.dob')}
                     selected={field.value}
                     onChange={(date: Date) => field.onChange(date)}
-                    dateFormat="yyyy-MM-dd"
+                    dateFormat="dd/MM/yyyy"
                     autoComplete="off"
+                    dropdownMode="select"
+                    showYearDropdown
+                    showMonthDropdown
                   />
                 )}
               />
-              <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
+              {errors.birthDate?.message && <ErrorInput msg={t('errors.dob')} mt={0.4} /> }
             </CustomInputDiv>
           </FormRow>
           <Input
-            placeholder="Address (street, city and postal code)"
+            placeholder={t('placeholders.address')}
             {...register('home_address')}
           />
-          <ErrorInput msg={errors.home_address?.message} mt={0.4} />
-
-          <RadioQuestion>I have read and accepted the NGOs privacy policy.</RadioQuestion>
+          {errors.home_address?.message && <ErrorInput msg={t('errors.address')} mt={0.4} /> }
+          <br />
+          <br />
+          <div>
+            <PrivacyPolicy style={RadioQuestionStyle} />?
+          </div>
           <Radio.Group {...register('terms')}>
-            <CustomRadio style={{ marginTop: '1.2rem' }} value>
-              I accept
+            <CustomRadio value>
+              {t('I accept')}
             </CustomRadio>
             <CustomRadio value={false}>
-              I dont accept (in this case, we will not be able to process your membership)
+              {t('membership.dont_accept_membership')}
             </CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.terms?.message} mt={0.4} />
+          {errors.terms?.message && <ErrorInput msg={t('errors.privacypolicy')} mt={0.4} /> }
 
           <RadioQuestion>
-            Would you like us to process your registration as a member of the NGO?
+            {t('membership.question')}
           </RadioQuestion>
           <Radio.Group {...register('membership')}>
-            <CustomRadio value>Yes</CustomRadio>
-            <CustomRadio value={false}>No</CustomRadio>
+            <CustomRadio value>{t('yes')}</CustomRadio>
+            <CustomRadio value={false}>{t('no')}</CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.membership?.message} mt={0.4} />
+          {errors.membership?.message && <ErrorInput msg={t('errors.membership')} mt={0.4} /> }
 
           <Center>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">{t('send')}</Button>
           </Center>
         </Form>
       </Container>
@@ -166,8 +179,8 @@ const Container = styled.div`
 `
 
 const Form = styled.form`
-  padding-inline: 5.2rem;
   margin-block: 3.4rem;
+  width: 60%;
 `
 
 const FormTitle = styled.h1`
@@ -182,21 +195,19 @@ const FormSubtitle = styled.p`
   margin: 2.8rem 0;
 `
 
-const FormRow = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
-`
+const RadioQuestionStyle = {
+  color: '#8c8c8c',
+  letterSpacing: '1.2px',
+  marginTop: '1.8rem',
+  marginBottom: '0',
+  fontSize: '1rem'
+}
 
 const RadioQuestion = styled.p`
-  color: #8c8c8c;
-  letter-spacing: 1.2px;
-  margin-top: 1.8rem;
-  margin-bottom: 0;
-  font-size: 1rem;
+  ${RadioQuestionStyle}
 `
 
-const CustomRadio = styled(Radio)`
+export const CustomRadio = styled(Radio)`
   display: block;
   span {
     font-weight: 600;
@@ -207,42 +218,5 @@ const CustomRadio = styled(Radio)`
   }
   .ant-radio-inner::after {
     background-color: ${({ theme }) => theme.primary} !important;
-  }
-`
-
-const CustomDatePicker = styled(DatePicker)`
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  align-self: flex-start;
-  box-shadow: ${({ theme }) => theme.primary};
-  box-sizing: border-box !important;
-  font-family: inherit;
-  overflow: visible;
-  margin: 0;
-  font-variant: tabular-nums;
-  list-style: none;
-  font-feature-settings: 'tnum';
-  position: relative;
-  display: inline-block;
-  min-width: 0;
-  padding: 9.5px 11px;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 14px;
-  line-height: 1.5715;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #d9d9d9;
-  border-radius: 2px;
-  transition: all 0.3s;
-  -webkit-appearance: none;
-  touch-action: manipulation;
-  text-overflow: ellipsis;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.7rem;
-
-  &:focus {
-    outline: none;
-    box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
   }
 `

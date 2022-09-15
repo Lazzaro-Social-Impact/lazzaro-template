@@ -11,6 +11,7 @@ interface IProps {
   right?: TRight;
   bottom?: TBottom;
   text?: string;
+  zIndex?: TzIndex;
 }
 
 const Bookmark: FC<IProps> = (props) => {
@@ -57,6 +58,7 @@ const Wrapper = styled.div<Omit<IProps, 'style'>>`
   right: ${({ right }) => getProp(right)};
   bottom: ${({ bottom }) => getProp(bottom)};
   stroke: ${({ theme }) => theme.primary};
+  z-index: ${({ zIndex }) => zIndex};
 
   @media (max-width: 565px) {
     width: 65px;
@@ -82,6 +84,7 @@ Bookmark.defaultProps = {
   bottom: 'initial',
   color: '',
   text: '',
+  zIndex: '0',
 
 }
 export default Bookmark

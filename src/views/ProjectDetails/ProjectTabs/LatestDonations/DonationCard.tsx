@@ -9,13 +9,19 @@ interface IProps {
 }
 const formatDate = (date: string) => moment(date).format('MM Do YYYY')
 
-const DonationCard:FC<IProps> = ({ donation }) => (
+const DonationCard: FC<IProps> = ({ donation }) => (
   <Section key={donation.id}>
     <Flex>
       <Text fontSize={1.2}>
         {donation.anonymous ? 'anonymous' : `${donation.User.firstName} ${donation.User.lastName}`}
       </Text>
-      <Text textAlign="right">${donation.amount}</Text>
+      <a
+        href={`https://blkexplorer1.telsius.alastria.io/transaction/${donation.Payment.tx}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        ${donation.amount}
+      </a>
     </Flex>
 
     <Text fontSize={0.7} lineHeight={0} textAlign="left" color="#777777" mt={-1.5}>

@@ -34,7 +34,7 @@ const Icons = styled.div`
   margin-top: 1.2rem;
   padding-bottom: 3.2rem;
   svg {
-    font-size: 5.2rem;
+    font-size: 4.2rem;
     fill: ${({ theme }) => theme.primary};
     transition: all 0.3s ease-in-out;
     cursor: pointer;

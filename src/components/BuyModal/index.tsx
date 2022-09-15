@@ -1,5 +1,6 @@
 import { Modal as AntdModal } from 'antd'
 import { type ReactElement, useState } from 'react'
+import styled from 'styled-components'
 import { Button } from '../common'
 
 interface IProps {
@@ -26,9 +27,9 @@ function Modal(props:IProps) {
 
   return (
     <>
-      <Button px="2.8rem" onClick={showModal}>{btnText}</Button>
+      <Button px={2} py={1.1} onClick={showModal}>{btnText}</Button>
 
-      <AntdModal
+      <CustomModal
         visible={visible}
         title={title}
         footer={null}
@@ -36,11 +37,16 @@ function Modal(props:IProps) {
         onCancel={handleCancel}
       >
         {children}
-      </AntdModal>
+      </CustomModal>
     </>
   )
 }
 
+const CustomModal = styled(AntdModal)`
+@media screen and (max-width: 768px) {
+  width: 80% !important;
+}
+`
 Modal.defaultProps = {
   width: '50%',
   title: '',

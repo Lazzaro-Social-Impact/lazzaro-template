@@ -4,33 +4,35 @@ enum ACTIONS {
   'SET_LINK_LANG_TEXT' = 'SET_LINK_LANG_TEXT',
 }
 
+type TLanguage = 'en' | 'es';
+
 type TActions = {
   type: keyof typeof ACTIONS;
-  payload: void | boolean | 'en' | 'es';
+  payload: boolean | TLanguage;
 };
 
 type TState = {
-  isDrawerVisible: boolean,
-  langLinkText: 'en' | 'es',
-}
+  isDrawerVisible: boolean;
+  langLinkText: TLanguage;
+};
 
-export const initialState:TState = {
+export const initialState: TState = {
   isDrawerVisible: false,
-  langLinkText: 'es'
+  langLinkText: (localStorage.getItem('lang') as TLanguage) || 'es',
 }
 
-const navbarReducer = (state: TState, action: TActions):TState => {
+const navbarReducer = (state: TState, action: TActions): TState => {
   switch (action.type) {
     case ACTIONS.SET_DRAWER_VISIBILITY:
       return {
         ...state,
-        isDrawerVisible: action.payload as boolean || false,
+        isDrawerVisible: action.payload as boolean,
       }
 
     case ACTIONS.SET_LINK_LANG_TEXT:
       return {
         ...state,
-        langLinkText: action.payload as 'en' | 'es' || 'es',
+        langLinkText: action.payload as TLanguage,
       }
 
     default:

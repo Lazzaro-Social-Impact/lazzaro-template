@@ -29,9 +29,9 @@ export default function Projects(): ReactElement {
     <section id="causes">
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
-      <Carousel arrows>
+      <CustomCarousel arrows>
         {memoizedProjects}
-      </Carousel>
+      </CustomCarousel>
     </section>
   )
 }
@@ -47,4 +47,11 @@ const Grid = styled.div`
     gap: 1rem;
     padding-inline: 2rem;
   }
+`
+
+const CustomCarousel = styled(Carousel)`
+ .anticon.anticon-arrow-right.slick-arrow.slick-next:focus,
+ .anticon.anticon-arrow-left.slick-arrow.slick-prev:focus {
+  color: ${({ theme }) => theme.secondary};
+}
 `

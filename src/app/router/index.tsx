@@ -6,9 +6,12 @@ import { useAppSelector } from '../../hooks'
 import getRoutes from './routes'
 
 export default function AllRoute() {
-  const { features } = useAppSelector(({ ong }) => ong.ongConfig) || {}
+  const { features, isStripe } = useAppSelector(({ ong }) => ({
+    features: ong.ongConfig?.features || {} as TFeatures,
+    isStripe: ong.ongConfig?.platformConfig.payment_method === 'stripe',
+  }))
 
-  const ROUTES = useMemo(() => getRoutes(features), [features])
+  const ROUTES = useMemo(() => getRoutes({ features, isStripe }), [features, isStripe])
 
   const MEMOIZED_ROUTES = useMemo(() => ROUTES.map(
     ({ path, render, Element }) => render && <Route key={path} path={path} element={<Element />} />
