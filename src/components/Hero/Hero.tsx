@@ -5,10 +5,14 @@ import { useAppSelector } from '../../hooks'
 import { Button, Flex } from '../common'
 
 interface IProps {
-  heroImage: string;
+  heroImage?: string;
+  noBtns?: boolean;
+
 }
 
-function Hero() {
+type IHero = Omit<IProps, 'heroImage'>
+
+function Hero({ noBtns }:IHero) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { heroImage = '', textHeader, textSubHeader } = useAppSelector((state) => ({
@@ -25,10 +29,14 @@ function Hero() {
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
-          <Button color="white" onClick={() => navigate('/donate')}> {t('Donate')} </Button>
-          <Button hoverBgColor={primary} bgColor={secondary} onClick={() => navigate('/partners')}>
-            {t('Become a member')}
-          </Button>
+          {!noBtns && (
+          <>
+            <Button color="white" fontSize={0.9} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+            <Button hoverBgColor={primary} fontSize={0.9} bgColor={secondary} onClick={() => navigate('/partners')}>
+              {t('Become a member')}
+            </Button>
+          </>
+          )}
         </Flex>
       </HeroSection>
     </>
@@ -53,7 +61,7 @@ const SubTitle = styled.h2`
   font-weight: bold;
   color: #fff;
   margin-bottom: 1.2rem;
-  width: 35%;
+  width: 50%;
   text-align: center;
 `
 const Title = styled.h2`
@@ -61,11 +69,14 @@ const Title = styled.h2`
   font-size: 2.5rem;
   text-align: center;
   font-weight: bold;
-  width: 25%;
+  width: 40%;
 
   @media (max-width: 765px) {
     width: 60%;
   }
 `
 
+Hero.defaultProps = {
+  noBtns: false,
+}
 export default Hero

@@ -1,15 +1,20 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { Radio } from 'antd'
 import {
-  Button, Center, Input, TextArea
+  Button, Center, Input
 } from '../common'
 import Label from '../common/Label'
 import HandleResponse from '../common/HandleResponse'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { DonateSubmitForm } from '../../types/interfaces'
 import { donationSchema } from '../../validation/schemas'
+import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/CustomInput'
+import PrivacyPolicy from '../common/PrivacyPolicy'
+import { CustomRadio } from './BecomeMemberForm'
+import { FormRow } from '../common/FormRow'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -18,117 +23,145 @@ interface IProps {
     isLoading: boolean;
     isError: boolean;
     isSuccess: boolean;
-  }
+  };
+  modal?: boolean;
 }
 
-function DonateForm({ projectId, submitHandler, states }: IProps) {
+function DonateForm({
+  projectId, submitHandler, states, modal
+}: IProps) {
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, control, formState: { errors }
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
 
+  const { t } = useTranslation()
   return (
-    <CustomForm onSubmit={handleSubmit(submitHandler)}>
+    <CustomForm
+      style={{ width: modal ? '100%' : '60%' }}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <HandleResponse
         {...states}
-        successMsg="Your request has been sent successfully"
-        errorMsg="Something went wrong, please try again"
+        successMsg={t('success.paypal_navigate')}
+        errorMsg={t('fail.error')}
         successId={`${projectId}-form-success`}
         errorId={`${projectId}-form-error`}
       />
       <FormControl mb={0}>
-        <Label htmlFor="amount">You donation</Label>
+        <Label htmlFor="amount">{t('your_donation')}</Label>
       </FormControl>
-      <FormControl>
+      <CustomInputDiv>
         <Input
           type="number"
-          placeholder="Please enter the amount of your donation"
+          placeholder={t('placeholders.amount')}
           {...register('amount')}
         />
-        <ErrorMsg msg={errors.amount?.message} />
+        {errors.amount?.message && <ErrorMsg msg={t('errors.amount')} />}
+      </CustomInputDiv>
+
+      <FormControl mt={1.8} mb={0}>
+        <Label htmlFor="amount">{t('details')}</Label>
       </FormControl>
 
-      <FormControl mb={0}>
-        <Label htmlFor="amount">Details</Label>
-      </FormControl>
+      <FormRow>
 
-      <FormControl mode="row">
-        <Input type="text" placeholder="Name" {...register('firstName')} />
-        <Input type="text" placeholder="Surname" {...register('lastName')} />
-      </FormControl>
+        <CustomInputDiv>
+          <Input type="text" placeholder={t('placeholders.firstname')} {...register('firstName')} />
+          {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} />}
+        </CustomInputDiv>
 
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.firstName?.message} />
-        <ErrorMsg msg={errors.lastName?.message} />
-      </FormControl>
+        <CustomInputDiv>
+          <Input type="text" placeholder={t('placeholders.lastname')} {...register('lastName')} />
+          {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
+        </CustomInputDiv>
+      </FormRow>
+      <FormRow>
+        <CustomInputDiv>
+          <Input type="email" placeholder={t('placeholders.email')} {...register('user_email')} />
+          {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} />}
+        </CustomInputDiv>
 
-      <FormControl mode="row">
-        <Input type="email" placeholder="Email" {...register('user_email')} />
-        <Input type="text" placeholder="Address" {...register('home_address')} />
-      </FormControl>
+        <CustomInputDiv>
+          <Input type="text" placeholder={t('placeholders.address')} {...register('home_address')} />
+          {errors.home_address?.message && <ErrorMsg msg={t('errors.address')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.home_address?.message} />
-      </FormControl>
+      <FormRow>
+        <CustomInputDiv>
+          <Input
+            type="text"
+            placeholder={t('placeholders.ID')}
+            {...register('nif')}
+          />
+          {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
+        </CustomInputDiv>
+        <CustomInputDiv>
+          <Controller
+            control={control}
+            name="birthDate"
+            render={({ field }: any) => (
+              <CustomDatePicker
+                name="birthDate"
+                placeholderText={t('placeholders.dob')}
+                selected={field.value}
+                onChange={(date: Date) => field.onChange(date)}
+                dateFormat="dd/MM/yyyy"
+                autoComplete="off"
+                dropdownMode="select"
+                showYearDropdown
+                showMonthDropdown
+              />
+            )}
+          />
+          {errors.birthDate?.message && <ErrorMsg msg={t('errors.dob')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-      <FormControl mode="row">
-        <Input type="text" placeholder="DNI" {...register('nif')} />
-        <Input type="text" placeholder="Date of birth" {...register('birthDate')} />
-      </FormControl>
-
-      <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.nif?.message} />
-        <ErrorMsg msg={errors.birthDate?.message} />
-      </FormControl>
-
-      <FormControl>
-        <TextArea rows={4} placeholder="Message" {...register('text')} />
-      </FormControl>
+      <FormRow>
+        <CustomTextArea rows={4} placeholder={t('placeholders.message')} {...register('text')} />
+      </FormRow>
 
       {projectId && (
         <>
-          <FormControl>
-            <Label>What you want your donation to look like?</Label>
+
+          <FormControl mt={2.4}>
+            <Label>{t('donation_publicity.question')}</Label>
           </FormControl>
 
-          <FormControl mode="row" justify="start" mb={0}>
-            <RadioBtn type="radio" defaultChecked {...register('anonymous')} />
-            <Label color="#777777">Public donation</Label>
-          </FormControl>
-
-          <FormControl mode="row" justify="start" mb={0}>
-            <RadioBtn type="radio" {...register('anonymous')} />
-            <Label color="#777777">Anonymous donation</Label>
-          </FormControl>
+          <Radio.Group {...register('anonymous')}>
+            <CustomRadio value={false}>
+              {t('donation_publicity.public')}
+            </CustomRadio>
+            <CustomRadio value>
+              {t('donation_publicity.anonymous')}
+            </CustomRadio>
+          </Radio.Group>
         </>
       )}
 
       <FormControl mt={1.5}>
-        <Label>Would you like to receive a donation certificate?</Label>
+        <Label>{t('Certificate question')}</Label>
       </FormControl>
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn type="radio" defaultChecked {...register('certificate')} />
-        <Label color="#777777">Yes</Label>
-      </FormControl>
-
-      <FormControl mode="row" justify="start" mb={0}>
-        <RadioBtn type="radio" {...register('certificate')} />
-        <Label color="#777777">No</Label>
-      </FormControl>
+      <Radio.Group {...register('certificate')}>
+        <CustomRadio value>
+          {t('yes')}
+        </CustomRadio>
+        <CustomRadio value={false}>
+          {t('no')}
+        </CustomRadio>
+      </Radio.Group>
 
       <FormControl mode="row" justify="start" mt={2}>
         <input type="checkbox" {...register('terms')} />
-        <Label color="#777777">
-          I agree to the <Link to="/terms_and_conditions">Privacy policy</Link>
-        </Label>
-
-        <ErrorMsg msg={errors.terms?.message} />
+        <PrivacyPolicy />
       </FormControl>
+      {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
 
       <Center>
 
-        <Button type="submit" aria-label="submit">
-          Donate
+        <Button fontSize={0.9} mt="1.2rem" type="submit" aria-label="submit">
+          {t('Donate')}
         </Button>
       </Center>
     </CustomForm>
@@ -145,6 +178,10 @@ interface IFormControlProps {
 
 const CustomForm = styled.form`
   padding: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+  }
 `
 
 const FormControl = styled.div<IFormControlProps>`
@@ -157,13 +194,14 @@ const FormControl = styled.div<IFormControlProps>`
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `
 
-const RadioBtn = styled.input`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin-left: 1.5rem;
-`
+// const RadioBtn = styled.input`
+//   border: none;
+//   outline: none;
+//   cursor: pointer;
+//   margin-left: 1.5rem;
+// `
 
 DonateForm.defaultProps = {
   projectId: '',
+  modal: false
 }

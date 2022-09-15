@@ -8,6 +8,7 @@ declare global {
     market: boolean;
     partners: boolean;
     volunteers: boolean;
+    logos: boolean;
   }>;
 
   type TBrand = Readonly<{
@@ -58,6 +59,7 @@ declare global {
     language: string;
     powered_by_lazzaro: boolean;
     url: string;
+    payment_method: 'paypal' | 'stripe';
   }>;
 
   type TRrss = Readonly<{

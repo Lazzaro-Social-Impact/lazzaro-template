@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { IMember } from '../../../types/interfaces'
 import { Card } from '../../common'
+import { LazyImageComponent } from '../../common/LazyImage'
 
 export function VolunteerCard({
   name,
@@ -12,24 +13,26 @@ export function VolunteerCard({
 }: IMember): ReactElement<IMember> {
   return (
     <CustomCard mode="column" smMode="column" pb={1.5} textAlign="center">
-      <VolunteerImage src={imgUrl} alt="Volunteer" />
+      <ImageContainer>
+        <LazyImageComponent
+          effect="blur"
+          src={imgUrl}
+          alt="Volunteer"
+          placeholderSrc={imgUrl}
+        />
+      </ImageContainer>
       <VolunteerName>{name}</VolunteerName>
       <VolunteerPosition>{position}</VolunteerPosition>
       <LinkedinIcon onClick={() => window.open(linkedin)} />
     </CustomCard>
   )
 }
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  `
 
-const VolunteerImage = styled.img`
-  height: 180px;
-  object-fit: cover;
-  object-position: center;
-
-  @media screen and (max-width: 768px) {
-    width: 100% !important;
-    height: auto;
-  }
-`
 const VolunteerName = styled.p`
   font-size: 1.1rem;
   margin-top: 1.2rem;
@@ -51,7 +54,7 @@ justify-content: space-between;
 }
 
 @media screen and (max-width: 420px) {
-  height: 150px;
+  height: 250px;
 }
 
 `
@@ -64,5 +67,10 @@ const LinkedinIcon = styled(LinkedinFilled)`
 
   &:hover {
     color: ${({ theme }) => theme.primary};
+  }
+  
+  @media screen and (max-width: 768px) {
+    display: inline-block !important;
+
   }
 `

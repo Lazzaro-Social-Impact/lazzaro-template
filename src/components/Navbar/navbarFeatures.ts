@@ -1,6 +1,6 @@
 type TNavbarFeatures = {
   [feat in keyof Pick<TFeatures, 'causes' | 'events' | 'courses' | 'market'> ]: feat extends 'market'
-    ? { link: '/shop'; text: 'Shop' }
+    ? { link: '/shop'; text: 'Store' }
     : { link: `/#${feat}`; text: `${Capitalize<feat>}` };
 };
 
@@ -19,7 +19,7 @@ const NavbarFeatures: TNavbarFeatures = {
   },
   market: {
     link: '/shop',
-    text: 'Shop',
+    text: 'Store',
   },
 
 }

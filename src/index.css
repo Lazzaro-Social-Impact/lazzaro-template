@@ -10,6 +10,11 @@ html {
   scroll-behavior: smooth;
 }
 
+ .anticon.anticon-arrow-right.slick-arrow.slick-next:focus,
+ .anticon.anticon-arrow-left.slick-arrow.slick-prev:focus {
+  color: rgba(0, 0, 0, 0.65);
+}
+
 @media screen and (max-width: 962px) {
   html {
     font-size: 65%;
@@ -26,6 +31,10 @@ html {
   .ant-carousel .slick-slide img {
     width: 80px;
   }
+
+  .anticon.anticon-arrow-right.slick-arrow.slick-next {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 420px) {
@@ -35,6 +44,15 @@ html {
   .ant-carousel .slick-slide img {
     width: 65px;
   }
+
+}
+
+.pointer {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.pointer:hover {
+  color: #7a7a7a;
 }
 
 
@@ -44,3 +62,12 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+/* 
+* {
+  border: 1px red solid;
+} */
+
+.ant-scrolling-effect {
+  overflow: initial !important;
+}
+

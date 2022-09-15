@@ -1,14 +1,16 @@
-import { ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { type ReactElement } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import {
-  ReadMore, Text, Image, Flex
+  Text, Flex, Link
 } from '../../common'
 import DonateForm from '../../Forms/DonateForm'
 import DonateModal from '../../BuyModal'
-import { useAppSelector, usePostData } from '../../../hooks'
+import { useAppSelector, useFormSubmit } from '../../../hooks'
 import { getStartProjectDonationUrl } from '../../../api/postApiServices'
 import { DonateSubmitForm } from '../../../types/interfaces'
+import { LazyImageComponent } from '../../common/LazyImage'
 
 interface ProjectProps {
   imageURL: string;
@@ -17,38 +19,43 @@ interface ProjectProps {
 }
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const navigate = useNavigate()
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const navigateTo = (path: `causes/${string}`) => () => navigate(path)
+  const {
+    submit, ...states
+  } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
 
-  const { mutateAsync, ...states } = usePostData<{ data: string }, DonateSubmitForm>(
-    getStartProjectDonationUrl(ongId)
-  )
+  const { t } = useTranslation()
+  const handleSubmit = (values: DonateSubmitForm) => {
+    const donationInfo = {
+      ...values,
+      ong_id: ongId,
+      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
+    }
 
-  const handleSubmit = async (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, ong_id: ongId }
-
-    const {
-      data: { data: paypal },
-    } = await mutateAsync(donationInfo)
-
-    window.open(paypal, '_blank')
+    submit(donationInfo)
   }
 
   return (
     <ProjectCard>
-      <Image src={imageURL} alt="" />
-      <Text fontSize={1.1} px={1} color="white">
+      <LazyImageComponent
+        width="100%"
+        height="100%"
+        src={imageURL}
+        alt={title}
+        effect="blur"
+        placeholderSrc={imageURL}
+      />
+      <Text zIndex="1" fontSize={1.1} px={1} color="white">
         {title}
       </Text>
 
       <ProjectFooter>
-        <ReadMore fontSize={1} onClick={navigateTo(`causes/${id}`)}>
-          Read more
-        </ReadMore>
+        <Link size={1} to={`causes/${id}`} underlined>
+          {t('Read More')}
+        </Link>
 
-        <DonateModal btnText="Donate" title={`Donate to ${title}`}>
-          <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />
+        <DonateModal btnText={t('Donate')} title={`Donate to ${title}`}>
+          <DonateForm modal projectId={id} submitHandler={handleSubmit} states={states} />
         </DonateModal>
       </ProjectFooter>
     </ProjectCard>
@@ -64,6 +71,10 @@ const ProjectCard = styled(Flex)`
   justify-content: flex-end;
   align-items: stretch;
   text-align: left;
+  .lazy-load-image-background.blur.lazy-load-image-loaded {
+    position: absolute;
+    width: 100% !important;
+  }
 
   img {
     position: absolute;

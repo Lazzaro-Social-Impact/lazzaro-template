@@ -3,7 +3,7 @@ import { getProp } from '../../utils'
 
 interface IProps {
   fontSize?: TFontSize;
-  hoverColor?: TColor;
+  hovercolor?: TColor;
   color?: TColor;
   textAlign?: TTextAlign;
 }
@@ -16,14 +16,14 @@ const ReadMore = styled.a<IProps>`
   color: ${({ color, theme }) => color || theme.primary};
 
   &:hover {
-    color: ${({ hoverColor }) => hoverColor};
+    color: ${({ hovercolor }) => hovercolor};
     text-decoration: underline;
   }
 `
 
 ReadMore.defaultProps = {
   fontSize: 'inherit',
-  hoverColor: 'white',
+  hovercolor: 'white',
 }
 
 export default ReadMore

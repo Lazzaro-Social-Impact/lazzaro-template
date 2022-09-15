@@ -1,20 +1,32 @@
 import { useMemo } from 'react'
 import styled from 'styled-components'
-import { Carousel, Image } from '../../components/common'
+import { Carousel } from '../../components/common'
+import { LazyImageComponent } from '../../components/common/LazyImage'
+import Skeleton from '../../components/Skeleton'
 
 interface IProps {
   images: {
     id: string;
     img_url: string;
   }[];
+  isLoading: boolean;
 }
 
-function ImageCarousel({ images }: IProps) {
+function ImageCarousel({ images, isLoading }: IProps) {
   const memoizedImages = useMemo(() => images.map(({ id, img_url: imgUrl }) => (
     <ImageWrapper key={id}>
-      <Image src={imgUrl} alt="project" />
+      <LazyImageComponent
+        effect="blur"
+        src={imgUrl}
+        alt="project"
+        placeholderSrc={imgUrl}
+        width="100%"
+        height="100%"
+      />
     </ImageWrapper>
   )), [images])
+
+  if (isLoading) return <Skeleton number={1} width={130} height={40} px={0} mt={0} />
 
   return (
     <Section>

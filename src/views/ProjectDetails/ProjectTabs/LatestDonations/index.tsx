@@ -8,7 +8,7 @@ import Skeleton from '../../../../components/Skeleton'
 import DonationCard from './DonationCard'
 
 interface IProps {
-  title: 'Latest Donations' | 'Historical';
+  title: 'Latest Donations' | 'Historical' | string;
   projectId: string;
 }
 
@@ -24,11 +24,19 @@ function LatestDonations({ title, projectId }: IProps) {
     [donations]
   )
 
+  const noDonations = !donations?.length
+
   return (
     <Container>
       <Text weight="bold" fontSize={2} textAlign="left">
         {title || 'Latest Donations'}
       </Text>
+
+      {noDonations && !isLoading && (
+        <Text textAlign="center" fontSize={1.5}>
+          No Donations yet!
+        </Text>
+      )}
 
       {isLoading && <Skeleton width={32} height={11} number={3} px={3} />}
 
@@ -43,6 +51,7 @@ const Container = styled.div`
   gap: 2rem;
   overflow-y: auto;
   height: 50rem;
+  padding: 2.5rem;
 `
 
 export default LatestDonations
