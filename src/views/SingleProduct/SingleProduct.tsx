@@ -3,7 +3,7 @@ import { useMemo, type ReactElement } from 'react'
 
 import HtmlParser from 'html-react-parser'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
@@ -26,7 +26,7 @@ function SingleProduct(): ReactElement {
   } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)
   const { t } = useTranslation()
   const { data: images } = useDependant<TImages>(getProductImages(id), [`images${id}`], id)
-
+  const navigate = useNavigate()
   const {
     title = '', price = 0, description = '', amount
   } = product || {}
@@ -47,7 +47,7 @@ function SingleProduct(): ReactElement {
       <Navbar />
       <Center mt={4.2}>
         <Breadcrumb separator=">">
-          <Breadcrumb.Item>{t('Store')}</Breadcrumb.Item>
+          <Breadcrumb.Item className="pointer" onClick={() => navigate('/shop')}>{t('Store')}</Breadcrumb.Item>
           <Breadcrumb.Item>{product?.title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
@@ -97,6 +97,7 @@ export default SingleProduct
 const CustomFlex = styled(Flex)`
 @media screen and (max-width: 768px) {
   flex-wrap: nowrap;
+  align-items: flex;
 }
 `
 const Container = styled.div`
