@@ -98,27 +98,27 @@ export default function ContactusForm(): ReactElement {
 
         <ContactDetailsBox>
           <BoxTitle>{t('contact_info')}</BoxTitle>
-          <InfoBox>
+          <GridContact>
+
             <MailOutlined />
             <InfoText>
               <TextTitle>{t('contact_page.official_mail')}</TextTitle>
               <TextHolder>{address}</TextHolder>
             </InfoText>
-          </InfoBox>
-          <InfoBox>
+
             <PhoneFilled />
             <InfoText>
               <TextTitle>{t('contact_page.get_in_touch')}</TextTitle>
               <TextHolder>{phone}</TextHolder>
             </InfoText>
-          </InfoBox>
-          <InfoBox>
+
             <MailFilled />
             <InfoText>
               <TextTitle>{t('contact_page.write')}</TextTitle>
               <TextHolder>{email}</TextHolder>
             </InfoText>
-          </InfoBox>
+          </GridContact>
+
         </ContactDetailsBox>
       </Container>
 
@@ -179,8 +179,9 @@ color: white;
 margin-bottom: 2.4rem;
 `
 
-const InfoBox = styled.div`
-  display: flex;
+const GridContact = styled.div`
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
   gap: 2.2rem;
   span {
     font-size: 2.8rem;

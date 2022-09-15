@@ -99,7 +99,8 @@
       "amount":"Por favor, indique la cantidad que desea donar",
       "membership": "Debe aceptar los Términos y Condiciones de la membresía",
       "cp": "Por favor, indique un código postal válido",
-      "product_amount":"Por favor, indique la cantidad de productos que desea comprar"
+      "product_amount":"Por favor, indique la cantidad de productos que desea comprar",
+      "amount_member": "Seleccione la cantidad que desea aportar anualmente"
     },
     "success": {
       "donation": "Gracias por su donación",
@@ -150,7 +151,7 @@
       "Description": "Descripción",
       "to_buy": "Comprar",
       "contact": "Contactar",
-      "stock": "Valores",
+      "stock": "Cantidad",
       "your_shopping":"Su compra",
       "delivery_details": "Detalles de entrega",
       "contact_form": {
@@ -183,7 +184,10 @@
       "dont_accept_membership": "No acepto (en este caso, no podremos procesar su membresía)",
       "question": "¿Quieres que procesemos tu registro como miembro de la ONG?",
       "title": "Registro de membresía",
-      "subtitle":  "Nos complace tenerle como miembro, pero para completar su membresía, necesitamos información suya."
+      "subtitle":  "Nos complace tenerle como miembro, pero para completar su membresía, necesitamos información suya.",
+      "quantity":"Cantidad",
+      "amount_label": "Elige la cantidad que deseas aportar anualmente",
+      "annual_fee": "Cuota socio anual"
     },
     "course": "curso",
     "ticket": "entrada",

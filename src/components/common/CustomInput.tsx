@@ -26,7 +26,6 @@ export function CustomComponent(component: any) {
     background-image: none;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
-    -webkit-appearance: none;
     touch-action: manipulation;
     text-overflow: ellipsis;
     width: 100%;
@@ -37,12 +36,13 @@ export function CustomComponent(component: any) {
         outline: none;
         box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
     }
+
     
     `
 }
 export const CustomInput = CustomComponent('input')
 export const CustomTextArea = CustomComponent('textarea')
-
+export const CustomDropdown = CustomComponent('select')
 // used when there is an error and the input is inside a flex container
 export const CustomInputDiv = styled.div<{pr?:TPaddingRight}>`
 display: flex;
@@ -88,6 +88,7 @@ padding: 0.7rem;
   outline: none;
   box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
 }
+
 `
 
 export const CustomTabPane = styled(Tabs.TabPane)`

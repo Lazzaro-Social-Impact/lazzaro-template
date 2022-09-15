@@ -139,7 +139,7 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
         <PrivacyPolicy />
         {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
       </>
-
+      <br />
       {isEvent && (
       <>
         <CheckBoxInput type="checkbox" {...register('image_rights')} />

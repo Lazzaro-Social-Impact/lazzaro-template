@@ -99,7 +99,8 @@
       "cp": "Please enter a valid postal code",
       "city": "Please enter your city",
       "country": "Please enter your country",
-      "product_amount": "Please enter the amount of products you want to buy"
+      "product_amount": "Please enter the amount of products you want to buy",
+      "amount_member": "Please select the amount you want to contribute annually"
     },
     "success": {
       "donation": "Thank you for your donation",
@@ -183,7 +184,10 @@
       "dont_accept_membership": "I dont accept (in this case, we will not be able to process your membership)",
       "question": "Would you like us to process your registration as a member of the NGO?",
       "title": "Membership registration",
-      "subtitle": "We are delighted to have you as a member, but in order to complete your membership, we need some information from you."
+      "subtitle": "We are delighted to have you as a member, but in order to complete your membership, we need some information from you.",
+      "quantity":"Quantity",
+      "amount_label": "Choose the amount you want to contribute annually",
+      "annual_fee": "Annual membership fee"
     },
     "course": "course",
     "ticket": "ticket",

@@ -13,6 +13,7 @@ export const memberSchema = yup.object().shape({
   terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
   membership: yup.boolean().typeError('errors.membership').oneOf([true], 'errors.membership'),
   phone: yup.string().required('errors.phone'),
+  amount: yup.number().required('errors.amount'),
 }).required()
 
 export const buyCourseTicketSchema = yup.object({
@@ -77,5 +78,5 @@ export const donationSchema = yup.object({
 
 export const volunteerSchema = yup.object().shape({
   ...personalDetailsSchema,
-  home_address: yup.string().required('errors.address'),
+  message: yup.string().required('errors.message'),
 }).required()

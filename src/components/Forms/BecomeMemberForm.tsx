@@ -15,7 +15,7 @@ import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
 import PrivacyPolicy from '../common/PrivacyPolicy'
-import { CustomDatePicker, CustomInputDiv } from '../common/CustomInput'
+import { CustomDatePicker, CustomDropdown, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
 import { FormRow } from '../common/FormRow'
 
@@ -29,6 +29,7 @@ type TMemberSubmitForm = {
   terms: boolean;
   membership: boolean;
   phone: string;
+  amount: number;
 };
 
 export default function BecomeMemberForm(): ReactElement {
@@ -45,7 +46,6 @@ export default function BecomeMemberForm(): ReactElement {
     const formData = {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
-      amount: 1,
       ong_id: ongId,
     }
     submit(formData)
@@ -69,8 +69,23 @@ export default function BecomeMemberForm(): ReactElement {
           <FormSubtitle>
             {t('membership.subtitle')}
           </FormSubtitle>
+          <RadioQuestion style={{ fontWeight: 'bold' }}>{t('membership.amount_label')}
+          </RadioQuestion>
           <FormRow>
+            <CustomDropdown
+              {...register('amount')}
+            >
+              <option>{t('membership.quantity')}</option>
+              <option
+                value="10"
+              >{t('membership.annual_fee')} (€10)
+              </option>
+            </CustomDropdown>
+          </FormRow>
+          {errors.amount?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
 
+          <RadioQuestion style={{ fontWeight: 'bold' }}>Personal Information</RadioQuestion>
+          <FormRow>
             <CustomInputDiv>
               <Input placeholder={t('placeholders.firstname')} {...register('firstName')} />
               {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} mt={0.4} /> }
@@ -164,8 +179,8 @@ const Container = styled.div`
 `
 
 const Form = styled.form`
-  padding-inline: 5.2rem;
   margin-block: 3.4rem;
+  width: 60%;
 `
 
 const FormTitle = styled.h1`

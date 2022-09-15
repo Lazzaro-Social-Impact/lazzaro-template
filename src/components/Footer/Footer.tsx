@@ -5,7 +5,7 @@ import {
   LinkedinFilled,
   MailFilled,
   PhoneFilled,
-  TwitterOutlined,
+  TwitterOutlined
 } from '@ant-design/icons'
 import { type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -50,11 +50,11 @@ export default function Footer(): ReactElement {
 
         <SectionTitle
           style={{
-            padding: '0', width: '100%', fontSize: '1.35rem'
+            padding: '0', width: '100%', fontSize: '1.2rem', flexGrow: 1,
           }}
           fontSize={1.8}
         >
-          {t('footer.title_1')} <br />
+          {t('footer.title_1')}
           {t('footer.title_2')}
         </SectionTitle>
 
@@ -116,7 +116,7 @@ const MainFooter = styled.footer`
 const ImageContainer = styled.div`
   padding: 0.5rem;
   text-align: left;
-  width: 82%;
+  width: 50%;
   img {
     width: 6rem !important;
   }

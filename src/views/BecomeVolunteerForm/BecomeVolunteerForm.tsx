@@ -7,7 +7,7 @@ import { Footer, Navbar } from '../../components'
 import {
   Button, Center, Flex, SectionTitle
 } from '../../components/common'
-import { CustomInput, CustomInputDiv } from '../../components/common/CustomInput'
+import { CustomInput, CustomInputDiv, CustomTextArea } from '../../components/common/CustomInput'
 import { ErrorInput } from '../../components/common/ErrorInput'
 import HandleResponse from '../../components/common/HandleResponse'
 import { useAppSelector, useFormSubmit } from '../../hooks'
@@ -17,7 +17,7 @@ type TVolunteerSubmitForm = {
   firstName: string
   lastName: string
   user_email: string
-  home_address: string
+  message: string
 }
 
 function BecomeVolunteerForm() {
@@ -26,7 +26,6 @@ function BecomeVolunteerForm() {
   const {
     handleSubmit, register, formState: { errors }
   } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
-
   const {
     submit, ...states
   } = useFormSubmit<TVolunteerSubmitForm>({ url: getAddVolunteerUrl(), isPayment: false })
@@ -62,8 +61,12 @@ function BecomeVolunteerForm() {
 
         <CustomInput placeholder={t('placeholders.email')} {...register('user_email')} />
         {errors.user_email?.message && <ErrorInput msg={t('errors.email')} />}
-        <CustomInput placeholder={t('placeholders.address')} {...register('home_address')} />
-        {errors.home_address?.message && <ErrorInput msg={t('errors.address')} />}
+        <CustomTextArea
+          rows={5}
+          placeholder={t('placeholders.message')}
+          {...register('message')}
+        />
+        {errors.message?.message && <ErrorInput msg={t('errors.message')} />}
 
         <Center>
           <Button px="2.8rem" type="submit">{t('send')}</Button>
@@ -82,6 +85,7 @@ const CustomForm = styled.form`
   gap: 0.8rem;
   max-width: 900px;
   margin: 0 auto;
+  flex: 1;
 `
 
 export default BecomeVolunteerForm

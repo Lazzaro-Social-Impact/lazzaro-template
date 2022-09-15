@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
+import { Clock } from 'react-bootstrap-icons'
 import moment from 'moment'
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -45,11 +45,10 @@ export function EventCard(props: IProps): ReactElement {
       <EventCardTitle title={title}>{title}</EventCardTitle>
 
       <Text fontSize={1} color="#8c8c8c">
-        <ClockCircleFilled /> {startDate} - {endDate}
+        <Clock /> {startDate} - {endDate}
       </Text>
 
       <Text fontSize={1} lineHeight={1.7}>
-        <HeatMapOutlined />
         {location}
       </Text>
 
