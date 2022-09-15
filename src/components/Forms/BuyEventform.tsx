@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement, useMemo } from 'react'
+import { Fragment, ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -11,7 +11,9 @@ import {
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
-import { Button, Center } from '../common'
+import {
+  Box, Button, Center
+} from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -65,8 +67,8 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
 
   const ticketsInputs: JSX.Element[] = useMemo(
     () => EventTickets.map((ticket, i: number) => (
-      <>
-        <CustomLabel key={ticket.id}>
+      <Box mt={1} key={ticket.id}>
+        <CustomLabel>
           {ticket.type} ({ticket.price}
           {currency})
         </CustomLabel>
@@ -76,7 +78,7 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
           placeholder={t('placeholders.ticket')}
           {...register(`tickets.${i}.amount`)}
         />
-      </>
+      </Box>
     )),
     [EventTickets, register, currency]
   )

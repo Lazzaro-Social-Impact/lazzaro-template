@@ -1,10 +1,10 @@
 import { useEffect, type ReactElement } from 'react'
 import styled from 'styled-components'
 import { type Params, useParams } from 'react-router-dom'
-import { ProjectCard } from './Tabs/ProjectCard'
+import { ProjectCard } from './ProjectTabs/ProjectCard'
 import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
-import Tabs from './Tabs'
+import ProjectTabs from './ProjectTabs'
 import Skeleton from '../../components/Skeleton'
 import { useDependant } from '../../hooks'
 import { getProjectDetailsURL, getProjectImagesURL } from '../../api/getApiServices'
@@ -32,7 +32,7 @@ function ProjectDetails(): ReactElement {
       <ImageCarousel images={images} isLoading={isImagesLoading} />
 
       <Flex>
-        <Tabs projectDetails={projectDetails} />
+        <ProjectTabs projectDetails={projectDetails} />
         <OtherProjects>
           {isProjectLoading && (
             <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
