@@ -191,8 +191,9 @@
     },
     "course": "curso",
     "ticket": "entrada",
-    "want_volunteer": "Quiero ser voluntario"
+    "want_volunteer": "Quiero ser voluntario",
 
-
+  "share-modal": {
+    "share-this": "Comparte este"
   }
-  
+}
