@@ -64,7 +64,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
 
 const ProjectCard = styled(Flex)`
   flex: 1;
-  height: 50rem;
+  height: 36.25rem;
   border: 1px solid #ccc;
   overflow: hidden;
   flex-direction: column;
@@ -73,7 +73,7 @@ const ProjectCard = styled(Flex)`
   text-align: left;
   .lazy-load-image-background.blur.lazy-load-image-loaded {
     position: absolute;
-    width: 100% !important;
+    height: 36.25rem !important;
   }
 
   img {

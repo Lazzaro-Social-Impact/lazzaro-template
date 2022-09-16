@@ -23,21 +23,23 @@ import ReorderComponent from '../../components/ReorderComponent/ReorderComponent
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
   const {
-    causes, events, partners, volunteers, courses, impact, logos
+    causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
 
-  // For Test purposes
+  // // For Test purposes
   // const {
-  //   causes, events, partners, volunteers, courses, impact, logos
+  //   causes, events, partners, volunteers, courses, impact, logos, donations
   // } = {
   //   causes: true,
   //   events: true,
   //   partners: true,
   //   volunteers: true,
   //   courses: true,
-  //   impact: false,
-  //   logos: false
+  //   impact: true,
+  //   logos: true,
+  //   donations: true,
   // }
+
   useEffect(() => {
     if (hash) {
       const element = document.getElementById(hash.slice(1))
@@ -48,7 +50,8 @@ export default function Landing(): ReactElement {
   }, [hash])
 
   const zones = [causes, events, courses].filter(Boolean).length
-  const noHeroBtns = zones === 0 && partners === false && logos === false && impact === false
+  const donationBtn = donations === true
+  const membershipBtn = partners === true
   const logosSectionOrderNoZones = [logos, partners, impact].filter((item) => item).length >= 2 ? 3 : 0
 
   // courses,events,causes
@@ -59,7 +62,7 @@ export default function Landing(): ReactElement {
   return (
     <>
       <Navbar transparent position="fixed" />
-      <Hero noBtns={noHeroBtns} />
+      <Hero donationBtn={donationBtn} membershipBtn={membershipBtn} />
       <AboutUs />
       <LandingColumn>
         {zones === 1 && logos === false && impact === false && <Divider display="block" />}

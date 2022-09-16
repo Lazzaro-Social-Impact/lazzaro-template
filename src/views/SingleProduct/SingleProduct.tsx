@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
 import { Footer, Navbar, BuyModal } from '../../components'
 import {
-  Card, Center, Flex, Tabs
+  Card, Center, Flex, Tabs, Carousel
 } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
@@ -37,6 +37,8 @@ function SingleProduct(): ReactElement {
         key={image.id}
         src={image.img_url}
         alt="product"
+        width="100%"
+        height="40rem"
         placeholderSrc={image.img_url}
       />
     )),
@@ -51,18 +53,15 @@ function SingleProduct(): ReactElement {
           <Breadcrumb.Item>{product?.title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
+
       <Container>
-        <CustomFlex gap={2.4}>
+
+        <Carousel width="55vw" smWidth="77.8vw" height="40rem" arrows>
           {memoizedImages}
-        </CustomFlex>
+        </Carousel>
+
         <ProductSidebar>
-          <CustomCard
-            mode="column"
-            smMode="column"
-            maxWidth="100%"
-            py={2.4}
-            px={1.8}
-          >
+          <CustomCard mode="column" smMode="column" maxWidth="100%" py={2.4} px={1.8}>
             <ProductName>{product?.title}</ProductName>
             <ProductsAvailable>{t('Products_single.stock')}: {amount}</ProductsAvailable>
             <Flex justify="space-around" mt={1}>
@@ -77,6 +76,7 @@ function SingleProduct(): ReactElement {
             <Tabs.TabPane tab={t('details')} key="1">
               <ProductDetails>{HtmlParser(description)}</ProductDetails>
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('Buy')} key="2">
               <BuyProductForm id={id} price={price} title={title} />
             </Tabs.TabPane>
@@ -84,6 +84,7 @@ function SingleProduct(): ReactElement {
             <Tabs.TabPane tab={t('Contact')} key="3">
               <ContactEventForm id={id} />
             </Tabs.TabPane>
+
           </CustomTabs>
         </ProductSidebar>
       </Container>
@@ -94,21 +95,16 @@ function SingleProduct(): ReactElement {
 
 export default SingleProduct
 
-const CustomFlex = styled(Flex)`
-@media screen and (max-width: 768px) {
-  flex-wrap: nowrap;
-  align-items: flex;
-}
-`
 const Container = styled.div`
   margin-top: 3.2rem;
-  padding: 1.2rem 8.8rem;
+  padding: 1.2rem 5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 4.2rem;
+  flex:1;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
     padding: 1.2rem 1.2rem;
     justify-content: center;
@@ -121,13 +117,13 @@ const ProductSidebar = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4.2rem;
-  width: 100%;
+  width: 80%;
 `
 
 const ProductName = styled.h1`
   font-size: 1.6rem;
   font-weight: bold;
-  color: green;
+  color: ${({ theme }) => theme.primary};
   margin-bottom: 0.2rem;
 `
 

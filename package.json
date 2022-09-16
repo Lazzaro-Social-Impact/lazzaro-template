@@ -53,6 +53,7 @@
     "start:prod": "vite --mode production",
     "build": "tsc && vite build --mode production",
     "build:staging": "tsc && vite build --mode staging",
+    "build:dev": "tsc && vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint --ext .tsx,.ts src",
     "lint:fix": "eslint --ext .tsx,.ts --fix src"
