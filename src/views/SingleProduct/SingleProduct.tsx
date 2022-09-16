@@ -104,7 +104,7 @@ const Container = styled.div`
   gap: 4.2rem;
   flex:1;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
     padding: 1.2rem 1.2rem;
     justify-content: center;
