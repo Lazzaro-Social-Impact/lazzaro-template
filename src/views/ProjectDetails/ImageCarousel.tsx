@@ -47,7 +47,7 @@ const Section = styled.section`
 
 const ImageWrapper = styled.div`
   width: 100%;
-  max-height: 40rem;
+  height: 55vh;
 `
 const Triangle = styled.div`
   position: absolute;
