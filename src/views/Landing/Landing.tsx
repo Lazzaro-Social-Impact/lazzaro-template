@@ -35,8 +35,8 @@ export default function Landing(): ReactElement {
     partners: true,
     volunteers: true,
     courses: true,
-    impact: false,
-    logos: false,
+    impact: true,
+    logos: true,
     donations: true,
   }
   useEffect(() => {

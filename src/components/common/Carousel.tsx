@@ -9,11 +9,12 @@ interface IProps {
   dots?:boolean;
   bgColor?: TBgColor;
   mt?:TMarginTop;
+  arrowMT?:TMarginTop;
 }
 
 const Carousel: FC<IProps> = (props) => {
   const {
-    children, arrows, dots, bgColor, mt
+    children, arrows, dots, bgColor, mt, arrowMT,
   } = props
 
   return (
@@ -26,6 +27,7 @@ const Carousel: FC<IProps> = (props) => {
       dots={dots}
       bgColor={bgColor}
       mt={mt}
+      arrowMT={arrowMT}
     >
       {children}
     </CustomCarousel>
@@ -37,6 +39,7 @@ Carousel.defaultProps = {
   dots: false,
   bgColor: 'initial',
   mt: 'initial',
+  arrowMT: 'initial',
 }
 
 export default Carousel
@@ -48,21 +51,25 @@ margin-top: ${({ mt }) => mt && mt};
     & .slick-prev,
     & .slick-prev:hover {
       left: 110px;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
       font-size: 35px;
+      margin-top: ${({ arrowMT }) => `${arrowMT}rem`};
     }
 
     & .slick-next,
     & .slick-next:hover {
       right: 110px;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
+      margin-top: -1.2rem;
       font-size: 35px;
+      margin-top: ${({ arrowMT }) => `${arrowMT}rem`};
+
     }
 
     & .slick-prev,
     & .slick-next {
       z-index: 2;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
       right: 100px;
       transition: all 0.5s ease;
     }
@@ -72,7 +79,7 @@ margin-top: ${({ mt }) => mt && mt};
     }
 
     .slick-dots.slick-dots-top .slick-active button {
-      background-color: rgb(92, 183, 128) !important;
+      background-color: ${({ theme }) => theme.primary} !important;
     }
   }
 

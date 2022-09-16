@@ -23,7 +23,7 @@ function Courses(): ReactElement {
         <Fragment key={events[i].id}>
           {e.map((event) => (
             <Flex key={event.id} direction="column">
-              <CourseCard course={event} />
+              <CourseCard course={event} index={i} />
             </Flex>
           ))}
         </Fragment>
@@ -34,9 +34,9 @@ function Courses(): ReactElement {
 
   return (
     <Box id="courses" px={4.1} mt={4}>
-      <SectionTitle padding={0}>{t('Courses')}</SectionTitle>
+      <SectionTitle marginTop="20px" marginBottom="20px" fontSize={2.4} padding={0}>{t('Courses')}</SectionTitle>
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
-      <Carousel arrows dots>
+      <Carousel arrowMT={-1.8} arrows dots>
         {memoizedCourses}
       </Carousel>
     </Box>
