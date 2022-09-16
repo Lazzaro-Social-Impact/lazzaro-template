@@ -128,9 +128,9 @@ const ImageContainer = styled.div`
 `
 
 const Title = styled(SectionTitle)`
-
-  @media  (min-width: 767px) and (max-width: 1200px) {
-    font-size: 1rem;
+text-align:right;
+  @media  (max-width: 1200px) {
+    text-align: center;
   }
 
   `

@@ -77,6 +77,7 @@ function SingleProduct(): ReactElement {
             <Tabs.TabPane tab={t('details')} key="1">
               <ProductDetails>{HtmlParser(description)}</ProductDetails>
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('Buy')} key="2">
               <BuyProductForm id={id} price={price} title={title} />
             </Tabs.TabPane>
@@ -84,6 +85,7 @@ function SingleProduct(): ReactElement {
             <Tabs.TabPane tab={t('Contact')} key="3">
               <ContactEventForm id={id} />
             </Tabs.TabPane>
+
           </CustomTabs>
         </ProductSidebar>
       </Container>
@@ -127,7 +129,7 @@ const ProductSidebar = styled.div`
 const ProductName = styled.h1`
   font-size: 1.6rem;
   font-weight: bold;
-  color: green;
+  color: ${({ theme }) => theme.primary};
   margin-bottom: 0.2rem;
 `
 
