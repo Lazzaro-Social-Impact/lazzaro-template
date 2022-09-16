@@ -61,7 +61,7 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
       left: 110px;
       color: ${({ theme }) => theme.secondary};
       font-size: 35px;
-      margin-top: ${({ arrowMT }) => `${arrowMT}rem`};
+      margin-top: ${({ mt }) => `${mt}rem`};
     }
 
     & .slick-next,
@@ -115,8 +115,6 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
   }
 
   @media screen and (max-width: 768px) {
-    height: 100% !important;
-
     span {
       display: none;
     }
