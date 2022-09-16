@@ -59,14 +59,16 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
     & .slick-prev,
     & .slick-prev:hover {
       left: 110px;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
       font-size: 35px;
+      margin-top: ${({ arrowMT }) => `${arrowMT}rem`};
     }
 
     & .slick-next,
     & .slick-next:hover {
       right: 110px;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
+      margin-top: -1.2rem;
       font-size: 35px;
     }
 
@@ -77,7 +79,7 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
     & .slick-prev,
     & .slick-next {
       z-index: 2;
-      color: white;
+      color: ${({ theme }) => theme.secondary};
       right: 100px;
       transition: all 0.5s ease;
     }
@@ -87,7 +89,7 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
     }
 
     .slick-dots.slick-dots-top .slick-active button {
-      background-color: rgb(92, 183, 128) !important;
+      background-color: ${({ theme }) => theme.primary} !important;
     }
   }
 
