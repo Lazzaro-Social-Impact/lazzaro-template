@@ -9,11 +9,14 @@ interface IProps {
   dots?:boolean;
   bgColor?: TBgColor;
   mt?:TMarginTop;
+  width?: TWidth;
+  height?: THeight;
+  smWidth?: TWidth;
 }
 
 const Carousel: FC<IProps> = (props) => {
   const {
-    children, arrows, dots, bgColor, mt
+    children, arrows, dots, bgColor, mt, width, height, smWidth
   } = props
 
   return (
@@ -26,6 +29,9 @@ const Carousel: FC<IProps> = (props) => {
       dots={dots}
       bgColor={bgColor}
       mt={mt}
+      width={width}
+      height={height}
+      smWidth={smWidth}
     >
       {children}
     </CustomCarousel>
@@ -37,13 +43,18 @@ Carousel.defaultProps = {
   dots: false,
   bgColor: 'initial',
   mt: 'initial',
+  width: 'initial',
+  height: 'initial',
+  smWidth: 'initial',
 }
 
 export default Carousel
 
 const CustomCarousel = styled(antdCarousel)<IProps>`
-background-color: ${({ bgColor }) => bgColor};
-margin-top: ${({ mt }) => mt && mt};
+  background-color: ${({ bgColor }) => bgColor};
+  margin-top: ${({ mt }) => mt && mt};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   @media (min-width: 768px) {
     & .slick-prev,
     & .slick-prev:hover {
@@ -57,6 +68,10 @@ margin-top: ${({ mt }) => mt && mt};
       right: 110px;
       color: white;
       font-size: 35px;
+    }
+
+    .slick-list {
+      height: 100%;
     }
 
     & .slick-prev,
@@ -93,13 +108,17 @@ margin-top: ${({ mt }) => mt && mt};
     border-radius: 100%;
   }
 
+  @media (max-width: 1000px) {
+    width: ${({ smWidth }) => smWidth};
+  }
+
   @media screen and (max-width: 768px) {
+    height: 100% !important;
+
     span {
       display: none;
     }
   }
-
-
 
   & .slick-arrow {
     color: ${({ theme }) => theme.primary};
