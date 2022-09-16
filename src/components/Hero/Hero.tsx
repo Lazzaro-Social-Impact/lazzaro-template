@@ -6,13 +6,14 @@ import { Button, Flex } from '../common'
 
 interface IProps {
   heroImage?: string;
-  noBtns?: boolean;
+  donationBtn?: boolean;
+  membershipBtn?: boolean;
 
 }
 
 type IHero = Omit<IProps, 'heroImage'>
 
-function Hero({ noBtns }:IHero) {
+function Hero({ donationBtn, membershipBtn }:IHero) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { heroImage = '', textHeader, textSubHeader } = useAppSelector((state) => ({
@@ -29,13 +30,14 @@ function Hero({ noBtns }:IHero) {
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
-          {!noBtns && (
-          <>
+          {donationBtn && (
             <Button color="white" fontSize={0.9} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+          )}
+          {membershipBtn && (
+
             <Button hoverBgColor={primary} fontSize={0.9} bgColor={secondary} onClick={() => navigate('/partners')}>
               {t('Become a member')}
             </Button>
-          </>
           )}
         </Flex>
       </HeroSection>

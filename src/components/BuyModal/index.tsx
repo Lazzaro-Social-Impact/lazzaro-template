@@ -27,7 +27,7 @@ function Modal(props:IProps) {
 
   return (
     <>
-      <Button px={2} py={1.1} onClick={showModal}>{btnText}</Button>
+      <Button px={1} py={1.1} onClick={showModal}>{btnText}</Button>
 
       <CustomModal
         visible={visible}

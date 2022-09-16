@@ -48,15 +48,15 @@ export default function Footer(): ReactElement {
           <Image src={logo} alt="" />
         </ImageContainer>
 
-        <SectionTitle
+        <Title
           style={{
-            padding: '0', width: '100%', fontSize: '1.2rem', flexGrow: 1,
+            padding: '0', width: '100%', flexGrow: 1,
           }}
-          fontSize={1.8}
+          fontSize={1.2}
         >
-          {t('footer.title_1')}
+          {t('footer.title_1')}<br />
           {t('footer.title_2')}
-        </SectionTitle>
+        </Title>
 
         <ContactInfo>
           <Contact>
@@ -72,7 +72,6 @@ export default function Footer(): ReactElement {
 
       <SubFooter>
         <div>
-          <p>lorem ipsum is simply a dummy test</p>
           <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
         </div>
 
@@ -127,6 +126,14 @@ const ImageContainer = styled.div`
     
   }
 `
+
+const Title = styled(SectionTitle)`
+text-align:right;
+  @media  (max-width: 768px) {
+    text-align: center;
+  }
+
+  `
 
 const ContactInfo = styled.div`
   display: flex;

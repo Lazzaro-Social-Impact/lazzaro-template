@@ -16,19 +16,27 @@ interface IProps {
     start_time: string;
     end_time: string;
     id: string;
-  }
+  },
+  index: number;
 }
 
 function CourseCard({
   course: {
     title, description,
     imageURL, start_time: startTime, id,
-  }
+  }, index
 }: IProps) {
   const date = Number(moment(startTime).format('D'))
   const { t } = useTranslation()
   return (
-    <Card mode="row" smMode="column" my={2} p={1} maxWidth="45rem">
+    <Card
+      mode="row"
+      smMode="column"
+      mt={index % 2 !== 0 ? 0 : 0}
+      mb={index % 2 === 0 ? 0 : 1.8}
+      p={1}
+      maxWidth="45rem"
+    >
       <Box height={14.5}>
         <CalendarIcon
           date={date}

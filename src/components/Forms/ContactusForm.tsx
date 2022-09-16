@@ -51,8 +51,11 @@ export default function ContactusForm(): ReactElement {
   return (
     <>
       <Navbar />
+      {address && (
       <Map lat={lat} lng={lng} height={28} isLoading={isMapLoading} />
-      <Container>
+      )}
+
+      <Container address={address}>
 
         <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
@@ -127,12 +130,13 @@ export default function ContactusForm(): ReactElement {
   )
 }
 
-const Container = styled.div`
+const Container = styled.div<{ address: string }>`
 display: flex;
 justify-content: center;
 margin: 0 9.4rem;
-margin-top: -12.4rem;
+margin-top: ${({ address }) => (address ? '-14.4rem' : '6.125rem')};
 z-index: 1;
+
 
 @media screen and (max-width: 768px) {
   margin-inline: 2.4rem;

@@ -38,7 +38,7 @@ function Events(): ReactElement {
 
   return (
     <>
-      <SectionTitle>{t('Events')}</SectionTitle>
+      <SectionTitle marginBottom={0} fontSize={2.4}>{t('Events')}</SectionTitle>
       <EventsSection id="events">
         {isLoading && <Skeleton width={40} height={42} number={1} />}
         {!isLoading && <NearEvent {...nearestEvent} />}
