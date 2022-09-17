@@ -58,10 +58,9 @@ function Events(): ReactElement {
 const EventsSection = styled(Flex)`
   padding-inline: 4.1rem;
   gap: 4rem;
-  margin-top: 2.4rem;
+  margin-top: 1.8rem;
   align-items: flex-start;
   justify-content: flex-end;
-
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -69,7 +68,7 @@ const EventsSection = styled(Flex)`
 
 const OtherEvents = styled(Flex)`
   overflow-y: auto;
-  height: 750px;
+  height: 33rem;
   align-items: flex-start;
   flex: 0.5;
   @media screen and (max-width: 576px) {

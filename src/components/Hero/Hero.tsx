@@ -46,7 +46,7 @@ function Hero({ donationBtn, membershipBtn }:IHero) {
 }
 
 const HeroSection = styled.section<IProps>`
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
     url(${({ heroImage }) => heroImage});
   background-size: cover;
   background-position: center;

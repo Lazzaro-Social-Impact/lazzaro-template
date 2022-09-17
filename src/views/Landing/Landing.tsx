@@ -26,7 +26,7 @@ export default function Landing(): ReactElement {
     causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
 
-  // // For Test purposes
+  // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos, donations
   // } = {
@@ -39,7 +39,6 @@ export default function Landing(): ReactElement {
   //   logos: true,
   //   donations: true,
   // }
-
   useEffect(() => {
     if (hash) {
       const element = document.getElementById(hash.slice(1))

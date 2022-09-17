@@ -70,6 +70,8 @@ const CustomCarousel = styled(antdCarousel)<IProps>`
       color: ${({ theme }) => theme.secondary};
       margin-top: -1.2rem;
       font-size: 35px;
+      margin-top: ${({ mt }) => `${mt}rem`};
+
     }
 
     .slick-list {

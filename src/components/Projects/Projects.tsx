@@ -29,7 +29,7 @@ export default function Projects(): ReactElement {
     <section id="causes">
       {isLoading && <ProjectCardSkeleton number={3} width={25} height={37} />}
 
-      <CustomCarousel mt={0.8} arrows>
+      <CustomCarousel mt={0.4} arrows>
         {memoizedProjects}
       </CustomCarousel>
     </section>
