@@ -68,7 +68,7 @@ const EventsSection = styled(Flex)`
 
 const OtherEvents = styled(Flex)`
   overflow-y: auto;
-  height: 40rem;
+  height: 33rem;
   align-items: flex-start;
   flex: 0.5;
   @media screen and (max-width: 576px) {

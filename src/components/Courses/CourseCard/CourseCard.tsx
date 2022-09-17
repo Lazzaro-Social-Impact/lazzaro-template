@@ -32,13 +32,12 @@ function CourseCard({
   return (
     <Card
       mode="row"
-      smMode="column"
       mt={index % 2 !== 0 ? 0 : 0}
-      mb={index % 2 === 0 ? 0 : 1.8}
+      mb={index % 2 === 0 ? 0 : '1.8rem'}
       p={1}
       maxWidth="45rem"
     >
-      <Box height={14.5}>
+      <Box height={15}>
         <CalendarIcon
           date={date}
           type="filled"
@@ -47,7 +46,7 @@ function CourseCard({
           top={-1.23}
           right={1.5}
         />
-        <Image src={imageURL} alt={title} width="800px" />
+        <Image src={imageURL} alt={title} width="50rem" />
       </Box>
       <CustomFlex direction="column" justify="space-between" p={1} textAlign="left">
         <h2>{title?.slice(0, 23)}</h2>
