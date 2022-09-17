@@ -42,7 +42,7 @@ export default function LogosCarousel({ order }: IProps): ReactElement {
     <Box style={{ order, marginTop: order === 4 ? '4.2rem' : 'initial' }}>
       {isError && <ErrorInput msg="something went wrong" />}
       {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
-      <Carousel dots={false} bgColor={primary} mt={4.2}>
+      <Carousel height="9.375rem" dots={false} bgColor={primary} mt={4.2}>
         {memoizedLogos}
       </Carousel>
     </Box>
@@ -52,7 +52,7 @@ export default function LogosCarousel({ order }: IProps): ReactElement {
 const ImageContainer = styled.div`
   display: flex !important;
   justify-content: space-around;
-  height: 150px !important;
+  height: 9.375rem !important;
   padding: 0 3.8rem;
   align-items: center;
   align-content: center;
