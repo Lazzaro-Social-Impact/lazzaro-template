@@ -17,7 +17,7 @@ interface IProps {
 }
 export default function NearEvent(props: IProps): ReactElement {
   const {
-    id, title, description, imageURL
+    id, title, description = '', imageURL
   } = props
   const { t } = useTranslation()
   const navigate = useNavigate()

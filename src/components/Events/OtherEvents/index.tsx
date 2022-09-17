@@ -16,7 +16,7 @@ interface IProps {
 
 export default function EventsRow(props: IProps): ReactElement {
   const {
-    id, title, description, start_time: startTime
+    id, title, description = '', start_time: startTime
   } = props
 
   const day = moment(startTime).format('DD')
