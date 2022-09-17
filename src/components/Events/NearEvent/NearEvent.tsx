@@ -24,7 +24,15 @@ export default function NearEvent(props: IProps): ReactElement {
   const navigateTo = (path: `/events/${string}`) => () => navigate(path)
 
   return (
-    <Card flex={1} mode="column" smMode="column" maxWidth="40%" p={1} onClick={navigateTo(`/events/${id}`)}>
+    <Card
+      flex={1}
+      mode="column"
+      smMode="column"
+      maxWidth="40%"
+      p={1}
+      onClick={navigateTo(`/events/${id}`)}
+      style={{ height: '32rem' }}
+    >
       <Box>
         <BookmarkIcon zIndex={1} position="absolute" right={2.3} top={-1} />
         <LazyImageComponent
@@ -40,7 +48,7 @@ export default function NearEvent(props: IProps): ReactElement {
       <TextContainer>
         <h2>{title}</h2>
         {HtmlParser(description?.slice(0, 150))}
-        <Link to={`/events/${id}`} align="right" size={1.2} underlined>
+        <Link to={`/events/${id}`} align="right" size={1} underlined>
           {t('Read More')}
         </Link>
       </TextContainer>
@@ -56,14 +64,13 @@ const TextContainer = styled.div`
   width: 100%;
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.5;
-    letter-spacing: 1.1px;
   }
 
   @media (max-width: 768px) {

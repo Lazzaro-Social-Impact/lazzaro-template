@@ -1,6 +1,7 @@
 import moment from 'moment'
 import HtmlParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 import { CalendarIcon } from '../../Icons'
 import {
   Box,
@@ -48,18 +49,25 @@ function CourseCard({
         />
         <Image src={imageURL} alt={title} width="800px" />
       </Box>
-      <Flex direction="column" justify="space-between" p={1} textAlign="left">
+      <CustomFlex direction="column" justify="space-between" p={1} textAlign="left">
         <h2>{title?.slice(0, 23)}</h2>
         {HtmlParser(description?.slice(0, 100))}
-        <Link to={`/courses/${id}`} align="flex-end" underlined size={1.3}>
+        <Link to={`/courses/${id}`} align="flex-end" underlined size={1}>
           {t('Read More')}
         </Link>
-      </Flex>
+      </CustomFlex>
     </Card>
   )
 }
 
-CourseCard.defaultProps = {
+const CustomFlex = styled(Flex)`
+ h2 {
+  font-size: 1.4rem;
+ }
 
-}
+ p {
+  font-size:0.9rem;
+ }
+`
+
 export default CourseCard

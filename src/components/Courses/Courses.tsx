@@ -22,8 +22,15 @@ function Courses(): ReactElement {
       ...chunk(events, 2).map((e, i) => (
         <Fragment key={events[i].id}>
           {e.map((event) => (
-            <Flex key={event.id} direction="column">
-              <CourseCard course={event} index={i} />
+            <Flex
+              style={{ height: '17rem' }}
+              key={event.id}
+              direction="column"
+            >
+              <CourseCard
+                course={event}
+                index={i}
+              />
             </Flex>
           ))}
         </Fragment>
@@ -33,7 +40,11 @@ function Courses(): ReactElement {
   )
 
   return (
-    <Box id="courses" px={4.1} mt={4}>
+    <Box
+      id="courses"
+      px={4.1}
+      mt={4}
+    >
       <SectionTitle marginTop="20px" marginBottom="20px" fontSize={2.4} padding={0}>{t('Courses')}</SectionTitle>
       {isLoading && <CourseCardSkeleton number={2} width={45} height={14} justify="center" />}
       <Carousel mt={-1.8} arrows dots>

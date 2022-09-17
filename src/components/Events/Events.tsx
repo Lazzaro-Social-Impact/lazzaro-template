@@ -61,7 +61,6 @@ const EventsSection = styled(Flex)`
   margin-top: 2.4rem;
   align-items: flex-start;
   justify-content: flex-end;
-
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -69,7 +68,7 @@ const EventsSection = styled(Flex)`
 
 const OtherEvents = styled(Flex)`
   overflow-y: auto;
-  height: 750px;
+  height: 40rem;
   align-items: flex-start;
   flex: 0.5;
   @media screen and (max-width: 576px) {
