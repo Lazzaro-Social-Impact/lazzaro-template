@@ -58,7 +58,7 @@ function Events(): ReactElement {
 const EventsSection = styled(Flex)`
   padding-inline: 4.1rem;
   gap: 4rem;
-  margin-top: 2.4rem;
+  margin-top: 1.8rem;
   align-items: flex-start;
   justify-content: flex-end;
   @media (max-width: 768px) {

@@ -31,7 +31,7 @@ export default function NearEvent(props: IProps): ReactElement {
       maxWidth="40%"
       p={1}
       onClick={navigateTo(`/events/${id}`)}
-      style={{ height: '32rem' }}
+      style={{ height: '31.8rem' }}
     >
       <Box>
         <BookmarkIcon zIndex={1} position="absolute" right={2.3} top={-1} />
