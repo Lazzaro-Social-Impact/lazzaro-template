@@ -37,7 +37,7 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
   const { t } = useTranslation()
-  const Form = course ? (<BuyCourseForm courseId={id} />) : (<BuyEventform modal eventId={id} isEvent={isEvent} />
+  const Form = course ? (<BuyCourseForm modal courseId={id} />) : (<BuyEventform modal eventId={id} isEvent={isEvent} />
   )
 
   return (

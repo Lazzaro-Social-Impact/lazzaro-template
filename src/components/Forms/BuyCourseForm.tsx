@@ -9,12 +9,15 @@ import { buyCourseTicketSchema } from '../../validation/schemas'
 import {
   Button, Input, Label
 } from '../common'
+import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface Props {
   courseId: string;
+  modal?: boolean
 }
 
 type TBuyCourseFormSubmit = {
@@ -25,7 +28,7 @@ type TBuyCourseFormSubmit = {
   terms: boolean;
 };
 
-export default function BuyCourseForm({ courseId }: Props): ReactElement {
+export default function BuyCourseForm({ courseId, modal }: Props): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
 
   const {
@@ -49,19 +52,30 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
         errorId={`${courseId}_error`}
       />
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label size={2}>{t('personal_information')}</Label>
-        <Input placeholder="Name" {...register('firstName')} />
-        {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} align="flex-start" /> }
+      <Form modal={modal} onSubmit={handleSubmit(onSubmit)}>
+        <Label size={1.8}>{t('personal_information')}</Label>
+        <FormRow>
+          <CustomInputDiv>
+            <CustomInput placeholder="Name" {...register('firstName')} />
+            {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} align="flex-start" /> }
+          </CustomInputDiv>
 
-        <Input placeholder="Surname" {...register('lastName')} />
-        {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} align="flex-start" /> }
+          <CustomInputDiv>
+            <CustomInput placeholder="Surname" {...register('lastName')} />
+            {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} align="flex-start" /> }
+          </CustomInputDiv>
+        </FormRow>
 
-        <Input type="email" placeholder="Email" {...register('user_email')} />
-        {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} align="flex-start" />}
-
-        <Input placeholder="Phone" {...register('mobilePhone')} />
-        {errors.mobilePhone?.message && <ErrorMsg msg={t('errors.phone')} align="flex-start" />}
+        <FormRow>
+          <CustomInputDiv>
+            <CustomInput type="email" placeholder="Email" {...register('user_email')} />
+            {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} align="flex-start" />}
+          </CustomInputDiv>
+          <CustomInputDiv>
+            <CustomInput placeholder="Phone" {...register('mobilePhone')} />
+            {errors.mobilePhone?.message && <ErrorMsg msg={t('errors.phone')} align="flex-start" />}
+          </CustomInputDiv>
+        </FormRow>
 
         <Label style={{ alignSelf: 'flex-start' }}>
           <Input w="25px" mt={1.8} type="checkbox" {...register('terms')} />
@@ -69,21 +83,27 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
         </Label>
         {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} align="flex-start" />}
 
-        <Button mt={3} px={3}>{t('pay')}</Button>
+        <Button type="submit" mt={3} px={3}>{t('pay')}</Button>
       </Form>
     </>
   )
 }
 
-const Form = styled.form`
-  margin-top: 3rem;
+const Form = styled.form<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 100%;
-  padding: 1rem 5.4rem;
-  text-align: center;
-
+  margin-top: 1.8rem;
+  div {
+    flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
+  }
+  button {
+    align-self: center;
+  }
 `
+
+BuyCourseForm.defaultProps = {
+  modal: false
+}
