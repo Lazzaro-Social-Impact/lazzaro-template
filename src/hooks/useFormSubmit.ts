@@ -27,7 +27,7 @@ const useFormSubmit = <TMutate>({ url, isPayment }: TParameters) => {
       const {
         data: { clientSecret },
       } = (await mutateAsync(formData)) as { data: TClientSecret }
-      return navigate(`/checkout/${clientSecret}`)
+      return navigate(`/checkout/${clientSecret}`, { state: { formData }, replace: true })
     }
 
     const {

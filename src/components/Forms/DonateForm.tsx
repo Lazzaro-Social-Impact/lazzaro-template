@@ -15,6 +15,7 @@ import { CustomDatePicker, CustomInputDiv, CustomTextArea } from '../common/Cust
 import PrivacyPolicy from '../common/PrivacyPolicy'
 import { CustomRadio } from './BecomeMemberForm'
 import { FormRow } from '../common/FormRow'
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 
 interface IProps {
   submitHandler: SubmitHandler<DonateSubmitForm>;
@@ -42,7 +43,7 @@ function DonateForm({
     >
       <HandleResponse
         {...states}
-        successMsg={t('success.paypal_navigate')}
+        successMsg={useSuccessPaymentNotification()}
         errorMsg={t('fail.error')}
         successId={`${projectId}-form-success`}
         errorId={`${projectId}-form-error`}

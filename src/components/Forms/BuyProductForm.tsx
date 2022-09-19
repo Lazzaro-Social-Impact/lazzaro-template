@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 import { buyProductSchema } from '../../validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle
@@ -69,7 +70,7 @@ export function BuyProductForm(props: IProps): ReactElement {
     <form onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
-        successMsg={t('success.paypal_navigate')}
+        successMsg={useSuccessPaymentNotification()}
         errorMsg={t('fail.error')}
         successId={`donation_success${id}`}
         errorId={`donation_failed${id}`}

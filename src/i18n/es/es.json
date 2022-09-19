@@ -24,7 +24,9 @@
     "Description": "Descripción",
     "Contact": "Contacto",
     "Events": "Eventos",
+    "event": "evento",
     "events": "Eventos",
+    "cause": "causa",
     "partners": "Compañeros",
     "Transparency": "Transparencia",
     "Projects": "Proyectos",
@@ -100,11 +102,13 @@
       "membership": "Debe aceptar los Términos y Condiciones de la membresía",
       "cp": "Por favor, indique un código postal válido",
       "product_amount":"Por favor, indique la cantidad de productos que desea comprar",
-      "amount_member": "Seleccione la cantidad que desea aportar anualmente"
+      "amount_member": "Seleccione la cantidad que desea aportar anualmente",
+      "newsletter": "Debe autorizarnos a enviarle comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras"
     },
     "success": {
       "donation": "Gracias por su donación",
       "paypal_navigate": "Serás redirigido a PayPal para completar el pago",
+      "stripe_navigate": "Serás redirigido a Stripe para completar el pago",
       "message": "Tu mensaje ha sido enviado con éxito"
     },
     "fail": {

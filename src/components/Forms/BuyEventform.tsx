@@ -8,6 +8,7 @@ import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import {
   useAppSelector, useDependant, useFormSubmit
 } from '../../hooks'
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
@@ -88,7 +89,7 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
     <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
-        successMsg={t('success.paypal_navigate')}
+        successMsg={useSuccessPaymentNotification()}
         errorMsg={t('fail.error')}
         successId={`${eventId}_success`}
         errorId={`${eventId}_error`}
@@ -153,6 +154,7 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
         <br />
         <CheckBoxInput type="checkbox" {...register('newsletter')} />
         <span style={{ fontSize: '1rem' }}>{t('event_single.newsletter')}</span>
+        {errors.newsletter?.message && <ErrorInput msg={t('errors.newsletter')} />}
 
       </>
       )}
