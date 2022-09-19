@@ -31,7 +31,7 @@ type ContactSubmitForm = {
 }
 
 export default function ContactusForm(): ReactElement {
-  const { phone, email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
+  const { phone = '', email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
 
   const { t } = useTranslation()
   const {
