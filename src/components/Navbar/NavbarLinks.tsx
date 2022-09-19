@@ -47,7 +47,7 @@ const NavbarLinks: FC = () => {
   const languageToggleLink = useMemo(
     () => (
       <LanguageToggle onClick={handleChangeLanguage}>
-        {langLinkText === 'en' ? 'English' : 'Español'}
+        {langLinkText === 'en' ? 'Español' : 'English'}
       </LanguageToggle>
     ),
     [langLinkText, handleChangeLanguage, langLinkText]
