@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
 import {
@@ -31,9 +32,10 @@ function Shop() {
       </Text>
 
       {isLoading && <Skeleton width={19} height={15} number={4} justify="space-around" px={3} />}
-
-      <Flex gap={3} justify="space-evenly" my={4}>
-        {memoizedProducts}
+      <Flex justify="center" align="center" width="100%">
+        <CustomFlex textAlign="left" gap={3} px="6.2" justify="flex-start" my={4}>
+          {memoizedProducts}
+        </CustomFlex>
       </Flex>
 
       <Footer />
@@ -42,3 +44,9 @@ function Shop() {
 }
 
 export default Shop
+
+const CustomFlex = styled(Flex)`
+@media screen and (max-width: 1091.5px) {
+  justify-content: center !important;
+}
+`

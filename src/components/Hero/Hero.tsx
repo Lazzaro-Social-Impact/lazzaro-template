@@ -31,11 +31,11 @@ function Hero({ donationBtn, membershipBtn }:IHero) {
         <SubTitle>{textSubHeader}</SubTitle>
         <Flex gap={1.2} justify="center">
           {donationBtn && (
-            <Button color="white" fontSize={0.9} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+            <Button color="white" fontSize={1.1} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
           )}
           {membershipBtn && (
 
-            <Button hoverBgColor={primary} fontSize={0.9} bgColor={secondary} onClick={() => navigate('/partners')}>
+            <Button hoverBgColor={primary} fontSize={1.1} bgColor={secondary} onClick={() => navigate('/partners')}>
               {t('Become a member')}
             </Button>
           )}
