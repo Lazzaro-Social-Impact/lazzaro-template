@@ -20,7 +20,6 @@ type TLocationWithState = Location & {
 export default function CheckoutForm({ secret }: TClientSecret) {
   const stripe = useStripe()
   const { state: { formData, redirectPath } } = useLocation() as TLocationWithState
-  console.log('🚀 ~ file: CheckoutForm.tsx ~ line 23 ~ CheckoutForm ~ ormData, redirectPath', formData, redirectPath)
   const elements = useElements()
   const navigate = useNavigate()
   const [message, setMessage] = useState<null | string | undefined>(null)
