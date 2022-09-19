@@ -42,6 +42,7 @@ export default function BecomeMemberForm(): ReactElement {
   const {
     submit, isError, isLoading, isSuccess
   } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: false })
+
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,

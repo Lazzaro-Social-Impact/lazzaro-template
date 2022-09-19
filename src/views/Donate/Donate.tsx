@@ -10,7 +10,7 @@ function Donate() {
 
   const {
     submit, ...states
-  } = useFormSubmit<DonateSubmitForm>({ url: getStartDonationUrl(ongId), isPayment: true, })
+  } = useFormSubmit<DonateSubmitForm>({ url: getStartDonationUrl(ongId), isPayment: true, redirectPath: 'donate' })
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, ong_id: ongId, }

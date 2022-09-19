@@ -1,7 +1,7 @@
 import { type JSXElementConstructor } from 'react'
 
 export type TRoutes = readonly{
-  path: `/${string}`;
+  path: string;
   render: boolean;
   Element: JSXElementConstructor<Record<string, never>> | any
 }[]

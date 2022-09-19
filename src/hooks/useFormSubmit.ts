@@ -1,16 +1,18 @@
 import { useNavigate } from 'react-router-dom'
+import finalizePaymentRoutes from '../app/router/finalizePaymentRoutes'
 import useAppSelector from './useAppSelector'
 import usePostData from './usePostData'
 
 type TParameters = {
   url: string;
   isPayment: boolean;
+  redirectPath?: keyof typeof finalizePaymentRoutes;
 }
 type TClientSecret = { clientSecret: string };
 type TPayPalLink = { data: string };
 type TData = TClientSecret | TPayPalLink;
 
-const useFormSubmit = <TMutate>({ url, isPayment }: TParameters) => {
+const useFormSubmit = <TMutate>({ url, isPayment, redirectPath }: TParameters) => {
   const navigate = useNavigate()
   const paymentMethod = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig?.payment_method)
   const {
@@ -27,7 +29,7 @@ const useFormSubmit = <TMutate>({ url, isPayment }: TParameters) => {
       const {
         data: { clientSecret },
       } = (await mutateAsync(formData)) as { data: TClientSecret }
-      return navigate(`/checkout/${clientSecret}`)
+      return navigate(`/checkout/${clientSecret}`, { state: { formData, redirectPath }, replace: true })
     }
 
     const {
