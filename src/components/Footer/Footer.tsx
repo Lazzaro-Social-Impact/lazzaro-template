@@ -27,8 +27,10 @@ export default function Footer(): ReactElement {
     twitter = '',
     web = '',
     poweredBy = '',
+    title = ''
   } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
+    title: ong.ongConfig?.brand.name,
     phone: ong.ongConfig?.contact.phone,
     email: ong.ongConfig?.contact?.email,
     facebook: ong.ongConfig?.rrss.facebook,
@@ -73,6 +75,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
+          <p style={{ fontSize: '1rem' }}>&copy;  {new Date().getFullYear()} {title}, All Rights reserved</p>
         </div>
 
         <Icons>
@@ -82,7 +85,11 @@ export default function Footer(): ReactElement {
           <InstagramOutlined onClick={navigateTo(instagram)} />
           <GlobalOutlined onClick={navigateTo(web)} />
         </Icons>
-        {poweredBy && <p>Powered by <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a></p> }
+        {poweredBy && (
+        <p style={{ fontSize: '1rem' }}>Powered by
+          <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a>
+        </p>
+        ) }
       </SubFooter>
 
     </>

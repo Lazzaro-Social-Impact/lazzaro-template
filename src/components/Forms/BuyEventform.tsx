@@ -72,9 +72,11 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
           {ticket.type} ({ticket.price}
           {currency})
         </CustomLabel>
+        <br />
         <CustomInput type="hidden" {...register(`tickets.${i}.id`)} value={ticket.id} />
-        <CustomInput
+        <TicketInput
           type="number"
+          max="1"
           placeholder={t('placeholders.ticket')}
           {...register(`tickets.${i}.amount`)}
         />
@@ -195,6 +197,21 @@ const CheckBoxInput = styled.input`
 const CustomLabel = styled.label`
   font-size: 1.1rem;
   font-weight: 700;
+`
+
+const TicketInput = styled.input`
+  width: 100%;
+  height: 3.2rem;
+  border: 1px solid ${({ theme }) => theme.primary};
+  border-radius: 0.4rem;
+  padding: 0.8rem;
+  color: ${({ theme }) => theme.primary};
+  margin-top: 0.8rem;
+  &:focus {
+    outline: none;
+    }
+    
+
 `
 BuyEventform.defaultProps = {
   modal: false,

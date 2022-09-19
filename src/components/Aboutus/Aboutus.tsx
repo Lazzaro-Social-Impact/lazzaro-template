@@ -18,7 +18,7 @@ export default function AboutUs(): React.ReactElement {
           {titleDescription}
         </SectionTitle>
 
-        <Box fontSize={0.9} pr={2.8} color="#777" lineHeight={1.8}>
+        <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
           {HtmlParser(description).toString().length > 1200 ? (
             <>
 

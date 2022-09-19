@@ -20,3 +20,4 @@ export const getTransparencyURL = (ongId: string) => `${BASE_URL}/api/private/on
 export const getCoursesURL = (ongId:string) => `${BASE_URL}/api/private/courses/ong/${ongId}`
 export const getBuyCourseUrl = (courseId: string) => `${BASE_URL}/api/private/buycourse/${courseId}/start`
 export const getOngLogos = (ongId:string) => `${BASE_URL}/api/private/ongs/${ongId}/logos`
+export const getDonationOptions = (ongId:string) => `${BASE_URL}/api/private/ongs/${ongId}/donations-options`

@@ -11,13 +11,14 @@ import {
   Button, Center, Input
 } from '../common'
 import HandleResponse from '../common/HandleResponse'
-import { useAppSelector, useFormSubmit } from '../../hooks'
+import { useAppSelector, useDependant, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
 import { ErrorInput } from '../common/ErrorInput'
 import PrivacyPolicy from '../common/PrivacyPolicy'
 import { CustomDatePicker, CustomDropdown, CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
 import { FormRow } from '../common/FormRow'
+import { getDonationOptions } from '../../api/getApiServices'
 
 type TMemberSubmitForm = {
   firstName: string;
@@ -32,17 +33,25 @@ type TMemberSubmitForm = {
   amount: number;
 };
 
+type TOption = {
+  id: string;
+  name: string;
+  amount: number;
+}
+
+type TOptions = TOption[];
+
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { t } = useTranslation()
-
+  const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig.currency_symbol) || '€'
+  const { data: options } = useDependant<TOptions>(getDonationOptions(ongId), ['donation-options'], ongId)
   const {
     register, handleSubmit, control, formState: { errors }
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
     submit, isError, isLoading, isSuccess
-  } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: false })
-
+  } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: true, redirectPath: 'partners' })
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
@@ -73,15 +82,26 @@ export default function BecomeMemberForm(): ReactElement {
           <RadioQuestion style={{ fontWeight: 'bold' }}>{t('membership.amount_label')}
           </RadioQuestion>
           <FormRow>
-            <CustomDropdown
-              {...register('amount')}
-            >
-              <option>{t('membership.quantity')}</option>
-              <option
-                value="10"
-              >{t('membership.annual_fee')} (€10)
-              </option>
-            </CustomDropdown>
+            {options?.length ? (
+              <CustomDropdown
+                {...register('amount')}
+              >
+                <option selected>{t('membership.quantity')}</option>
+                {options?.map((option: TOption) => (
+                  <option key={option.id} value={option.amount}>
+                    {option.name} ({option.amount}{currency})
+                  </option>
+                ))}
+
+              </CustomDropdown>
+            ) : (
+              <CustomInputDiv>
+                <Input
+                  {...register('amount')}
+                  placeholder={t('membership.quantity')}
+                />
+              </CustomInputDiv>
+            )}
           </FormRow>
           {errors.amount?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
 

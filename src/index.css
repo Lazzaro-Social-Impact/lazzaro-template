@@ -72,3 +72,19 @@ input::-webkit-inner-spin-button {
   overflow: initial !important;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1 !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1 !important;
+
+}
+
+input[type=number], input[type=password], input[type=text], textarea {
+  -webkit-appearance: button !important;
+  -moz-appearance: button !important;
+  appearance: button !important;
+}

@@ -11,6 +11,7 @@ import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
 import { IEvent, IImage } from '../../types/interfaces'
 import Map from '../Map'
+import BuyCourseForm from '../Forms/BuyCourseForm'
 
 type TProps = {
   event: IEvent | undefined;
@@ -27,7 +28,6 @@ export function SingleEventDetails({
 
   const { t } = useTranslation()
   const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)
-
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
@@ -39,7 +39,8 @@ export function SingleEventDetails({
 
           <CustomTabs defaultActiveKey="1">
             <Tabs.TabPane tab={t('Buy')} key="1">
-              <BuyEventform eventId={id} isEvent={isEvent} />
+              {!event?.course && <BuyEventform eventId={id} isEvent={isEvent} />}
+              {event?.course && <BuyCourseForm courseId={id} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (
               <Tabs.TabPane tab={t('event_single.location')} key="2">
