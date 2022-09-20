@@ -3,13 +3,9 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getProductsURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
-<<<<<<< HEAD
 import {
   Flex, SectionTitle
 } from '../../components/common'
-=======
-import { Flex, SectionTitle, Text } from '../../components/common'
->>>>>>> c67c7f5903cdb6b8a10365c34dc02d85a9c13c30
 import { ProductCard } from '../../components/ProductCard/ProductCard'
 import { useAppSelector, useDependant } from '../../hooks'
 import Skeleton from '../../components/Skeleton'
