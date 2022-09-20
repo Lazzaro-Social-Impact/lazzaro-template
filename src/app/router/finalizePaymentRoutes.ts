@@ -7,6 +7,6 @@ const finalizePaymentRoutes = {
   partners: `/partners/donation-done/${COMMON_PATH}/:certificate/:amount/:ong_id/:nif`,
   shop: `/shop/buy-done/${COMMON_PATH}/:amount/:productAmount/:product_id/:cp/:city/:country/:address/:nif`,
   donate: `/donate/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:nif`,
-}
+} as const
 
 export default finalizePaymentRoutes

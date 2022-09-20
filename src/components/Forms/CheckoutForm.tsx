@@ -27,7 +27,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
 
   const finalizePaymentRoute = finalizePaymentRoutes[redirectPath]
     .split('/:')
-    .map((item) => formData[item] ?? item)
+    .map((param) => formData[param] ?? param)
     .join('/')
     .replaceAll(' ', '')
 
