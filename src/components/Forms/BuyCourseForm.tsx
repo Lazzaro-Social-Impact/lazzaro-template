@@ -92,7 +92,7 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
   )
 }
 
-const Form = styled.form<Pick<Props, 'modal'>>`
+const Form = styled.form<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
