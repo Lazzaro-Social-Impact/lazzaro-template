@@ -26,23 +26,29 @@ function Hero({ donationBtn, membershipBtn }:IHero) {
 
   return (
     <>
-      <HeroSection id="hero" heroImage={heroImage}>
+      <HeroSection id='hero' heroImage={heroImage}>
         <Title>{textHeader}</Title>
         <SubTitle>{textSubHeader}</SubTitle>
-        <Flex gap={1.2} justify="center">
+        <Flex gap={1.2} justify='center'>
           {donationBtn && (
-            <Button color="white" fontSize={1.1} onClick={() => navigate('/donate')}> {t('Donate')} </Button>
+            <Button color='white' fontSize={'16px'} py={'9px'} onClick={() => navigate('/donate')}>
+              {t('Donate')}{' '}
+            </Button>
           )}
           {membershipBtn && (
-
-            <Button hoverBgColor={primary} fontSize={1.1} bgColor={secondary} onClick={() => navigate('/partners')}>
+            <Button
+              hoverBgColor={primary}
+              fontSize={'16px'}
+              py={'9px'}
+              bgColor={secondary}
+              onClick={() => navigate('/partners')}>
               {t('Become a member')}
             </Button>
           )}
         </Flex>
       </HeroSection>
     </>
-  )
+  );
 }
 
 const HeroSection = styled.section<IProps>`
