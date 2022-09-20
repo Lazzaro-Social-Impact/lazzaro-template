@@ -66,4 +66,4 @@ const CustomFlex = styled(Flex)`
       font-size: 16px !important;
       font-weight: 400 !important;
     }
-`;
+`
