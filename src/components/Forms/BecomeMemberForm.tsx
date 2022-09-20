@@ -19,6 +19,7 @@ import { CustomDatePicker, CustomDropdown, CustomInputDiv } from '../common/Cust
 import { memberSchema } from '../../validation/schemas'
 import { FormRow } from '../common/FormRow'
 import { getDonationOptions } from '../../api/getApiServices'
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 
 type TMemberSubmitForm = {
   firstName: string;
@@ -70,7 +71,7 @@ export default function BecomeMemberForm(): ReactElement {
             isLoading={isLoading}
             isSuccess={isSuccess}
             isError={isError}
-            successMsg={t('success.paypal_navigate')}
+            successMsg={useSuccessPaymentNotification()}
             errorMsg={t('fail.message')}
             successId="success-become-member"
             errorId="error-become-member"

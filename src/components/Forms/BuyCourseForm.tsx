@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getBuyCourseUrl } from '../../api/getApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 import { buyCourseTicketSchema } from '../../validation/schemas'
 import {
   Button, Input, Label
@@ -17,7 +18,7 @@ import PrivacyPolicy from '../common/PrivacyPolicy'
 
 interface Props {
   courseId: string;
-  modal?: boolean
+  modal?: boolean;
 }
 
 type TBuyCourseFormSubmit = {
@@ -48,13 +49,13 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
     <>
       <HandleResponse
         {...states}
-        successMsg={t('success.paypal_navigate')}
+        successMsg={useSuccessPaymentNotification()}
         errorMsg={t('fail.error')}
         successId={`${courseId}_success`}
         errorId={`${courseId}_error`}
       />
 
-      <Form modal={modal} onSubmit={handleSubmit(onSubmit)}>
+      <Form courseId={courseId} modal={modal} onSubmit={handleSubmit(onSubmit)}>
         <Label size={1.8}>{t('personal_information')}</Label>
         <FormRow>
           <CustomInputDiv>

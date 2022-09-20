@@ -1,5 +1,6 @@
 import HtmlParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 import {
   Box, Flex, Link, SectionTitle
 } from '../common'
@@ -12,18 +13,18 @@ export default function AboutUs(): React.ReactElement {
   } = useAppSelector(({ ong }) => ong.ongConfig?.description) || {}
   const { t } = useTranslation()
   return (
-    <Flex id="about" align="stretch" mt={4.2} pl={4.1}>
+    <CustomFlex id="about" align="stretch" mt={4.2} pl={4.1}>
       <Flex direction="column" align="stretch" justify="stretch" textAlign="left" flex={1}>
-        <SectionTitle marginTop={0} padding={0} fontSize={2.2}>
+        <SectionTitle marginTop={0} marginBottom={0.6} padding={0} fontSize={2.2}>
           {titleDescription}
         </SectionTitle>
 
         <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description).toString().length > 1200 ? (
+          {HtmlParser(description).toString().length > 1120 ? (
             <>
 
               <Box>
-                {HtmlParser(description).toString().slice(0, 1180)}...
+                {HtmlParser(description).toString().slice(0, 1120)}...
               </Box>
 
               <Link to="/about" align="flex-end" mt={1.8} underlined>
@@ -43,6 +44,14 @@ export default function AboutUs(): React.ReactElement {
           placeholderSrc={imgUrl}
         />
       </Flex>
-    </Flex>
+    </CustomFlex>
   )
 }
+
+const CustomFlex = styled(Flex)`
+@media screen and (max-width: 690px) {
+  flex-direction: column;
+  padding: 4.1rem;
+  margin-top: 1.2rem;
+}
+`

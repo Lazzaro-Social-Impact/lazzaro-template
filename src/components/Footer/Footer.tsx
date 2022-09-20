@@ -86,7 +86,7 @@ export default function Footer(): ReactElement {
           <GlobalOutlined onClick={navigateTo(web)} />
         </Icons>
         {poweredBy && (
-        <p style={{ fontSize: '1rem' }}>Powered by
+        <p style={{ fontSize: '1rem' }}>Powered by {' '}
           <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a>
         </p>
         ) }

@@ -100,11 +100,13 @@
       "city": "Please enter your city",
       "country": "Please enter your country",
       "product_amount": "Please enter the amount of products you want to buy",
-      "amount_member": "Please select the amount you want to contribute annually"
+      "amount_member": "Please select the amount you want to contribute annually",
+      "newsletter": "You must authorize us to send you communications related to our activity and/or any of our partner or collaborating entities"
     },
     "success": {
       "donation": "Thank you for your donation",
       "paypal_navigate": "You will be redirected to PayPal to complete the payment",
+      "stripe_navigate": "You will be redirected to checkout to complete the payment",
       "message": "Your message has been sent successfully"
     },
     "fail": {
@@ -195,5 +197,7 @@
 
   "share-modal": {
     "share-this": "Share this"
-  }
+  },
+  "event": "event",
+  "cause": "cause"
 }
