@@ -75,7 +75,7 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
-          <p style={{ fontSize: '1rem' }}>&copy;  {new Date().getFullYear()} {title}, All Rights reserved</p>
+          <p style={{ fontSize: '1rem' }}>&copy;  {new Date().getFullYear()} {title}, {t('all_rights')}</p>
         </div>
 
         <Icons>

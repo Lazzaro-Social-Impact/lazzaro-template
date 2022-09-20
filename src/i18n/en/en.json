@@ -145,8 +145,8 @@
     },
     "Products_page": {
       "Our_Products": "Our Products",
-      "to_buy": "to buy",
-      "more": "more"
+      "to_buy": "Buy",
+      "more": "More"
     },
   
     "Products_single": {
@@ -199,5 +199,6 @@
     "share-this": "Share this"
   },
   "event": "event",
-  "cause": "cause"
+  "cause": "cause",
+  "all_rights": "All rights reserved"
 }

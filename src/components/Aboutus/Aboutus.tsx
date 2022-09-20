@@ -19,12 +19,12 @@ export default function AboutUs(): React.ReactElement {
           {titleDescription}
         </SectionTitle>
 
-        <Box fontSize={1.1} pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description).toString().length > 1120 ? (
+        <Box fontSize="15px" pr={2.8} color="#777" lineHeight={1.8}>
+          {HtmlParser(description).toString().length > 1020 ? (
             <>
 
               <Box>
-                {HtmlParser(description).toString().slice(0, 1120)}...
+                {HtmlParser(description).toString().slice(0, 1010)}...
               </Box>
 
               <Link to="/about" align="flex-end" mt={1.8} underlined>
@@ -53,5 +53,9 @@ const CustomFlex = styled(Flex)`
   flex-direction: column;
   padding: 4.1rem;
   margin-top: 1.2rem;
+   P {
+
+     font-size: 13px;
+   }
 }
 `

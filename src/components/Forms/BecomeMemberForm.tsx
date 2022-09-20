@@ -119,7 +119,7 @@ export default function BecomeMemberForm(): ReactElement {
           </FormRow>
           <FormRow>
             <CustomInputDiv>
-              <Input type="number" placeholder={t('placeholders.ID')} {...register('nif')} />
+              <Input placeholder={t('placeholders.ID')} {...register('nif')} />
               {errors.nif?.message && <ErrorInput msg={t('errors.ID')} mt={0.4} />}
             </CustomInputDiv>
             <CustomInputDiv>
