@@ -35,7 +35,9 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
   const {
     register, handleSubmit, formState: { errors }
   } = useForm<TBuyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
-  const { submit, ...states } = useFormSubmit<TBuyCourseFormSubmit>({ url: getBuyCourseUrl(courseId), isPayment: true })
+  const {
+    submit, ...states
+  } = useFormSubmit<TBuyCourseFormSubmit>({ url: getBuyCourseUrl(courseId), isPayment: true, redirectPath: 'courses' })
   const { t } = useTranslation()
   const onSubmit = (data: TBuyCourseFormSubmit) => {
     const formData = { ...data, course_id: courseId, ong_id: ongId }

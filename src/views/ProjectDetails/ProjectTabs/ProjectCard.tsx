@@ -20,15 +20,16 @@ interface IProps {
 }
 
 export function ProjectCard({ project }: IProps) {
+  const { t } = useTranslation()
   const {
     id, title = '', donated = 0, amount = 0
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
-  const {
-    submit, ...states
-  } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
-  const { t } = useTranslation()
+  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
+    url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
+  })
+
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
 

@@ -25,7 +25,7 @@ const TransactionId:FC<IProps> = (props) => {
 
   return (
     <Flex mt={1} direction="column" gap={3} textAlign="left">
-      <Flex width="fit-content" p={3} border="0.5px" radius="5">
+      <Flex width="fit-content" p={3} border="0.5px" radius="5" direction="column">
         <Text lineHeight={1} textAlign="left" fontSize={1.1} weight="bold" color={secondary}>
           Blockchain transaction:
         </Text>
@@ -37,7 +37,7 @@ const TransactionId:FC<IProps> = (props) => {
         <Text textAlign="left" color="red">{isError && 'Something went wrong!'}</Text>
       </Flex>
 
-      <Flex width="fit-content" py={1.5} px={3} justify="center" border="0.5px" radius="5">
+      <Flex width="fit-content" py={1.5} px={3} justify="center" border="0.5px" radius="5" direction="column">
         <Text weight="bold" fontSize={1.1} color={secondary} textAlign="left">
           Share your donation so that more people collaborate!
         </Text>

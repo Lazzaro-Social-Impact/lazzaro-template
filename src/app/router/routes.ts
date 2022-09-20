@@ -21,8 +21,7 @@ import {
   StripeContainer,
   SuccessfulStripePayment
 } from '../../views'
-
-const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
+import finalizePaymentRoutes from './finalizePaymentRoutes'
 
 type TParameters = {
   features: TFeatures,
@@ -52,7 +51,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: SingleEvent,
     },
     {
-      path: `/events/buy-done/${COMMON_PATH}/:amount/:tickets/:event_id/:nif`,
+      path: finalizePaymentRoutes.events,
       render: events,
       Element: FinalizeEventPaymentPage,
     },
@@ -62,7 +61,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: SingleEvent,
     },
     {
-      path: `/courses/buy-done/${COMMON_PATH}/:amount/:ong_id/:course_id/:nif`,
+      path: finalizePaymentRoutes.courses,
       render: courses,
       Element: FinalizeCoursePaymentPage,
     },
@@ -72,7 +71,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: ProjectDetails,
     },
     {
-      path: `/causes/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:project_id/:nif`,
+      path: finalizePaymentRoutes.causes,
       render: causes,
       Element: FinalizeProjectDonationPage,
     },
@@ -82,7 +81,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: BecomeMemberForm,
     },
     {
-      path: `/partners/donation-done/${COMMON_PATH}/:certificate/:amount/:ong_id/:nif`,
+      path: finalizePaymentRoutes.partners,
       render: partners,
       Element: FinalizeSubscriptionDonationPage,
     },
@@ -92,7 +91,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: Shop,
     },
     {
-      path: `/shop/buy-done/${COMMON_PATH}/:amount/:productAmount/:product_id/:cp/:city/:country/:address/:nif`,
+      path: finalizePaymentRoutes.shop,
       render: market,
       Element: FinalizeProductPaymentPage,
     },
@@ -107,7 +106,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: Donate,
     },
     {
-      path: `/donate/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:nif`,
+      path: finalizePaymentRoutes.donate,
       render: donations,
       Element: FinalizeDonationPage,
     },

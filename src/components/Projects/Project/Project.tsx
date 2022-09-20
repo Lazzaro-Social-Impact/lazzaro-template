@@ -20,9 +20,9 @@ interface ProjectProps {
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const {
-    submit, ...states
-  } = useFormSubmit<DonateSubmitForm>({ url: getStartProjectDonationUrl(ongId), isPayment: true, })
+  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
+    url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
+  })
 
   const { t } = useTranslation()
   const handleSubmit = (values: DonateSubmitForm) => {

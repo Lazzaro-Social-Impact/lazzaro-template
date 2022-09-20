@@ -52,7 +52,7 @@ export default function BecomeMemberForm(): ReactElement {
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
     submit, isError, isLoading, isSuccess
-  } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: true })
+  } = useFormSubmit<TMemberSubmitForm>({ url: getBecomePartnerUrl(), isPayment: true, redirectPath: 'partners' })
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,

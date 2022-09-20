@@ -1,22 +1,35 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
-import {
-  PaymentElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js'
-import { useNavigate } from 'react-router-dom'
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { type Location, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Center } from '../common'
 
+import finalizePaymentRoutes from '../../app/router/finalizePaymentRoutes'
+
 type TClientSecret = {
-    secret: string | undefined
-}
+  secret: string | undefined;
+};
+
+type TLocationWithState = Location & {
+  state: {
+    formData: { [key: string]: string | number | boolean };
+    redirectPath: keyof typeof finalizePaymentRoutes;
+  };
+};
+
 export default function CheckoutForm({ secret }: TClientSecret) {
   const stripe = useStripe()
+  const { state: { formData, redirectPath } } = useLocation() as TLocationWithState
   const elements = useElements()
   const navigate = useNavigate()
   const [message, setMessage] = useState<null | string | undefined>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const finalizePaymentRoute = finalizePaymentRoutes[redirectPath]
+    .split('/:')
+    .map((param) => formData[param] ?? param)
+    .join('/')
+    .replaceAll(' ', '')
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
@@ -33,7 +46,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/payment-success`,
+        return_url: `${window.location.origin}${finalizePaymentRoute}`,
       },
     })
 
@@ -82,10 +95,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
 
   return (
     <CheckoutFormStripe>
-      <form
-        id="payment-form"
-        onSubmit={handleSubmit}
-      >
+      <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" />
         <Center>
           <Button type="submit" disabled={isLoading || !stripe || !elements}>
@@ -102,26 +112,25 @@ export default function CheckoutForm({ secret }: TClientSecret) {
 }
 
 const CheckoutFormStripe = styled.div`
-    display: flex;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height: 100vh;
-    width: 100vw;
+  display: flex;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+  width: 100vw;
 
-
-#payment-message {
+  #payment-message {
     color: rgb(105, 115, 134);
     font-size: 16px;
     line-height: 20px;
     padding-top: 12px;
     text-align: center;
   }
-  
+
   #payment-element {
     margin-bottom: 24px;
   }
@@ -129,8 +138,8 @@ const CheckoutFormStripe = styled.div`
     width: 30vw;
     min-width: 500px;
     align-self: center;
-    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
-      0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1), 0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+      0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
     border-radius: 7px;
     padding: 40px;
   }
@@ -150,23 +159,23 @@ const CheckoutFormStripe = styled.div`
     box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
     width: 100%;
   }
-  
+
   #submit:hover {
     filter: contrast(115%);
   }
-  
+
   #submit:disabled {
     opacity: 0.5;
     cursor: default;
   }
-  
+
   /* spinner/processing state, errors */
   .spinner,
   .spinner:before,
   .spinner:after {
     border-radius: 50%;
   }
-  
+
   .spinner {
     color: #ffffff;
     font-size: 22px;
@@ -180,13 +189,13 @@ const CheckoutFormStripe = styled.div`
     -ms-transform: translateZ(0);
     transform: translateZ(0);
   }
-  
+
   .spinner:before,
   .spinner:after {
     position: absolute;
     content: '';
   }
-  
+
   .spinner:before {
     width: 10.4px;
     height: 20.4px;
@@ -199,7 +208,7 @@ const CheckoutFormStripe = styled.div`
     -webkit-animation: loading 2s infinite ease 1.5s;
     animation: loading 2s infinite ease 1.5s;
   }
-  
+
   .spinner:after {
     width: 10.4px;
     height: 10.2px;
@@ -212,7 +221,7 @@ const CheckoutFormStripe = styled.div`
     -webkit-animation: loading 2s infinite ease;
     animation: loading 2s infinite ease;
   }
-  
+
   @keyframes loading {
     0% {
       -webkit-transform: rotate(0deg);
@@ -223,7 +232,7 @@ const CheckoutFormStripe = styled.div`
       transform: rotate(360deg);
     }
   }
-  
+
   @media only screen and (max-width: 600px) {
     form {
       width: 80vw;

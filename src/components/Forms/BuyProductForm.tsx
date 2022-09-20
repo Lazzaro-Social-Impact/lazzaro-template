@@ -53,7 +53,7 @@ export function BuyProductForm(props: IProps): ReactElement {
 
   const {
     submit, ...states
-  } = useFormSubmit<IFormSubmit>({ url: getStartProductPaymentUrl(), isPayment: true })
+  } = useFormSubmit<IFormSubmit>({ url: getStartProductPaymentUrl(), isPayment: true, redirectPath: 'shop' })
 
   const onSubmit = (data: IFormSubmit) => {
     const donationInfo = {
