@@ -24,7 +24,7 @@ function BecomeVolunteerForm() {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const { t } = useTranslation()
   const {
-    handleSubmit, register, formState: { errors }
+    handleSubmit, register, formState: { errors }, reset
   } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
   const {
     submit, ...states
@@ -33,6 +33,7 @@ function BecomeVolunteerForm() {
   const onSubmit = (data: TVolunteerSubmitForm) => {
     const formData = { ...data, ong_id: ongId }
     submit(formData)
+    reset()
   }
   return (
     <>

@@ -31,8 +31,8 @@ export function ProductCard({
           onError={handleBrokenImage}
           placeholderSrc={img}
         />
-
       </ProductImage>
+
       <Flex wrap="nowrap" py={0.4} px={0.8} align="flex-start">
         <P textAlign="left" flex={1}>
           {title}
