@@ -20,11 +20,10 @@ export default function AboutUs(): React.ReactElement {
         </SectionTitle>
 
         <Box fontSize="15px" pr={2.8} color="#777" lineHeight={1.8}>
-          {HtmlParser(description).toString().length > 1020 ? (
+          {description && description.length > 1020 ? (
             <>
-
               <Box>
-                {HtmlParser(description).toString().slice(0, 1010)}...
+                {HtmlParser(description.slice(0, 810))}...
               </Box>
 
               <Link to="/about" align="flex-end" mt={1.8} underlined>
