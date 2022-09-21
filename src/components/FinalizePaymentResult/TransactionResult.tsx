@@ -1,4 +1,5 @@
 import { type FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from 'styled-components'
 import { Button, Flex, Text } from '../common'
@@ -15,7 +16,7 @@ const TransactionId:FC<IProps> = (props) => {
   const {
     transactionId, redirectPath, sectionId, isError
   } = props
-
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const navigateTo = (path: string) => () => navigate(path)
   const { secondary, primary } = useTheme()
@@ -27,7 +28,7 @@ const TransactionId:FC<IProps> = (props) => {
     <Flex mt={1} direction="column" gap={3} textAlign="left">
       <Flex width="fit-content" p={3} border="0.5px" radius="5" direction="column">
         <Text lineHeight={1} textAlign="left" fontSize={1.1} weight="bold" color={secondary}>
-          Blockchain transaction:
+          {t('finalize.id')}:
         </Text>
 
         <Text weight="bold" fontSize={1} color={primary} textAlign="left">
@@ -39,12 +40,12 @@ const TransactionId:FC<IProps> = (props) => {
 
       <Flex width="fit-content" py={1.5} px={3} justify="center" border="0.5px" radius="5" direction="column">
         <Text weight="bold" fontSize={1.1} color={secondary} textAlign="left">
-          Share your donation so that more people collaborate!
+          {t('finalize.share')}
         </Text>
         <Share section={sectionTitle} sectionId={sectionId} />
       </Flex>
 
-      <Button onClick={navigateTo(`/${redirectPath}`)}>Return</Button>
+      <Button onClick={navigateTo('/')}>{t('finalize.return')}</Button>
     </Flex>
   )
 }

@@ -200,5 +200,12 @@
   },
   "event": "event",
   "cause": "cause",
-  "all_rights": "All rights reserved"
+  "all_rights": "All rights reserved",
+  "finalize": {
+    "success":"Donation successful",
+    "id": "Blockchain transaction",
+    "share":"Share your donation so that more people collaborate!",
+    "return":"Return to the home page",
+    "loading": "Loading..."
+  }
 }

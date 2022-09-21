@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { getFinalizeBecomeAPartnerUrl } from '../../api/postApiServices'
-import FinalizePayment from '../../components/FinalizePaymentResult'
 import { useAppSelector, useFinalizePayment } from '../../hooks'
+import FinalizePayment from '../../components/FinalizePaymentResult'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {

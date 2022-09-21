@@ -200,5 +200,12 @@
   "share-modal": {
     "share-this": "Comparte este"
   },
-  "all_rights": "Reservados todos los derechos"
+  "all_rights": "Reservados todos los derechos",
+  "finalize": {
+    "success": "Donación exitosa",
+    "id": "Transacción de cadena de bloques",
+    "share":"¡Comparte tu donación para que más personas colaboren!",
+    "return":"Volver a la página de inicio",
+    "loading": "Cargando..."
+  }
 }
