@@ -1,9 +1,7 @@
 import { Breadcrumb } from 'antd'
 import { useMemo, type ReactElement } from 'react'
-
 import HtmlParser from 'html-react-parser'
-
-import { useNavigate, useParams } from 'react-router-dom'
+import { type Params, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { getProductDetails, getProductImages } from '../../api/getApiServices'
@@ -20,7 +18,7 @@ import { ShareModal } from '../../components/ShareModal/ShareModal'
 import { LazyImageComponent } from '../../components/common/LazyImage'
 
 function SingleProduct(): ReactElement {
-  const { id = '' } = useParams<Record<'id', string>>()
+  const { id = '' } = useParams<Params<'id'>>()
   const {
     data: product
   } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)

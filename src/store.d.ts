@@ -81,16 +81,28 @@ declare global {
     readonly position: string;
   }>;
 
-  type TOngConfig = Readonly<{
-    brand: TBrand;
-    contact: TContact;
-    description: TDescription;
-    features: TFeatures;
-    impactData: TImpactData;
-    platformConfig: TPlatformConfig;
-    rrss: TRrss;
-    team: TTeam;
-  }>
+  // // ? uncomment for testing purposes
+  // type TOngConfig = {
+  //   brand: TBrand;
+  //   contact: TContact;
+  //   description: TDescription;
+  //   features: TFeatures;
+  //   impactData: TImpactData;
+  //   platformConfig: TPlatformConfig;
+  //   rrss: TRrss;
+  //   team: TTeam;
+  // }
+
+    type TOngConfig = Readonly<{
+      brand: TBrand;
+      contact: TContact;
+      description: TDescription;
+      features: TFeatures;
+      impactData: TImpactData;
+      platformConfig: TPlatformConfig;
+      rrss: TRrss;
+      team: TTeam;
+    }>;
 }
 
 export {}

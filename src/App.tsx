@@ -1,6 +1,4 @@
-import {
-  useEffect, useLayoutEffect, useCallback
-} from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
@@ -17,6 +15,19 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 import './i18n/config'
+
+// ? // testing purposes
+// const features = {
+//   causes: true,
+//   events: true,
+//   partners: true,
+//   volunteers: true,
+//   courses: true,
+//   impact: true,
+//   logos: true,
+//   donations: true,
+//   market: true,
+// }
 
 const ongUrl = ['development'].includes(import.meta.env.MODE)
   ? 'prehelloo.web.lazzaro.io'
@@ -44,13 +55,6 @@ function App() {
 
   const theme: DefaultTheme = { primary, secondary }
 
-  const setOngIdDispatch = useCallback(() => {
-    dispatch(setOngId(ongId))
-  }, [dispatch, ongId])
-  const setOngConfigDispatch = useCallback(() => {
-    dispatch(setOngConfig(ongData))
-  }, [dispatch, ongData])
-
   useEffect(() => {
     if (!localStorage.getItem('lang')) {
       localStorage.setItem('lang', 'es')
@@ -59,17 +63,18 @@ function App() {
       localStorage.removeItem('lang')
     }
   }, [])
-  useEffect(() => {
-    setOngIdDispatch()
 
-    setOngConfigDispatch()
+  useEffect(() => {
+    dispatch(setOngId(ongId))
+
+    // ?  if (ongData) ongData.features = features
+    dispatch(setOngConfig(ongData))
 
     return () => {
       dispatch(setOngId(null))
-
       dispatch(setOngConfig(null))
     }
-  }, [dispatch, setOngIdDispatch, setOngConfigDispatch])
+  }, [ongData, ongId])
 
   useLayoutEffect(() => {
     const favIcon = document.getElementById('favicon') as HTMLLinkElement
@@ -82,23 +87,21 @@ function App() {
     }
   }, [ongData])
 
+  if (isError || isErrorPage || config === null) return <CrashPage />
+
+  if (isLoading || isLoadingPage) {
+    return (
+      <ThemeProvider theme={theme}>
+        <LoadingIndex />
+      </ThemeProvider>
+    )
+  }
+
   return (
-    <>
-      {isError || isErrorPage || config === null ? (
-        <CrashPage />
-      ) : isLoading || isLoadingPage ? (
-        <ThemeProvider theme={theme}>
-          <LoadingIndex />
-        </ThemeProvider>
-      ) : (
-        <>
-          <ThemeProvider theme={theme}>
-            <AllRoute />
-            <ToastContainer />
-          </ThemeProvider>
-        </>
-      )}
-    </>
+    <ThemeProvider theme={theme}>
+      <AllRoute />
+      <ToastContainer />
+    </ThemeProvider>
   )
 }
 

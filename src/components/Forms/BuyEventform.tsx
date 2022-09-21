@@ -1,20 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Fragment, ReactElement, useMemo } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
-import {
-  useAppSelector, useDependant, useFormSubmit
-} from '../../hooks'
+import { useAppSelector, useDependant, useFormSubmit } from '../../hooks'
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
-import {
-  Box, Button, Center
-} from '../common'
+import { Box, Button, Center } from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
@@ -23,7 +19,6 @@ import PrivacyPolicy from '../common/PrivacyPolicy'
 interface Props {
   modal?: TModal;
   eventId: string;
-  isEvent: boolean;
 }
 
 type TBuyTicketFormSubmit = {
@@ -38,7 +33,7 @@ type TBuyTicketFormSubmit = {
   newsletter: boolean;
 };
 
-export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
+export function BuyEventform({ modal, eventId }: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
@@ -49,8 +44,8 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
   const { EventTickets = [], price } = eventDetails || {}
 
   const {
-    register, handleSubmit, formState: { errors }
-  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
+    register, handleSubmit, formState: { errors },
+  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema) })
 
   const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>({
     url: getBuyEventTicketUrl(eventId), isPayment: true, redirectPath: 'events'
@@ -130,34 +125,27 @@ export function BuyEventform({ modal, eventId, isEvent }: Props): ReactElement {
         </CustomInputDiv>
       </FormRow>
 
-      {isEvent && (
       <FormRow width="50%">
         <CustomInputDiv pr="0.4rem">
           <CustomInput placeholder={t('placeholders.ID')} {...register('nif')} />
           {errors.nif?.message && <ErrorInput msg={t('errors.ID')} />}
         </CustomInputDiv>
       </FormRow>
-      )}
 
-      <>
-        <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
-        <PrivacyPolicy />
-        {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
-      </>
+      <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
+      <PrivacyPolicy />
+      {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
+
       <br />
-      {isEvent && (
-      <>
-        <CheckBoxInput type="checkbox" {...register('image_rights')} />
-        <span style={{ fontSize: '1rem' }}>{t('event_single.image_rights')}</span>
-        {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
 
-        <br />
-        <CheckBoxInput type="checkbox" {...register('newsletter')} />
-        <span style={{ fontSize: '1rem' }}>{t('event_single.newsletter')}</span>
-        {errors.newsletter?.message && <ErrorInput msg={t('errors.newsletter')} />}
+      <CheckBoxInput type="checkbox" {...register('image_rights')} />
+      <span style={{ fontSize: '1rem' }}>{t('event_single.image_rights')}</span>
+      {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
 
-      </>
-      )}
+      <br />
+      <CheckBoxInput type="checkbox" {...register('newsletter')} />
+      <span style={{ fontSize: '1rem' }}>{t('event_single.newsletter')}</span>
+      {errors.newsletter?.message && <ErrorInput msg={t('errors.newsletter')} />}
 
       <Center>
         <Button mt="1.8rem" px="2.8rem">
@@ -182,7 +170,7 @@ const FormTitle = styled.h2`
   font-size: 1.8rem;
 `
 
-const FormRow = styled.div<{ modal?: TModal, width?: TWidth }>`
+const FormRow = styled.div<{ modal?: TModal; width?: TWidth }>`
   display: flex;
   flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
   gap: 0.8rem;
@@ -193,7 +181,6 @@ const FormRow = styled.div<{ modal?: TModal, width?: TWidth }>`
 const CheckBoxInput = styled.input`
   margin-top: 1.8rem;
   width: 30px;
-
 `
 
 const CustomLabel = styled.label`
@@ -211,9 +198,7 @@ const TicketInput = styled.input`
   margin-top: 0.8rem;
   &:focus {
     outline: none;
-    }
-    
-
+  }
 `
 BuyEventform.defaultProps = {
   modal: false,
