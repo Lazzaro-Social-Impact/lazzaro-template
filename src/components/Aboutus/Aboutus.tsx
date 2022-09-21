@@ -48,13 +48,21 @@ export default function AboutUs(): React.ReactElement {
 }
 
 const CustomFlex = styled(Flex)`
-@media screen and (max-width: 690px) {
-  flex-direction: column;
-  padding: 4.1rem;
-  margin-top: 1.2rem;
-   P {
+  @media screen and (max-width: 690px) {
+    flex-direction: column;
+    padding: 4.1rem;
+    margin-top: 1.2rem;
+    P {
+      font-size: 13px;
+    }
 
-     font-size: 13px;
-   }
-}
+  }
+    p,
+    strong,
+    span {
+      color: rgb(34, 34, 34) !important;
+      line-height: 1.6rem !important;
+      font-size: 16px !important;
+      font-weight: 400 !important;
+    }
 `
