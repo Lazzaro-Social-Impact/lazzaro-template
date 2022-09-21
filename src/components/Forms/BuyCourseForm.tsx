@@ -40,7 +40,9 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
     submit, ...states
   } = useFormSubmit<TBuyCourseFormSubmit>({ url: getBuyCourseUrl(courseId), isPayment: true, redirectPath: 'courses' })
   const onSubmit = (data: TBuyCourseFormSubmit) => {
-    const formData = { ...data, course_id: courseId, ong_id: ongId }
+    const formData = {
+      ...data, course_id: courseId, ong_id: ongId, amount: 1
+    }
 
     submit(formData)
   }
