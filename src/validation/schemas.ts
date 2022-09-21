@@ -45,8 +45,6 @@ export const buyProductSchema = yup.object({
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
   cp: yup.number().typeError('errors.cp').required(),
   mobile_phone: yup.string().required('errors.phone'),
-  birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
-
   privacy_policy: yup.boolean().isTrue('errors.privacypolicy').required(),
 })
 

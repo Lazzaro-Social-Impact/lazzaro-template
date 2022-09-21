@@ -35,7 +35,7 @@ export default function ContactusForm(): ReactElement {
 
   const { t } = useTranslation()
   const {
-    register, handleSubmit, formState: { errors }
+    register, handleSubmit, formState: { errors }, reset
   } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
 
   const { submit, ...states } = useFormSubmit<ContactSubmitForm & { ongEmail: string }>({
@@ -45,6 +45,7 @@ export default function ContactusForm(): ReactElement {
 
   const onSubmit = (data: ContactSubmitForm) => {
     submit({ ...data, ongEmail: email })
+    reset()
   }
 
   const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)

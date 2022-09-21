@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import moment from 'moment'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -37,7 +36,6 @@ interface IFormSubmit {
   cp: number;
   mobile_phone: string;
   privacy_policy: boolean;
-  birthDate: string;
 }
 
 export function BuyProductForm(props: IProps): ReactElement {
@@ -61,7 +59,6 @@ export function BuyProductForm(props: IProps): ReactElement {
       ong_id: ongId,
       product_id: id,
       amount: price,
-      birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
     }
 
     submit(donationInfo)

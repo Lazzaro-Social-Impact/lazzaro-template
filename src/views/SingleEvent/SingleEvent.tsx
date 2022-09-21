@@ -1,5 +1,5 @@
 import { useEffect, type ReactElement } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Params, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
 import { Footer, Navbar } from '../../components'
@@ -10,11 +10,10 @@ import { useDependant } from '../../hooks'
 import { IEvent } from '../../types/interfaces'
 
 function SingleEvent(): ReactElement {
-  const { pathname } = useLocation()
-  const isEvent = pathname.startsWith('/events')
-  const isCourse = pathname.startsWith('/courses')
-  const { id } = useParams() as { id: string }
-  const { data: event, isLoading } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
+  const { id = '' } = useParams<Params<'id'>>()
+  const {
+    data: event = {} as IEvent, isLoading
+  } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -24,15 +23,13 @@ function SingleEvent(): ReactElement {
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} isEvent={isEvent} />
+        <SingleEventDetails event={event} id={id} isLoadingEvent={isLoading} />
         <OtherEvents>
           {isLoading && <Skeleton number={1} height={22} width={26} />}
 
-          {isEvent
-            && event?.course === false && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
+          {!event.course && <EventCard {...event} key={event.id} />}
 
-          {isCourse
-            && event?.course && <EventCard {...event} key={event?.id} isEvent={isEvent} />}
+          {event.course && <EventCard {...event} key={event.id} />}
         </OtherEvents>
       </Container>
       <Footer />

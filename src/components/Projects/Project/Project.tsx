@@ -30,6 +30,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
       ...values,
       ong_id: ongId,
       birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
+      project_id: id
     }
 
     submit(donationInfo)
