@@ -22,7 +22,7 @@ interface IProps {
 export function ProjectCard({ project }: IProps) {
   const { t } = useTranslation()
   const {
-    id, title = '', donated = 0, amount = 0
+    id, title = '', donated = 0, amount = 1
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
