@@ -79,11 +79,11 @@ export default function Footer(): ReactElement {
         </div>
 
         <Icons>
-          <FacebookFilled onClick={navigateTo(facebook)} />
-          <LinkedinFilled onClick={navigateTo(linkedin)} />
-          <TwitterOutlined onClick={navigateTo(twitter)} />
-          <InstagramOutlined onClick={navigateTo(instagram)} />
-          <GlobalOutlined onClick={navigateTo(web)} />
+          {facebook && <FacebookFilled onClick={navigateTo(facebook)} />}
+          {linkedin && <LinkedinFilled onClick={navigateTo(linkedin)} />}
+          {twitter && <TwitterOutlined onClick={navigateTo(twitter)} />}
+          {instagram && <InstagramOutlined onClick={navigateTo(instagram)} />}
+          {web && <GlobalOutlined onClick={navigateTo(web)} />}
         </Icons>
         {poweredBy && (
         <p style={{ fontSize: '1rem' }}>Powered by {' '}

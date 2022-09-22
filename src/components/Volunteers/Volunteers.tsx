@@ -49,6 +49,8 @@ export default function Volunteers(): ReactElement {
     [members, numOfCards]
   )
 
+  if (!members?.length) return <></>
+
   return (
     <VolunteersSection id="volunteers">
       <SectionTitle>{t('Meet Our Team')}</SectionTitle>

@@ -35,7 +35,7 @@ const TransactionId:FC<IProps> = (props) => {
           {transactionId}
         </Text>
 
-        <Text textAlign="left" color="red">{isError && 'Something went wrong!'}</Text>
+        <Text textAlign="left" color="red">{isError && t('fail.error')}</Text>
       </Flex>
 
       <Flex width="fit-content" py={1.5} px={3} justify="center" border="0.5px" radius="5" direction="column">
