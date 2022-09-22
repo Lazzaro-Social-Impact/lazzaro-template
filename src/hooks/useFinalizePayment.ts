@@ -11,10 +11,8 @@ interface IParameters<TParams> {
 
 const useFinalizePayment = <TParams>({ params, url }:IParameters<TParams>):returnType => {
   const {
-    mutateAsync, isError, isLoading, data, error
+    mutateAsync, isError, isLoading, data
   } = usePostData<{ data:string }, TParams>(url)
-  console.log('🚀 ~ file: useFinalizePayment.ts ~ line 15 ~ useFinalizePayment ~ data', data)
-  console.log('🚀 ~ file: useFinalizePayment.ts ~ line 15 ~ useFinalizePayment ~ error', error)
 
   const getTransactionId = async ():Promise<void> => {
     await mutateAsync(params)
