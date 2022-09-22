@@ -89,7 +89,7 @@ export default function Landing(): ReactElement {
         {courses && !events && <Courses />}
 
         <ReorderComponent
-          feature={partners}
+          feature={volunteers}
           zones={zones}
           Component={SubscribeDivider}
           orderWithZones={0}

@@ -57,7 +57,7 @@ const CustomFlex = styled(Flex)`
     }
 
   }
-    p,
+  p,
     strong,
     span {
       color: rgb(34, 34, 34) !important;
