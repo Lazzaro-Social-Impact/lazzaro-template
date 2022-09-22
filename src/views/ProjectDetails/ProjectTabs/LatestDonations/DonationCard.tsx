@@ -2,6 +2,7 @@ import moment from 'moment'
 import { type FC } from 'react'
 import styled from 'styled-components'
 import { Text } from '../../../../components/common'
+import { useAppSelector } from '../../../../hooks'
 import { type IDonation } from '../../../../types/interfaces'
 
 interface IProps {
@@ -9,28 +10,34 @@ interface IProps {
 }
 const formatDate = (date: string) => moment(date).format('MM Do YYYY')
 
-const DonationCard: FC<IProps> = ({ donation }) => (
-  <Section key={donation.id}>
-    <Flex>
-      <Text fontSize={1.2}>
-        {donation.anonymous ? 'anonymous' : `${donation.User.firstName} ${donation.User.lastName}`}
+const DonationCard: FC<IProps> = ({ donation }) => {
+  const currencySymbol = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig.currency_symbol) || '€'
+
+  return (
+    <Section key={donation.id}>
+      <Flex>
+        <Text fontSize={1.2}>
+          {donation.anonymous
+            ? 'anonymous'
+            : `${donation.User.firstName} ${donation.User.lastName}`}
+        </Text>
+        <a
+          href={`https://blkexplorer1.telsius.alastria.io/transaction/${donation.Payment.tx}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {currencySymbol}{donation.amount}
+        </a>
+      </Flex>
+
+      <Text fontSize={0.7} lineHeight={0} textAlign="left" color="#777777" mt={-1.5}>
+        {formatDate(donation.createdAt)}
       </Text>
-      <a
-        href={`https://blkexplorer1.telsius.alastria.io/transaction/${donation.Payment.tx}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        ${donation.amount}
-      </a>
-    </Flex>
 
-    <Text fontSize={0.7} lineHeight={0} textAlign="left" color="#777777" mt={-1.5}>
-      {formatDate(donation.createdAt)}
-    </Text>
-
-    <Text mt={1}>{donation.text}</Text>
-  </Section>
-)
+      <Text mt={1}>{donation.text}</Text>
+    </Section>
+  )
+}
 
 export default DonationCard
 

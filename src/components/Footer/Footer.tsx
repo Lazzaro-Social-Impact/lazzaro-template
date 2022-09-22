@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import {
-
   Flex, Image, Link, SectionTitle
 } from '../common'
 
@@ -52,11 +51,14 @@ export default function Footer(): ReactElement {
 
         <Title
           style={{
-            padding: '0', width: '100%', flexGrow: 1,
+            padding: '0',
+            width: '100%',
+            flexGrow: 1,
           }}
           fontSize={1.2}
         >
-          {t('footer.title_1')}<br />
+          {t('footer.title_1')}
+          <br />
           {t('footer.title_2')}
         </Title>
 
@@ -74,24 +76,30 @@ export default function Footer(): ReactElement {
 
       <SubFooter>
         <div>
-          <Link hovercolor="white" to="/terms_and_conditions" underlined>{t('footer.terms')}</Link>
-          <p style={{ fontSize: '1rem' }}>&copy;  {new Date().getFullYear()} {title}, {t('all_rights')}</p>
+          <Link hovercolor="white" to="/terms_and_conditions" underlined>
+            {t('footer.terms')}
+          </Link>
+          <p style={{ fontSize: '1rem' }}>
+            &copy; {new Date().getFullYear()} {title}, {t('all_rights')}
+          </p>
         </div>
 
         <Icons>
-          <FacebookFilled onClick={navigateTo(facebook)} />
-          <LinkedinFilled onClick={navigateTo(linkedin)} />
-          <TwitterOutlined onClick={navigateTo(twitter)} />
-          <InstagramOutlined onClick={navigateTo(instagram)} />
-          <GlobalOutlined onClick={navigateTo(web)} />
+          {facebook && <FacebookFilled onClick={navigateTo(facebook)} />}
+          {instagram && <InstagramOutlined onClick={navigateTo(instagram)} />}
+          {linkedin && <LinkedinFilled onClick={navigateTo(linkedin)} />}
+          {twitter && <TwitterOutlined onClick={navigateTo(twitter)} />}
+          {web && <GlobalOutlined onClick={navigateTo(web)} />}
         </Icons>
         {poweredBy && (
-        <p style={{ fontSize: '1rem' }}>Powered by {' '}
-          <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">Lazzaro</a>
-        </p>
-        ) }
+          <p style={{ fontSize: '1rem' }}>
+            Powered by{' '}
+            <a target="_blank" href="https://lazzaro.io/" rel="noreferrer">
+              Lazzaro
+            </a>
+          </p>
+        )}
       </SubFooter>
-
     </>
   )
 }
