@@ -28,7 +28,7 @@ export const buyTicketSchema = yup.object({
   mobilePhone: yup.string().required('errors.phone'),
   terms_and_conditions: yup.boolean().oneOf([true], 'errors.privacypolicy'),
   tickets: yup.array().of(yup.object({
-    amount: yup.number().required('errors.amount'),
+    amount: yup.number().required('errors.amount').default(0),
     id: yup.string().required('errors.ticket'),
   })).required('errors.ticket'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),

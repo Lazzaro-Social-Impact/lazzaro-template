@@ -105,7 +105,8 @@
       "amount_member": "Seleccione la cantidad que desea aportar anualmente",
       "certificate": "Por favor, seleccione si desea recibir un certificado de donación",
       "communications": "Por favor, seleccione si desea recibir comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras",
-      "newsletter": "Debe autorizarnos a enviarle comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras"
+      "newsletter": "Debe autorizarnos a enviarle comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras",
+      "ticket_amount": "Debe comprar al menos una entrada"
     },
     "success": {
       "donation": "Gracias por su donación",

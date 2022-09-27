@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Radio } from 'antd'
-import { type ReactElement, useMemo } from 'react'
+import {
+  type ReactElement, useMemo, useState, useRef, useCallback, useEffect
+} from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -58,6 +60,18 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
     url: getBuyEventTicketUrl(eventId), isPayment: true, redirectPath: 'events'
   })
 
+  const [ticketError, setTicketError] = useState('')
+  const ticketInputRef = useRef<HTMLLabelElement>(null)
+  const scrollIntoTicketError = useCallback(() => {
+    document.getElementById('ticketInputs')?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  useEffect(() => {
+    if (ticketError) {
+      scrollIntoTicketError()
+    }
+  }, [ticketError, scrollIntoTicketError])
+
   const onSubmit = (data: TBuyTicketFormSubmit) => {
     const formData = {
       ...data,
@@ -66,13 +80,20 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
       ong_id: ongId,
     }
 
-    submit(formData)
+    if (data.tickets.length) {
+      const atLeastoneTicketPurchased = data.tickets.map((ticket) => ticket.amount).includes(1)
+      if (atLeastoneTicketPurchased) {
+        submit(formData)
+      } else {
+        setTicketError(t('errors.ticket_amount'))
+      }
+    }
   }
 
   const ticketsInputs: JSX.Element[] = useMemo(
     () => EventTickets?.map((ticket, i: number) => (
       <Box mt={1} key={ticket.id}>
-        <CustomLabel>
+        <CustomLabel ref={ticketInputRef} tabIndex={0} id="ticketInputs">
           {ticket.type} ({ticket.price}
           {currency})
         </CustomLabel>
@@ -83,6 +104,7 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
           max="1"
           placeholder={t('placeholders.ticket')}
           {...register(`tickets.${i}.amount`)}
+          value={ticket.amount}
         />
       </Box>
     )),
@@ -105,6 +127,7 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
           <p>{t('event_single.ticket_person')}</p>
 
           {ticketsInputs}
+          {ticketError && <ErrorInput mt={1.2} msg={t('errors.ticket_amount')} />}
         </div>
       )}
 

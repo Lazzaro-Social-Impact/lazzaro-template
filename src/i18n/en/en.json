@@ -103,7 +103,8 @@
       "amount_member": "Please select the amount you want to contribute annually",
       "newsletter": "You must authorize us to send you communications related to our activity and/or any of our partner or collaborating entities",
       "certificate": "Please select if you want to receive a donation certificate",
-      "communications": "Please select if you want us to send you communications related to our activity and/or any of our partner or collaborating entities"
+      "communications": "Please select if you want us to send you communications related to our activity and/or any of our partner or collaborating entities",
+      "ticket_amount": "You must buy at least one ticket"
     },
     "success": {
       "donation": "Thank you for your donation",
