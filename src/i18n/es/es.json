@@ -103,6 +103,8 @@
       "cp": "Por favor, indique un código postal válido",
       "product_amount":"Por favor, indique la cantidad de productos que desea comprar",
       "amount_member": "Seleccione la cantidad que desea aportar anualmente",
+      "certificate": "Por favor, seleccione si desea recibir un certificado de donación",
+      "communications": "Por favor, seleccione si desea recibir comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras",
       "newsletter": "Debe autorizarnos a enviarle comunicaciones relacionadas con nuestra actividad y/o alguna de nuestras entidades colaboradoras o colaboradoras"
     },
     "success": {

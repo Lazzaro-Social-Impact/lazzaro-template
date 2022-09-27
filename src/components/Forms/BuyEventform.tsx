@@ -62,7 +62,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
   }
 
   const ticketsInputs: JSX.Element[] = useMemo(
-    () => EventTickets.map((ticket, i: number) => (
+    () => EventTickets?.map((ticket, i: number) => (
       <Box mt={1} key={ticket.id}>
         <CustomLabel>
           {ticket.type} ({ticket.price}
@@ -139,7 +139,13 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       <br />
 
       <CheckBoxInput type="checkbox" {...register('image_rights')} />
-      <span style={{ fontSize: '1rem' }}>{t('event_single.image_rights')}</span>
+      <span style={{ fontSize: '1rem' }}>{t('event_single.image_rights')}
+        <br />
+        <span style={{ marginLeft: '2rem' }}>
+          {t('event_single.image_rights_2')}
+        </span>
+
+      </span>
       {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
 
       <br />

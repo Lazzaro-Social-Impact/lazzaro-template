@@ -101,7 +101,9 @@
       "country": "Please enter your country",
       "product_amount": "Please enter the amount of products you want to buy",
       "amount_member": "Please select the amount you want to contribute annually",
-      "newsletter": "You must authorize us to send you communications related to our activity and/or any of our partner or collaborating entities"
+      "newsletter": "You must authorize us to send you communications related to our activity and/or any of our partner or collaborating entities",
+      "certificate": "Please select if you want to receive a donation certificate",
+      "communications": "Please select if you want us to send you communications related to our activity and/or any of our partner or collaborating entities"
     },
     "success": {
       "donation": "Thank you for your donation",
@@ -131,7 +133,8 @@
     },
     "event_single": {
       "location": "Location",
-      "image_rights": "I have read and accept the conditions related to the transfer of my image rights contained in the privacy policy and I authorize its use",
+      "image_rights": "I have read and accept the conditions related to the transfer of my image rights",
+      "image_rights_2": "contained in the privacy policy and I authorize its use",
       "num_of_entries": "Number of entries",
       "ticket_person": "Only one ticket per person. You can buy more tickets by repeating the purchase process.",
       "send_information": "Do authorize us to send you information about our entity and how to become a member?",

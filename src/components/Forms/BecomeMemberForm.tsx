@@ -29,7 +29,8 @@ type TMemberSubmitForm = {
   birthDate: string;
   nif: number;
   terms: boolean;
-  membership: boolean;
+  certificate: boolean;
+  communications: boolean;
   phone: string;
   amount: number;
 };
@@ -56,9 +57,12 @@ export default function BecomeMemberForm(): ReactElement {
   const onSubmit = (data: TMemberSubmitForm) => {
     const formData = {
       ...data,
+      communications: data.communications || false,
+      certificate: data.certificate || false,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       ong_id: ongId,
     }
+
     submit(formData)
   }
   return (
@@ -174,13 +178,22 @@ export default function BecomeMemberForm(): ReactElement {
           {errors.terms?.message && <ErrorInput msg={t('errors.privacypolicy')} mt={0.4} /> }
 
           <RadioQuestion>
-            {t('membership.question')}
+            {t('communication_question')}
           </RadioQuestion>
-          <Radio.Group {...register('membership')}>
+          <Radio.Group {...register('communications')}>
             <CustomRadio value>{t('yes')}</CustomRadio>
             <CustomRadio value={false}>{t('no')}</CustomRadio>
           </Radio.Group>
-          {errors.membership?.message && <ErrorInput msg={t('errors.membership')} mt={0.4} /> }
+          {errors.communications?.message && <ErrorInput msg={t('errors.communications')} mt={0.4} /> }
+
+          <RadioQuestion>
+            {t('Certificate question')}
+          </RadioQuestion>
+          <Radio.Group {...register('certificate')}>
+            <CustomRadio value>{t('yes')}</CustomRadio>
+            <CustomRadio value={false}>{t('no')}</CustomRadio>
+          </Radio.Group>
+          {errors.certificate?.message && <ErrorInput msg={t('errors.certificate')} mt={0.4} /> }
 
           <Center>
             <Button type="submit">{t('send')}</Button>

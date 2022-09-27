@@ -30,7 +30,7 @@ import './i18n/config'
 // }
 
 const ongUrl = ['development'].includes(import.meta.env.MODE)
-  ? 'prehelloo.web.lazzaro.io'
+  ? 'onginfanciadenad.web.lazzaro.io'
   : window.location.origin.replace('https://', '')
 
 function App() {

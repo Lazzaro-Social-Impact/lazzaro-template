@@ -10,10 +10,11 @@ export const memberSchema = yup.object().shape({
   home_address: yup.string().required('errors.address'),
   birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
-  terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
-  membership: yup.boolean().typeError('errors.membership').oneOf([true], 'errors.membership'),
+  terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true]).nullable(),
+  certificate: yup.boolean().typeError('errors.certificate').nullable(),
   phone: yup.string().required('errors.phone'),
   amount: yup.number().required('errors.amount'),
+  communications: yup.boolean().typeError('errors.certifications').nullable()
 }).required()
 
 export const buyCourseTicketSchema = yup.object({
@@ -32,7 +33,6 @@ export const buyTicketSchema = yup.object({
   })).required('errors.ticket'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
   image_rights: yup.boolean().oneOf([true], 'errors.image_rights'),
-  newsletter: yup.boolean().oneOf([true], 'errors.newsletter'),
 
 })
 
