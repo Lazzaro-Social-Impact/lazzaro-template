@@ -19,6 +19,7 @@ import PrivacyPolicy from '../common/PrivacyPolicy'
 interface Props {
   modal?: TModal;
   eventId: string;
+  disabled: boolean;
 }
 
 type TBuyTicketFormSubmit = {
@@ -33,7 +34,7 @@ type TBuyTicketFormSubmit = {
   newsletter: boolean;
 };
 
-export function BuyEventform({ modal, eventId }: Props): ReactElement {
+export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
@@ -154,7 +155,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       {errors.newsletter?.message && <ErrorInput msg={t('errors.newsletter')} />}
 
       <Center>
-        <Button mt="1.8rem" px="2.8rem">
+        <Button disabled={disabled} mt="1.8rem" px="2.8rem">
           {t('pay')} {currency}
         </Button>
       </Center>

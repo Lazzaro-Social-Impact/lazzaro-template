@@ -27,6 +27,7 @@ export function SingleEventDetails({
 
   const { t } = useTranslation()
   const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)
+  const { stock } = event || {}
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
@@ -35,10 +36,9 @@ export function SingleEventDetails({
           <EventCarousel imgs={images} isLoading={isLoading} />
           <EventTitle>{event?.title}</EventTitle>
           {HtmlParser(event?.description || '')}
-
           <CustomTabs defaultActiveKey="1">
             <Tabs.TabPane tab={t('Buy')} key="1">
-              {!event?.course && <BuyEventform eventId={id} />}
+              {!event?.course && <BuyEventform eventId={id} disabled={!stock} />}
               {event?.course && <BuyCourseForm courseId={id} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (

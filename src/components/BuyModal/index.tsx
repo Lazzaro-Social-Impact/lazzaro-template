@@ -8,11 +8,12 @@ interface IProps {
   title?: string;
   width?: string;
   btnText?: string;
+  disabled?: boolean;
 }
 
 function Modal(props:IProps) {
   const {
-    children, title, width, btnText
+    children, title, width, btnText, disabled
   } = props
 
   const [visible, setVisible] = useState(false)
@@ -27,7 +28,7 @@ function Modal(props:IProps) {
 
   return (
     <>
-      <Button px={2.5} py={1.1} onClick={showModal}>{btnText}</Button>
+      <Button disabled={disabled} px={2.5} py={1.1} onClick={showModal}>{btnText}</Button>
 
       <CustomModal
         visible={visible}
@@ -50,7 +51,8 @@ const CustomModal = styled(AntdModal)`
 Modal.defaultProps = {
   width: '50%',
   title: '',
-  btnText: 'Buy'
+  btnText: 'Buy',
+  disabled: false
 }
 
 export default Modal

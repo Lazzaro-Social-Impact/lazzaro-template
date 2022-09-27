@@ -36,7 +36,12 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
   const { t } = useTranslation()
-  const Form = course ? (<BuyCourseForm modal courseId={id} />) : (<BuyEventform modal eventId={id} />
+  const Form = course ? (<BuyCourseForm modal courseId={id} />) : (
+    <BuyEventform
+      disabled={!stock}
+      modal
+      eventId={id}
+    />
   )
 
   return (
@@ -58,7 +63,7 @@ export function EventCard(props: IProps): ReactElement {
       <Flex gap={2} mt={1}>
         <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
-        <BuyModal title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
+        <BuyModal disabled={!stock} title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
           <EventCarousel imgs={images} isLoading={isLoading} />
           {Form}
         </BuyModal>
