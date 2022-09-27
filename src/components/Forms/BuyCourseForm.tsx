@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Radio } from 'antd'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -15,10 +16,13 @@ import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
 import { FormRow } from '../common/FormRow'
 import HandleResponse from '../common/HandleResponse'
 import PrivacyPolicy from '../common/PrivacyPolicy'
+import { CustomRadio } from './BecomeMemberForm'
+import { FormControl } from './DonateForm'
 
 interface Props {
   courseId: string;
   modal?: boolean;
+  disabled?: boolean;
 }
 
 type TBuyCourseFormSubmit = {
@@ -27,9 +31,10 @@ type TBuyCourseFormSubmit = {
   user_email: string;
   mobilePhone: string;
   terms: boolean;
+  certificate: boolean;
 };
 
-export default function BuyCourseForm({ courseId, modal }: Props): ReactElement {
+export default function BuyCourseForm({ courseId, modal, disabled }: Props): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
   const { t } = useTranslation()
 
@@ -41,7 +46,11 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
   } = useFormSubmit<TBuyCourseFormSubmit>({ url: getBuyCourseUrl(courseId), isPayment: true, redirectPath: 'courses' })
   const onSubmit = (data: TBuyCourseFormSubmit) => {
     const formData = {
-      ...data, course_id: courseId, ong_id: ongId, amount: 1
+      ...data,
+      course_id: courseId,
+      ong_id: ongId,
+      amount: 1,
+      certificate: data.certificate || false
     }
 
     submit(formData)
@@ -82,13 +91,25 @@ export default function BuyCourseForm({ courseId, modal }: Props): ReactElement 
           </CustomInputDiv>
         </FormRow>
 
+        <FormControl mt={1.5}>
+          <Label style={{ maxWidth: '100%' }}>{t('Certificate question')}</Label>
+        </FormControl>
+        <Radio.Group {...register('certificate')}>
+          <CustomRadio value>
+            {t('yes')}
+          </CustomRadio>
+          <CustomRadio value={false}>
+            {t('no')}
+          </CustomRadio>
+        </Radio.Group>
+
         <Label style={{ alignSelf: 'flex-start' }}>
           <Input w="25px" mt={1.8} type="checkbox" {...register('terms')} />
           <PrivacyPolicy />
         </Label>
         {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} align="flex-start" />}
 
-        <Button type="submit" mt={3} px={3}>{t('pay')}</Button>
+        <Button disabled={disabled} type="submit" mt={3} px={3}>{t('pay')}</Button>
       </Form>
     </>
   )
@@ -110,5 +131,6 @@ const Form = styled.form<Props>`
 `
 
 BuyCourseForm.defaultProps = {
-  modal: false
+  modal: false,
+  disabled: false
 }

@@ -20,19 +20,22 @@ function Shop() {
   )
 
   return (
-    <>
-      <Navbar />
+    <Container>
 
-      <SectionTitle textAlign="center">{t('Store')}</SectionTitle>
-      {isLoading && <Skeleton width={19} height={15} number={4} justify="space-around" px={3} />}
-      <Flex justify="center" align="center" width="100%">
-        <Grid>
-          {memoizedProducts}
-        </Grid>
-      </Flex>
+      <Navbar />
+      <ShopContainer>
+
+        <SectionTitle textAlign="center">{t('Store')}</SectionTitle>
+        {isLoading && <Skeleton width={19} height={15} number={4} justify="space-around" px={3} />}
+        <Flex justify="center" align="center" width="100%">
+          <Grid>
+            {memoizedProducts}
+          </Grid>
+        </Flex>
+      </ShopContainer>
 
       <Footer />
-    </>
+    </Container>
   )
 }
 
@@ -46,4 +49,14 @@ const Grid = styled.div`
   width: 100%;
   padding-inline: 3rem;
   margin-block:4rem;
+`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+`
+
+const ShopContainer = styled.div`
+flex: 1 !important;
 `

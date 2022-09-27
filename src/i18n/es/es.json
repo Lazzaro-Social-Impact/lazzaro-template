@@ -135,7 +135,8 @@
     },
     "event_single": {
       "location": "Localización",
-      "image_rights": "He leído y acepto las condiciones relativas a la cesión de mis derechos de imagen contenidas en la política de privacidad y autorizo ​​su uso",
+      "image_rights": "He leído y acepto las condiciones relativas a la cesión de mis derechos de imagen",
+      "image_rights_2": " contenidas en la política de privacidad y autorizo ​​su uso",
       "num_of_entries": "Número de entradas",
       "ticket_person": "Solo una entrada por persona. Puedes comprar más entradas repitiendo el proceso de compra.",
       "send_information": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",

@@ -91,7 +91,7 @@ export default function BecomeMemberForm(): ReactElement {
               <CustomDropdown
                 {...register('amount')}
               >
-                <option selected>{t('membership.quantity')}</option>
+                <option selected value="">{t('membership.quantity')}</option>
                 {options?.map((option: TOption) => (
                   <option key={option.id} value={option.amount}>
                     {option.name} ({option.amount}{currency})

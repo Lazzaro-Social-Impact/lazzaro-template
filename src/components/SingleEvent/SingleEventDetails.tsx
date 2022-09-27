@@ -39,7 +39,7 @@ export function SingleEventDetails({
           <CustomTabs defaultActiveKey="1">
             <Tabs.TabPane tab={t('Buy')} key="1">
               {!event?.course && <BuyEventform eventId={id} disabled={!stock} />}
-              {event?.course && <BuyCourseForm courseId={id} />}
+              {event?.course && <BuyCourseForm disabled={!stock} courseId={id} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (
               <Tabs.TabPane tab={t('event_single.location')} key="2">

@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Radio } from 'antd'
 import { type ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -10,11 +11,15 @@ import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotifica
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
-import { Box, Button, Center } from '../common'
+import {
+  Box, Button, Center, Label
+} from '../common'
 import { CustomInput, CustomInputDiv } from '../common/CustomInput'
 import { ErrorInput } from '../common/ErrorInput'
 import HandleResponse from '../common/HandleResponse'
 import PrivacyPolicy from '../common/PrivacyPolicy'
+import { CustomRadio } from './BecomeMemberForm'
+import { FormControl } from './DonateForm'
 
 interface Props {
   modal?: TModal;
@@ -30,6 +35,7 @@ type TBuyTicketFormSubmit = {
   terms_and_conditions: boolean;
   tickets: ITicket[];
   nif: number;
+  certificate: boolean;
   image_rights: boolean;
   newsletter: boolean;
 };
@@ -56,6 +62,7 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
     const formData = {
       ...data,
       event_id: eventId,
+      certificate: data.certificate || false,
       ong_id: ongId,
     }
 
@@ -133,10 +140,21 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
         </CustomInputDiv>
       </FormRow>
 
+      <FormControl mt={1.5}>
+        <Label>{t('Certificate question')}</Label>
+      </FormControl>
+      <Radio.Group {...register('certificate')}>
+        <CustomRadio value>
+          {t('yes')}
+        </CustomRadio>
+        <CustomRadio value={false}>
+          {t('no')}
+        </CustomRadio>
+      </Radio.Group>
+      <br />
       <CheckBoxInput type="checkbox" {...register('terms_and_conditions')} />
       <PrivacyPolicy />
       {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
-
       <br />
 
       <CheckBoxInput type="checkbox" {...register('image_rights')} />

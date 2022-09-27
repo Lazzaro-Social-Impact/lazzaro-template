@@ -15,7 +15,7 @@ export default function AboutUs(): React.ReactElement {
   return (
     <CustomFlex id="about" align="stretch" mt={4.2} pl={4.1}>
       <Flex direction="column" align="stretch" justify="stretch" textAlign="left" flex={1}>
-        <SectionTitle marginTop={0} marginBottom={0.6} padding={0} fontSize={2.2}>
+        <SectionTitle marginTop={0} marginBottom={0.6} padding={0.2} fontSize={2.2}>
           {titleDescription}
         </SectionTitle>
 

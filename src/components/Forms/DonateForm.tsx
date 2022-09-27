@@ -185,7 +185,7 @@ const CustomForm = styled.form`
   }
 `
 
-const FormControl = styled.div<IFormControlProps>`
+export const FormControl = styled.div<IFormControlProps>`
   display: flex;
   flex-direction: ${({ mode }) => mode || 'column'};
   justify-content: ${({ justify }) => justify || 'center'};
