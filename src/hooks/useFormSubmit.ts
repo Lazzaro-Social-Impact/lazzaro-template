@@ -9,8 +9,7 @@ type TParameters = {
   redirectPath?: keyof typeof finalizePaymentRoutes;
 }
 type TClientSecret = { clientSecret: string };
-type TPayPalLink = { data: string };
-type TData = TClientSecret | TPayPalLink;
+type TData = TClientSecret;
 
 const useFormSubmit = <TMutate>({ url, isPayment, redirectPath }: TParameters) => {
   const navigate = useNavigate()
@@ -32,10 +31,13 @@ const useFormSubmit = <TMutate>({ url, isPayment, redirectPath }: TParameters) =
       return navigate(`/checkout/${clientSecret}`, { state: { formData, redirectPath }, replace: true })
     }
 
-    const {
-      data: { data: payPalLink },
-    } = (await mutateAsync(formData)) as { data: TPayPalLink }
-    window.open(payPalLink, '_blank')
+    const windowReference = window.open()
+
+    mutateAsync(formData).then(({ data }: any) => data.data).then((res) => {
+      if (windowReference) {
+        windowReference.location.href = res
+      }
+    })
   }
 
   return {
