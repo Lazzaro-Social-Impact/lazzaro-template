@@ -29,9 +29,13 @@ import './i18n/config'
 //   market: true,
 // }
 
-const ongUrl = ['development'].includes(import.meta.env.MODE)
+const { MODE: mode } = import.meta.env
+
+const ongUrl = mode === 'development'
   ? 'hello.web.lazzaro.io'
-  : window.location.origin.replace('https://', '')
+  : mode === 'pre'
+    ? 'prehelloo.web.lazzaro.io'
+    : window.location.hostname
 
 function App() {
   const dispatch = useAppDispatch()

@@ -1,11 +1,13 @@
 interface IEnvironments {
   development: string;
+  pre:string
   production: string;
   staging: string;
 }
 
 const ENV_BASE_URL: IEnvironments = {
   development: 'https://elb.backend.lazzaro.io:8080',
+  pre: 'https://elbpre.backend.lazzaro.io:8080',
   production: 'https://elb.backend.lazzaro.io:8080',
   staging: 'https://elbpre.backend.lazzaro.io:8080',
 }

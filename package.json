@@ -49,6 +49,7 @@
   },
   "scripts": {
     "start": "vite --mode development",
+    "start:pre": "vite --mode pre",
     "start:staging": "vite --mode staging",
     "start:prod": "vite --mode production",
     "build": "tsc && vite build --mode production",
