@@ -29,6 +29,8 @@ function Shop() {
         {isLoading && <Skeleton width={19} height={15} number={4} justify="space-around" px={3} />}
         <Flex justify="center" align="center" width="100%">
           <Grid>
+            {!products?.length && t('shop.no_products')}
+
             {memoizedProducts}
           </Grid>
         </Flex>

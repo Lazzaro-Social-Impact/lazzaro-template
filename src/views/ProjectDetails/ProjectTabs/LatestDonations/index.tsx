@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { getProjectLatestDonationsURL } from '../../../../api/getApiServices'
 import { Text } from '../../../../components/common'
 import { useDependant } from '../../../../hooks'
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 function LatestDonations({ title, projectId }: IProps) {
+  const { t } = useTranslation()
   const {
     data: donations, isLoading
   } = useDependant<IDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
@@ -34,7 +36,7 @@ function LatestDonations({ title, projectId }: IProps) {
 
       {noDonations && !isLoading && (
         <Text textAlign="center" fontSize={1.5}>
-          No Donations yet!
+          {t('project_details.noDonations')}
         </Text>
       )}
 

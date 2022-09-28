@@ -47,7 +47,7 @@ export function ProjectCard({ project }: IProps) {
       <ProgressBar>
         <Progress percent={donationProgress} strokeColor={primary} />
         <ProgressPercents percent={donationProgress}>
-          %{donationProgress}
+          %{donationProgress || 0}
         </ProgressPercents>
       </ProgressBar>
       <Text fontSize={1.2} weight="bold" textAlign="center">
@@ -78,8 +78,8 @@ const ProgressBar = styled.div`
 
 const ProgressPercents = styled.span<{ percent: number }>`
   position: absolute;
-  top: -60%;
-  left: ${({ percent }) => `${percent - 6}%`};
+  top: -35%;
+  left: ${({ percent }) => `${percent}%`};
   transform: translate(-50%, -50%);
   font-size: 0.9rem;
   font-weight: bold;

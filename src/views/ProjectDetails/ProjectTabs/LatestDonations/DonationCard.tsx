@@ -42,8 +42,8 @@ const Section = styled.div`
   border-radius: 15px;
   text-align: left;
   border: 1px solid #777777;
-  width: 80%;
   margin-inline: 3rem;
+  flex: initial !important;
 `
 
 const Flex = styled.div`

@@ -211,5 +211,13 @@
     "share":"Share your donation so that more people collaborate!",
     "return":"Return to the home page",
     "loading": "Loading..."
+  },
+
+  "project_details" : {
+    "noDonations": "No Donations yet! but you could the fist one!"
+  },
+
+  "shop" : {
+    "no_products": "No products to show"
   }
 }

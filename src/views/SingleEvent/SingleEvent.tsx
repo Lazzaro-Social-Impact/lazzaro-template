@@ -27,9 +27,9 @@ function SingleEvent(): ReactElement {
         <OtherEvents>
           {isLoading && <Skeleton number={1} height={22} width={26} />}
 
-          {!event.course && <EventCard {...event} key={event.id} />}
+          {!event.course && !isLoading && <EventCard {...event} key={event.id} />}
 
-          {event.course && <EventCard {...event} key={event.id} />}
+          {event.course && !isLoading && <EventCard {...event} key={event.id} />}
         </OtherEvents>
       </Container>
       <Footer />

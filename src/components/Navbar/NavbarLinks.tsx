@@ -47,10 +47,10 @@ const NavbarLinks: FC = () => {
   const languageToggleLink = useMemo(
     () => (
       <LanguageToggle onClick={handleChangeLanguage}>
-        {langLinkText === 'en' ? 'Español' : 'English'}
+        {langLinkText === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
-    [langLinkText, handleChangeLanguage, langLinkText]
+    [langLinkText]
   )
 
   const NAVBAR_LINKS: JSX.Element[] = useMemo(
