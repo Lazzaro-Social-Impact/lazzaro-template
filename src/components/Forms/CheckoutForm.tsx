@@ -25,11 +25,13 @@ export default function CheckoutForm({ secret }: TClientSecret) {
   const [message, setMessage] = useState<null | string | undefined>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const finalizePaymentRoute = finalizePaymentRoutes[redirectPath]
-    .split('/:')
-    .map((param) => formData[param] ?? param)
-    .join('/')
-    .replaceAll(' ', '')
+  const finalizePaymentRoute = encodeURI(
+    finalizePaymentRoutes[redirectPath]
+      .split('/:')
+      .map((param) => formData[param] ?? param)
+      .join('/')
+      .replaceAll(' ', '')
+  )
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
