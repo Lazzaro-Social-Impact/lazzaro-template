@@ -64,8 +64,8 @@ function SingleProduct(): ReactElement {
             <ProductsAvailable>{t('Products_single.stock')}: {amount}</ProductsAvailable>
             <Flex justify="space-around" mt={1}>
               <ShareModal section="products" sectionId={id} />
-              <BuyModal btnText={t('Buy')}>
-                <BuyProductForm modal id={id} price={price} title={title} />
+              <BuyModal disabled={!amount} btnText={t('Buy')}>
+                <BuyProductForm modal id={id} price={price} title={title} disabled={!amount} />
               </BuyModal>
             </Flex>
           </CustomCard>
@@ -76,7 +76,7 @@ function SingleProduct(): ReactElement {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('Buy')} key="2">
-              <BuyProductForm id={id} price={price} title={title} />
+              <BuyProductForm disabled={!amount} id={id} price={price} title={title} />
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('Contact')} key="3">

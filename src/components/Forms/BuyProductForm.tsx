@@ -21,6 +21,7 @@ interface IProps {
   id: string;
   price: number;
   title: string;
+  disabled?: boolean;
 }
 
 interface IFormSubmit {
@@ -40,7 +41,7 @@ interface IFormSubmit {
 
 export function BuyProductForm(props: IProps): ReactElement {
   const {
-    modal, id, price, title
+    modal, id, price, title, disabled
   } = props
 
   const ongId = useAppSelector(({ ong }) => ong?.ongId)
@@ -150,7 +151,7 @@ export function BuyProductForm(props: IProps): ReactElement {
       {errors.privacy_policy?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
       <br />
       <Center my={1.5}>
-        <Button py="0.8rem" px="2.4rem" type="submit">
+        <Button py="0.8rem" px="2.4rem" type="submit" disabled={disabled}>
           {t('pay')}
         </Button>
       </Center>
@@ -173,4 +174,5 @@ const CustomSectionTitle = styled(SectionTitle)`
 
 BuyProductForm.defaultProps = {
   modal: false,
+  disabled: false,
 }

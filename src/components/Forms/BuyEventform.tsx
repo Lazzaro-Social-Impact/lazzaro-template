@@ -87,6 +87,8 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
       } else {
         setTicketError(t('errors.ticket_amount'))
       }
+    } else {
+      submit(formData)
     }
   }
 
