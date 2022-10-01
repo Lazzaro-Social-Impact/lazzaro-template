@@ -32,7 +32,7 @@ import './i18n/config'
 const { MODE: mode } = import.meta.env
 
 const ongUrl = mode === 'development'
-  ? 'prehelloo.web.lazzaro.io'
+  ? 'hello.web.lazzaro.io'
   : mode === 'pre'
     ? 'prehelloo.web.lazzaro.io'
     : window.location.hostname

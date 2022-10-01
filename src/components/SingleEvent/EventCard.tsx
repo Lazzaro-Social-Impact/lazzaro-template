@@ -11,7 +11,6 @@ import { useDependant } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { IImage } from '../../types/interfaces'
 import BuyModal from '../BuyModal'
-import BuyCourseForm from '../Forms/BuyCourseForm'
 import { ShareModal } from '../ShareModal/ShareModal'
 
 interface IProps {
@@ -36,7 +35,7 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
   const { t } = useTranslation()
-  const Form = course ? (<BuyCourseForm modal courseId={id} />) : (
+  const Form = course ? (<BuyEventform disabled={!stock} modal courseId={id} />) : (
     <BuyEventform
       disabled={!stock}
       modal
