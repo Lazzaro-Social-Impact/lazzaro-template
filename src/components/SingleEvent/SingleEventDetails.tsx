@@ -11,7 +11,6 @@ import { EventCarousel } from '../EventCarousel/EventCarousel'
 import Skeleton from '../Skeleton'
 import { IEvent, IImage } from '../../types/interfaces'
 import Map from '../Map'
-import BuyCourseForm from '../Forms/BuyCourseForm'
 
 type TProps = {
   event: IEvent | undefined;
@@ -39,7 +38,7 @@ export function SingleEventDetails({
           <CustomTabs defaultActiveKey="1">
             <Tabs.TabPane tab={t('Buy')} key="1">
               {!event?.course && <BuyEventform eventId={id} disabled={!stock} />}
-              {event?.course && <BuyCourseForm disabled={!stock} courseId={id} />}
+              {event?.course && <BuyEventform courseId={id} disabled={!stock} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (
               <Tabs.TabPane tab={t('event_single.location')} key="2">

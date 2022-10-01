@@ -6,13 +6,13 @@ import {
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { getEventURL } from '../../api/getApiServices'
+import { getBuyCourseUrl, getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import { useAppSelector, useDependant, useFormSubmit } from '../../hooks'
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
-import { buyTicketSchema } from '../../validation/schemas'
+import { buyCourseTicketSchema, buyTicketSchema } from '../../validation/schemas'
 import {
   Box, Button, Center, Label
 } from '../common'
@@ -25,7 +25,8 @@ import { FormControl } from './DonateForm'
 
 interface Props {
   modal?: TModal;
-  eventId: string;
+  eventId?: string;
+  courseId?: string;
   disabled: boolean;
 }
 
@@ -42,22 +43,26 @@ type TBuyTicketFormSubmit = {
   newsletter: boolean;
 };
 
-export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement {
+export function BuyEventform({
+  modal, eventId = '', disabled, courseId
+}: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
   const { t } = useTranslation()
+  const schema = eventId ? buyTicketSchema : buyCourseTicketSchema
+  const url = eventId ? getBuyEventTicketUrl(eventId) : getBuyCourseUrl(courseId)
   const {
     data: eventDetails
-  } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
+  } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId || courseId}`], eventId)
   const { EventTickets = [], price } = eventDetails || {}
 
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema) })
+  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(schema) })
 
   const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>({
-    url: getBuyEventTicketUrl(eventId), isPayment: true, redirectPath: 'events'
+    url, isPayment: true, redirectPath: 'events'
   })
 
   const [ticketError, setTicketError] = useState('')
@@ -73,14 +78,22 @@ export function BuyEventform({ modal, eventId, disabled }: Props): ReactElement 
   }, [ticketError, scrollIntoTicketError])
 
   const onSubmit = (data: TBuyTicketFormSubmit) => {
-    const formData = {
+    const initialFormData = {
       ...data,
-      event_id: eventId,
       certificate: data.certificate || false,
       ong_id: ongId,
     }
 
-    if (data.tickets.length) {
+    const formData = eventId ? {
+      ...initialFormData,
+      event_id: eventId,
+    } : {
+      ...initialFormData,
+      course_id: courseId,
+      amount: 1,
+    }
+
+    if (data.tickets && data.tickets.length) {
       const atLeastoneTicketPurchased = data.tickets.map((ticket) => ticket.amount).includes(1)
       if (atLeastoneTicketPurchased) {
         submit(formData)
@@ -252,4 +265,6 @@ const TicketInput = styled.input`
 `
 BuyEventform.defaultProps = {
   modal: false,
+  courseId: '',
+  eventId: '',
 }

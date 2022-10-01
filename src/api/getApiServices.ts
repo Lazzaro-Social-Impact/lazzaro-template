@@ -10,7 +10,7 @@ export const getCauseImagesURL = (id: string) => `${BASE_URL}/api/private/projec
 export const getCauseDonationsHistoryUrl = (causeId: string) => `${BASE_URL}/api/private/comments/${causeId}`
 export const getOngConfig = (id: string) => `${BASE_URL}/api/private/ongs/${id}/all-platform-config`
 export const getOngByUrl = (url: string) => `${BASE_URL}/api/private/ongs/${url}/id`
-export const getEventURL = (eventId: string) => `${BASE_URL}/api/private/events/${eventId}`
+export const getEventURL = (eventId: string | undefined) => `${BASE_URL}/api/private/events/${eventId}`
 export const getCoursesImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
 export const getProductsURL = (id: string) => `${BASE_URL}/api/private/products/ong/${id}`
 export const getProductDetails = (id: string) => `${BASE_URL}/api/private/products/${id}`
@@ -18,6 +18,6 @@ export const getProductImages = (id: string) => `${BASE_URL}/api/private/product
 export const getEventImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
 export const getTransparencyURL = (ongId: string) => `${BASE_URL}/api/private/ongs/${ongId}/transparency`
 export const getCoursesURL = (ongId:string) => `${BASE_URL}/api/private/courses/ong/${ongId}`
-export const getBuyCourseUrl = (courseId: string) => `${BASE_URL}/api/private/buycourse/${courseId}/start`
+export const getBuyCourseUrl = (courseId: string | undefined) => `${BASE_URL}/api/private/buycourse/${courseId}/start`
 export const getOngLogos = (ongId:string) => `${BASE_URL}/api/private/ongs/${ongId}/logos`
 export const getDonationOptions = (ongId:string) => `${BASE_URL}/api/private/ongs/${ongId}/donations-options`
