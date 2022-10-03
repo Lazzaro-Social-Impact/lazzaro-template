@@ -31,7 +31,7 @@ export default function AboutUs(): React.ReactElement {
               </Link>
             </>
           )
-            : description && description.length < 1020  ? HtmlParser(description) : ""}
+            : description && description.length < 1020 ? HtmlParser(description) : ''}
         </Box>
 
       </Flex>
