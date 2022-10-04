@@ -1,17 +1,17 @@
-import { useParams, useSearchParams } from 'react-router-dom'
-import { getFinalizeProjectDonationUrl } from '../../api/postApiServices'
-import { FinalizePaymentResult } from '../../components'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
-import { TFinalizePaymentParams } from '../../types/types'
+import { useParams, useSearchParams } from 'react-router-dom';
+import { getFinalizeProjectDonationUrl } from '../../api/postApiServices';
+import { FinalizePaymentResult } from '../../components';
+import { useAppSelector, useFinalizePayment } from '../../hooks';
+import { TFinalizePaymentParams } from '../../types/types';
 
 type TParams = TFinalizePaymentParams & {
   project_id: string;
 };
 
 function FinalizeProjectDonation() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const token = useSearchParams()[0].get('token') || ''
-  const url = getFinalizeProjectDonationUrl(ongId, token)
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || '';
+  const token = useSearchParams()[0].get('token') || '';
+  const url = getFinalizeProjectDonationUrl(ongId, token);
 
   const {
     firstName = '',
@@ -24,7 +24,7 @@ function FinalizeProjectDonation() {
     anonymous = '',
     text = '',
     project_id = '',
-  } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>()
+  } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>();
 
   const params: TParams = {
     firstName,
@@ -38,19 +38,19 @@ function FinalizeProjectDonation() {
     home_address,
     text,
     ong_id: ongId,
-  }
+  };
 
-  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
+  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
 
   return (
     <FinalizePaymentResult
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="#causes"
+      sectionName='causes'
       sectionId={project_id}
     />
-  )
+  );
 }
 
-export default FinalizeProjectDonation
+export default FinalizeProjectDonation;

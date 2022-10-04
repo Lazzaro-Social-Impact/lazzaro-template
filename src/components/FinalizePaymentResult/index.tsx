@@ -1,20 +1,21 @@
-import { type FC } from 'react'
-import { Result } from 'antd'
-import { useTranslation } from 'react-i18next'
-import Footer from '../Footer/Footer'
-import Navbar from '../Navbar/Navbar'
-import TransactionResult from './TransactionResult'
+import { type FC } from 'react';
+import { Result } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Footer from '../Footer/Footer';
+import Navbar from '../Navbar/Navbar';
+import TransactionResult from './TransactionResult';
+import type { TSectionName } from '../../app/router/finalizePaymentRoutes';
 
 interface IProps {
   transactionId: string;
-  redirectPath: '#events' | '#courses' | '#causes' | 'shop' | 'donate' | 'partners';
+  sectionName: TSectionName;
   isLoading: boolean;
   isError: boolean;
   sectionId: string;
 }
 
 const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <Navbar />
@@ -26,7 +27,7 @@ const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps })
       />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default FinalizePaymentResult
+export default FinalizePaymentResult;

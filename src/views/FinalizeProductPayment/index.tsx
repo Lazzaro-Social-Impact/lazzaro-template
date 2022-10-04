@@ -1,22 +1,22 @@
-import { useParams } from 'react-router-dom'
-import { getFinalizeProductPaymentUrl } from '../../api/postApiServices'
-import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
-import { TFinalizePaymentParams } from '../../types/types'
+import { useParams } from 'react-router-dom';
+import { getFinalizeProductPaymentUrl } from '../../api/postApiServices';
+import FinalizePayment from '../../components/FinalizePaymentResult';
+import { useAppSelector, useFinalizePayment } from '../../hooks';
+import { TFinalizePaymentParams } from '../../types/types';
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'> & {
   product_id: string;
   mobilePhone: string;
-  productAmount:number;
-  cp:number;
-  city:string;
-  country:string;
-  address:string;
+  productAmount: number;
+  cp: number;
+  city: string;
+  country: string;
+  address: string;
 };
 
 function FinalizeProductPayment() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const url = getFinalizeProductPaymentUrl()
+  const ongId = useAppSelector(({ ong }) => ong.ongId) || '';
+  const url = getFinalizeProductPaymentUrl();
 
   const {
     firstName = '',
@@ -32,7 +32,7 @@ function FinalizeProductPayment() {
     city = '',
     country = '',
     address = '',
-  } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>()
+  } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>();
 
   const params: TParams = {
     firstName,
@@ -49,19 +49,19 @@ function FinalizeProductPayment() {
     country,
     cp: +cp,
     productAmount: +productAmount,
-  }
+  };
 
-  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
+  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
 
   return (
     <FinalizePayment
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="shop"
+      sectionName='shop'
       sectionId={product_id}
     />
-  )
+  );
 }
 
-export default FinalizeProductPayment
+export default FinalizeProductPayment;
