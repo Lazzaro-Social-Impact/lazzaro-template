@@ -1,4 +1,4 @@
-import type { TRoutes } from '../../types/types'
+import type { TRoutes } from '../../types/types';
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -19,19 +19,16 @@ import {
   BecomeMemberForm,
   ContactusForm,
   StripeContainer,
-  SuccessfulStripePayment
-} from '../../views'
-import finalizePaymentRoutes from './finalizePaymentRoutes'
+} from '../../views';
+import finalizePaymentRoutes from './finalizePaymentRoutes';
 
 type TParameters = {
-  features: TFeatures,
-  isStripe: boolean,
-}
+  features: TFeatures;
+  isStripe: boolean;
+};
 
-const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
-  const {
-    causes, courses, events, partners, donations, volunteers, market
-  } = features
+const getRoutes = ({ features, isStripe }: TParameters): TRoutes => {
+  const { causes, courses, events, partners, donations, volunteers, market } = features;
 
   return [
     {
@@ -131,16 +128,11 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: StripeContainer,
     },
     {
-      path: '/payment-success',
-      render: isStripe,
-      Element: SuccessfulStripePayment,
-    },
-    {
       path: '/*',
       render: true,
       Element: ErrorPage,
     },
-  ]
-}
+  ];
+};
 
-export default getRoutes
+export default getRoutes;
