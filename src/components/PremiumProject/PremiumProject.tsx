@@ -15,7 +15,7 @@ interface IProps {
   project: IProject | Record<string, never>
 }
 
-export default function PremiumEvent({ project }: IProps): ReactElement {
+export default function PremiumProject({ project }: IProps): ReactElement {
   const {
     title, description = '', imageURL, amount, donated, id
   } = project

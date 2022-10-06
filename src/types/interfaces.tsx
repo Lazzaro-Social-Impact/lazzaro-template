@@ -48,15 +48,18 @@ export interface IProject {
   amount: number;
   description: string;
   imageURL: string;
+  isPremium?: boolean;
 }
 export interface IProjects {
   imageURL: string;
   id: string;
   title: string;
+  isPremium?: boolean;
 }
 export interface IAppState {
   ongConfig: TOngConfig | Record<string, never> | undefined;
   ongId: string | undefined;
+  premiumProject: IProject | Record<string, never> | undefined;
 }
 
 export interface IMember {

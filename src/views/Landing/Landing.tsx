@@ -19,13 +19,14 @@ import {
 import Divider from '../../components/Divider/Divider'
 import { useAppSelector } from '../../hooks'
 import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
+import PremiumProject from '../../components/PremiumProject/PremiumProject'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
   const {
     causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-
+  const premiumProject = useAppSelector(({ ong }) => ong.premiumProject)
   // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos, donations
@@ -73,9 +74,9 @@ export default function Landing(): ReactElement {
           orderWithoutZones={logosSectionOrderNoZones}
           display={seperatorVisibility}
         />
+        {premiumProject && <PremiumProject project={premiumProject} />}
         {causes && <Projects />}
         {events && !causes && <Events />}
-        {/* {events && <PremiumEvent />} */}
         <ReorderComponent
           feature={impact}
           zones={zones}
