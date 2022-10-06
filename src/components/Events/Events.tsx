@@ -1,14 +1,15 @@
-import { useMemo, type ReactElement } from 'react'
+import { useEffect, useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import NearEvent from './NearEvent/NearEvent'
 import OtherEvent from './OtherEvents'
 import { Flex, SectionTitle } from '../common'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppDispatch, useAppSelector, useDependant } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 import { IEvent } from '../../types/interfaces'
+import { setPremiumEvent } from '../../redux/features'
 
 function Events(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
@@ -16,6 +17,12 @@ function Events(): ReactElement {
   const {
     data: events = [], isLoading, isError,
   } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
+  const dispatch = useAppDispatch()
+  const premiumEvent = events.find(({ isPremium }) => isPremium)
+
+  useEffect(() => {
+    dispatch(setPremiumEvent(premiumEvent))
+  }, [premiumEvent])
 
   // Get the nearest event
   const nearestEvent = useMemo(

@@ -60,6 +60,7 @@ export interface IAppState {
   ongConfig: TOngConfig | Record<string, never> | undefined;
   ongId: string | undefined;
   premiumProject: IProject | Record<string, never> | undefined;
+  premiumEvent: IEvent | Record<string, never>;
 }
 
 export interface IMember {
@@ -99,6 +100,8 @@ export interface ICourse {
   end_time: string;
   id: string;
   course: boolean;
+  isPremium: boolean;
+  stock: number;
 }
 export interface IEvent {
   course: boolean;
@@ -110,4 +113,5 @@ export interface IEvent {
   location: string;
   end_time: string;
   stock: number;
+  isPremium: boolean;
 }

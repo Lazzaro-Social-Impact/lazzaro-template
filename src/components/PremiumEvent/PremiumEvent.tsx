@@ -1,45 +1,48 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
-import { Progress } from 'antd'
 import HTMLReactParser from 'html-react-parser'
-import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '../common'
-import { DonateSubmitForm, IProject } from '../../types/interfaces'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { getStartProjectDonationUrl } from '../../api/postApiServices'
-import DonateForm from '../Forms/DonateForm'
-import DonateModal from '../BuyModal'
+import {
+  IEvent, IImage
+} from '../../types/interfaces'
+import { useDependant } from '../../hooks'
+import { CalendarIcon } from '../Icons'
+import BuyModal from '../BuyModal'
+import { EventCarousel } from '../EventCarousel/EventCarousel'
+import { getEventImages } from '../../api/getApiServices'
+import { BuyEventform } from '../Forms/BuyEventform'
 
 interface IProps {
-  project: IProject | Record<string, never>
+  event: IEvent | Record<string, never> | undefined
 }
 
-export default function PremiumEvent({ project }: IProps): ReactElement {
+export default function PremiumEvent({ event }: IProps): ReactElement {
   const {
-    title, description = '', imageURL, amount, donated, id
-  } = project
-  const percentage = Math.round((donated / amount) * 100)
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
-  })
+    title, description = '', imageURL, id, course, stock, start_time
+  } = event || {}
+  const {
+    data: images = [], isLoading
+  } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
+
+  const month = new Date(start_time).toLocaleString('default', { month: 'short' }).toUpperCase()
+  const day = new Date(start_time).getDate()
+  const Form = course ? (<BuyEventform disabled={!stock} modal courseId={id} />) : (
+    <BuyEventform
+      disabled={!stock}
+      modal
+      eventId={id}
+    />
+  )
   const { t } = useTranslation()
 
-  const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = {
-      ...values,
-      ong_id: ongId,
-      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
-      project_id: id
-    }
-
-    submit(donationInfo)
-  }
   return (
     <PremiumEventSection image={imageURL}>
       <EventDetails>
-        <EventImage src="./assets/img/crown.png" alt="event" />
+        <PremiumHeader>
+          <EventImage src="./assets/img/crown.png" alt="event" />
+          <p>Evento</p>
+        </PremiumHeader>
         <SectionTitle color="white" fontSize={2.8} padding={0} marginTop={0.8} marginBottom={0}>
           {title}
         </SectionTitle>
@@ -47,25 +50,22 @@ export default function PremiumEvent({ project }: IProps): ReactElement {
           {HTMLReactParser(description?.slice(0, 120))}
         </EventDescription>
       </EventDetails>
-      <EventDonationProgress>
-        <ProgressContainer>
-          <CustomProgress
-            type="circle"
-            showInfo
-            percent={percentage}
-            strokeWidth={2}
-            strokeColor="white"
-            trailColor="none"
-            width={250}
-          />
-          <Donated>Donated</Donated>
-        </ProgressContainer>
-
-        <DonateModal btnText={t('Donate Now')} title={`Donate to ${title}`}>
-          <DonateForm modal projectId={id} submitHandler={handleSubmit} states={states} />
-        </DonateModal>
-
-      </EventDonationProgress>
+      <CalendarDiv>
+        <CalendarIcon
+          date={day}
+          color="white"
+          size={180}
+          dateBottom={2.4}
+          dateColor="white"
+          dateSize={34.2}
+          lineHeight={1}
+          month={month}
+        />
+        <BuyModal title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
+          <EventCarousel imgs={images} isLoading={isLoading} />
+          {Form}
+        </BuyModal>
+      </CalendarDiv>
     </PremiumEventSection>
   )
 }
@@ -74,7 +74,9 @@ const PremiumEventSection = styled.section<{image: string}>`
   display: flex;
   justify-content: space-between;
   padding: 4.4rem 4.1rem;
+  padding-right: 9.2rem;
   gap: 4rem;
+  position: relative;
   align-items: flex-start;
   margin-bottom: 6.2rem;
   background: url(${({ image }) => image}) no-repeat center center;
@@ -101,8 +103,20 @@ const PremiumEventSection = styled.section<{image: string}>`
     }
   }
 `
+
+const PremiumHeader = styled.div`
+display: flex;
+align-items: flex-start;
+gap: 1.4rem;
+p {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: white;
+}
+`
 const EventImage = styled.img`
-  width: 46px;
+  width: 45px;
 `
 
 const EventDetails = styled.div`
@@ -126,34 +140,12 @@ const EventDescription = styled.p`
   }
 
 `
-const EventDonationProgress = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3.8rem;
-  align-items: center;
-  height: 100%;
-  padding-left: 9.2rem;
-`
-const ProgressContainer = styled.div`
-  position: relative;
-`
-const CustomProgress = styled(Progress)`
-  .ant-progress-inner {
-    font-weight: bold;
-  }
 
-  .ant-progress-text {
-    color: white;
-  }
-`
-const Donated = styled.p`
-  position: absolute;
-  bottom: 4.2rem;
-  color: #5cb780 !important;
-  left: 50%;
-  bottom: 12%;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-decoration: none !important;
-  transform: translateX(-50%);
+const CalendarDiv = styled.div`
+display: flex;
+flex-direction: column;
+gap: 3.2rem;
+justify-content: center;
+align-items: center;
+margin-bottom: 0 !important;
 `

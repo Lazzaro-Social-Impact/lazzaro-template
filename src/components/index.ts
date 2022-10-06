@@ -18,4 +18,5 @@ export const BuyModal = lazy(() => import('./BuyModal' /* webpackChunkName: "Buy
 export const FinalizePaymentResult = lazy(() => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */))
 export const Map = lazy(() => import('./Map' /* webpackChunkName: "Map" */))
 export const LoadingIndex = lazy(() => import('./LoadingIndex/LoadingIndex' /* webpackChunkName: "LoadingIndex" */))
+export const PremiumProject = lazy(() => import('./PremiumProject/PremiumProject' /* webpackChunkName: "PremiumProject" */))
 export { default as DonateForm } from './Forms/DonateForm'

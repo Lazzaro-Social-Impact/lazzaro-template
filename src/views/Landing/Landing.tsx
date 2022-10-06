@@ -7,7 +7,7 @@ import {
   Events,
   AboutUs,
   LogosCarousel,
-  // PremiumEvent,
+  PremiumEvent,
   Projects,
   SocialImpact,
   SubscribeDivider,
@@ -15,11 +15,11 @@ import {
   Courses,
   Navbar,
   Footer,
+  PremiumProject
 } from '../../components'
 import Divider from '../../components/Divider/Divider'
 import { useAppSelector } from '../../hooks'
 import ReorderComponent from '../../components/ReorderComponent/ReorderComponent'
-import PremiumProject from '../../components/PremiumProject/PremiumProject'
 
 export default function Landing(): ReactElement {
   const { hash } = useLocation()
@@ -27,6 +27,7 @@ export default function Landing(): ReactElement {
     causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
   const premiumProject = useAppSelector(({ ong }) => ong.premiumProject)
+  const premiumEvent = useAppSelector(({ ong }) => ong.premiumEvent)
   // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos, donations
@@ -86,6 +87,7 @@ export default function Landing(): ReactElement {
           display={seperatorVisibility}
         />
         {courses && events && !causes && <Courses />}
+        {premiumEvent && <PremiumEvent event={premiumEvent} />}
         {events && causes && <Events />}
         {courses && !events && <Courses />}
 
