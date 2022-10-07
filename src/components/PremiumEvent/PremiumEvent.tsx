@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
 import HTMLReactParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +13,7 @@ import BuyModal from '../BuyModal'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
+import useResize from '../../hooks/useResize'
 
 interface IProps {
   event: IEvent | Record<string, never> | undefined
@@ -25,8 +26,7 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
-  const [calendarSize, setCalendarSize] = useState(180)
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+
   const month = new Date(start_time).toLocaleString('default', { month: 'short' }).toUpperCase()
   const day = new Date(start_time).getDate()
   const Form = course ? (<BuyEventform disabled={!stock} modal courseId={id} />) : (
@@ -38,28 +38,7 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
   )
   const { t } = useTranslation()
 
-  useEffect(() => {
-    const resize = () => {
-      setScreenWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', resize)
-
-    switch (true) {
-      case screenWidth < 768:
-        setCalendarSize(120)
-        break
-      case screenWidth < 992:
-        setCalendarSize(150)
-        break
-      default:
-        setCalendarSize(180)
-    }
-
-    return () => {
-      window.removeEventListener('resize', resize)
-    }
-  })
+  const calendarSize = useResize({ objectToResizeInitialWidth: 180, mediumSize: 150, smallSize: 120 })
 
   return (
     <PremiumEventSection image={imageURL}>

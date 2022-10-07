@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
 import HTMLReactParser from 'html-react-parser'
@@ -10,6 +10,7 @@ import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getStartProjectDonationUrl } from '../../api/postApiServices'
 import DonateForm from '../Forms/DonateForm'
 import DonateModal from '../BuyModal'
+import useResize from '../../hooks/useResize'
 
 interface IProps {
   project: IProject | Record<string, never>
@@ -21,35 +22,12 @@ export default function PremiumProject({ project }: IProps): ReactElement {
   } = project
   const percentage = Math.round((donated / amount) * 100)
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const [progressSize, setProgressSize] = useState(250)
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
     url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
   })
   const { t } = useTranslation()
+  const progressSize = useResize({ objectToResizeInitialWidth: 250, mediumSize: 200, smallSize: 150 })
 
-  useEffect(() => {
-    const resize = () => {
-      setScreenWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', resize)
-
-    switch (true) {
-      case screenWidth < 768:
-        setProgressSize(150)
-        break
-      case screenWidth < 992:
-        setProgressSize(200)
-        break
-      default:
-        setProgressSize(250)
-    }
-
-    return () => {
-      window.removeEventListener('resize', resize)
-    }
-  }, [screenWidth])
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
       ...values,
