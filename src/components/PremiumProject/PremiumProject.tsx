@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
 import HTMLReactParser from 'html-react-parser'
@@ -21,11 +21,35 @@ export default function PremiumProject({ project }: IProps): ReactElement {
   } = project
   const percentage = Math.round((donated / amount) * 100)
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
+  const [progressSize, setProgressSize] = useState(250)
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
     url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
   })
   const { t } = useTranslation()
 
+  useEffect(() => {
+    const resize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', resize)
+
+    switch (true) {
+      case screenWidth < 768:
+        setProgressSize(150)
+        break
+      case screenWidth < 992:
+        setProgressSize(200)
+        break
+      default:
+        setProgressSize(250)
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [screenWidth])
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
       ...values,
@@ -56,7 +80,7 @@ export default function PremiumProject({ project }: IProps): ReactElement {
             strokeWidth={2}
             strokeColor="white"
             trailColor="none"
-            width={250}
+            width={progressSize}
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
@@ -73,18 +97,21 @@ export default function PremiumProject({ project }: IProps): ReactElement {
 const PremiumEventSection = styled.section<{image: string}>`
   display: flex;
   justify-content: space-between;
-  padding: 4.4rem 4.1rem;
+  padding: 4rem 4.1rem;
   gap: 4rem;
   align-items: flex-start;
   margin-bottom: 6.2rem;
   background: url(${({ image }) => image}) no-repeat center center;
   background-size: cover;
 
-  @media (max-width: 768px) {
+  button {
+    padding: 1.1rem 2.8rem;
+    font-size: 1.4rem;
+  }
+  @media (max-width: 590px) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0;
     text-align: center;
 
     & > :first-child {
@@ -111,6 +138,7 @@ const EventDetails = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   height: 100%;
+  width: 100%;
 `
 
 const EventDescription = styled.p`

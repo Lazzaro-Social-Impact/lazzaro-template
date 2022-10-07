@@ -1,7 +1,8 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import HTMLReactParser from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
+import capitalize from 'lodash/capitalize'
 import { SectionTitle } from '../common'
 import {
   IEvent, IImage
@@ -24,7 +25,8 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
-
+  const [calendarSize, setCalendarSize] = useState(180)
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const month = new Date(start_time).toLocaleString('default', { month: 'short' }).toUpperCase()
   const day = new Date(start_time).getDate()
   const Form = course ? (<BuyEventform disabled={!stock} modal courseId={id} />) : (
@@ -36,12 +38,35 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
   )
   const { t } = useTranslation()
 
+  useEffect(() => {
+    const resize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', resize)
+
+    switch (true) {
+      case screenWidth < 768:
+        setCalendarSize(120)
+        break
+      case screenWidth < 992:
+        setCalendarSize(150)
+        break
+      default:
+        setCalendarSize(180)
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  })
+
   return (
     <PremiumEventSection image={imageURL}>
       <EventDetails>
         <PremiumHeader>
-          <EventImage src="./assets/img/crown.png" alt="event" />
-          <p>Evento</p>
+          <EventImage src="./assets/img/crown.png" alt="highlighted-event" />
+          {course ? <p>{capitalize(t('course'))}</p> : <p>{capitalize(t('event'))}</p>}
         </PremiumHeader>
         <SectionTitle color="white" fontSize={2.8} padding={0} marginTop={0.8} marginBottom={0}>
           {title}
@@ -54,14 +79,17 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
         <CalendarIcon
           date={day}
           color="white"
-          size={180}
+          size={calendarSize}
           dateBottom={2.4}
           dateColor="white"
           dateSize={34.2}
           lineHeight={1}
           month={month}
         />
-        <BuyModal title={`${t('Buy')} ${course ? t('course') : t('ticket')}`} btnText={t('Buy')}>
+        <BuyModal
+          title={`${t('Buy')} ${course ? t('course') : t('ticket')}`}
+          btnText={course ? t('premiumSection.attend') : t('premiumSection.buy_tickets')}
+        >
           <EventCarousel imgs={images} isLoading={isLoading} />
           {Form}
         </BuyModal>
@@ -73,7 +101,7 @@ export default function PremiumEvent({ event }: IProps): ReactElement {
 const PremiumEventSection = styled.section<{image: string}>`
   display: flex;
   justify-content: space-between;
-  padding: 4.4rem 4.1rem;
+  padding: 4rem 4.1rem;
   padding-right: 9.2rem;
   gap: 4rem;
   position: relative;
@@ -81,13 +109,17 @@ const PremiumEventSection = styled.section<{image: string}>`
   margin-bottom: 6.2rem;
   background: url(${({ image }) => image}) no-repeat center center;
   background-size: cover;
-
-  @media (max-width: 768px) {
+  button {
+    padding: 1.1rem 2.2rem;
+    font-size: 1.4rem;
+  }
+  @media (max-width: 590px) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0;
     text-align: center;
+    padding-inline: 0;
+
 
     & > :first-child {
       text-align: center;

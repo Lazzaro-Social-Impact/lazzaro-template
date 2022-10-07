@@ -1,5 +1,5 @@
 {
-  "Donate Now": "Donar",
+  "Donate Now": "Donar ahora",
   "Become a partner": "Hazte socio",
   "What do we do?": "¿Qué hacemos?",
   "Our Partners": "Con el apoyo",
@@ -219,5 +219,9 @@
 
   "shop": {
     "no_products": "No hay productos disponibles"
+  },
+  "premiumSection": {
+    "attend": "Asistir",
+    "buy_tickets": "Comprar entradas"
   }
 }
