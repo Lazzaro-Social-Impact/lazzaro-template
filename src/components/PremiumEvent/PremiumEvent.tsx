@@ -110,7 +110,7 @@ const PremiumEventSection = styled.section<{image: string}>`
   background: url(${({ image }) => image}) no-repeat center center;
   background-size: cover;
   button {
-    padding: 1.1rem 2.2rem;
+    padding: 1.1rem 2rem;
     font-size: 1.4rem;
   }
   @media (max-width: 590px) {
@@ -176,7 +176,7 @@ const EventDescription = styled.p`
 const CalendarDiv = styled.div`
 display: flex;
 flex-direction: column;
-gap: 3.2rem;
+gap: 5.2rem;
 justify-content: center;
 align-items: center;
 margin-bottom: 0 !important;
