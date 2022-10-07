@@ -34,7 +34,7 @@ const useResize = ({
     return () => {
       window.removeEventListener('resize', resize)
     }
-  })
+  }, [objectToResizeInitialWidth, mediumSize, smallSize, screenWidth])
 
   return objectSize
 }
