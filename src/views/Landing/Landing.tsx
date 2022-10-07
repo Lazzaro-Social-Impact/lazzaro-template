@@ -75,7 +75,7 @@ export default function Landing(): ReactElement {
           orderWithoutZones={logosSectionOrderNoZones}
           display={seperatorVisibility}
         />
-        {premiumProject && <PremiumProject project={premiumProject} />}
+        {premiumProject ? <PremiumProject project={premiumProject} /> : <PremiumEvent event={premiumEvent} />}
         {causes && <Projects />}
         {events && !causes && <Events />}
         <ReorderComponent
@@ -87,7 +87,6 @@ export default function Landing(): ReactElement {
           display={seperatorVisibility}
         />
         {courses && events && !causes && <Courses />}
-        {premiumEvent && <PremiumEvent event={premiumEvent} />}
         {events && causes && <Events />}
         {courses && !events && <Courses />}
 
