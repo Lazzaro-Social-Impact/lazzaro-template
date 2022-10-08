@@ -219,5 +219,9 @@
 
   "shop" : {
     "no_products": "No products to show"
+  },
+  "premiumSection": {
+    "attend": "Attend",
+    "buy_tickets": "Buy tickets"
   }
 }

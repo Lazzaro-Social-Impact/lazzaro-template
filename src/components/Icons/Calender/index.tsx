@@ -15,12 +15,18 @@ interface IProps {
   left?: TLeft;
   right?: TRight;
   bottom?: TBottom;
+  dateBottom?: TBottom;
+  dateColor?: TColor;
+  dateSize?: TFontSize;
+  month?: string;
+  lineHeight?: TLineHeight;
 }
 
 const CalenderIcon = (props: IProps) => {
   const { primary } = useTheme()
   const {
-    date, type, size, position, top, left, right, bottom, style, color
+    date, type, size, position, top, left, right, bottom, style, color, dateBottom, dateColor, dateSize, month,
+    lineHeight
   } = props
 
   const Icon = type === 'outlined' ? CalendarOutlined : CalendarFilled
@@ -38,7 +44,15 @@ const CalenderIcon = (props: IProps) => {
       color={color || primary}
     >
       <Icon style={IconStyles} />
-      <Date>{date}</Date>
+      <Date style={{
+        marginBottom: dateBottom,
+        color: dateColor || 'black',
+        fontSize: dateSize || '1.4rem',
+        lineHeight: lineHeight || 'inherit'
+      }}
+      >{date}
+        {month && <p>{month}</p>}
+      </Date>
     </Calender>
   )
 }
@@ -61,6 +75,12 @@ const Date = styled(Typography.Text)`
   font-weight: bold;
   position: absolute;
   margin-bottom: 0.14em;
+  line-height: 0.9;
+  text-align: center;
+  p {
+    font-size: 2rem;
+    text-align: center;
+  }
 `
 export default CalenderIcon
 
@@ -73,5 +93,11 @@ CalenderIcon.defaultProps = {
   right: 'initial',
   bottom: 'initial',
   size: '1.4em',
-  color: ''
+  color: '',
+  dateBottom: '0.14em',
+  dateColor: 'black',
+  dateSize: '1.4rem',
+  month: '',
+  lineHeight: 'inherit'
+
 }

@@ -7,7 +7,7 @@ import {
   Events,
   AboutUs,
   LogosCarousel,
-  // PremiumEvent,
+  PremiumEvent,
   Projects,
   SocialImpact,
   SubscribeDivider,
@@ -15,6 +15,7 @@ import {
   Courses,
   Navbar,
   Footer,
+  PremiumProject
 } from '../../components'
 import Divider from '../../components/Divider/Divider'
 import { useAppSelector } from '../../hooks'
@@ -25,7 +26,8 @@ export default function Landing(): ReactElement {
   const {
     causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-
+  const premiumProject = useAppSelector(({ ong }) => ong.premiumProject)
+  const premiumEvent = useAppSelector(({ ong }) => ong.premiumEvent)
   // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos, donations
@@ -73,9 +75,10 @@ export default function Landing(): ReactElement {
           orderWithoutZones={logosSectionOrderNoZones}
           display={seperatorVisibility}
         />
+        {causes && premiumProject && <PremiumProject project={premiumProject} />}
+        {(events || courses) && premiumEvent && <PremiumEvent event={premiumEvent} />}
         {causes && <Projects />}
         {events && !causes && <Events />}
-        {/* {events && <PremiumEvent />} */}
         <ReorderComponent
           feature={impact}
           zones={zones}

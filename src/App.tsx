@@ -33,7 +33,7 @@ const { MODE: mode } = import.meta.env
 
 const ongUrl = mode === 'development'
   ? 'hello.web.lazzaro.io'
-  : mode === 'pre'
+  : mode === 'staging'
     ? 'prehelloo.web.lazzaro.io'
     : window.location.hostname
 

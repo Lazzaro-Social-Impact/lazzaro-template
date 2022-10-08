@@ -62,6 +62,7 @@ const Card = styled.div<IProps>`
   @media (max-width: 768px) {
     flex-direction: ${({ smMode }) => smMode};
     max-width: 100%;
+    width: 100%;
   }
 `
 

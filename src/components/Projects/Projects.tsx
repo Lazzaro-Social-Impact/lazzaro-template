@@ -1,8 +1,9 @@
 import chunk from 'lodash/chunk'
-import { useMemo, type ReactElement } from 'react'
+import { useEffect, useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppDispatch, useAppSelector, useDependant } from '../../hooks'
+import { setPremiumProject } from '../../redux/features'
 import { IProject } from '../../types/interfaces'
 import { Box, Carousel } from '../common'
 import ProjectCardSkeleton from '../Skeleton'
@@ -10,10 +11,15 @@ import { Project } from './Project/Project'
 
 export default function Projects(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-
+  const dispatch = useAppDispatch()
   const {
     data: projects = [], isLoading
   } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
+
+  const premiumProject = projects.find(({ isPremium }) => isPremium)
+  useEffect(() => {
+    dispatch(setPremiumProject(premiumProject))
+  }, [premiumProject])
 
   const memoizedProjects = useMemo(() => [
     ...chunk(projects, 3).map((ThreeProjects, i) => (
