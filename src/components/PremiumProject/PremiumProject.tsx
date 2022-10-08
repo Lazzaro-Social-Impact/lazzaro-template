@@ -79,8 +79,10 @@ const PremiumEventSection = styled.section<{image: string}>`
   gap: 4rem;
   align-items: flex-start;
   margin-bottom: 6.2rem;
-  background: url(${({ image }) => image}) no-repeat center center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+   url(${({ image }) => image}) no-repeat center center;
   background-size: cover;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   button {
     padding: 1.1rem 2.8rem;
