@@ -23,7 +23,7 @@ function Courses(): ReactElement {
         <Fragment key={events[i].id}>
           {e.map((event) => (
             <Flex
-              style={{ height: '17rem' }}
+              style={{ height: '18rem' }}
               key={event.id}
               direction="column"
             >

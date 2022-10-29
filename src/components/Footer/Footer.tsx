@@ -145,15 +145,16 @@ text-align:right;
 const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
+  align-self:center;
+  margin-top: 1.7rem;
   gap: 1rem;
-  background: #424242;
-  padding-block: 1.5rem;
   width: 65%;
   padding-left: 1.2rem;
   margin-left: 4.2rem;
   @media (max-width: 768px) {
-    padding-inline: 1.5rem;
     font-size: 1rem;
+    margin-left: 0;
+    padding-left: 0;
   }
 `
 const Contact = styled.div`
@@ -168,6 +169,12 @@ const Contact = styled.div`
   a {
     color: ${({ theme }) => theme.primary};
     font-size: 0.8rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    align-self: center;
+    margin: 0;
+    padding: 0;
   }
 `
 

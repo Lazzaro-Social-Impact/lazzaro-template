@@ -30,7 +30,7 @@ export default function LogosCarousel({ order }: IProps): ReactElement {
         <ImageContainer key={i && `logo-${i}`}>
           {fourLogos.map(({ id, logo }) => (
             <Box key={id}>
-              <Image src={logo} alt="logo" height="3.2rem" key={logo} />
+              <Image src={logo} alt="logo" height="4rem" key={logo} />
             </Box>
           ))}
         </ImageContainer>

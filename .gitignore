@@ -3,3 +3,4 @@
 .env
 dist
 stats.html
+package-lock.json

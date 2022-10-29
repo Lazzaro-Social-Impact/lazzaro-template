@@ -19,7 +19,7 @@ export default function AboutUs(): React.ReactElement {
           {titleDescription}
         </SectionTitle>
 
-        <Box fontSize="15px" pr={2.8} color="#777" lineHeight={1.8}>
+        <Box fontSize="15px" pr={2.8} color="#777">
           {description && description.length > 1020 ? (
             <>
               <Box>
@@ -61,7 +61,7 @@ const CustomFlex = styled(Flex)`
     strong,
     span {
       color: rgb(34, 34, 34) !important;
-      line-height: 1.6rem !important;
+      line-height: 20px !important;
       font-size: 16px !important;
       font-weight: 400 !important;
     }

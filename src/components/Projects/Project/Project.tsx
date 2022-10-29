@@ -46,7 +46,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
         effect="blur"
         placeholderSrc={imageURL}
       />
-      <Text zIndex="1" fontSize={1.1} px={1} color="white">
+      <Text zIndex="1" fontSize={1.4} weight="600" px={1} color="white">
         {title}
       </Text>
 

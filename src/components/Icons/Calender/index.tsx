@@ -68,6 +68,7 @@ const Calender = styled.div<Pick<IProps, 'position'| 'top'|'bottom'|'right'|'lef
   left: ${({ left }) => getProp(left)};
   bottom: ${({ bottom }) => getProp(bottom)};
   color: ${({ color, theme }) => color || theme.primary};
+
 `
 
 const Date = styled(Typography.Text)`
@@ -80,6 +81,11 @@ const Date = styled(Typography.Text)`
   p {
     font-size: 2rem;
     text-align: center;
+  }
+
+  @media screen and (max-width: 1301px) {
+    margin-bottom: 1rem !important;
+    
   }
 `
 export default CalenderIcon
