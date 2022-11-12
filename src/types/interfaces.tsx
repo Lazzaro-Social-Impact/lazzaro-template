@@ -34,7 +34,7 @@ export interface IDonation {
   anonymous: boolean;
   amount: number;
   createdAt: string;
-  Payment:{ tx:string };
+  Payment: { tx: string };
   User: {
     firstName: string;
     lastName: string;
@@ -80,6 +80,7 @@ export interface ITicket {
   id: string;
   price: number;
   type: string;
+  stock: number;
 }
 export interface IEventDetails {
   EventTickets: ITicket[];

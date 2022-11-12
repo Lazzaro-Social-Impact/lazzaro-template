@@ -29,10 +29,10 @@ export default function CheckoutForm({ secret }: TClientSecret) {
   const finalizePaymentRoute = encodeURI(
     finalizePaymentRoutes[redirectPath as keyof typeof finalizePaymentRoutes]
       .split('/:')
-      .map((param: any) => formData[param] ?? param)
+      .map((param) => formData[param] ?? param)
       .join('/')
       .replaceAll(' ', ''),
-  )
+  );
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();

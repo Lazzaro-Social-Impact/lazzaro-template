@@ -142,7 +142,8 @@
     "ticket_person": "Solo una entrada por persona. Puedes comprar más entradas repitiendo el proceso de compra.",
     "send_information": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",
     "share_event": "Comparte el evento",
-    "newsletter": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?"
+    "newsletter": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",
+    "tickets_left": "Quedan boletos"
   },
   "error_page": {
     "oops": "TENEMOS QUE HABLAR",

@@ -86,7 +86,6 @@
   },
   "devDependencies": {
     "@types/mapbox-gl": "^2.7.5",
-    "@types/moment": "^2.13.0",
     "@types/react-datepicker": "^4.4.2",
     "@types/react-lazy-load-image-component": "^1.5.2",
     "@types/styled-components": "^5.1.25",

@@ -1,16 +1,16 @@
-import { type ReactElement } from 'react'
-import HtmlParser from 'html-react-parser'
-import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
-import { Tabs } from '../common'
-import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
-import { getEventImages } from '../../api/getApiServices'
-import { BuyEventform } from '../Forms/BuyEventform'
-import { ContactEventForm } from '../Forms/ContactEventForm'
-import { EventCarousel } from '../EventCarousel/EventCarousel'
-import Skeleton from '../Skeleton'
-import { IEvent, IImage } from '../../types/interfaces'
-import Map from '../Map'
+import { type ReactElement } from 'react';
+import HtmlParser from 'html-react-parser';
+import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import { Tabs } from '../common';
+import { useDependant, useGeocoding } from '../../hooks';
+import { getEventImages } from '../../api/getApiServices';
+import { BuyEventform } from '../Forms/BuyEventform';
+import { ContactEventForm } from '../Forms/ContactEventForm';
+import { EventCarousel } from '../EventCarousel/EventCarousel';
+import Skeleton from '../Skeleton';
+import { IEvent, IImage } from '../../types/interfaces';
+import Map from '../Map';
 
 type TProps = {
   event: IEvent | undefined;
@@ -18,15 +18,12 @@ type TProps = {
   isLoadingEvent: boolean;
 };
 
-export function SingleEventDetails({
-  event, id, isLoadingEvent
-}: TProps): ReactElement {
-  const { data: images = [], isLoading } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
-  const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
+export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): ReactElement {
+  const { data: images = [], isLoading } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id);
+  const { lat, lng, isLoading: isMapLoading } = useGeocoding(event?.location || '');
 
-  const { t } = useTranslation()
-  const { lat, lng, isLoading: isMapLoading } = useGeocoding(address)
-  const { stock } = event || {}
+  const { t } = useTranslation();
+  const { stock } = event || {};
   return (
     <>
       {isLoadingEvent && <Skeleton number={1} height={40} width={60} />}
@@ -35,24 +32,24 @@ export function SingleEventDetails({
           <EventCarousel imgs={images} isLoading={isLoading} />
           <EventTitle>{event?.title}</EventTitle>
           {HtmlParser(event?.description || '')}
-          <CustomTabs defaultActiveKey="1">
-            <Tabs.TabPane tab={t('Buy')} key="1">
+          <CustomTabs defaultActiveKey='1'>
+            <Tabs.TabPane tab={t('Buy')} key='1'>
               {!event?.course && <BuyEventform eventId={id} disabled={!stock} />}
               {event?.course && <BuyEventform courseId={id} disabled={!stock} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (
-              <Tabs.TabPane tab={t('event_single.location')} key="2">
+              <Tabs.TabPane tab={t('event_single.location')} key='2'>
                 <Map lat={lat} lng={lng} height={28} isLoading={isMapLoading} />
               </Tabs.TabPane>
             )}
-            <Tabs.TabPane tab={t('Contact')} key="3">
+            <Tabs.TabPane tab={t('Contact')} key='3'>
               <ContactEventForm id={id} />
             </Tabs.TabPane>
           </CustomTabs>
         </Event>
       )}
     </>
-  )
+  );
 }
 
 const Event = styled.div`
@@ -63,7 +60,7 @@ const Event = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-`
+`;
 
 const EventTitle = styled.h2`
   color: black;
@@ -74,14 +71,13 @@ const EventTitle = styled.h2`
   @media screen and (max-width: 900px) {
     margin-top: 4.2rem;
   }
-`
+`;
 
 const CustomTabs = styled(Tabs)`
   .ant-tabs-nav-wrap {
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
-
   }
 
   .ant-tabs-nav-list {
@@ -93,4 +89,4 @@ const CustomTabs = styled(Tabs)`
     font-size: 1rem;
     font-weight: 600;
   }
-`
+`;
