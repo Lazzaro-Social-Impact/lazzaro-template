@@ -31,7 +31,10 @@ import './i18n/config';
 
 const { MODE: mode } = import.meta.env;
 
-const ongUrl = mode === 'dev' ? 'prehelloo.web.lazzaro.io' : window.location.host;
+const preURL = 'prehelloo.web.lazzaro.io';
+const proURL = 'hello.web.lazzaro.io';
+
+const ongUrl = mode === 'dev' ? proURL : window.location.host;
 
 function App() {
   const dispatch = useAppDispatch();

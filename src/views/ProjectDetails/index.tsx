@@ -1,30 +1,34 @@
-import { useEffect, type ReactElement } from 'react'
-import styled from 'styled-components'
-import { type Params, useParams } from 'react-router-dom'
-import { ProjectCard } from './ProjectTabs/ProjectCard'
-import { Footer, Navbar } from '../../components'
-import ImageCarousel from './ImageCarousel'
-import ProjectTabs from './ProjectTabs'
-import Skeleton from '../../components/Skeleton'
-import { useDependant } from '../../hooks'
-import { getProjectDetailsURL, getProjectImagesURL } from '../../api/getApiServices'
-import { IProject } from '../../types/interfaces'
-import { TImages } from '../../types/types'
+import { useEffect, type ReactElement } from 'react';
+import styled from 'styled-components';
+import { type Params, useParams } from 'react-router-dom';
+import { ProjectCard } from './ProjectTabs/ProjectCard';
+import { Footer, Navbar } from '../../components';
+import ImageCarousel from './ImageCarousel';
+import ProjectTabs from './ProjectTabs';
+import Skeleton from '../../components/Skeleton';
+import { useDependant } from '../../hooks';
+import { getProjectDetailsURL, getProjectImagesURL } from '../../api/getApiServices';
+import { IProject } from '../../types/interfaces';
+import { TImages } from '../../types/types';
 
 function ProjectDetails(): ReactElement {
-  const { id = '' } = useParams<Params<'id'>>()
+  const { id = '' } = useParams<Params<'id'>>();
 
-  const {
-    data: images = [], isLoading: isImagesLoading
-  } = useDependant<TImages>(getProjectImagesURL(id), [`project-images-${id}`], id)
+  const { data: images = [], isLoading: isImagesLoading } = useDependant<TImages>(
+    getProjectImagesURL(id),
+    [`project-images-${id}`],
+    id,
+  );
 
-  const {
-    data: projectDetails = {} as IProject, isLoading: isProjectLoading
-  } = useDependant<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
+  const { data: projectDetails = {} as IProject, isLoading: isProjectLoading } = useDependant<IProject>(
+    getProjectDetailsURL(id),
+    [`project-details-${id}`],
+    id,
+  );
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -34,16 +38,14 @@ function ProjectDetails(): ReactElement {
       <Flex>
         <ProjectTabs projectDetails={projectDetails} />
         <OtherProjects>
-          {isProjectLoading && (
-            <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
-          )}
+          {isProjectLoading && <Skeleton width={25} height={29} number={1} justify='flex-end' px={1} />}
 
-          {projectDetails && <ProjectCard project={projectDetails} />}
+          {!isProjectLoading && <ProjectCard project={projectDetails} />}
         </OtherProjects>
       </Flex>
       <Footer />
     </>
-  )
+  );
 }
 
 const Flex = styled.div`
@@ -81,18 +83,17 @@ const Flex = styled.div`
       max-width: 100%;
     }
   }
-`
+`;
 
 const OtherProjects = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 400px;
-  
+
   @media screen and (max-width: 768px) {
     padding-inline: 7.2rem;
     margin-top: 3.2rem;
-
   }
-`
-export default ProjectDetails
+`;
+export default ProjectDetails;
