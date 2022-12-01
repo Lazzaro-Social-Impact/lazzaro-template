@@ -29,7 +29,12 @@ export default function CheckoutForm({ secret }: TClientSecret) {
   const finalizePaymentRoute = encodeURI(
     finalizePaymentRoutes[redirectPath as keyof typeof finalizePaymentRoutes]
       .split('/:')
-      .map((param) => formData[param] ?? param)
+      .map((param) => {
+        const paramData = formData[param];
+        if (Array.isArray(paramData)) return encodeURIComponent(JSON.stringify(formData[param]));
+
+        return formData[param] || param;
+      })
       .join('/')
       .replaceAll(' ', ''),
   );

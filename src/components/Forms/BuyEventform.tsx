@@ -87,6 +87,7 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
 
     const formData = {
       ...initialFormData,
+      tickets: initialFormData.tickets.filter((ticket) => ticket.amount),
       ...(eventId && { event_id: eventId }),
       ...(courseId && { course_id: courseId, amount: 1 }),
     };
