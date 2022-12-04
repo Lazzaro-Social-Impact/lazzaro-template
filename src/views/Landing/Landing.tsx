@@ -26,8 +26,9 @@ export default function Landing(): ReactElement {
   const {
     causes, events, partners, volunteers, courses, impact, logos, donations
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
-  const premiumProject = useAppSelector(({ ong }) => ong.premiumProject)
-  const premiumEvent = useAppSelector(({ ong }) => ong.premiumEvent)
+  const premiumProject = useAppSelector(({ ong }) => ong.premiumProject) || {}
+  const premiumEvent = useAppSelector(({ ong }) => ong.premiumEvent) || {}
+  const isPremiumExist = Object.keys(premiumProject).length > 0 || Object.keys(premiumEvent).length > 0
   // For Test purposes
   // const {
   //   causes, events, partners, volunteers, courses, impact, logos, donations
@@ -75,8 +76,8 @@ export default function Landing(): ReactElement {
           orderWithoutZones={logosSectionOrderNoZones}
           display={seperatorVisibility}
         />
-        {causes && premiumProject && <PremiumProject project={premiumProject} />}
-        {(events || courses) && premiumEvent && <PremiumEvent event={premiumEvent} />}
+        {isPremiumExist &&causes && premiumProject && <PremiumProject project={premiumProject} />}
+        {(events || courses) && isPremiumExist && premiumEvent && <PremiumEvent event={premiumEvent} />}
         {causes && <Projects />}
         {events && !causes && <Events />}
         <ReorderComponent
