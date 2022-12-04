@@ -88,6 +88,10 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
     const formData = {
       ...initialFormData,
       tickets: initialFormData.tickets.filter((ticket) => ticket.amount),
+      amount: initialFormData.tickets.reduce((acc, cur) => {
+        acc += cur.price * cur.amount;
+        return acc;
+      }, 0),
       ...(eventId && { event_id: eventId }),
       ...(courseId && { course_id: courseId, amount: 1 }),
     };
@@ -114,6 +118,7 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
           </CustomLabel>
           <br />
           <CustomInput type='hidden' {...register(`tickets.${i}.id`)} value={ticket.id} />
+          <CustomInput type='hidden' {...register(`tickets.${i}.price`)} value={ticket.price} />
 
           <TicketInput
             type='number'

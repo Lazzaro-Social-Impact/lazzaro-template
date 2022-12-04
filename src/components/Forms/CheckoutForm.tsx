@@ -99,7 +99,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
           break;
       }
     });
-  }, [stripe, secret, navigate]);
+  }, [stripe, secret]);
 
   return (
     <CheckoutFormStripe>

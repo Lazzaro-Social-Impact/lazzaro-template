@@ -4,7 +4,7 @@ import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useAppSelector, useFinalizePayment } from '../../hooks';
 import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
+type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate'> & {
   event_id: string;
   mobilePhone: string;
   terms_and_conditions: boolean;
@@ -30,6 +30,7 @@ function FinalizeEventPayment() {
     terms_and_conditions = '',
     image_rights = '',
     newsletter = '',
+    amount = 0,
     tickets = "[{ id: '', amount: 0 }]",
   } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>();
 
@@ -46,6 +47,7 @@ function FinalizeEventPayment() {
     terms_and_conditions: terms_and_conditions === 'true',
     image_rights: image_rights === 'true',
     newsletter: newsletter === 'true',
+    amount: Number(amount),
     tickets: JSON.parse(tickets),
   };
 
