@@ -103,6 +103,7 @@ export interface ICourse {
   course: boolean;
   isPremium: boolean;
   stock: number;
+  EventTickets: any;
 }
 export interface IEvent {
   course: boolean;
@@ -115,4 +116,5 @@ export interface IEvent {
   end_time: string;
   stock: number;
   isPremium: boolean;
+  EventTickets: any;
 }

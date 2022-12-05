@@ -6,22 +6,28 @@ import HtmlParser from 'html-react-parser'
 import { useNavigate } from 'react-router-dom'
 import { CalendarIcon } from '../../Icons'
 import { Box, Flex } from '../../common'
+import { useAppSelector } from '../../../hooks'
 
 interface IProps {
   id: string;
   title: string;
   description: string;
   start_time: string;
+  EventTickets: any;
 }
 
 export default function EventsRow(props: IProps): ReactElement {
   const {
-    id, title, description = '', start_time: startTime
+    id, title, description = '', start_time: startTime, EventTickets
   } = props
 
   const day = moment(startTime).format('DD')
   const navigate = useNavigate()
   const navigateTo = (path: string) => () => navigate(path)
+  const prices = EventTickets.map((ticket: any) => ticket.price)
+  const lowestPrice = Math.min(...prices)
+  const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig.currency_symbol) || '€';
+
 
   return (
     <CustomBox
@@ -38,7 +44,15 @@ export default function EventsRow(props: IProps): ReactElement {
           <Title>{title}</Title>
           <Box fontSize={1.1} lineHeight={1.5}>
             {HtmlParser(description.slice(0, 120))}
+            {lowestPrice && (
+              <p style={{fontSize: '0.8rem'}}>
+            From <span style={{fontSize: '1.1rem', fontWeight: 'bold'}}>
+              {lowestPrice} {currency}
+              </span>
+          </p>
+            )}
           </Box>
+
         </Box>
       </FlexCard>
     </CustomBox>
