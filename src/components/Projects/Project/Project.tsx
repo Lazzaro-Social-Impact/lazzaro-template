@@ -1,16 +1,14 @@
-import { type ReactElement } from 'react'
-import styled from 'styled-components'
-import moment from 'moment'
-import { useTranslation } from 'react-i18next'
-import {
-  Text, Flex, Link
-} from '../../common'
-import DonateForm from '../../Forms/DonateForm'
-import DonateModal from '../../BuyModal'
-import { useAppSelector, useFormSubmit } from '../../../hooks'
-import { getStartProjectDonationUrl } from '../../../api/postApiServices'
-import { DonateSubmitForm } from '../../../types/interfaces'
-import { LazyImageComponent } from '../../common/LazyImage'
+import { type ReactElement } from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import { Text, Flex, Link } from '../../common';
+import DonateForm from '../../Forms/DonateForm';
+import DonateModal from '../../BuyModal';
+import { useAppSelector, useFormSubmit } from '../../../hooks';
+import { getStartProjectDonationUrl } from '../../../api/postApiServices';
+import { DonateSubmitForm } from '../../../types/interfaces';
+import { LazyImageComponent } from '../../common/LazyImage';
 
 interface ProjectProps {
   imageURL: string;
@@ -19,34 +17,36 @@ interface ProjectProps {
 }
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
+  const ongId = useAppSelector(({ ong }) => ong?.ongId) || '';
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
-  })
+    url: getStartProjectDonationUrl(ongId),
+    isPayment: true,
+    redirectPath: 'causes',
+  });
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = {
       ...values,
       ong_id: ongId,
       birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
-      project_id: id
-    }
+      project_id: id,
+    };
 
-    submit(donationInfo)
-  }
+    submit(donationInfo);
+  };
 
   return (
     <ProjectCard>
       <LazyImageComponent
-        width="100%"
-        height="100%"
-        src={imageURL}
+        width='100%'
+        height='100%'
+        src={`${imageURL}?${Date.now()}`}
         alt={title}
-        effect="blur"
-        placeholderSrc={imageURL}
+        effect='blur'
+        placeholderSrc={`${imageURL}?${Date.now()}`}
       />
-      <Text zIndex="1" fontSize={1.4} weight="600" px={1} color="white">
+      <Text zIndex='1' fontSize={1.4} weight='600' px={1} color='white'>
         {title}
       </Text>
 
@@ -60,7 +60,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
         </DonateModal>
       </ProjectFooter>
     </ProjectCard>
-  )
+  );
 }
 
 const ProjectCard = styled(Flex)`
@@ -82,7 +82,7 @@ const ProjectCard = styled(Flex)`
     z-index: -1;
     filter: brightness(0.5);
   }
-`
+`;
 
 const ProjectFooter = styled(Flex)`
   padding: 1.2rem;
@@ -92,4 +92,4 @@ const ProjectFooter = styled(Flex)`
       padding: 0.6rem 0.7rem;
     }
   }
-`
+`;

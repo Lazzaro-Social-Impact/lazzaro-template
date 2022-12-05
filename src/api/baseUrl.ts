@@ -6,7 +6,7 @@ interface IEnvironments {
 }
 
 const ENV_BASE_URL: IEnvironments = {
-  dev: 'https://elb.backend.lazzaro.io:8080',
+  dev: 'http://localhost:8080',
   pre: 'https://elbpre.backend.lazzaro.io:8080',
   production: 'https://elb.backend.lazzaro.io:8080',
   staging: 'https://elbpre.backend.lazzaro.io:8080',
