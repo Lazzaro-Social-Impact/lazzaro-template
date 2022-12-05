@@ -31,6 +31,7 @@ export function EventCard(props: IProps): ReactElement {
   const { pathname } = useLocation()
   const startDate = moment(start_time).format('YYYY/MM/DD')
   const endDate = moment(end_time).format('YYYY/MM/DD')
+
   const {
     data: images = [], isLoading
   } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
