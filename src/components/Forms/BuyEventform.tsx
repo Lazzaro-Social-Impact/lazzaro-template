@@ -127,6 +127,7 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
             {...register(`tickets.${i}.amount`)}
             value={ticket.amount}
             disabled={ticket.stock <= 0}
+            defaultValue='0'
           />
         </Box>
       )),
