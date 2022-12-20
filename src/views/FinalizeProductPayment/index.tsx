@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeProductPaymentUrl } from '../../api/postApiServices';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useAppSelector, useFinalizePayment } from '../../hooks';
@@ -16,7 +16,8 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'
 
 function FinalizeProductPayment() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || '';
-  const url = getFinalizeProductPaymentUrl();
+  const token = useSearchParams()[0].get('token') || '';
+  const url = getFinalizeProductPaymentUrl(token);
 
   const {
     firstName = '',

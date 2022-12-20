@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeDonationUrl } from '../../api/postApiServices';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useAppSelector, useFinalizePayment } from '../../hooks';
@@ -8,7 +8,8 @@ type TParams = Omit<TFinalizePaymentParams, 'home_address'>;
 
 function FinalizeDonation() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || '';
-  const url = getFinalizeDonationUrl(ongId);
+  const token = useSearchParams()[0].get('token') || '';
+  const url = getFinalizeDonationUrl(ongId, token);
 
   const {
     firstName = '',

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeBecomeAPartnerUrl } from '../../api/postApiServices';
 import { useAppSelector, useFinalizePayment } from '../../hooks';
 import FinalizePayment from '../../components/FinalizePaymentResult';
@@ -10,7 +10,8 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {
 
 function FinalizeSubscriptionDonation() {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || '';
-  const url = getFinalizeBecomeAPartnerUrl();
+  const token = useSearchParams()[0].get('token') || '';
+  const url = getFinalizeBecomeAPartnerUrl(token);
 
   const {
     firstName = '',
