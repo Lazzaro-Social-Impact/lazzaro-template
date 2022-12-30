@@ -77,6 +77,8 @@ export default function BecomeMemberForm(): ReactElement {
       certificate: data.certificate || false,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       ong_id: ongId,
+      // Todo until feature is finished in creador
+      subscriptionType: '1 month',
     };
 
     submit(formData);
@@ -109,7 +111,7 @@ export default function BecomeMemberForm(): ReactElement {
                 <option defaultChecked value=''>
                   {t('membership.quantity')}
                 </option>
-                {options?.map((option: TOption) => (
+                {options?.map((option) => (
                   <option key={option.id} value={option.amount}>
                     {option.name} ({option.amount}
                     {currency})

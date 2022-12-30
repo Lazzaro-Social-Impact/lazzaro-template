@@ -11,6 +11,7 @@ import { EventCarousel } from '../EventCarousel/EventCarousel';
 import Skeleton from '../Skeleton';
 import { IEvent, IImage } from '../../types/interfaces';
 import Map from '../Map';
+import { BuyCourseForm } from '../Forms/BuyCourseForm';
 
 type TProps = {
   event: IEvent | undefined;
@@ -18,7 +19,7 @@ type TProps = {
   isLoadingEvent: boolean;
 };
 
-export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): ReactElement {
+function SingleEventDetails({ event, id, isLoadingEvent }: TProps): ReactElement {
   const { data: images = [], isLoading } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id);
   const { lat, lng, isLoading: isMapLoading } = useGeocoding(event?.location || '');
 
@@ -35,7 +36,7 @@ export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): React
           <CustomTabs defaultActiveKey='1'>
             <Tabs.TabPane tab={t('Buy')} key='1'>
               {!event?.course && <BuyEventform eventId={id} disabled={!stock} />}
-              {event?.course && <BuyEventform courseId={id} disabled={!stock} />}
+              {event?.course && <BuyCourseForm courseId={id} disabled={!stock} />}
             </Tabs.TabPane>
             {event?.location !== 'online' && (
               <Tabs.TabPane tab={t('event_single.location')} key='2'>
@@ -51,6 +52,8 @@ export function SingleEventDetails({ event, id, isLoadingEvent }: TProps): React
     </>
   );
 }
+
+export default SingleEventDetails;
 
 const Event = styled.div`
   display: flex;

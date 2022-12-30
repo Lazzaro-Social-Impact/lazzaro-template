@@ -1,14 +1,10 @@
 import { type ReactElement } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Text, Flex, Link } from '../../common';
-import DonateForm from '../../Forms/DonateForm';
 import DonateModal from '../../BuyModal';
-import { useAppSelector, useFormSubmit } from '../../../hooks';
-import { getStartProjectDonationUrl } from '../../../api/postApiServices';
-import { DonateSubmitForm } from '../../../types/interfaces';
 import { LazyImageComponent } from '../../common/LazyImage';
+import ProjectDonation from '../../Forms/ProjectDonation';
 
 interface ProjectProps {
   imageURL: string;
@@ -17,34 +13,17 @@ interface ProjectProps {
 }
 
 export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || '';
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartProjectDonationUrl(ongId),
-    isPayment: true,
-    redirectPath: 'causes',
-  });
-
   const { t } = useTranslation();
-  const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = {
-      ...values,
-      ong_id: ongId,
-      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
-      project_id: id,
-    };
-
-    submit(donationInfo);
-  };
 
   return (
     <ProjectCard>
       <LazyImageComponent
         width='100%'
         height='100%'
-        src={`${imageURL}?${Date.now()}`}
+        src={imageURL}
         alt={title}
         effect='blur'
-        placeholderSrc={`${imageURL}?${Date.now()}`}
+        placeholderSrc={imageURL}
       />
       <Text zIndex='1' fontSize={1.4} weight='600' px={1} color='white'>
         {title}
@@ -56,7 +35,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
         </Link>
 
         <DonateModal btnText={t('Donate')} title={`Donate to ${title}`}>
-          <DonateForm modal projectId={id} submitHandler={handleSubmit} states={states} />
+          <ProjectDonation modal projectId={id} />
         </DonateModal>
       </ProjectFooter>
     </ProjectCard>

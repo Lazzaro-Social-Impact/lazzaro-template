@@ -3,25 +3,28 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Radio } from 'antd';
-import { DatePicker, Button, Center, Input } from '../common';
+import { TypeOf } from 'yup';
+import { Button, Center, Input, DatePicker } from '../common';
 import Label from '../common/Label';
 import HandleResponse from '../common/HandleResponse';
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput';
-import { DonateSubmitForm } from '../../types/interfaces';
-import { donationSchema } from '../../validation/schemas';
+import { projectFormSchema } from '../../validation/schemas';
 import { CustomInputDiv, CustomTextArea } from '../common/CustomInput';
 import PrivacyPolicy from '../common/PrivacyPolicy';
 import { CustomRadio } from './BecomeMemberForm';
 import { FormRow } from '../common/FormRow';
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification';
 import { useAppSelector, useFormSubmit } from '../../hooks';
-import { getStartDonationUrl } from '../../api/postApiServices';
+import { getStartProjectDonationUrl } from '../../api/postApiServices';
 
-interface IProps {
+type Props = {
   modal?: boolean;
-}
+  projectId: string;
+};
 
-function DonateForm({ modal }: IProps) {
+type ProjectForm = TypeOf<typeof projectFormSchema>;
+
+function ProjectDonation({ modal, projectId }: Props) {
   const ongId = useAppSelector((state) => state.ong.ongId) || '';
   const { t } = useTranslation();
 
@@ -30,16 +33,20 @@ function DonateForm({ modal }: IProps) {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) });
+  } = useForm<ProjectForm>({ resolver: yupResolver(projectFormSchema) });
 
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartDonationUrl(ongId),
+  const { submit, ...states } = useFormSubmit<ProjectForm>({
+    url: getStartProjectDonationUrl(ongId),
     isPayment: true,
-    redirectPath: 'donate',
+    redirectPath: 'causes',
   });
 
-  const submitHandler = (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, ong_id: ongId };
+  const submitHandler = (values: ProjectForm) => {
+    const donationInfo = {
+      ...values,
+      ong_id: ongId,
+      project_id: projectId,
+    };
 
     submit(donationInfo);
   };
@@ -50,8 +57,8 @@ function DonateForm({ modal }: IProps) {
         {...states}
         successMsg={useSuccessPaymentNotification()}
         errorMsg={t('fail.error')}
-        successId={`${ongId}-form-success`}
-        errorId={`${ongId}-form-error`}
+        successId={`${projectId}-form-success`}
+        errorId={`${projectId}-form-error`}
       />
       <FormControl mb={0}>
         <Label htmlFor='amount'>{t('your_donation')}</Label>
@@ -134,7 +141,7 @@ function DonateForm({ modal }: IProps) {
     </CustomForm>
   );
 }
-export default DonateForm;
+export default ProjectDonation;
 
 interface IFormControlProps {
   mode?: TFlexDirection;
@@ -161,13 +168,6 @@ export const FormControl = styled.div<IFormControlProps>`
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `;
 
-// const RadioBtn = styled.input`
-//   border: none;
-//   outline: none;
-//   cursor: pointer;
-//   margin-left: 1.5rem;
-// `
-
-DonateForm.defaultProps = {
+ProjectDonation.defaultProps = {
   modal: false,
 };

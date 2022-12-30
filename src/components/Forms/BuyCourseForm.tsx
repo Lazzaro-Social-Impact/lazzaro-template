@@ -1,63 +1,126 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Radio } from 'antd'
-import { type ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-import { getBuyCourseUrl } from '../../api/getApiServices'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification'
-import { buyCourseTicketSchema } from '../../validation/schemas'
-import {
-  Button, Input, Label
-} from '../common'
-import { CustomInput, CustomInputDiv } from '../common/CustomInput'
-import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
-import { FormRow } from '../common/FormRow'
-import HandleResponse from '../common/HandleResponse'
-import PrivacyPolicy from '../common/PrivacyPolicy'
-import { CustomRadio } from './BecomeMemberForm'
-import { FormControl } from './DonateForm'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Radio } from 'antd';
+import { type ReactElement, useMemo, useState, useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import { TypeOf } from 'yup';
+import { getBuyCourseUrl, getEventURL } from '../../api/getApiServices';
+import { useAppSelector, useDependant, useFormSubmit } from '../../hooks';
+import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification';
+import { IEventDetails } from '../../types/interfaces';
+import { TModal } from '../../types/types';
+import { buyTicketSchema } from '../../validation/schemas';
+import { Box, Button, Center, Label } from '../common';
+import { CustomInput, CustomInputDiv } from '../common/CustomInput';
+import { ErrorInput } from '../common/ErrorInput';
+import HandleResponse from '../common/HandleResponse';
+import PrivacyPolicy from '../common/PrivacyPolicy';
+import { CustomRadio } from './BecomeMemberForm';
+import { FormControl } from './DonateForm';
 
 interface Props {
-  courseId: string;
   modal?: boolean;
-  disabled?: boolean;
+  courseId: string;
+  disabled: boolean;
 }
 
-type TBuyCourseFormSubmit = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  mobilePhone: string;
-  terms: boolean;
-  certificate: boolean;
-};
+type BuyTicketForm = TypeOf<typeof buyTicketSchema>;
 
-export default function BuyCourseForm({ courseId, modal, disabled }: Props): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong.ongId)
-  const { t } = useTranslation()
+export function BuyCourseForm({ modal, courseId, disabled }: Props): ReactElement {
+  const { currency, ongId = '' } = useAppSelector(({ ong }) => ({
+    currency: ong.ongConfig?.platformConfig.currency_symbol,
+    ongId: ong.ongId,
+  }));
+  const { t } = useTranslation();
+  const url = getBuyCourseUrl(courseId);
+  const { data: eventDetails } = useDependant<IEventDetails>(
+    getEventURL(courseId),
+    [`course_ticket${courseId}`],
+    courseId,
+  );
+  const { EventTickets = [], price } = eventDetails || {};
 
   const {
-    register, handleSubmit, formState: { errors }
-  } = useForm<TBuyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
-  const {
-    submit, ...states
-  } = useFormSubmit<TBuyCourseFormSubmit>({ url: getBuyCourseUrl(courseId), isPayment: true, redirectPath: 'courses' })
-  const onSubmit = (data: TBuyCourseFormSubmit) => {
-    const formData = {
-      ...data,
-      course_id: courseId,
-      ong_id: ongId,
-      amount: 1,
-      certificate: data.certificate || false
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BuyTicketForm>({ resolver: yupResolver(buyTicketSchema) });
+
+  const { submit, ...states } = useFormSubmit<BuyTicketForm>({
+    url,
+    isPayment: true,
+    redirectPath: 'events',
+  });
+
+  const [ticketError, setTicketError] = useState('');
+  const ticketInputRef = useRef<HTMLLabelElement>(null);
+  const scrollIntoTicketError = () => {
+    document.getElementById('ticketInputs')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (ticketError) {
+      scrollIntoTicketError();
     }
+  }, [ticketError]);
 
-    submit(formData)
-  }
+  const onSubmit = (data: BuyTicketForm) => {
+    const initialFormData = {
+      ...data,
+      certificate: data.certificate || false,
+      ong_id: ongId,
+    };
 
+    const formData = {
+      ...initialFormData,
+      tickets: initialFormData.tickets?.filter((ticket) => ticket.amount),
+      amount: initialFormData.tickets?.reduce((acc, cur) => {
+        acc += cur.price * cur.amount;
+        return acc;
+      }, 0),
+      course_id: courseId,
+    };
+
+    if (!data.tickets?.length) return submit(formData);
+
+    const atLeastOneTicketPurchased = data.tickets.some((ticket) => ticket.amount);
+    if (atLeastOneTicketPurchased) return submit(formData);
+
+    setTicketError(t('errors.ticket_amount'));
+  };
+
+  const ticketsInputs: JSX.Element[] = useMemo(
+    () =>
+      EventTickets?.map((ticket, i: number) => (
+        <Box mt={1} key={ticket.id}>
+          <CustomLabel ref={ticketInputRef} tabIndex={0} id='ticketInputs'>
+            {ticket.type} ({ticket.price}
+            {currency}) - ({' '}
+            <span>
+              {ticket.stock || 0} {t('event_single.tickets_left')}
+            </span>{' '}
+            )
+          </CustomLabel>
+          <br />
+          <CustomInput type='hidden' {...register(`tickets.${i}.id`)} value={ticket.id} />
+          <CustomInput type='hidden' {...register(`tickets.${i}.price`)} value={ticket.price} />
+
+          <TicketInput
+            type='number'
+            max='1'
+            placeholder={t('placeholders.ticket')}
+            {...register(`tickets.${i}.amount`)}
+            value={ticket.amount}
+            disabled={ticket.stock <= 0}
+            defaultValue='0'
+          />
+        </Box>
+      )),
+    [EventTickets, register, currency],
+  );
   return (
-    <>
+    <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
       <HandleResponse
         {...states}
         successMsg={useSuccessPaymentNotification()}
@@ -65,72 +128,128 @@ export default function BuyCourseForm({ courseId, modal, disabled }: Props): Rea
         successId={`${courseId}_success`}
         errorId={`${courseId}_error`}
       />
+      <div>
+        <FormTitle>
+          {t('event_single.num_of_entries')} {price}
+        </FormTitle>
+        <p>{t('event_single.ticket_person')}</p>
 
-      <Form courseId={courseId} modal={modal} onSubmit={handleSubmit(onSubmit)}>
-        <Label size={1.8}>{t('personal_information')}</Label>
-        <FormRow>
-          <CustomInputDiv>
-            <CustomInput placeholder="Name" {...register('firstName')} />
-            {errors.firstName?.message && <ErrorMsg msg={t('errors.firstname')} align="flex-start" /> }
-          </CustomInputDiv>
+        {ticketsInputs}
+        {ticketError && <ErrorInput mt={1.2} msg={t('errors.ticket_amount')} />}
+      </div>
 
-          <CustomInputDiv>
-            <CustomInput placeholder="Surname" {...register('lastName')} />
-            {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} align="flex-start" /> }
-          </CustomInputDiv>
-        </FormRow>
+      <FormTitle>{t('personal_information')}</FormTitle>
+      <FormRow modal={modal}>
+        <CustomInputDiv>
+          <CustomInput placeholder={t('placeholders.firstname')} {...register('firstName')} />
+          {errors.firstName?.message && <ErrorInput msg={t('errors.firstname')} />}
+        </CustomInputDiv>
 
-        <FormRow>
-          <CustomInputDiv>
-            <CustomInput type="email" placeholder="Email" {...register('user_email')} />
-            {errors.user_email?.message && <ErrorMsg msg={t('errors.email')} align="flex-start" />}
-          </CustomInputDiv>
-          <CustomInputDiv>
-            <CustomInput placeholder="Phone" {...register('mobilePhone')} />
-            {errors.mobilePhone?.message && <ErrorMsg msg={t('errors.phone')} align="flex-start" />}
-          </CustomInputDiv>
-        </FormRow>
+        <CustomInputDiv>
+          <CustomInput placeholder={t('placeholders.lastname')} {...register('lastName')} />
+          {errors.lastName?.message && <ErrorInput msg={t('errors.lastname')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-        <FormControl mt={1.5}>
-          <Label style={{ maxWidth: '100%' }}>{t('Certificate question')}</Label>
-        </FormControl>
-        <Radio.Group {...register('certificate')}>
-          <CustomRadio value>
-            {t('yes')}
-          </CustomRadio>
-          <CustomRadio value={false}>
-            {t('no')}
-          </CustomRadio>
-        </Radio.Group>
+      <FormRow modal={modal}>
+        <CustomInputDiv>
+          <CustomInput placeholder={t('placeholders.email')} {...register('user_email')} />
+          {errors.user_email?.message && <ErrorInput msg={t('errors.email')} />}
+        </CustomInputDiv>
 
-        <Label style={{ alignSelf: 'flex-start' }}>
-          <Input w="25px" mt={1.8} type="checkbox" {...register('terms')} />
-          <PrivacyPolicy />
-        </Label>
-        {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} align="flex-start" />}
+        <CustomInputDiv>
+          <CustomInput placeholder={t('placeholders.phone')} {...register('mobilePhone')} />
+          {errors.mobilePhone?.message && <ErrorInput msg={t('errors.phone')} />}
+        </CustomInputDiv>
+      </FormRow>
 
-        <Button disabled={disabled} type="submit" mt={3} px={3}>{t('pay')}</Button>
-      </Form>
-    </>
-  )
+      <FormRow width='50%'>
+        <CustomInputDiv pr='0.4rem'>
+          <CustomInput placeholder={t('placeholders.ID')} {...register('nif')} />
+          {errors.nif?.message && <ErrorInput msg={t('errors.ID')} />}
+        </CustomInputDiv>
+      </FormRow>
+
+      <FormControl mt={1.5}>
+        <Label>{t('Certificate question')}</Label>
+      </FormControl>
+      <Radio.Group {...register('certificate')}>
+        <CustomRadio value>{t('yes')}</CustomRadio>
+        <CustomRadio value={false}>{t('no')}</CustomRadio>
+      </Radio.Group>
+      <br />
+      <CheckBoxInput type='checkbox' {...register('terms_and_conditions')} />
+      <PrivacyPolicy />
+      {errors.terms_and_conditions?.message && <ErrorInput msg={t('errors.privacypolicy')} />}
+      <br />
+
+      <CheckBoxInput type='checkbox' {...register('image_rights')} />
+      <span style={{ fontSize: '1rem' }}>
+        {t('event_single.image_rights')}
+        <br />
+        <span style={{ marginLeft: '2rem' }}>{t('event_single.image_rights_2')}</span>
+      </span>
+      {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
+
+      <br />
+      <Center>
+        <Button disabled={disabled} mt='1.8rem' px='2.8rem'>
+          {t('pay')} {currency}
+        </Button>
+      </Center>
+    </BuyFrom>
+  );
 }
+const BuyFrom = styled.form<{ modal: TModal }>`
+  width: ${({ modal }) => (modal ? '60%' : '100%')};
+  margin: auto;
 
-const Form = styled.form<Props>`
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+  }
+`;
+const FormTitle = styled.h2`
+  color: ${({ theme }) => theme.primary};
+  font-weight: bold;
+  margin-top: 3.2rem;
+  font-size: 1.8rem;
+`;
+
+const FormRow = styled.div<{ modal?: TModal; width?: TWidth }>`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  margin-top: 1.8rem;
-  div {
-    flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
-  }
-  button {
-    align-self: center;
-  }
-`
+  flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+  width: ${({ width }) => width || '100%'};
+`;
 
+const CheckBoxInput = styled.input`
+  margin-top: 1.8rem;
+  width: 30px;
+`;
+
+const CustomLabel = styled.label`
+  font-size: 1.1rem;
+  font-weight: 700;
+`;
+
+const TicketInput = styled.input`
+  width: 100%;
+  height: 3.2rem;
+  border: 1px solid ${({ theme }) => theme.primary};
+  border-radius: 0.4rem;
+  padding: 0.8rem;
+  color: ${({ theme }) => theme.primary};
+  margin-top: 0.8rem;
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
 BuyCourseForm.defaultProps = {
   modal: false,
-  disabled: false
-}
+};

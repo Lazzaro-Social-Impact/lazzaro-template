@@ -1,78 +1,56 @@
-import { ReactElement } from 'react'
-import styled from 'styled-components'
-import { Progress } from 'antd'
-import HTMLReactParser from 'html-react-parser'
-import moment from 'moment'
-import { useTranslation } from 'react-i18next'
-import { SectionTitle } from '../common'
-import { DonateSubmitForm, IProject } from '../../types/interfaces'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { getStartProjectDonationUrl } from '../../api/postApiServices'
-import DonateForm from '../Forms/DonateForm'
-import DonateModal from '../BuyModal'
-import useResize from '../../hooks/useResize'
+import { ReactElement } from 'react';
+import styled from 'styled-components';
+import { Progress } from 'antd';
+import HTMLReactParser from 'html-react-parser';
+import { useTranslation } from 'react-i18next';
+import { SectionTitle } from '../common';
+import { IProject } from '../../types/interfaces';
+import Modal from '../BuyModal';
+import useResize from '../../hooks/useResize';
+import ProjectDonation from '../Forms/ProjectDonation';
 
-interface IProps {
-  project: IProject | Record<string, never>
-}
+type Props = {
+  project: IProject | Record<string, never>;
+};
 
-export default function PremiumProject({ project }: IProps): ReactElement {
-  const {
-    title, description = '', imageURL, amount, donated, id
-  } = project
-  const percentage = Math.round((donated / amount) * 100)
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartProjectDonationUrl(ongId), isPayment: true, redirectPath: 'causes'
-  })
-  const { t } = useTranslation()
-  const progressSize = useResize({ objectToResizeInitialWidth: 250, mediumSize: 200, smallSize: 150 })
+export default function PremiumProject({ project }: Props): ReactElement {
+  const { title, description = '', imageURL, amount, donated, id } = project;
+  const percentage = Math.round((donated / amount) * 100);
+  const { t } = useTranslation();
+  const progressSize = useResize({ objectToResizeInitialWidth: 250, mediumSize: 200, smallSize: 150 });
 
-  const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = {
-      ...values,
-      ong_id: ongId,
-      birthDate: moment(values.birthDate).format('YYYY-MM-DD'),
-      project_id: id
-    }
-
-    submit(donationInfo)
-  }
   return (
     <PremiumEventSection image={imageURL}>
       <EventDetails>
-        <EventImage src="./assets/img/crown.png" alt="event" />
-        <SectionTitle color="white" fontSize={2.8} padding={0} marginTop={0.8} marginBottom={0}>
+        <EventImage src='./assets/img/crown.png' alt='event' />
+        <SectionTitle color='white' fontSize={2.8} padding={0} marginTop={0.8} marginBottom={0}>
           {title}
         </SectionTitle>
-        <EventDescription>
-          {HTMLReactParser(description?.slice(0, 120))}
-        </EventDescription>
+        <EventDescription>{HTMLReactParser(description?.slice(0, 120))}</EventDescription>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
           <CustomProgress
-            type="circle"
+            type='circle'
             showInfo
             percent={percentage}
             strokeWidth={2}
-            strokeColor="white"
-            trailColor="none"
+            strokeColor='white'
+            trailColor='none'
             width={progressSize}
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
 
-        <DonateModal btnText={t('Donate Now')} title={`Donate to ${title}`}>
-          <DonateForm modal projectId={id} submitHandler={handleSubmit} states={states} />
-        </DonateModal>
-
+        <Modal btnText={t('Donate Now')} title={`Donate to ${title}`}>
+          <ProjectDonation modal projectId={id} />
+        </Modal>
       </EventDonationProgress>
     </PremiumEventSection>
-  )
+  );
 }
 
-const PremiumEventSection = styled.section<{image: string}>`
+const PremiumEventSection = styled.section<{ image: string }>`
   display: flex;
   justify-content: space-between;
   padding: 4rem 4.1rem;
@@ -80,7 +58,7 @@ const PremiumEventSection = styled.section<{image: string}>`
   align-items: flex-start;
   margin-bottom: 6.2rem;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
-   url(${({ image }) => image}) no-repeat center center;
+    url(${({ image }) => image}) no-repeat center center;
   background-size: cover;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -107,10 +85,10 @@ const PremiumEventSection = styled.section<{image: string}>`
       padding: 0;
     }
   }
-`
+`;
 const EventImage = styled.img`
   width: 46px;
-`
+`;
 
 const EventDetails = styled.div`
   display: flex;
@@ -119,7 +97,7 @@ const EventDetails = styled.div`
   gap: 1.2rem;
   height: 100%;
   width: 100%;
-`
+`;
 
 const EventDescription = styled.p`
   color: #fff;
@@ -132,8 +110,7 @@ const EventDescription = styled.p`
   @media (max-width: 768px) {
     padding-inline: 4.1rem;
   }
-
-`
+`;
 const EventDonationProgress = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,10 +118,10 @@ const EventDonationProgress = styled.div`
   align-items: center;
   height: 100%;
   padding-left: 9.2rem;
-`
+`;
 const ProgressContainer = styled.div`
   position: relative;
-`
+`;
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
     font-weight: bold;
@@ -153,7 +130,7 @@ const CustomProgress = styled(Progress)`
   .ant-progress-text {
     color: white;
   }
-`
+`;
 const Donated = styled.p`
   position: absolute;
   bottom: 4.2rem;
@@ -164,4 +141,4 @@ const Donated = styled.p`
   font-weight: bold;
   text-decoration: none !important;
   transform: translateX(-50%);
-`
+`;

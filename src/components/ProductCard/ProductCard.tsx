@@ -23,7 +23,7 @@ export function ProductCard({ id, title, price, default_img: img, discount }: IP
         <LazyImageComponent
           height='230px'
           width='100%'
-          src={`${img}?${Date.now()}`}
+          src={img}
           alt={title}
           effect='blur'
           onError={handleBrokenImage}

@@ -59,7 +59,7 @@ declare global {
     language: string;
     powered_by_lazzaro: boolean;
     url: string;
-    payment_method: 'paypal' | 'stripe';
+    payment_method: 'paypal' | 'stripe' | 'mollie';
   }>;
 
   type TRrss = Readonly<{
@@ -93,16 +93,16 @@ declare global {
   //   team: TTeam;
   // }
 
-    type TOngConfig = Readonly<{
-      brand: TBrand;
-      contact: TContact;
-      description: TDescription;
-      features: TFeatures;
-      impactData: TImpactData;
-      platformConfig: TPlatformConfig;
-      rrss: TRrss;
-      team: TTeam;
-    }>;
+  type TOngConfig = Readonly<{
+    brand: TBrand;
+    contact: TContact;
+    description: TDescription;
+    features: TFeatures;
+    impactData: TImpactData;
+    platformConfig: TPlatformConfig;
+    rrss: TRrss;
+    team: TTeam;
+  }>;
 }
 
-export {}
+export {};

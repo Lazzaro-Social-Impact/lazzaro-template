@@ -1,16 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Radio } from 'antd';
-import { type ReactElement, useMemo, useState, useRef, useCallback, useEffect } from 'react';
+import { type ReactElement, useMemo, useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { getBuyCourseUrl, getEventURL } from '../../api/getApiServices';
+import { type TypeOf } from 'yup';
+import { getEventURL } from '../../api/getApiServices';
 import { getBuyEventTicketUrl } from '../../api/postApiServices';
 import { useAppSelector, useDependant, useFormSubmit } from '../../hooks';
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification';
-import { IEventDetails, ITicket } from '../../types/interfaces';
+import { IEventDetails } from '../../types/interfaces';
 import { TModal } from '../../types/types';
-import { buyCourseTicketSchema, buyTicketSchema } from '../../validation/schemas';
+import { buyTicketSchema } from '../../validation/schemas';
 import { Box, Button, Center, Label } from '../common';
 import { CustomInput, CustomInputDiv } from '../common/CustomInput';
 import { ErrorInput } from '../common/ErrorInput';
@@ -20,47 +21,30 @@ import { CustomRadio } from './BecomeMemberForm';
 import { FormControl } from './DonateForm';
 
 interface Props {
-  modal?: TModal;
-  eventId?: string;
-  courseId?: string;
+  modal?: boolean;
+  eventId: string;
   disabled: boolean;
 }
 
-type TBuyTicketFormSubmit = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  mobilePhone: string;
-  terms_and_conditions: boolean;
-  tickets: ITicket[];
-  nif: number;
-  certificate: boolean;
-  image_rights: boolean;
-  newsletter: boolean;
-};
+type BuyTicketForm = TypeOf<typeof buyTicketSchema>;
 
-export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props): ReactElement {
+export function BuyEventform({ modal, eventId = '', disabled }: Props): ReactElement {
   const { currency, ongId = '' } = useAppSelector(({ ong }) => ({
     currency: ong.ongConfig?.platformConfig.currency_symbol,
     ongId: ong.ongId,
   }));
   const { t } = useTranslation();
-  const schema = eventId ? buyTicketSchema : buyCourseTicketSchema;
-  const url = eventId ? getBuyEventTicketUrl(eventId) : getBuyCourseUrl(courseId);
-  const { data: eventDetails } = useDependant<IEventDetails>(
-    getEventURL(eventId),
-    [`event_ticket${eventId || courseId}`],
-    eventId,
-  );
+  const url = getBuyEventTicketUrl(eventId);
+  const { data: eventDetails } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId);
   const { EventTickets = [], price } = eventDetails || {};
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(schema) });
+  } = useForm<BuyTicketForm>({ resolver: yupResolver(buyTicketSchema) });
 
-  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>({
+  const { submit, ...states } = useFormSubmit<BuyTicketForm>({
     url,
     isPayment: true,
     redirectPath: 'events',
@@ -68,17 +52,17 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
 
   const [ticketError, setTicketError] = useState('');
   const ticketInputRef = useRef<HTMLLabelElement>(null);
-  const scrollIntoTicketError = useCallback(() => {
+  const scrollIntoTicketError = () => {
     document.getElementById('ticketInputs')?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  };
 
   useEffect(() => {
     if (ticketError) {
       scrollIntoTicketError();
     }
-  }, [ticketError, scrollIntoTicketError]);
+  }, [ticketError]);
 
-  const onSubmit = (data: TBuyTicketFormSubmit) => {
+  const onSubmit = (data: BuyTicketForm) => {
     const initialFormData = {
       ...data,
       certificate: data.certificate || false,
@@ -87,13 +71,12 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
 
     const formData = {
       ...initialFormData,
-      tickets: initialFormData.tickets.filter((ticket) => ticket.amount),
-      amount: initialFormData.tickets.reduce((acc, cur) => {
+      tickets: initialFormData.tickets?.filter((ticket) => ticket.amount),
+      amount: initialFormData.tickets?.reduce((acc, cur) => {
         acc += cur.price * cur.amount;
         return acc;
       }, 0),
-      ...(eventId && { event_id: eventId }),
-      ...(courseId && { course_id: courseId, amount: 1 }),
+      event_id: eventId,
     };
 
     if (!data.tickets?.length) return submit(formData);
@@ -142,17 +125,15 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
         successId={`${eventId}_success`}
         errorId={`${eventId}_error`}
       />
-      {!!EventTickets.length && (
-        <div>
-          <FormTitle>
-            {t('event_single.num_of_entries')} {price}
-          </FormTitle>
-          <p>{t('event_single.ticket_person')}</p>
+      <div>
+        <FormTitle>
+          {t('event_single.num_of_entries')} {price}
+        </FormTitle>
+        <p>{t('event_single.ticket_person')}</p>
 
-          {ticketsInputs}
-          {ticketError && <ErrorInput mt={1.2} msg={t('errors.ticket_amount')} />}
-        </div>
-      )}
+        {ticketsInputs}
+        {ticketError && <ErrorInput mt={1.2} msg={t('errors.ticket_amount')} />}
+      </div>
 
       <FormTitle>{t('personal_information')}</FormTitle>
       <FormRow modal={modal}>
@@ -208,10 +189,6 @@ export function BuyEventform({ modal, eventId = '', disabled, courseId }: Props)
       {errors.image_rights?.message && <ErrorInput msg={t('errors.image_rights')} />}
 
       <br />
-      <CheckBoxInput type='checkbox' {...register('newsletter')} />
-      <span style={{ fontSize: '1rem' }}>{t('event_single.newsletter')}</span>
-      {errors.newsletter?.message && <ErrorInput msg={t('errors.newsletter')} />}
-
       <Center>
         <Button disabled={disabled} mt='1.8rem' px='2.8rem'>
           {t('pay')} {currency}
@@ -272,6 +249,4 @@ const TicketInput = styled.input`
 `;
 BuyEventform.defaultProps = {
   modal: false,
-  courseId: '',
-  eventId: '',
 };

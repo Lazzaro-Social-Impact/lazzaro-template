@@ -1,12 +1,10 @@
 import { Progress } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styled, { useTheme } from 'styled-components';
-import { getStartProjectDonationUrl } from '../../../api/postApiServices';
-import { BuyModal, DonateForm } from '../../../components';
+import { BuyModal } from '../../../components';
+import ProjectDonation from '../../../components/Forms/ProjectDonation';
 import { Card, Flex, Text } from '../../../components/common';
 import { ShareModal } from '../../../components/ShareModal/ShareModal';
-import { useAppSelector, useFormSubmit } from '../../../hooks';
-import { DonateSubmitForm } from '../../../types/interfaces';
 
 interface IProps {
   project: {
@@ -20,19 +18,6 @@ interface IProps {
 export function ProjectCard({ project }: IProps) {
   const { t } = useTranslation();
   const { id, title = '', donated = 0, amount = 0 } = project;
-  const ongId = useAppSelector((state) => state.ong.ongId) || '';
-
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartProjectDonationUrl(ongId),
-    isPayment: true,
-    redirectPath: 'causes',
-  });
-
-  const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, project_id: id, ong_id: ongId };
-
-    submit(donationInfo);
-  };
 
   const { primary } = useTheme();
 
@@ -52,7 +37,7 @@ export function ProjectCard({ project }: IProps) {
       <Flex gap={1}>
         <ShareModal section='causes' sectionId={id} />
         <BuyModal btnText={donateBtnText}>
-          <DonateForm modal submitHandler={handleSubmit} projectId={id} states={states} />
+          <ProjectDonation modal projectId={id} />
         </BuyModal>
       </Flex>
     </ProductCard>
