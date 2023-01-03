@@ -110,6 +110,7 @@
     "donation": "Thank you for your donation",
     "paypal_navigate": "You will be redirected to PayPal to complete the payment",
     "stripe_navigate": "You will be redirected to checkout to complete the payment",
+    "mollie_navigate": "You will be redirected to checkout to complete the payment",
     "message": "Your message has been sent successfully"
   },
   "fail": {

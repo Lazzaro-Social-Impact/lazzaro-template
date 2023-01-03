@@ -112,6 +112,7 @@
     "donation": "Gracias por su donación",
     "paypal_navigate": "Serás redirigido a PayPal para completar el pago",
     "stripe_navigate": "Serás redirigido a Stripe para completar el pago",
+    "mollie_navigate": "Serás redirigido a Stripe para completar el pago",
     "message": "Tu mensaje ha sido enviado con éxito"
   },
   "fail": {

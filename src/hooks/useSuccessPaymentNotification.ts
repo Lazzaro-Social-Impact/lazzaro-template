@@ -1,12 +1,19 @@
-import { useTranslation } from 'react-i18next'
-import useAppSelector from './useAppSelector'
+import { useTranslation } from 'react-i18next';
+import useAppSelector from './useAppSelector';
 
 function useSuccessPaymentNotification() {
-  const paymentMethod = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig.payment_method)
-  const { t } = useTranslation()
-  const successNotification = paymentMethod === 'stripe' ? t('success.stripe_navigate') : t('success.paypal_navigate')
+  const paymentMethod = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig.payment_method) || 'stripe';
+  const { t } = useTranslation();
 
-  return successNotification
+  const successMessages = {
+    stripe: t('success.stripe_navigate'),
+    mollie: t('success.mollie_navigate'),
+    paypal: t('success.paypal_navigate'),
+  };
+
+  const successNotification = successMessages[paymentMethod];
+
+  return successNotification;
 }
 
-export default useSuccessPaymentNotification
+export default useSuccessPaymentNotification;
