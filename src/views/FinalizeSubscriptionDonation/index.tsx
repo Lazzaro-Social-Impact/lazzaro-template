@@ -1,14 +1,13 @@
-import { useParams, useSearchParams } from 'react-router-dom';
+import { Params, useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeBecomeAPartnerUrl } from '../../api/postApiServices';
 import { useAppSelector, useFinalizePayment } from '../../hooks';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { TFinalizePaymentParams } from '../../types/types';
 
-type SubscriptionType = '1 month' | '12 months';
-
 type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {
   comunications: boolean;
-  subscriptionType: SubscriptionType;
+  subscriptionType: '1 month' | '12 months';
+  stripe_plan_id: string;
 };
 
 function FinalizeSubscriptionDonation() {
@@ -27,9 +26,8 @@ function FinalizeSubscriptionDonation() {
     certificate,
     amount = '0',
     subscriptionType = '',
-  } = useParams<Record<keyof Omit<TParams, 'ong_id'>, string>>();
-
-  if (!isValidSubscriptionType(subscriptionType)) return null;
+    stripe_plan_id = '',
+  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>();
 
   const params: TParams = {
     firstName,
@@ -43,6 +41,7 @@ function FinalizeSubscriptionDonation() {
     certificate: certificate === 'true',
     amount: +amount,
     subscriptionType,
+    stripe_plan_id,
   };
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
@@ -59,7 +58,3 @@ function FinalizeSubscriptionDonation() {
 }
 
 export default FinalizeSubscriptionDonation;
-
-function isValidSubscriptionType(subscriptionType: string): subscriptionType is SubscriptionType {
-  return subscriptionType === '1 month' || subscriptionType === '12 month';
-}
