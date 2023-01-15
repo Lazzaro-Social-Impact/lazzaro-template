@@ -144,7 +144,7 @@
     "send_information": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",
     "share_event": "Comparte el evento",
     "newsletter": "¿Nos autorizas a enviarte información sobre nuestra entidad y cómo hacerte socio?",
-    "tickets_left": "Quedan boletos"
+    "tickets_left": "Quedan entradas"
   },
   "error_page": {
     "oops": "TENEMOS QUE HABLAR",
@@ -225,5 +225,7 @@
   "premiumSection": {
     "attend": "Asistir",
     "buy_tickets": "Comprar entradas"
-  }
+  },
+
+  "from": "Desde"
 }

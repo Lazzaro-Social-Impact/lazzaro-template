@@ -225,5 +225,6 @@
   "premiumSection": {
     "attend": "Attend",
     "buy_tickets": "Buy tickets"
-  }
+  },
+  "from": "from"
 }
