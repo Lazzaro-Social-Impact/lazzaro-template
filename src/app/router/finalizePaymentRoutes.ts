@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email';
 
 const finalizePaymentRoutes = {

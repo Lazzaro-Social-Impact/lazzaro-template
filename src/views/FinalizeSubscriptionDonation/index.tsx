@@ -40,7 +40,7 @@ function FinalizeSubscriptionDonation() {
     comunications: comunications === 'true',
     certificate: certificate === 'true',
     amount: +amount,
-    subscriptionType,
+    subscriptionType: subscriptionType as any,
     stripe_plan_id,
   };
 

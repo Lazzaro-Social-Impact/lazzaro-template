@@ -1,5 +1,5 @@
 import { Radio } from 'antd';
-import { ChangeEvent, ReactElement, SyntheticEvent, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -249,14 +249,4 @@ export const CustomRadio = styled(Radio)`
   .ant-radio-inner::after {
     background-color: ${({ theme }) => theme.primary} !important;
   }
-`;
-
-const ChangeOption = styled.span`
-  position: absolute;
-  right: -5px;
-  top: 17%;
-  transform: translateY(-11%);
-  font-size: 1.7rem;
-  padding: 0.5rem;
-  cursor: default;
 `;
