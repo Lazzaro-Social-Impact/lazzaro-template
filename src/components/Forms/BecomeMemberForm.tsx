@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { TypeOf } from 'yup';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import { Button, Center, Input } from '../common';
@@ -19,31 +20,21 @@ import { FormRow } from '../common/FormRow';
 import { getDonationOptions } from '../../api/getApiServices';
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification';
 
-type TMemberSubmitForm = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  home_address: string;
-  birthDate: string;
-  nif: number;
-  terms: boolean;
-  certificate: boolean;
-  communications: boolean;
-  phone: string;
-  amount: number;
-};
+type MemberSubmitForm = TypeOf<typeof memberSchema>;
 
 type TOption = {
   id: string;
   name: string;
   amount: number;
+  stripe_plan_id: string | null;
+  type: '1 month' | '12 months';
 };
 
 type TOptions = TOption[];
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || '';
-  const [options, setOptions] = useState<TOptions>([]);
+  // const [options, setOptions] = useState<TOptions>([]);
   const { t } = useTranslation();
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig.currency_symbol) || '€';
   const { data: donationOptions = [] } = useDependant<TOptions>(getDonationOptions(ongId), ['donation-options'], ongId);
@@ -52,41 +43,46 @@ export default function BecomeMemberForm(): ReactElement {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) });
-  const { submit, isError, isLoading, isSuccess } = useFormSubmit<TMemberSubmitForm>({
+  } = useForm<MemberSubmitForm>({ resolver: yupResolver(memberSchema) });
+  const { submit, isError, isLoading, isSuccess } = useFormSubmit<MemberSubmitForm>({
     url: getBecomePartnerUrl(),
     isPayment: true,
     redirectPath: 'partners',
   });
 
-  const onOptionsChange = (e: SyntheticEvent<HTMLSelectElement, ChangeEvent>) => {
-    const optionValue = (e.target as HTMLSelectElement).value;
-    if (+optionValue > 0) return;
+  // const onOptionsChange = (e: SyntheticEvent<HTMLSelectElement, ChangeEvent>) => {
+  //   const optionValue = (e.target as HTMLSelectElement).value;
+  //   const otherOption = donationOptions.find((option) => option.name === 'other');
 
-    setOptions([]);
-  };
+  //   if (optionValue === otherOption?.id) {
+  //     setOptions([]);
+  //   }
+  // };
 
-  const changeOption = () => {
-    setOptions(donationOptions);
-  };
+  // const changeOption = () => {
+  //   setOptions(donationOptions);
+  // };
 
-  const onSubmit = (data: TMemberSubmitForm) => {
+  const onSubmit = (data: MemberSubmitForm) => {
+    const plan = donationOptions.find((option) => option.id === data.plan);
+
     const formData = {
       ...data,
       communications: data.communications || false,
       certificate: data.certificate || false,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       ong_id: ongId,
-      // Todo until feature is finished in creador
-      subscriptionType: '1 month',
+      subscriptionType: plan?.type,
+      stripe_plan_id: plan?.stripe_plan_id || '',
+      amount: plan?.amount,
     };
 
-    submit(formData);
+    submit(formData as any);
   };
 
-  useEffect(() => {
-    setOptions(donationOptions);
-  }, [donationOptions]);
+  // useEffect(() => {
+  //   setOptions(donationOptions);
+  // }, []);
 
   return (
     <>
@@ -106,26 +102,19 @@ export default function BecomeMemberForm(): ReactElement {
           <FormSubtitle>{t('membership.subtitle')}</FormSubtitle>
           <RadioQuestion style={{ fontWeight: 'bold' }}>{t('membership.amount_label')}</RadioQuestion>
           <FormRow>
-            {options?.length ? (
-              <CustomDropdown {...register('amount')} onChange={onOptionsChange}>
-                <option defaultChecked value=''>
-                  {t('membership.quantity')}
+            <CustomDropdown {...register('plan')}>
+              <option defaultChecked value=''>
+                {t('membership.quantity')}
+              </option>
+              {donationOptions?.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.name} ({option.amount}
+                  {currency})
                 </option>
-                {options?.map((option) => (
-                  <option key={option.id} value={option.amount}>
-                    {option.name} ({option.amount}
-                    {currency})
-                  </option>
-                ))}
-              </CustomDropdown>
-            ) : (
-              <CustomInputDiv>
-                <ChangeOption onClick={changeOption}>⌄</ChangeOption>
-                <Input {...register('amount')} type='number' placeholder={t('membership.quantity')} />
-              </CustomInputDiv>
-            )}
+              ))}
+            </CustomDropdown>
           </FormRow>
-          {errors.amount?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
+          {errors.plan?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
 
           <RadioQuestion style={{ fontWeight: 'bold' }}>Personal Information</RadioQuestion>
           <FormRow>

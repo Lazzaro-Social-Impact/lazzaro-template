@@ -5,20 +5,18 @@ export const personalDetailsSchema = {
   lastName: yup.string().required('errors.lastname'),
   user_email: yup.string().required('errors.email'),
 };
-export const memberSchema = yup
-  .object()
-  .shape({
-    ...personalDetailsSchema,
-    home_address: yup.string().required('errors.address'),
-    birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
-    nif: yup.string().required('errors.ID').typeError('errors.ID'),
-    terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true]).nullable(),
-    certificate: yup.boolean().typeError('errors.certificate').nullable(),
-    phone: yup.string().required('errors.phone'),
-    amount: yup.number().required('errors.amount'),
-    communications: yup.boolean().typeError('errors.certifications').nullable(),
-  })
-  .required();
+export const memberSchema = yup.object({
+  ...personalDetailsSchema,
+  home_address: yup.string().required('errors.address'),
+  birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
+  nif: yup.string().required('errors.ID').typeError('errors.ID'),
+  terms: yup.boolean().typeError('errors.privacypolicy').oneOf([true]).nullable(),
+  certificate: yup.boolean().typeError('errors.certificate').nullable(),
+  phone: yup.string().required('errors.phone'),
+  plan: yup.string().optional(),
+  communications: yup.boolean().typeError('errors.certifications').nullable(),
+  amount: yup.number().optional(),
+});
 
 export const buyCourseTicketSchema = yup.object({
   ...personalDetailsSchema,

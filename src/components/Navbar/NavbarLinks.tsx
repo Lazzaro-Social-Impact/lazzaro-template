@@ -1,66 +1,63 @@
-import { MenuOutlined } from '@ant-design/icons'
-import { Drawer, Grid, Menu } from 'antd'
-import {
-  type FC, useCallback, useMemo, useReducer
-} from 'react'
-import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
-import i18next from 'i18next'
-import { useAppSelector } from '../../hooks'
-import { Box, Image, Link } from '../common'
-import navbarFeatures from './navbarFeatures'
-import navbarReducer, { initialState } from './navbarReducer'
+import { MenuOutlined } from '@ant-design/icons';
+import { Drawer, Grid, Menu } from 'antd';
+import { type FC, useCallback, useMemo, useReducer } from 'react';
+import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { useAppSelector } from '../../hooks';
+import { Box, Image, Link } from '../common';
+import navbarFeatures from './navbarFeatures';
+import navbarReducer, { initialState } from './navbarReducer';
 
-const { useBreakpoint } = Grid
+const { useBreakpoint } = Grid;
 
 const NavbarLinks: FC = () => {
-  const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
-  const { t } = useTranslation()
-  const { md } = useBreakpoint()
+  const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState);
+  const { t } = useTranslation();
+  const { md } = useBreakpoint();
   const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
     logo: ong.ongConfig?.brand.logo,
     features: ong.ongConfig?.features,
-  }))
+  }));
 
   const handleChangeLanguage = (): void => {
-    const chosenLanguage = langLinkText === 'es' ? 'en' : 'es'
+    const chosenLanguage = langLinkText === 'es' ? 'en' : 'es';
 
-    localStorage.setItem('lang', chosenLanguage)
-    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: chosenLanguage })
-    i18next.changeLanguage(chosenLanguage)
-  }
+    localStorage.setItem('lang', chosenLanguage);
+    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: chosenLanguage });
+    i18next.changeLanguage(chosenLanguage);
+  };
 
   const handleDrawerVisibility = useCallback(() => {
-    dispatch({ type: 'SET_DRAWER_VISIBILITY', payload: !isDrawerVisible })
-  }, [isDrawerVisible])
+    dispatch({ type: 'SET_DRAWER_VISIBILITY', payload: !isDrawerVisible });
+  }, [isDrawerVisible]);
 
   const featuresArray = useMemo(
-    () => Object.keys(features)
-      .filter(
-        (feature) => navbarFeatures[feature as keyof typeof navbarFeatures]
-            && features[feature as keyof TFeatures]
-      )
-      .sort(),
-    [features]
-  ) as [keyof typeof navbarFeatures]
+    () =>
+      Object.keys(features)
+        .filter(
+          (feature) => navbarFeatures[feature as keyof typeof navbarFeatures] && features[feature as keyof TFeatures],
+        )
+        .sort(),
+    [features],
+  ) as [keyof typeof navbarFeatures];
 
   const languageToggleLink = useMemo(
     () => (
-      <LanguageToggle onClick={handleChangeLanguage}>
-        {langLinkText === 'en' ? 'English' : 'Español'}
-      </LanguageToggle>
+      <LanguageToggle onClick={handleChangeLanguage}>{langLinkText === 'en' ? 'English' : 'Español'}</LanguageToggle>
     ),
-    [langLinkText]
-  )
+    [langLinkText],
+  );
 
   const NAVBAR_LINKS: JSX.Element[] = useMemo(
-    () => featuresArray.map((feature) => (
-      <li key={feature}>
-        <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
-      </li>
-    )),
-    [featuresArray, t]
-  )
+    () =>
+      featuresArray.map((feature) => (
+        <li key={feature}>
+          <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+        </li>
+      )),
+    [featuresArray, t],
+  );
   const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] = useMemo(
     () => [
       ...featuresArray.map((feature) => ({
@@ -73,15 +70,15 @@ const NavbarLinks: FC = () => {
       })),
       { key: 'lang-toggle', label: languageToggleLink },
     ],
-    [featuresArray, i18next.language]
-  )
+    [featuresArray, i18next.language],
+  );
 
   return (
     <>
       <Box p={0.5}>
-        <Link to="/#hero">
+        <Link to='/#hero'>
           <ImageContainer>
-            <Image src={logo} alt="logo" />
+            <Image src={logo} alt='logo' />
           </ImageContainer>
         </Link>
       </Box>
@@ -91,29 +88,24 @@ const NavbarLinks: FC = () => {
       {md && (
         <Links>
           <li>
-            <Link to="/#about">{t('About us')}</Link>
+            <Link to='/#about'>{t('About us')}</Link>
           </li>
           {NAVBAR_LINKS}
           <li>
-            <Link to="/contact">{t('Contact')}</Link>
+            <Link to='/contact'>{t('Contact')}</Link>
           </li>
 
           {languageToggleLink}
         </Links>
       )}
 
-      <Drawer
-        width={200}
-        placement="right"
-        onClose={handleDrawerVisibility}
-        visible={isDrawerVisible}
-      >
-        <MenuLinks items={DRAWER_LINKS} mode="inline" />
+      <Drawer width={200} placement='right' onClose={handleDrawerVisibility} open={isDrawerVisible}>
+        <MenuLinks items={DRAWER_LINKS} mode='inline' />
       </Drawer>
     </>
-  )
-}
-export default NavbarLinks
+  );
+};
+export default NavbarLinks;
 
 const LanguageToggle = styled.li`
   cursor: pointer;
@@ -126,11 +118,11 @@ const LanguageToggle = styled.li`
     text-decoration: underline;
   }
   @media (max-width: 768px) {
-    color:black;
+    color: black;
     font-weight: 400;
     font-size: 10px;
   }
-`
+`;
 
 const ImageContainer = styled.div`
   max-width: 180px;
@@ -140,7 +132,7 @@ const ImageContainer = styled.div`
     max-height: 4.25rem;
     width: 10rem;
   }
-`
+`;
 
 const Links = styled.ul`
   display: flex;
@@ -159,7 +151,7 @@ const Links = styled.ul`
       color: ${({ theme }) => theme.primary};
     }
   }
-`
+`;
 
 const MenuLinks = styled(Menu)`
   flex: 1;
@@ -176,4 +168,4 @@ const MenuLinks = styled(Menu)`
       color: black !important;
     }
   }
-`
+`;

@@ -35,8 +35,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
 
         return formData[param] || param;
       })
-      .join('/')
-      .replaceAll(' ', ''),
+      .join('/'),
   );
 
   const handleSubmit = async (e: SyntheticEvent) => {

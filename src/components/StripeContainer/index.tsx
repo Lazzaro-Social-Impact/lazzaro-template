@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import CheckoutForm from '../Forms/CheckoutForm';
 
 const stripePromise =
-  import.meta.env.mode === 'dev'
+  import.meta.env.MODE === 'dev'
     ? loadStripe('pk_test_b8602Fd2SVOySbs7AngcMs68')
     : loadStripe('pk_live_3bEHfZGESiO6objCXzJxzYmE');
 
