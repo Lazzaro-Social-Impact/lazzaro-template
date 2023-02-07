@@ -13,13 +13,14 @@ type TLocationWithState = Location & {
   state: {
     formData: { [key: string]: string | number | boolean };
     redirectPath: TSectionName;
+    paymentId: string;
   };
 };
 
 export default function CheckoutForm({ secret }: TClientSecret) {
   const stripe = useStripe();
   const {
-    state: { formData, redirectPath },
+    state: { formData, redirectPath, paymentId },
   } = useLocation() as TLocationWithState;
   const elements = useElements();
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}${finalizePaymentRoute}`,
+        return_url: `${window.location.origin}${finalizePaymentRoute}?token=${paymentId}`,
       },
     });
 
@@ -98,7 +99,7 @@ export default function CheckoutForm({ secret }: TClientSecret) {
           break;
       }
     });
-  }, [stripe, secret]);
+  }, [secret]);
 
   return (
     <CheckoutFormStripe>

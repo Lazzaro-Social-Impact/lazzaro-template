@@ -8,7 +8,7 @@ type TParameters = {
   isPayment: boolean;
   redirectPath?: keyof typeof finalizePaymentRoutes;
 };
-type TClientSecret = { clientSecret: string };
+type TClientSecret = { clientSecret: string; paymentId: string };
 type TData = TClientSecret;
 
 const useFormSubmit = <TMutate>({ url, isPayment, redirectPath }: TParameters) => {
@@ -24,9 +24,9 @@ const useFormSubmit = <TMutate>({ url, isPayment, redirectPath }: TParameters) =
 
     if (paymentMethod === 'stripe') {
       const {
-        data: { clientSecret },
+        data: { clientSecret, paymentId },
       } = (await mutateAsync(formData)) as { data: TClientSecret };
-      return navigate(`/checkout/${clientSecret}`, { state: { formData, redirectPath }, replace: true });
+      return navigate(`/checkout/${clientSecret}`, { state: { formData, redirectPath, paymentId }, replace: true });
     }
 
     const windowReference = window.open();
