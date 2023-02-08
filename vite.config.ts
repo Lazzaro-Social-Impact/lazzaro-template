@@ -1,9 +1,9 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
-import react from '@vitejs/plugin-react'
-import svgrPlugin from 'vite-plugin-svgr'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import react from '@vitejs/plugin-react';
+import svgrPlugin from 'vite-plugin-svgr';
+import tsconfigPaths from 'vite-tsconfig-paths';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import checker from 'vite-plugin-checker'
+import checker from 'vite-plugin-checker';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,12 +20,11 @@ export default defineConfig({
       overlay: false,
     }),
   ],
+  envPrefix: 'REACT_APP',
   build: {
     sourcemap: false,
     rollupOptions: {
-      plugins: [
-        splitVendorChunkPlugin()
-      ]
-    }
-  }
-})
+      plugins: [splitVendorChunkPlugin()],
+    },
+  },
+});

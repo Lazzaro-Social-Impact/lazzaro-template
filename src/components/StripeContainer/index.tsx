@@ -3,10 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useParams } from 'react-router-dom';
 import CheckoutForm from '../Forms/CheckoutForm';
 
-const stripePromise =
-  import.meta.env.MODE === 'dev'
-    ? loadStripe('pk_test_b8602Fd2SVOySbs7AngcMs68')
-    : loadStripe('pk_live_3bEHfZGESiO6objCXzJxzYmE');
+const stripePromise = loadStripe(import.meta.env.REACT_APP_STRIPE_PUBLISH_KEY);
 
 type TClientSecret = {
   secret: string;
