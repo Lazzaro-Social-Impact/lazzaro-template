@@ -31,7 +31,7 @@ import './i18n/config';
 
 const { MODE: mode } = import.meta.env;
 
-const preURL = 'prehelloo.web.lazzaro.io';
+const preURL = 'aldeasplanetaazul.web.lazzaro.io';
 // const proURL = 'hello.web.lazzaro.io';
 
 const ongUrl = mode === 'dev' ? preURL : window.location.host;

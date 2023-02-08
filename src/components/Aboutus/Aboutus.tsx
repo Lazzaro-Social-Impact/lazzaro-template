@@ -22,7 +22,7 @@ export default function AboutUs(): React.ReactElement {
         <Box fontSize='15px' pr={2.8} color='#777'>
           {description && description.length > 1020 ? (
             <>
-              <Box>{HtmlParser(description.slice(0, 810))}...</Box>
+              <Box>{HtmlParser(`${description.slice(0, 1200)}...`)}</Box>
 
               <Link to='/about' align='flex-end' mt={1.8} underlined>
                 {t('Read More')}
@@ -36,7 +36,7 @@ export default function AboutUs(): React.ReactElement {
         </Box>
       </Flex>
 
-      <Flex justify='flex-end' align='flex-start' flex={1}>
+      <Flex justify='flex-end' align='flex-end' flex={1}>
         <AboutUsImage src={imgUrl} alt='About us' placeholderSrc={imgUrl} />
       </Flex>
     </CustomFlex>

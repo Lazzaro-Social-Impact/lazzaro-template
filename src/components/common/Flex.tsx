@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   justify?: TJustifyContent;
@@ -12,7 +12,7 @@ interface IProps {
   mt?: TMarginTop;
   mb?: TMarginBottom;
   p?: TPadding;
-  py?:TPaddingBlock;
+  py?: TPaddingBlock;
   pb?: TPaddingBottom;
   px?: TPaddingInline;
   pl?: TPaddingLeft;
@@ -22,7 +22,6 @@ interface IProps {
   bgColor?: TBgColor;
   border?: TBorder;
   radius?: TBorderRadius;
-
 }
 const Flex = styled.div<IProps>`
   display: flex;
@@ -47,7 +46,7 @@ const Flex = styled.div<IProps>`
   background-color: ${({ bgColor }) => bgColor && bgColor};
   border: ${({ border, theme }) => border && `${border} solid ${theme.primary}`};
   border-radius: ${({ radius }) => radius && `${radius}px`};
-`
+`;
 
 Flex.defaultProps = {
   justify: 'space-between',
@@ -56,6 +55,6 @@ Flex.defaultProps = {
   wrap: 'wrap',
   width: '100%',
   textAlign: 'center',
-}
+};
 
-export default Flex
+export default Flex;
