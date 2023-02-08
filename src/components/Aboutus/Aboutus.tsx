@@ -1,7 +1,7 @@
 import HtmlParser from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { Box, Flex, Link, SectionTitle } from '../common';
+import { Flex, Link, SectionTitle } from '../common';
 import { useAppSelector } from '../../hooks';
 import { LazyImageComponent } from '../common/LazyImage';
 
@@ -14,26 +14,25 @@ export default function AboutUs(): React.ReactElement {
   const { t } = useTranslation();
   return (
     <CustomFlex id='about' align='stretch' mt={4.2} pl={4.1}>
-      <Flex direction='column' align='stretch' justify='stretch' textAlign='left' flex={1}>
+      <Flex
+        direction='column'
+        align='stretch'
+        justify='stretch'
+        textAlign='left'
+        flex={1}
+        style={{ overflow: 'hidden' }}
+      >
         <SectionTitle marginTop={0} marginBottom={0.6} padding={0.2} fontSize={2.2}>
           {titleDescription}
         </SectionTitle>
 
-        <Box fontSize='15px' pr={2.8} color='#777'>
-          {description && description.length > 1020 ? (
-            <>
-              <Box>{HtmlParser(description.slice(0, 810))}...</Box>
+        <Flex justify='flex-start' textAlign='left'>
+          <Description>{HtmlParser(description)}</Description>
 
-              <Link to='/about' align='flex-end' mt={1.8} underlined>
-                {t('Read More')}
-              </Link>
-            </>
-          ) : description && description.length < 1020 ? (
-            HtmlParser(description)
-          ) : (
-            ''
-          )}
-        </Box>
+          <Link to='/about' underlined align='center' mt={1} style={{ width: '100%' }}>
+            {t('Read More')}
+          </Link>
+        </Flex>
       </Flex>
 
       <Flex justify='flex-end' align='flex-start' flex={1}>
@@ -64,6 +63,15 @@ const CustomFlex = styled(Flex)`
       font-size: 13px;
     }
   }
+`;
+
+const Description = styled('div')`
+  display: inline-flex;
+  padding-right: 1rem;
+  word-break: break-word;
+  flex-direction: column;
+  height: 500px;
+  overflow-y: hidden;
 `;
 
 const AboutUsImage = styled(LazyImageComponent)`
