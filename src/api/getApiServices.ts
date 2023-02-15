@@ -2,7 +2,7 @@ import BASE_URL from './baseUrl'
 
 export const getProjectsURL = (ongId: string) => `${BASE_URL}/api/private/projects/ong/${ongId}`
 export const getProjectDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`
-export const getProjectImagesURL = (projectId: string) => `${BASE_URL}/api/private/projectimages/${projectId}`
+export const getProjectImagesURL = (projectId: string) => `${BASE_URL}/api/private/project/${projectId}/images`
 export const getProjectLatestDonationsURL = (causeId: string) => `${BASE_URL}/api/private/comments/${causeId}`
 export const getEventsURL = (ongId: string) => `${BASE_URL}/api/private/events/ong/${ongId}`
 export const getCauseDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`
@@ -11,11 +11,11 @@ export const getCauseDonationsHistoryUrl = (causeId: string) => `${BASE_URL}/api
 export const getOngConfig = (id: string) => `${BASE_URL}/api/private/ongs/${id}/all-platform-config`
 export const getOngByUrl = (url: string) => `${BASE_URL}/api/private/ongs/${url}/id`
 export const getEventURL = (eventId: string | undefined) => `${BASE_URL}/api/private/events/${eventId}`
-export const getCoursesImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
+export const getCoursesImages = (id: string) => `${BASE_URL}/api/private/events/${id}/images`
 export const getProductsURL = (id: string) => `${BASE_URL}/api/private/products/ong/${id}`
 export const getProductDetails = (id: string) => `${BASE_URL}/api/private/products/${id}`
-export const getProductImages = (id: string) => `${BASE_URL}/api/private/productImages/${id}`
-export const getEventImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
+export const getProductImages = (id: string) => `${BASE_URL}/api/private/product/${id}/images`
+export const getEventImages = (id: string) => `${BASE_URL}/api/private/events/${id}/images`
 export const getTransparencyURL = (ongId: string) => `${BASE_URL}/api/private/ongs/${ongId}/transparency`
 export const getCoursesURL = (ongId:string) => `${BASE_URL}/api/private/courses/ong/${ongId}`
 export const getBuyCourseUrl = (courseId: string | undefined) => `${BASE_URL}/api/private/buycourse/${courseId}/start`
