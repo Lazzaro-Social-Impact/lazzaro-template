@@ -8,7 +8,7 @@ export const getEventsURL = (ongId: string) => `${BASE_URL}/api/public/events/on
 export const getCauseDetailsURL = (id: string) => `${BASE_URL}/api/public/projects/${id}`;
 export const getCauseImagesURL = (id: string) => `${BASE_URL}/api/public/project/${id}/images`;
 export const getCauseDonationsHistoryUrl = (causeId: string) => `${BASE_URL}/api/public/comments/${causeId}`;
-export const getOngConfig = (id: string) => `${BASE_URL}/api/public/ongs/${id}/all-platform-config`;
+export const getOngConfig = (id: string) => `${BASE_URL}/api/private/ongs/${id}/all-platform-config`;
 export const getOngByUrl = (url: string) => `${BASE_URL}/api/public/ongs/${url}/id`;
 export const getEventURL = (eventId: string | undefined) => `${BASE_URL}/api/public/events/${eventId}`;
 export const getCoursesImages = (id: string) => `${BASE_URL}/api/public/events/${id}/images`;
