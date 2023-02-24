@@ -39,7 +39,7 @@
   "send": "Send",
   "Certificate question": "Do you want to receive a donation certificate?",
   "communication_question": "Do you want us to send you communications related to our activity and/or any of our partner or collaborating entities?",
-  "contribute_annually": "Choose the amount you want to contribute annually",
+  "contribute_annually": "Choose the amount you want to contribute",
   "join_us": "Join us",
   "Shop": "Shop",
   "personal_information": "Personal Information",
@@ -194,8 +194,8 @@
     "title": "Membership registration",
     "subtitle": "We are delighted to have you as a member, but in order to complete your membership, we need some information from you.",
     "quantity": "Quantity",
-    "amount_label": "Choose the amount you want to contribute annually",
-    "annual_fee": "Annual membership fee"
+    "amount_label": "Choose the amount you want to contribute.",
+    "annual_fee": "membership fee"
   },
   "course": "course",
   "ticket": "ticket",

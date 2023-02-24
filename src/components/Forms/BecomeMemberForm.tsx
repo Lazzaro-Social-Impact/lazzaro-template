@@ -50,19 +50,6 @@ export default function BecomeMemberForm(): ReactElement {
     redirectPath: 'partners',
   });
 
-  // const onOptionsChange = (e: SyntheticEvent<HTMLSelectElement, ChangeEvent>) => {
-  //   const optionValue = (e.target as HTMLSelectElement).value;
-  //   const otherOption = donationOptions.find((option) => option.name === 'other');
-
-  //   if (optionValue === otherOption?.id) {
-  //     setOptions([]);
-  //   }
-  // };
-
-  // const changeOption = () => {
-  //   setOptions(donationOptions);
-  // };
-
   const onSubmit = (data: MemberSubmitForm) => {
     const plan = donationOptions.find((option) => option.id === data.plan);
 
@@ -79,10 +66,6 @@ export default function BecomeMemberForm(): ReactElement {
 
     submit(formData as any);
   };
-
-  // useEffect(() => {
-  //   setOptions(donationOptions);
-  // }, []);
 
   return (
     <>
