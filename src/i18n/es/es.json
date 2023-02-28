@@ -197,7 +197,9 @@
     "subtitle": "Nos complace tenerle como miembro, pero para completar su membresía, necesitamos información suya.",
     "quantity": "Cantidad",
     "amount_label": "Elige la cantidad que deseas aportar.",
-    "annual_fee": "Cuota socio anual"
+    "annual_fee": "Cuota socio anual",
+    "annual":"Anual",
+    "monthly":"Mensual"
   },
   "course": "curso",
   "ticket": "entrada",

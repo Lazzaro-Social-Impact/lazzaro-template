@@ -195,7 +195,9 @@
     "subtitle": "We are delighted to have you as a member, but in order to complete your membership, we need some information from you.",
     "quantity": "Quantity",
     "amount_label": "Choose the amount you want to contribute.",
-    "annual_fee": "membership fee"
+    "annual_fee": "membership fee",
+    "annual":"Annual",
+    "monthly":"Monthly"
   },
   "course": "course",
   "ticket": "ticket",

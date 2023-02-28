@@ -1,5 +1,5 @@
 import { Radio } from 'antd';
-import { ReactElement } from 'react';
+import { type ReactElement, useMemo } from 'react';
 import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,7 +34,6 @@ type TOptions = TOption[];
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || '';
-  // const [options, setOptions] = useState<TOptions>([]);
   const { t } = useTranslation();
   const currency = useAppSelector((state) => state.ong.ongConfig?.platformConfig.currency_symbol) || '€';
   const { data: donationOptions = [] } = useDependant<TOptions>(getDonationOptions(ongId), ['donation-options'], ongId);
@@ -67,6 +66,15 @@ export default function BecomeMemberForm(): ReactElement {
     submit(formData as any);
   };
 
+  const monthlyOptions = useMemo(
+    () => donationOptions.filter(({ type }) => type === '1 month'),
+    [donationOptions.length],
+  );
+  const annulOptions = useMemo(
+    () => donationOptions.filter(({ type }) => type === '12 months'),
+    [donationOptions.length],
+  );
+
   return (
     <>
       <Navbar />
@@ -89,12 +97,23 @@ export default function BecomeMemberForm(): ReactElement {
               <option defaultChecked value=''>
                 {t('membership.quantity')}
               </option>
-              {donationOptions?.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.name} ({option.amount}
-                  {currency})
-                </option>
-              ))}
+              <optgroup label={t('membership.monthly')}>
+                {monthlyOptions?.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name} ({option.amount}
+                    {currency})
+                  </option>
+                ))}
+              </optgroup>
+
+              <optgroup label={t('membership.annual')}>
+                {annulOptions?.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name} ({option.amount}
+                    {currency})
+                  </option>
+                ))}
+              </optgroup>
             </CustomDropdown>
           </FormRow>
           {errors.plan?.message && <ErrorInput msg={t('errors.amount_member')} mt={0.4} />}
