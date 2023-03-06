@@ -88,3 +88,7 @@ input[type=number], input[type=password], input[type=text], textarea {
   -moz-appearance: button !important;
   appearance: button !important;
 }
+
+.ant-carousel .slick-slide img {
+  object-fit: contain ;
+}
