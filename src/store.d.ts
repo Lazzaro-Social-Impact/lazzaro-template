@@ -56,7 +56,7 @@ declare global {
     active: boolean;
     currency: string;
     currency_symbol: string;
-    language: string;
+    language: 'en' | 'es';
     powered_by_lazzaro: boolean;
     url: string;
     payment_method: 'paypal' | 'stripe' | 'mollie';
@@ -81,18 +81,6 @@ declare global {
     readonly position: string;
   }>;
 
-  // // ? uncomment for testing purposes
-  // type TOngConfig = {
-  //   brand: TBrand;
-  //   contact: TContact;
-  //   description: TDescription;
-  //   features: TFeatures;
-  //   impactData: TImpactData;
-  //   platformConfig: TPlatformConfig;
-  //   rrss: TRrss;
-  //   team: TTeam;
-  // }
-
   type TOngConfig = Readonly<{
     brand: TBrand;
     contact: TContact;
@@ -103,6 +91,36 @@ declare global {
     rrss: TRrss;
     team: TTeam;
   }>;
+
+  declare type NFT = {
+    id: string;
+    ongId: string;
+    name: string;
+    description: string;
+    symbol: string;
+    max_minting_quantity: number;
+    min_donation_amount: number;
+    external_url?: string;
+    ipfs_image_hash: string;
+    ipfs_metadata_hash: string;
+    s3_image_url: string;
+    s3_metadata_url: string;
+    tx: string;
+    status: 'pending' | 'deployed';
+    createdAt: string;
+    updatedAt: string;
+    NFTAttributes: NFTAttribute[];
+    contract_address: string;
+  };
+
+  declare type NFTAttribute = {
+    id: string;
+    type: string;
+    NFTId: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export {};

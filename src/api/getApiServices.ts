@@ -21,3 +21,4 @@ export const getCoursesURL = (ongId: string) => `${BASE_URL}/api/public/courses/
 export const getBuyCourseUrl = (courseId: string | undefined) => `${BASE_URL}/api/public/buycourse/${courseId}/start`;
 export const getOngLogos = (ongId: string) => `${BASE_URL}/api/public/ongs/${ongId}/logos`;
 export const getDonationOptions = (ongId: string) => `${BASE_URL}/api/public/ongs/${ongId}/donations-options`;
+export const getNFTUrl = (ongId: string) => `${BASE_URL}/api/public/nfts/${ongId}`;
