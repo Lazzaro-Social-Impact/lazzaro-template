@@ -1,18 +1,23 @@
 import { type ReactElement } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import nftGiftImage from '../../../public/assets/img/nftGift.png';
+// eslint-disable-next-line import/no-absolute-path
+import nftGiftImage from '/assets/img/nftGift.png';
 import Button from './Button';
 import Image from './Image';
 
-type Props = { amount: number; currencySymbol: string };
+type Props = { amount: number; currencySymbol: string; showIf?: boolean };
 
-function NftGift({ amount, currencySymbol }: Props): ReactElement {
+function NftGift({ amount, currencySymbol, showIf = true }: Props): ReactElement {
   const { t } = useTranslation();
 
   const handleClick = () => {
+    // eslint-disable-next-line no-console
     console.log('discovered');
   };
+
+  if (!showIf) return <></>;
+
   return (
     <Container>
       <ImageContainer>

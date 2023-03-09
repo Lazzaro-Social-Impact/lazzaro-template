@@ -43,7 +43,7 @@ export default function PremiumProject({ project }: Props): ReactElement {
         </ProgressContainer>
 
         <Modal btnText={t('Donate Now')} title={`Donate to ${title}`}>
-          <ProjectDonation modal projectId={id} />
+          <ProjectDonation projectId={id} />
         </Modal>
       </EventDonationProgress>
     </PremiumEventSection>

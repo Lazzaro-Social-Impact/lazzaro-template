@@ -22,7 +22,8 @@ import { useNFT, useOngConfig } from '../../hooks/Api';
 type DonateSubmitForm = TypeOf<typeof donationSchema>;
 
 function DonateForm(): ReactElement {
-  const { minDonationAmount = 0 } = useNFT();
+  const { minDonationAmount = 0, id: nftId } = useNFT();
+  const hasNft = !!nftId;
   const { currencySymbol = '$', ongId } = useOngConfig();
   const { t } = useTranslation();
   const {
@@ -62,7 +63,7 @@ function DonateForm(): ReactElement {
         errorId={`${ongId}-form-error`}
       />
 
-      <NftGiftBanner amount={minDonationAmount} currencySymbol={currencySymbol} />
+      <NftGiftBanner amount={minDonationAmount} currencySymbol={currencySymbol} showIf={hasNft} />
 
       <FormControl mt={2}>
         <Label htmlFor='amount'>{t('your_donation')}</Label>
@@ -117,7 +118,7 @@ function DonateForm(): ReactElement {
         <CustomTextArea rows={4} placeholder={t('placeholders.message')} {...register('text')} />
       </FormRow>
 
-      {donationAmount >= minDonationAmount && (
+      {hasNft && donationAmount >= minDonationAmount && (
         <FormControl mt={2.4}>
           <Label>
             {t('receive_nft_first_part')}
@@ -132,7 +133,7 @@ function DonateForm(): ReactElement {
         </FormControl>
       )}
 
-      {donationAmount >= minDonationAmount && receiveNft && (
+      {hasNft && donationAmount >= minDonationAmount && receiveNft && (
         <FormControl mt={2}>
           <Flex gap={1} width='100%'>
             <Input

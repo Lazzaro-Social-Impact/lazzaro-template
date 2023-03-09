@@ -1,11 +1,12 @@
 import { getOngByUrl } from '../../../api/getApiServices';
 import useFetch from '../../useDependant';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 const { REACT_APP_PRO_URL: prodUrl, REACT_APP_PRE_URL: preUrl } = import.meta.env;
 
-const ongUrl = preUrl;
+// const ongUrl = preUrl;
 // const ongUrl = prodUrl;
-// const ongUrl = window.location.host;
+const ongUrl = window.location.host;
 
 const useOngConfig = () => {
   const { data: ongConfig, ...states } = useFetch<TPlatformConfig>(getOngByUrl(ongUrl), ['ong-config'], ongUrl);

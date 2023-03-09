@@ -37,7 +37,7 @@ export function ProjectCard({ project }: IProps) {
       <Flex gap={1}>
         <ShareModal section='causes' sectionId={id} />
         <BuyModal btnText={donateBtnText}>
-          <ProjectDonation modal projectId={id} />
+          <ProjectDonation projectId={id} />
         </BuyModal>
       </Flex>
     </ProductCard>

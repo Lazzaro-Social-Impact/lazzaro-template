@@ -35,7 +35,7 @@ export function Project({ imageURL, title, id }: ProjectProps): ReactElement {
         </Link>
 
         <DonateModal btnText={t('Donate')} title={`Donate to ${title}`}>
-          <ProjectDonation modal projectId={id} />
+          <ProjectDonation projectId={id} />
         </DonateModal>
       </ProjectFooter>
     </ProjectCard>
