@@ -56,6 +56,15 @@
   "personal_information": "Información personal",
   "send": "Enviar",
   "About us": "Sobre nosotros",
+  "receive_nft_first_part": "Tu donación es más que",
+  "receive_nft_second_part": "¿Te gustaría recibir tu NFT de regalo?",
+  "connect_metamask": "Connect your wallet to MetaMask",
+  "dont_have_wallet": "¿No tienes billetera?",
+  "discover_how": "Descubre cómo crearlo",
+  "donation_greater_than": "Donaciones mayores a",
+  "nft_as_gift": "¡recibe un NFT de regalo!",
+  "discover": "Descubre como",
+
   "placeholders": {
     "name": "Tu nombre",
     "firstname": "Nombre",
@@ -72,7 +81,8 @@
     "postal_code": "Código postal",
     "city": "Ciudad",
     "country": "País",
-    "amount": "Por favor, introduzca la cantidad que desea donar"
+    "amount": "Por favor, introduzca la cantidad que desea donar",
+    "wallet_address": "Dirección del contrato"
   },
   "send_message": "Enviar mensaje",
   "yes": "Sí",
@@ -198,8 +208,8 @@
     "quantity": "Cantidad",
     "amount_label": "Elige la cantidad que deseas aportar.",
     "annual_fee": "Cuota socio anual",
-    "annual":"Anual",
-    "monthly":"Mensual"
+    "annual": "Anual",
+    "monthly": "Mensual"
   },
   "course": "curso",
   "ticket": "entrada",
