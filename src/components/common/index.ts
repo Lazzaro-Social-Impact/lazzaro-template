@@ -14,3 +14,4 @@ export { default as Center } from './Center';
 export { default as Box } from './Box';
 export { default as Tabs } from './Tabs';
 export { default as DatePicker } from './DatePicker';
+export { default as NftGiftBanner } from './NftGiftBanner';

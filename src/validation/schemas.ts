@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 
-export const personalDetailsSchema = {
+export const commonSchema = {
   firstName: yup.string().required('errors.firstname'),
   lastName: yup.string().required('errors.lastname'),
   user_email: yup.string().required('errors.email'),
 };
 export const memberSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   home_address: yup.string().required('errors.address'),
   birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
@@ -19,13 +19,13 @@ export const memberSchema = yup.object({
 });
 
 export const buyCourseTicketSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   mobilePhone: yup.string().required('errors.phone'),
   terms: yup.boolean().oneOf([true], 'errors.privacypolicy'),
 });
 
 export const buyTicketSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   mobilePhone: yup.string().required('errors.phone'),
   terms_and_conditions: yup.boolean().oneOf([true], 'errors.privacypolicy'),
   tickets: yup
@@ -44,7 +44,7 @@ export const buyTicketSchema = yup.object({
 });
 
 export const buyProductSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   home_address: yup.string().required('errors.address'),
   productAmount: yup.number().typeError('errors.amount').required(),
   city: yup.string().required('errors.city'),
@@ -74,17 +74,21 @@ export const contactSchema = yup.object({
 });
 
 export const donationSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   home_address: yup.string().required('errors.address'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
   terms: yup.boolean().required('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
   amount: yup.number().required('errors.amount').typeError('errors.amount'),
   text: yup.string(),
   birthDate: yup.date().required('errors.dob').typeError('errors.dob'),
+  anonymous: yup.boolean().default(false).nullable(),
+  certificate: yup.boolean().default(false).nullable(),
+  receiveNft: yup.boolean().default(false),
+  wallet_address: yup.string(),
 });
 
 export const projectFormSchema = yup.object({
-  ...personalDetailsSchema,
+  ...commonSchema,
   home_address: yup.string().required('errors.address'),
   nif: yup.string().required('errors.ID').typeError('errors.ID'),
   terms: yup.boolean().required('errors.privacypolicy').oneOf([true], 'errors.privacypolicy'),
@@ -98,7 +102,7 @@ export const projectFormSchema = yup.object({
 export const volunteerSchema = yup
   .object()
   .shape({
-    ...personalDetailsSchema,
+    ...commonSchema,
     message: yup.string().required('errors.message'),
   })
   .required();

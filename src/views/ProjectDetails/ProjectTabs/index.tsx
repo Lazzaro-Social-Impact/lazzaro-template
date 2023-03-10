@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { DonateForm } from '../../../components';
 import { Tabs } from '../../../components/common';
+import ProjectDonation from '../../../components/Forms/ProjectDonation';
 import Description from './Description';
 import LatestDonations from './LatestDonations';
 
@@ -22,7 +22,7 @@ function ProjectTabs({ projectDetails }: IProps) {
       </Tabs.TabPane>
 
       <Tabs.TabPane tab={t('Donate')} key='2'>
-        <DonateForm modal />
+        <ProjectDonation projectId={id} />
       </Tabs.TabPane>
 
       <Tabs.TabPane tab={t('case_single.historical')} key='3'>

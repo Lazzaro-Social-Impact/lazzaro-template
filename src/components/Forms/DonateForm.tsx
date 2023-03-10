@@ -1,39 +1,41 @@
 import styled from 'styled-components';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { type TypeOf } from 'yup';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Radio } from 'antd';
-import { DatePicker, Button, Center, Input } from '../common';
+import { type ReactElement } from 'react';
+import { DatePicker, Button, Center, Input, NftGiftBanner, Flex, Box } from '../common';
 import Label from '../common/Label';
 import HandleResponse from '../common/HandleResponse';
 import { ErrorInput as ErrorMsg } from '../common/ErrorInput';
-import { DonateSubmitForm } from '../../types/interfaces';
 import { donationSchema } from '../../validation/schemas';
 import { CustomInputDiv, CustomTextArea } from '../common/CustomInput';
 import PrivacyPolicy from '../common/PrivacyPolicy';
 import { CustomRadio } from './BecomeMemberForm';
 import { FormRow } from '../common/FormRow';
 import useSuccessPaymentNotification from '../../hooks/useSuccessPaymentNotification';
-import { useAppSelector, useFormSubmit } from '../../hooks';
+import { useFormSubmit } from '../../hooks';
 import { getStartDonationUrl } from '../../api/postApiServices';
+import { useNFT, useOngConfig } from '../../hooks/Api';
 
-interface IProps {
-  modal?: boolean;
-}
+type DonateSubmitForm = TypeOf<typeof donationSchema>;
 
-function DonateForm({ modal }: IProps) {
-  const ongId = useAppSelector((state) => state.ong.ongId) || '';
+function DonateForm(): ReactElement {
+  const { minDonationAmount = 0, id: nftId } = useNFT();
+  const hasNft = !!nftId;
+  const { currencySymbol = '$', ongId } = useOngConfig();
   const { t } = useTranslation();
-
   const {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) });
 
   const { submit, ...states } = useFormSubmit<DonateSubmitForm>({
-    url: getStartDonationUrl(ongId),
+    url: getStartDonationUrl(ongId || ''),
     isPayment: true,
     redirectPath: 'donate',
   });
@@ -44,8 +46,15 @@ function DonateForm({ modal }: IProps) {
     submit(donationInfo);
   };
 
+  const connectToMetamask = () => {
+    window.location.href = '/';
+  };
+
+  const donationAmount = watch('amount') || 0;
+  const receiveNft = watch('receiveNft');
+
   return (
-    <CustomForm style={{ width: modal ? '100%' : '60%' }} onSubmit={handleSubmit(submitHandler)}>
+    <Form onSubmit={handleSubmit(submitHandler)}>
       <HandleResponse
         {...states}
         successMsg={useSuccessPaymentNotification()}
@@ -53,15 +62,19 @@ function DonateForm({ modal }: IProps) {
         successId={`${ongId}-form-success`}
         errorId={`${ongId}-form-error`}
       />
-      <FormControl mb={0}>
+
+      <NftGiftBanner amount={minDonationAmount} currencySymbol={currencySymbol} showIf={hasNft} />
+
+      <FormControl mt={2}>
         <Label htmlFor='amount'>{t('your_donation')}</Label>
       </FormControl>
+
       <CustomInputDiv>
         <Input type='number' placeholder={t('placeholders.amount')} {...register('amount')} />
         {errors.amount?.message && <ErrorMsg msg={t('errors.amount')} />}
       </CustomInputDiv>
 
-      <FormControl mt={1.8} mb={0}>
+      <FormControl mt={1.8}>
         <Label htmlFor='amount'>{t('details')}</Label>
       </FormControl>
 
@@ -76,6 +89,7 @@ function DonateForm({ modal }: IProps) {
           {errors.lastName?.message && <ErrorMsg msg={t('errors.lastname')} />}
         </CustomInputDiv>
       </FormRow>
+
       <FormRow>
         <CustomInputDiv>
           <Input type='email' placeholder={t('placeholders.email')} {...register('user_email')} />
@@ -93,6 +107,7 @@ function DonateForm({ modal }: IProps) {
           <Input type='text' placeholder={t('placeholders.ID')} {...register('nif')} />
           {errors.nif?.message && <ErrorMsg msg={t('errors.ID')} />}
         </CustomInputDiv>
+
         <CustomInputDiv>
           <DatePicker control={control} />
           {errors.birthDate?.message && <ErrorMsg msg={t('errors.dob')} />}
@@ -103,35 +118,75 @@ function DonateForm({ modal }: IProps) {
         <CustomTextArea rows={4} placeholder={t('placeholders.message')} {...register('text')} />
       </FormRow>
 
-      <FormControl mt={2.4}>
-        <Label>{t('donation_publicity.question')}</Label>
-      </FormControl>
+      {hasNft && donationAmount >= minDonationAmount && (
+        <FormControl mt={2.4}>
+          <Label>
+            {t('receive_nft_first_part')}
+            {minDonationAmount}
+            {currencySymbol},{t('receive_nft_second_part')}
+          </Label>
 
-      <Radio.Group {...register('anonymous')}>
-        <CustomRadio value={false}>{t('donation_publicity.public')}</CustomRadio>
-        <CustomRadio value>{t('donation_publicity.anonymous')}</CustomRadio>
-      </Radio.Group>
+          <Radio.Group {...register('receiveNft')}>
+            <CustomRadio value>{t('yes')}</CustomRadio>
+            <CustomRadio value={false}>{t('no')}</CustomRadio>
+          </Radio.Group>
+        </FormControl>
+      )}
+
+      {hasNft && donationAmount >= minDonationAmount && receiveNft && (
+        <FormControl mt={2}>
+          <Flex gap={1} width='100%'>
+            <Input
+              style={{ flex: 1 }}
+              placeholder={t('placeholders.wallet_address')}
+              {...register('wallet_address')}
+              mt={0}
+            />
+            o
+            <Button style={{ flex: 1 }} radius={5} type='button' onClick={connectToMetamask}>
+              {t('connect_metamask')}
+            </Button>
+          </Flex>
+
+          <Box mt={0.5}>
+            {t('dont_have_wallet')}{' '}
+            <a href='/' target='_blank'>
+              {t('discover_how')}
+            </a>
+          </Box>
+        </FormControl>
+      )}
+
+      <FormControl mt={3}>
+        <Label>{t('donation_publicity.question')}</Label>
+
+        <Radio.Group {...register('anonymous')}>
+          <CustomRadio value={false}>{t('donation_publicity.public')}</CustomRadio>
+          <CustomRadio value>{t('donation_publicity.anonymous')}</CustomRadio>
+        </Radio.Group>
+      </FormControl>
 
       <FormControl mt={1.5}>
         <Label>{t('Certificate question')}</Label>
+
+        <Radio.Group {...register('certificate')}>
+          <CustomRadio value>{t('yes')}</CustomRadio>
+          <CustomRadio value={false}>{t('no')}</CustomRadio>
+        </Radio.Group>
       </FormControl>
-      <Radio.Group {...register('certificate')}>
-        <CustomRadio value>{t('yes')}</CustomRadio>
-        <CustomRadio value={false}>{t('no')}</CustomRadio>
-      </Radio.Group>
 
       <FormControl mode='row' justify='start' mt={2}>
         <input type='checkbox' {...register('terms')} />
         <PrivacyPolicy />
+        {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
       </FormControl>
-      {errors.terms?.message && <ErrorMsg msg={t('errors.privacypolicy')} />}
 
       <Center>
         <Button fontSize={0.9} mt='1.2rem' type='submit' aria-label='submit'>
           {t('Donate')}
         </Button>
       </Center>
-    </CustomForm>
+    </Form>
   );
 }
 export default DonateForm;
@@ -139,13 +194,14 @@ export default DonateForm;
 interface IFormControlProps {
   mode?: TFlexDirection;
   justify?: TJustifyContent;
+  align?: TAlignItems;
   mb?: TMarginBottom;
   mt?: TMarginTop;
 }
 
-const CustomForm = styled.form`
+const Form = styled.form`
   padding: 3rem;
-
+  width: 65%;
   @media (max-width: 768px) {
     padding: 0rem;
   }
@@ -155,19 +211,8 @@ export const FormControl = styled.div<IFormControlProps>`
   display: flex;
   flex-direction: ${({ mode }) => mode || 'column'};
   justify-content: ${({ justify }) => justify || 'center'};
-  max-width: 700px;
+  align-items: ${({ align }) => align || 'auto'};
   gap: 1rem;
-  margin-bottom: ${({ mb = 1.3 }) => `${mb}rem`};
+  margin-bottom: ${({ mb = 0 }) => `${mb}rem`};
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `;
-
-// const RadioBtn = styled.input`
-//   border: none;
-//   outline: none;
-//   cursor: pointer;
-//   margin-left: 1.5rem;
-// `
-
-DonateForm.defaultProps = {
-  modal: false,
-};

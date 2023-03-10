@@ -53,6 +53,15 @@
   "events": "Events",
   "partners": "Partners",
   "your_donation": "Your donation",
+  "receive_nft_first_part": "Your donation is more than",
+  "receive_nft_second_part": "would you like to receive your NFT as a gift?",
+  "connect_metamask": "Connect your wallet to MetaMask",
+  "dont_have_wallet": "Don’t have a wallet?",
+  "discover_how": "Discover how to create it",
+  "donation_greater_than": "Donations greater than",
+  "nft_as_gift": "receive an NFT as a gift!",
+  "discover": "Discover how",
+
   "placeholders": {
     "firstname": "First Name",
     "lastname": "Last Name",
@@ -69,7 +78,8 @@
     "phone": "Mobile Phone",
     "postal_code": "Postal Code",
     "city": "City",
-    "country": "Country"
+    "country": "Country",
+    "wallet_address": "Wallet Address"
   },
   "yes": "Yes",
   "no": "No",
@@ -196,8 +206,8 @@
     "quantity": "Quantity",
     "amount_label": "Choose the amount you want to contribute.",
     "annual_fee": "membership fee",
-    "annual":"Annual",
-    "monthly":"Monthly"
+    "annual": "Annual",
+    "monthly": "Monthly"
   },
   "course": "course",
   "ticket": "ticket",

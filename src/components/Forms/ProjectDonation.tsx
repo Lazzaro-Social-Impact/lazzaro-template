@@ -18,13 +18,12 @@ import { useAppSelector, useFormSubmit } from '../../hooks';
 import { getStartProjectDonationUrl } from '../../api/postApiServices';
 
 type Props = {
-  modal?: boolean;
   projectId: string;
 };
 
 type ProjectForm = TypeOf<typeof projectFormSchema>;
 
-function ProjectDonation({ modal, projectId }: Props) {
+function ProjectDonation({ projectId }: Props) {
   const ongId = useAppSelector((state) => state.ong.ongId) || '';
   const { t } = useTranslation();
 
@@ -52,7 +51,7 @@ function ProjectDonation({ modal, projectId }: Props) {
   };
 
   return (
-    <CustomForm style={{ width: modal ? '100%' : '60%' }} onSubmit={handleSubmit(submitHandler)}>
+    <CustomForm onSubmit={handleSubmit(submitHandler)}>
       <HandleResponse
         {...states}
         successMsg={useSuccessPaymentNotification()}
@@ -167,7 +166,3 @@ export const FormControl = styled.div<IFormControlProps>`
   margin-bottom: ${({ mb = 1.3 }) => `${mb}rem`};
   margin-top: ${({ mt }) => mt && `${mt}rem`};
 `;
-
-ProjectDonation.defaultProps = {
-  modal: false,
-};
